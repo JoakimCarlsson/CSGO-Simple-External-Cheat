@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Numerics;
 using Smurf.Common;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Patchables;
@@ -74,7 +75,7 @@ namespace Smurf.GlobalOffensive
 			// but consider updating this in the future.
 			_players.Clear();
 
-			var localPlayerPtr = Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + (int) BaseOffsets.LocalPlayer);
+			var localPlayerPtr = Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.LocalPlayer);
 
 			LocalPlayer = new LocalPlayer(localPlayerPtr);
 
@@ -83,23 +84,20 @@ namespace Smurf.GlobalOffensive
 			{
 				_players.Add(new BaseEntity(GetEntityPtr(i)));
 			}
-
-			Trace.WriteLine($"[EntityManager] Update complete. {Players.Count(s => s.IsValid)} valid entries found.");
-
-
 			_lastUpdate = timeStamp;
 		}
 
-		private IntPtr GetEntityPtr(int index)
+        private IntPtr GetEntityPtr(int index)
 		{
 			// ptr = entityList + (idx * size)
-			return Smurf.Memory.Read<IntPtr>(BaseAddress + index*(int) StaticOffsets.EntitySize);
+			return Smurf.Memory.Read<IntPtr>(BaseAddress + index*(int) Offsets.BaseEntity.EntitySize);
 		}
 
 		/// <summary>
 		///     Gets the player with the specified ID, and null if that player doesn't exist.
 		/// </summary>
 		/// <param name="id">The identifier.</param>
+		/// 
 		/// <returns></returns>
 		public BaseEntity GetPlayerById(int id)
 		{

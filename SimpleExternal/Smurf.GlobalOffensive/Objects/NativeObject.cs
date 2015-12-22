@@ -55,28 +55,6 @@ namespace Smurf.GlobalOffensive.Objects
 			return Smurf.Memory.Read<T>(BaseAddress + offset);
 		}
 
-		/// <summary>
-		///     Reads a member of the specified type at the specified offset.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="offset">The offset.</param>
-		/// <returns></returns>
-		protected T ReadField<T>(StaticOffsets offset) where T : struct
-		{
-			return ReadField<T>((int) offset);
-		}
-
-		/// <summary>
-		///     Reads a member of the specified type at the specified offset.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="offset">The offset.</param>
-		/// <returns></returns>
-		protected T ReadField<T>(BaseOffsets offset) where T : struct
-		{
-			return ReadField<T>((int) offset);
-		}
-
 		#region Implementation of IEquatable
 
 		/// <summary>

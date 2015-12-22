@@ -1,4 +1,5 @@
 ﻿using System;
+using Smurf.GlobalOffensive.Data.Enums;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Patchables;
 
@@ -26,7 +27,7 @@ namespace Smurf.GlobalOffensive
         /// <value>
         ///     The index of the local player.
         /// </value>
-        public int LocalPlayerIndex => ReadField<int>(StaticOffsets.LocalPlayerIndex);
+        public int LocalPlayerIndex => ReadField<int>(Offsets.ClientState.LocalPlayerIndex);
 
         /// <summary>
         ///     Gets the state of the game client.
@@ -34,7 +35,7 @@ namespace Smurf.GlobalOffensive
         /// <value>
         ///     The state.
         /// </value>
-        public SignonState State => (SignonState)ReadField<int>(StaticOffsets.GameState);
+        public SignonState State => (SignonState)ReadField<int>(Offsets.ClientState.GameState);
 
         /// <summary>
         ///     Gets a value indicating whether [in game].

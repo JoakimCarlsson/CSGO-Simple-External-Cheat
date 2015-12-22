@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace Smurf.GlobalOffensive
+namespace SimpleExternal
 {
     internal class Program
     {
@@ -18,32 +13,31 @@ namespace Smurf.GlobalOffensive
 
             Process process = Process.GetProcessesByName("csgo")[0];
 
-            Smurf.Attach(process);
+            Smurf.GlobalOffensive.Smurf.Attach(process);
 
             while (true)
             {
-                Smurf.Objects.Update();
+                Smurf.GlobalOffensive.Smurf.Objects.Update();
                 Console.Clear();
 
-                Console.WriteLine("State: {0}\n\n", Smurf.Client.State);
+                Console.WriteLine("State: {0}\n\n", Smurf.GlobalOffensive.Smurf.Client.State);
 
-                if (Smurf.Client.InGame && Smurf.Me != null && Smurf.Me.IsValid)
+                if (Smurf.GlobalOffensive.Smurf.Client.InGame && Smurf.GlobalOffensive.Smurf.LocalPlayer != null && Smurf.GlobalOffensive.Smurf.LocalPlayer.IsValid)
                 {
-                    var me = Smurf.Me;
+                    var me = Smurf.GlobalOffensive.Smurf.LocalPlayer;
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("ID:\t\t{0}", me.Id);
                     Console.WriteLine("Health:\t\t{0}", me.Health);
                     Console.WriteLine("Armor:\t\t{0}", me.Armor);
                     Console.WriteLine("Position:\t{0}", me.Position);
                     Console.WriteLine("Team:\t\t{0}", me.Team);
-                    Console.WriteLine("ObjectCount:\t{0}", Smurf.Objects.Players.Count);
-
+                    Console.WriteLine("ObjectCount:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Players.Count);
+                    Console.WriteLine("Shots Fired: \t{0}", me.ShotsFired);
+                    Console.WriteLine("VecPunch: \t{0}", me.VecPunch);
                     var t = me.Target;
                     Console.WriteLine("Target:\t{0}", t != null ? t.Id.ToString() : "none");
                 }
-
-                Thread.Sleep(500);
             }
-
         }
     }
 }

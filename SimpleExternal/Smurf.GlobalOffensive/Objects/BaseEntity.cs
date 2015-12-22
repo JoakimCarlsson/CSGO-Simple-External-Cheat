@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using Smurf.GlobalOffensive.Data.Enums;
 using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Objects
@@ -23,86 +24,20 @@ namespace Smurf.GlobalOffensive.Objects
 		/// <value>
 		///     The identifier.
 		/// </value>
-		public int Id => ReadField<int>(StaticOffsets.Index);
+		public int Id => ReadField<int>(Offsets.BaseEntity.Index);
 
-		/// <summary>
-		///     Gets this entity's position.
-		/// </summary>
-		/// <value>
-		///     The position.
-		/// </value>
-		public Vector3 Position => ReadField<Vector3>(StaticOffsets.Position);
+		public Vector3 Position => ReadField<Vector3>(Offsets.BaseEntity.Position);
+		public int Health => ReadField<int>(Offsets.BaseEntity.Health);
+		public int Armor => ReadField<int>(Offsets.BaseEntity.Armor);
+		public int Flags => ReadField<int>(Offsets.Player.Flags);
+		public bool IsDormant => ReadField<int>(Offsets.BaseEntity.Dormant) == 1;
+		public bool IsAlive => ReadField<byte>(Offsets.Player.LifeState) == 0;
+		public bool IsFriendly => Team == Smurf.LocalPlayer.Team;
+		public PlayerTeam Team => (PlayerTeam) ReadField<int>(Offsets.BaseEntity.Team);
+		public float DistanceSqr => Vector3.DistanceSquared(Smurf.LocalPlayer.Position, Position);
+		public float Distance => Vector3.Distance(Smurf.LocalPlayer.Position, Position);
 
-		/// <summary>
-		///     Gets this entity's health.
-		/// </summary>
-		/// <value>
-		///     The health.
-		/// </value>
-		public int Health => ReadField<int>(StaticOffsets.Health);
-
-		/// <summary>
-		///     Gets this entity's armor.
-		/// </summary>
-		/// <value>
-		///     The armor.
-		/// </value>
-		public int Armor => ReadField<int>(StaticOffsets.Armor);
-
-		/// <summary>
-		///     Gets the entity's flags.
-		/// </summary>
-		/// <value>
-		///     The flags.
-		/// </value>
-		public int Flags => ReadField<int>(StaticOffsets.Flags);
-
-		/// <summary>
-		///     Gets a value indicating whether this entity is dormant.
-		/// </summary>
-		/// <value>
-		///     <c>true</c> if this instance is dormant; otherwise, <c>false</c>.
-		/// </value>
-		public bool IsDormant => ReadField<int>(StaticOffsets.Dormant) == 1;
-
-		/// <summary>
-		///     Gets a value indicating whether this entity is alive.
-		/// </summary>
-		/// <value>
-		///     <c>true</c> if this instance is alive; otherwise, <c>false</c>.
-		/// </value>
-		public bool IsAlive => ReadField<byte>(StaticOffsets.LifeState) == 0;
-
-		/// <summary>
-		///     Gets a value indicating whether this instance is friendly.
-		/// </summary>
-		/// <value>
-		///     <c>true</c> if this instance is friendly; otherwise, <c>false</c>.
-		/// </value>
-		public bool IsFriendly => Team == Smurf.Me.Team;
-
-		/// <summary>
-		///     Gets the team this entity is on.
-		/// </summary>
-		/// <value>
-		///     The team.
-		/// </value>
-		public PlayerTeam Team => (PlayerTeam) ReadField<int>(StaticOffsets.Team);
-
-		/// <summary>
-		///     Gets the squared distance to this entity, relative to the local player.
-		/// </summary>
-		/// <value>
-		///     The distance squared.
-		/// </value>
-		public float DistanceSqr => Vector3.DistanceSquared(Smurf.Me.Position, Position);
-
-		/// <summary>
-		///     Gets the distance to this entity, relative to the local player.
-		/// </summary>
-		/// <value>
-		///     The distance.
-		/// </value>
-		public float Distance => Vector3.Distance(Smurf.Me.Position, Position);
+        public int ShotsFired => ReadField<int>(Offsets.LocalPlayer.ShotsFired);
+	    public Vector3 VecPunch => ReadField<Vector3>(Offsets.LocalPlayer.VecPunch);
 	}
 }
