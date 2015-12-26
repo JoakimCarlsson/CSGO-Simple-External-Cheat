@@ -25,7 +25,6 @@ namespace Smurf.GlobalOffensive.Objects
 		///     The identifier.
 		/// </value>
 		public int Id => ReadField<int>(Offsets.BaseEntity.Index);
-
 		public Vector3 Position => ReadField<Vector3>(Offsets.BaseEntity.Position);
 		public int Health => ReadField<int>(Offsets.BaseEntity.Health);
 		public int Armor => ReadField<int>(Offsets.BaseEntity.Armor);

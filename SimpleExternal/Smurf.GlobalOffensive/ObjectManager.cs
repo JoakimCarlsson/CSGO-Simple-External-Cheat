@@ -41,6 +41,7 @@ namespace Smurf.GlobalOffensive
 		public IReadOnlyList<BaseEntity> Players => _players;
 
 		internal LocalPlayer LocalPlayer { get; private set; }
+        internal Weapon Weapon { get; private set; }
 
 		/// <summary>
 		///     Updates the ObjectManager, obtaining all player entities from the game and adding them to the Players list.
@@ -76,6 +77,7 @@ namespace Smurf.GlobalOffensive
 			_players.Clear();
 
 			var localPlayerPtr = Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.LocalPlayer);
+		    var localPlayerWeaponPtr = Smurf.Memory.Read<IntPtr>(localPlayerPtr + Offsets.Player.ActiveWeapon);
 
 			LocalPlayer = new LocalPlayer(localPlayerPtr);
 

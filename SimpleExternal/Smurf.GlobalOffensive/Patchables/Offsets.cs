@@ -44,6 +44,7 @@ namespace Smurf.GlobalOffensive.Patchables
         {
             public static int LifeState = 0x25B;
             public static int Flags = 0x100;
+            public static int ActiveWeapon = 0x00004AF8; // m_hActiveWeapon
         }
         public class LocalPlayer
         {
@@ -54,7 +55,15 @@ namespace Smurf.GlobalOffensive.Patchables
         }
         public class Weapon
         {
-
+            public static int ItemDefinitionIndex = 0x000032B4;
+            public static int State = 0x00004DF8;
+            public static int Clip1 = 0x00004E04;
+            public static int NextPrimaryAttack = 0x00004DD8;
+            public static int WeaponId = 0x00004EE4;
+            public static int CanReload = 0x00004E45;
+            public static int WeaponTableIndex = 0x00004E70;
+            public static int AccuracyPenalty = 0x00004EC0;
+            public static int ZoomLevel = 0x00004F40;
         }
     }
 }

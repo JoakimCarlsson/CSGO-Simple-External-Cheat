@@ -49,13 +49,12 @@ namespace Smurf.GlobalOffensive.Objects
 		/// <returns></returns>
 		protected T ReadField<T>(int offset) where T : struct
 		{
-			// We don't check for IsValid here because reading even on an invalid object would
+		    // We don't check for IsValid here because reading even on an invalid object would
 			// not directly be an invalid operation - the read operation will throw an exception later down the line.
-
-			return Smurf.Memory.Read<T>(BaseAddress + offset);
+		    return IsValid ? Smurf.Memory.Read<T>(BaseAddress + offset) : default(T);
 		}
 
-		#region Implementation of IEquatable
+	    #region Implementation of IEquatable
 
 		/// <summary>
 		///     Indicates whether the current object is equal to another object of the same type.

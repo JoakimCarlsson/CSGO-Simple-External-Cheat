@@ -92,9 +92,12 @@
     <Compile Include="Objects\BaseEntity.cs" />
     <Compile Include="Objects\LocalPlayer.cs" />
     <Compile Include="Objects\NativeObject.cs" />
+    <Compile Include="Objects\Player.cs" />
+    <Compile Include="Objects\Weapon.cs" />
     <Compile Include="Patchables\Offsets.cs" />
     <Compile Include="Smurf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Updaters\Rcs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -105,6 +108,7 @@
       <Name>Smurf.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using BlueRain;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Patchables;
+using Smurf.GlobalOffensive.Updaters;
 
 namespace Smurf.GlobalOffensive
 {
@@ -13,7 +14,11 @@ namespace Smurf.GlobalOffensive
 
         public static NativeMemory Memory { get; private set; }
         public static LocalPlayer LocalPlayer => Objects.LocalPlayer;
+        public static Weapon Weapon => Objects.Weapon;
+
         public static ObjectManager Objects { get; private set; }
+        public static Rcs ControlRecoil { get; set; }
+
         public static GameClient Client { get; private set; }
         public static IntPtr ClientBase { get; private set; }
         public static IntPtr EngineBase { get; private set; }
@@ -45,6 +50,7 @@ namespace Smurf.GlobalOffensive
             Console.WriteLine(("Initializing ObjectManager.."));
 
             Objects = new ObjectManager(ClientBase + Offsets.Misc.EntityList, 128);
+            ControlRecoil = new Rcs();
 
             var enginePtr = Memory.Read<IntPtr>(EngineBase + Offsets.ClientState.Base);
 

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Smurf.GlobalOffensive.Math
+namespace Smurf.GlobalOffensive.Objects
 {
-    class MathUtils
+    class Player
     {
-        //Clamp
-        //NormalizeAngels
+
     }
 }
