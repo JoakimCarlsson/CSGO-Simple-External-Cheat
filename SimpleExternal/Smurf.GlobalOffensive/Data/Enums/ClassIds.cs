@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Smurf.GlobalOffensive.Data.Enums
 {
-    public enum ClassId
+    public enum ClassIds
     {
         Ak47 = 1,
         Button = 5,

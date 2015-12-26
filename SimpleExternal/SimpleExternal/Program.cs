@@ -48,7 +48,9 @@ namespace SimpleExternal
                     Console.WriteLine("Armor:\t\t{0}", me.Armor);
                     Console.WriteLine("Position:\t{0}", me.Position);
                     Console.WriteLine("Team:\t\t{0}", me.Team);
-                    Console.WriteLine("ObjectCount:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Players.Count);
+                    Console.WriteLine("Player Count:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Players.Count);
+                    Console.WriteLine("Weapon Count:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Weapons.Count);
+                    Console.WriteLine("Entity Count:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Entities.Count);
                     Console.WriteLine("Shots Fired: \t{0}", me.ShotsFired);
                     Console.WriteLine("VecPunch: \t{0}", me.VecPunch);
                     var t = me.Target;

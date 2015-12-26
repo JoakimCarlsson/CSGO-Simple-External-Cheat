@@ -18,7 +18,10 @@ namespace Smurf.GlobalOffensive
 		private readonly int _capacity;
 		// Exposed through a read-only list, users of the API won't be able to change what's going on in game anyway.
 		private readonly List<BaseEntity> _players = new List<BaseEntity>();
-		private readonly int _ticksPerSecond;
+		private readonly List<BaseEntity> _weapons = new List<BaseEntity>();
+		private readonly List<BaseEntity> _entities = new List<BaseEntity>();
+
+        private readonly int _ticksPerSecond;
 		private TimeSpan _lastUpdate = TimeSpan.Zero;
 
 		/// <summary>
@@ -39,8 +42,10 @@ namespace Smurf.GlobalOffensive
 		///     Gets the current objects in the game world.
 		/// </summary>
 		public IReadOnlyList<BaseEntity> Players => _players;
+		public IReadOnlyList<BaseEntity> Weapons => _weapons;
+		public IReadOnlyList<BaseEntity> Entities => _entities;
 
-		internal LocalPlayer LocalPlayer { get; private set; }
+        internal LocalPlayer LocalPlayer { get; private set; }
         internal Weapon Weapon { get; private set; }
 
 		/// <summary>
@@ -75,24 +80,34 @@ namespace Smurf.GlobalOffensive
 			// Then again, this is significantly less code, and performance wise not too big an impact. Leave it be for now,
 			// but consider updating this in the future.
 			_players.Clear();
+            _weapons.Clear();
+            _entities.Clear();
 
 			var localPlayerPtr = Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.LocalPlayer);
-		    var localPlayerWeaponPtr = Smurf.Memory.Read<IntPtr>(localPlayerPtr + Offsets.Player.ActiveWeapon);
 
 			LocalPlayer = new LocalPlayer(localPlayerPtr);
 
-			// TODO: Actually get the num nodes in the entity list
-			for (var i = 0; i < _capacity; i++)
-			{
-				_players.Add(new BaseEntity(GetEntityPtr(i)));
-			}
-			_lastUpdate = timeStamp;
+            // TODO: Actually get the num nodes in the entity list
+            for (var i = 0; i < _capacity; i++)
+            {
+                var entity = new BaseEntity(GetEntityPtr(i));
+                if (!entity.IsValid)
+                    continue;
+
+                if (entity.IsPlayer())
+                    _players.Add(new Player(GetEntityPtr(i)));
+                else if (entity.IsWeapon())
+                    _weapons.Add(new Weapon(GetEntityPtr(i)));
+                else
+                    _entities.Add(new BaseEntity(GetEntityPtr(i)));
+            }
+            _lastUpdate = timeStamp;
 		}
 
         private IntPtr GetEntityPtr(int index)
 		{
 			// ptr = entityList + (idx * size)
-			return Smurf.Memory.Read<IntPtr>(BaseAddress + index*(int) Offsets.BaseEntity.EntitySize);
+			return Smurf.Memory.Read<IntPtr>(BaseAddress + index*Offsets.BaseEntity.EntitySize);
 		}
 
 		/// <summary>

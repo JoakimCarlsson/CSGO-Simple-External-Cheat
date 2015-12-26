@@ -76,6 +76,7 @@
       <HintPath>..\packages\System.Numerics.Vectors.4.0.0\lib\portable-net45+win8+wpa81\System.Numerics.Vectors.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -84,6 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Enums\ClassIds.cs" />
     <Compile Include="Data\Enums\SignonState.cs" />
     <Compile Include="Data\Enums\PlayerTeam.cs" />
     <Compile Include="GameClient.cs" />
@@ -98,6 +100,8 @@
     <Compile Include="Smurf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updaters\Rcs.cs" />
+    <Compile Include="Utils\MemUtils.cs" />
+    <Compile Include="Utils\WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
