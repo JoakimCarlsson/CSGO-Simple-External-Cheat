@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Smurf.GlobalOffensive.Objects
 {
-    class Player
+    class Player : BaseEntity
     {
-
+        public Player(IntPtr baseAddress) : base(baseAddress)
+        {
+        }
     }
 }
