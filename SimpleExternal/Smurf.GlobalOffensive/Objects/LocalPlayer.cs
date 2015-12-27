@@ -33,21 +33,21 @@ namespace Smurf.GlobalOffensive.Objects
 		/// <summary>
 		///     Gets the target the local player is currently aiming at, or null if none.
 		/// </summary>
-		//public BaseEntity Target
-		//{
-		//	get
-		//	{
-		//		// Store this in a local variable - the crosshair ID will get updated *very* frequently, 
-		//		// to the point where we can't be sure that by the time we make a call to FirstOrDefault, it'll
-		//		// still be "valid" according to the check before it. (Value can change on a per-frame basis)
-		//		// This way, at least we'll be sure that for the execution of this function, we maintain the same value.
-		//		var id = CrosshairId;
-        //
-		//		if (CrosshairId <= 0)
-		//			return null;
-        //
-		//		return Smurf.Objects.GetPlayerById(id);
-		//	}
-		//}
+		public BaseEntity Target
+		{
+			get
+			{
+				// Store this in a local variable - the crosshair ID will get updated *very* frequently, 
+				// to the point where we can't be sure that by the time we make a call to FirstOrDefault, it'll
+				// still be "valid" according to the check before it. (Value can change on a per-frame basis)
+				// This way, at least we'll be sure that for the execution of this function, we maintain the same value.
+				var id = CrosshairId;
+        
+				if (CrosshairId <= 0)
+					return null;
+        
+				return Smurf.Objects.GetPlayerById(id);
+			}
+		}
 	}
 }

@@ -38,9 +38,6 @@ namespace Smurf.GlobalOffensive
 			Console.WriteLine($"ObjectManager initialized. Capacity = {capacity}, TPS = {ticksPerSecond}");
 		}
 
-		/// <summary>
-		///     Gets the current objects in the game world.
-		/// </summary>
 		public IReadOnlyList<BaseEntity> Players => _players;
 		public IReadOnlyList<BaseEntity> Weapons => _weapons;
 		public IReadOnlyList<BaseEntity> Entities => _entities;
@@ -48,13 +45,6 @@ namespace Smurf.GlobalOffensive
         internal LocalPlayer LocalPlayer { get; private set; }
         internal Weapon Weapon { get; private set; }
 
-		/// <summary>
-		///     Updates the ObjectManager, obtaining all player entities from the game and adding them to the Players list.
-		/// </summary>
-		/// <exception cref="System.InvalidOperationException">
-		///     Can not update the ObjectManager when it's not properly initialized!
-		///     Are you sure BaseAddress is valid?
-		/// </exception>
 		public void Update()
 		{
 			if (!IsValid)
@@ -111,12 +101,12 @@ namespace Smurf.GlobalOffensive
 			return Smurf.Memory.Read<IntPtr>(BaseAddress + index*Offsets.BaseEntity.EntitySize);
 		}
 
-		//public BaseEntity GetPlayerById(int id)
-		//{
-		//	if (_players.Count < id)
-		//		return null;
-        //
-		//	return Players.FirstOrDefault(p => p.Id == id);
-		//}
+		public BaseEntity GetPlayerById(int id)
+		{
+			if (_players.Count < id)
+				return null;
+        
+			return Players.FirstOrDefault(p => p.Id == id);
+		}
 	}
 }
