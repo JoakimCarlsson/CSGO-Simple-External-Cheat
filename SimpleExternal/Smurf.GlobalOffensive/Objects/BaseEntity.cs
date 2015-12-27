@@ -111,9 +111,7 @@ namespace Smurf.GlobalOffensive.Objects
             try
             {
                 var clientClass = GetClientClass();
-                if (clientClass != 0)
-                    return Smurf.Memory.Read<uint>((IntPtr)((long)clientClass + 20));
-                return clientClass;
+                return clientClass != 0 ? Smurf.Memory.Read<uint>((IntPtr)((long)clientClass + 20)) : clientClass;
             }
             catch
             {
@@ -127,9 +125,7 @@ namespace Smurf.GlobalOffensive.Objects
                 if (VirtualTable == 0)
                     return 0;
                 var function = Smurf.Memory.Read<uint>((IntPtr)(VirtualTable + 2 * 0x04));
-                if (function != 0xFFFFFFFF)
-                    return Smurf.Memory.Read<uint>((IntPtr)(function + 0x01));
-                return 0;
+                return function != 0xFFFFFFFF ? Smurf.Memory.Read<uint>((IntPtr)(function + 0x01)) : 0;
             }
             catch
             {

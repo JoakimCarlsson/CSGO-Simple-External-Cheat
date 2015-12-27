@@ -15,10 +15,8 @@ namespace Smurf.GlobalOffensive
         public static NativeMemory Memory { get; private set; }
         public static LocalPlayer LocalPlayer => Objects.LocalPlayer;
         public static Weapon Weapon => Objects.Weapon;
-
         public static ObjectManager Objects { get; private set; }
         public static Rcs ControlRecoil { get; set; }
-
         public static GameClient Client { get; private set; }
         public static IntPtr ClientBase { get; private set; }
         public static IntPtr EngineBase { get; private set; }
