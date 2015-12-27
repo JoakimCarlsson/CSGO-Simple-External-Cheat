@@ -45,6 +45,7 @@ namespace Smurf.GlobalOffensive.Patchables
             public static int LifeState = 0x25B;
             public static int Flags = 0x100;
             public static int ActiveWeapon = 0x00004AF8; // m_hActiveWeapon
+            public static int VecVelocity = 0x00000110;
         }
         public class LocalPlayer
         {

@@ -91,6 +91,7 @@ namespace Smurf.GlobalOffensive
             for (var i = 0; i < _capacity; i++)
             {
                 var entity = new BaseEntity(GetEntityPtr(i));
+
                 if (!entity.IsValid)
                     continue;
 
@@ -110,18 +111,12 @@ namespace Smurf.GlobalOffensive
 			return Smurf.Memory.Read<IntPtr>(BaseAddress + index*Offsets.BaseEntity.EntitySize);
 		}
 
-		/// <summary>
-		///     Gets the player with the specified ID, and null if that player doesn't exist.
-		/// </summary>
-		/// <param name="id">The identifier.</param>
-		/// 
-		/// <returns></returns>
-		public BaseEntity GetPlayerById(int id)
-		{
-			if (_players.Count < id)
-				return null;
-
-			return Players.FirstOrDefault(p => p.Id == id);
-		}
+		//public BaseEntity GetPlayerById(int id)
+		//{
+		//	if (_players.Count < id)
+		//		return null;
+        //
+		//	return Players.FirstOrDefault(p => p.Id == id);
+		//}
 	}
 }

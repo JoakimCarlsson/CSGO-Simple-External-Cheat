@@ -46,7 +46,6 @@ namespace Smurf.GlobalOffensive.Objects
 	    private int VirtualTable => ReadField<int>(0x08);
 	    public Vector3 VecPunch => ReadField<Vector3>(Offsets.LocalPlayer.VecPunch);
 
-
         public bool IsWeapon()
         {
             return
@@ -72,9 +71,6 @@ namespace Smurf.GlobalOffensive.Objects
                 ClassId == (int)ClassIds.Taser ||
                 ClassId == (int)ClassIds.Tec9 ||
                 ClassId == (int)ClassIds.Ump45 ||
-                ClassId == (int)ClassIds.DynamicProp ||
-                ClassId == (int)ClassIds.PhysicsProp ||
-                ClassId == (int)ClassIds.PhysicsPropMultiplayer ||
                 ClassId == (int)ClassIds.Ssg08 ||
                 ClassId == (int)ClassIds.G3Sg1 ||
                 ClassId == (int)ClassIds.Scar20 ||
@@ -106,7 +102,6 @@ namespace Smurf.GlobalOffensive.Objects
                 ClassId == (int)ClassIds.Usp ||
                 ClassId == (int)ClassIds.Scar20;
         }
-
         public bool IsPlayer()
 	    {
 	        return ClassId == (int) ClassIds.CsPlayer;

@@ -26,7 +26,7 @@ namespace Smurf.GlobalOffensive.Updaters
             if (Smurf.LocalPlayer == null)
                 return;
 
-            if (Smurf.LocalPlayer.ShotsFired >= 1)
+            if (Smurf.LocalPlayer.ShotsFired > 1)
             {
                 ViewAngels = Smurf.Memory.Read<Vector3>((IntPtr)(Smurf.ClientState + Offsets.ClientState.ViewAngles));
                 NewViewAngels = ViewAngels;
@@ -39,7 +39,7 @@ namespace Smurf.GlobalOffensive.Updaters
                     NewViewAngels.X -= punch.X * 2f;
 
                     //Pitch
-                    NewViewAngels.Y -= punch.Y * 2.2f;
+                    NewViewAngels.Y -= punch.Y * 2.3f;
 
                     SetViewAngles(NewViewAngels);
                 }

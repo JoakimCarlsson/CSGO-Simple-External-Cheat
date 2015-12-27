@@ -51,10 +51,11 @@ namespace SimpleExternal
                     Console.WriteLine("Player Count:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Players.Count);
                     Console.WriteLine("Weapon Count:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Weapons.Count);
                     Console.WriteLine("Entity Count:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Entities.Count);
+                    Console.WriteLine("Velocity: \t{0}", me.GetVelocity());
                     Console.WriteLine("Shots Fired: \t{0}", me.ShotsFired);
                     Console.WriteLine("VecPunch: \t{0}", me.VecPunch);
-                    var t = me.Target;
-                    Console.WriteLine("Target:\t{0}", t != null ? t.Id.ToString() : "none");
+                    //var t = me.Target;
+                    //Console.WriteLine("Target:\t{0}", t != null ? t.Id.ToString() : "none");
 
                     Thread.Sleep(500);
                 }
