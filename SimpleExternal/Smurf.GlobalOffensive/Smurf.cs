@@ -17,6 +17,8 @@ namespace Smurf.GlobalOffensive
         public static Weapon Weapon => Objects.Weapon;
         public static ObjectManager Objects { get; private set; }
         public static Rcs ControlRecoil { get; set; }
+        public static TriggerBot TriggerBot { get; set; }
+        public static KeyUtils KeyUtils { get; set; }
         public static GameClient Client { get; private set; }
         public static IntPtr ClientBase { get; private set; }
         public static IntPtr EngineBase { get; private set; }
@@ -39,29 +41,29 @@ namespace Smurf.GlobalOffensive
 
             ClientBase = Memory.GetModule("client.dll").BaseAddress;
             EngineBase = Memory.GetModule("engine.dll").BaseAddress;
-
             ClientState = Memory.Read<int>(EngineBase + Offsets.ClientState.Base);
 
-            Console.WriteLine(($"Client Base Address: 0x{ClientBase}"));
-            Console.WriteLine(($"Engine Base Address: 0x{EngineBase}"));
-
-            Console.WriteLine(("Initializing ObjectManager.."));
+            //Console.WriteLine(($"Client Base Address: 0x{ClientBase}"));
+            //Console.WriteLine(($"Engine Base Address: 0x{EngineBase}"));
+            //Console.WriteLine(("Initializing ObjectManager.."));
 
             Objects = new ObjectManager(ClientBase + Offsets.Misc.EntityList, 128);
             ControlRecoil = new Rcs();
+            TriggerBot = new TriggerBot();
+            KeyUtils = new KeyUtils();
 
             var enginePtr = Memory.Read<IntPtr>(EngineBase + Offsets.ClientState.Base);
 
-            Console.WriteLine($"Engine Pointer: 0x{enginePtr}");
+            //Console.WriteLine($"Engine Pointer: 0x{enginePtr}");
 
             if (enginePtr == IntPtr.Zero)
                 throw new Exception("Couldn't find Engine Ptr - are you sure your offsets are up to date?");
 
-            Console.WriteLine(("Initializing GameClient.."));
+            //Console.WriteLine(("Initializing GameClient.."));
 
             Client = new GameClient(enginePtr);
 
-            Console.WriteLine($"Smurf attached successfully to process with ID {process.Id}.");
+           //Console.WriteLine($"Smurf attached successfully to process with ID {process.Id}.");
 
             _isAttached = true;
         }

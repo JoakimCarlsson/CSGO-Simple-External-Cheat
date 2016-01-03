@@ -11,6 +11,8 @@ namespace Smurf.GlobalOffensive.Updaters
     {
         #region Fields
         public Vector3 NewViewAngels;
+        public float Yaw = 2f;
+        public float Pitch = 2.3f;
         #endregion
 
         #region Properties
@@ -36,10 +38,10 @@ namespace Smurf.GlobalOffensive.Updaters
                 if (punch.X != 0 || punch.Y != 0)
                 {
                     //Yaw
-                    NewViewAngels.X -= punch.X * 2f;
+                    NewViewAngels.X -= punch.X * Yaw;
 
                     //Pitch
-                    NewViewAngels.Y -= punch.Y * 2.3f;
+                    NewViewAngels.Y -= punch.Y * Pitch;
 
                     SetViewAngles(NewViewAngels);
                 }

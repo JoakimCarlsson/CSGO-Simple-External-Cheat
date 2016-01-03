@@ -21,12 +21,13 @@ namespace SimpleExternal
             thread1.IsBackground = true;
             thread1.Priority = ThreadPriority.Highest;
             thread1.Start();
-            
+
             while (true)
             {
                 Smurf.GlobalOffensive.Smurf.Objects.Update();
                 Smurf.GlobalOffensive.Smurf.ControlRecoil.Update();
-
+                Smurf.GlobalOffensive.Smurf.TriggerBot.Update();
+                Smurf.GlobalOffensive.Smurf.KeyUtils.Update();
                 Thread.Sleep(5);
             }
         }
@@ -54,8 +55,7 @@ namespace SimpleExternal
                     Console.WriteLine("Velocity: \t{0}", me.GetVelocity());
                     Console.WriteLine("Shots Fired: \t{0}", me.ShotsFired);
                     Console.WriteLine("VecPunch: \t{0}", me.VecPunch);
-                    var t = me.Target;
-                    Console.WriteLine("Target:\t{0}", t != null ? t.Id.ToString() : "none");
+
 
                     Thread.Sleep(500);
                 }

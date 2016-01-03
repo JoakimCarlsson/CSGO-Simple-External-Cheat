@@ -41,7 +41,6 @@ namespace Smurf.GlobalOffensive
         public IReadOnlyList<BaseEntity> Players => _players;
         public IReadOnlyList<BaseEntity> Weapons => _weapons;
         public IReadOnlyList<BaseEntity> Entities => _entities;
-
         internal LocalPlayer LocalPlayer { get; private set; }
         internal Weapon Weapon { get; private set; }
 
@@ -103,8 +102,8 @@ namespace Smurf.GlobalOffensive
 
         public BaseEntity GetPlayerById(int id)
         {
-            if (_players.Count < id)
-                return null;
+         //   if (_players.Count < id)
+         //       return null;
 
             return Players.FirstOrDefault(p => p.Id == id);
         }

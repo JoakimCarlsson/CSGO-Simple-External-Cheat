@@ -89,6 +89,7 @@
     <Compile Include="Data\Enums\SignonState.cs" />
     <Compile Include="Data\Enums\PlayerTeam.cs" />
     <Compile Include="GameClient.cs" />
+    <Compile Include="KeyUtils.cs" />
     <Compile Include="Math\MathUtils.cs" />
     <Compile Include="ObjectManager.cs" />
     <Compile Include="Objects\BaseEntity.cs" />
@@ -100,8 +101,8 @@
     <Compile Include="Smurf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updaters\Rcs.cs" />
-    <Compile Include="Utils\MemUtils.cs" />
-    <Compile Include="Utils\WinAPI.cs" />
+    <Compile Include="Updaters\TriggerBot.cs" />
+    <Compile Include="WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
