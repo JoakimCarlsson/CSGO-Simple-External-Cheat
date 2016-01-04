@@ -100,6 +100,7 @@
     <Compile Include="Patchables\Offsets.cs" />
     <Compile Include="Smurf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Updaters\BunnyJump.cs" />
     <Compile Include="Updaters\Rcs.cs" />
     <Compile Include="Updaters\TriggerBot.cs" />
     <Compile Include="WinAPI.cs" />

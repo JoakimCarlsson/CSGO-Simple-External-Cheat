@@ -9,9 +9,18 @@ namespace Smurf.GlobalOffensive.Updaters
 {
     public class TriggerBot
     {
+        private bool _triggerEnabled = true;
         private bool _triggerAllies = false;
         private bool _triggerEnemies = false;
-        //private bool _spawnProtection = false;
+        private bool _spawnProtection = false;
+        private bool _triggerBurst = true;
+        private bool _triggerBurstRandom = true;
+        private int _burstMin = 0;
+        private int _burstMax = 1;
+        private int _delayFirstShotMax = 32;
+        private int _delayFirstShotMin = 32;
+        private int _delayShotsMax = 32;
+        private int _delayShotsMin = 32;
 
         public void Update()
         {

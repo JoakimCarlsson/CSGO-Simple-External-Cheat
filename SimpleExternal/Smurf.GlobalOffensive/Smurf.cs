@@ -18,6 +18,7 @@ namespace Smurf.GlobalOffensive
         public static ObjectManager Objects { get; private set; }
         public static Rcs ControlRecoil { get; set; }
         public static TriggerBot TriggerBot { get; set; }
+        public static BunnyJump BunnyJump { get; set; }
         public static KeyUtils KeyUtils { get; set; }
         public static GameClient Client { get; private set; }
         public static IntPtr ClientBase { get; private set; }
@@ -51,6 +52,7 @@ namespace Smurf.GlobalOffensive
             ControlRecoil = new Rcs();
             TriggerBot = new TriggerBot();
             KeyUtils = new KeyUtils();
+            BunnyJump = new BunnyJump();
 
             var enginePtr = Memory.Read<IntPtr>(EngineBase + Offsets.ClientState.Base);
 

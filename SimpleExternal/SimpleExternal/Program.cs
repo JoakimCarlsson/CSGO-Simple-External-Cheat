@@ -28,6 +28,7 @@ namespace SimpleExternal
                 Smurf.GlobalOffensive.Smurf.ControlRecoil.Update();
                 Smurf.GlobalOffensive.Smurf.TriggerBot.Update();
                 Smurf.GlobalOffensive.Smurf.KeyUtils.Update();
+                Smurf.GlobalOffensive.Smurf.BunnyJump.Update();
                 Thread.Sleep(5);
             }
         }

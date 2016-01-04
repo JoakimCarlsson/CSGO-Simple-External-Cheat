@@ -13,6 +13,7 @@ namespace Smurf.GlobalOffensive.Patchables
             public static int EntityList = 0x04A5A904;
             public static int ViewMatrix = 0x04A4C4C4;
             public static int LocalPlayer = 0x00A6C49C;
+            public static int Jump = 0x04AEF42C;
         }
 
         public class ClientState
