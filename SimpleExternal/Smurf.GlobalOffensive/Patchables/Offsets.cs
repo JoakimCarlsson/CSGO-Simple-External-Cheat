@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Smurf.GlobalOffensive.Patchables
+﻿namespace Smurf.GlobalOffensive.Patchables
 {
     class Offsets
     {
         public class Misc
         {
-            public static int EntityList = 0x04A5A904;
+            public static int EntityList = 0x04A5A8E4;
             public static int ViewMatrix = 0x04A4C4C4;
             public static int LocalPlayer = 0x00A6C49C;
             public static int Jump = 0x04AEF42C;
@@ -47,6 +41,7 @@ namespace Smurf.GlobalOffensive.Patchables
             public static int Flags = 0x100;
             public static int ActiveWeapon = 0x00004AF8; // m_hActiveWeapon
             public static int VecVelocity = 0x00000110;
+            public static int GunGameImmune = 0x54A0; 
         }
         public class LocalPlayer
         {
@@ -61,7 +56,7 @@ namespace Smurf.GlobalOffensive.Patchables
             public static int State = 0x00004DF8;
             public static int Clip1 = 0x00004E04;
             public static int NextPrimaryAttack = 0x00004DD8;
-            public static int WeaponId = 0x00004EE4;
+            public static int WeaponId = 0x00004EEC;
             public static int CanReload = 0x00004E45;
             public static int WeaponTableIndex = 0x00004E70;
             public static int AccuracyPenalty = 0x00004EC0;

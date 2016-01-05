@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Smurf.GlobalOffensive.Data.Enums
+﻿namespace Smurf.GlobalOffensive.Data.Enums
 {
     public enum SignonState
     {

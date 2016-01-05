@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Objects
@@ -14,5 +9,8 @@ namespace Smurf.GlobalOffensive.Objects
         {
 
         }
+        public int Clip1 => ReadField<int>(Offsets.Weapon.Clip1);
+        public int ZoomLevel => ReadField<int>(Offsets.Weapon.ZoomLevel);
+
     }
 }

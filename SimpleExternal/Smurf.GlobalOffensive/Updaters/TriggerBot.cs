@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading;
 
 namespace Smurf.GlobalOffensive.Updaters
 {
     public class TriggerBot
     {
         private bool _triggerEnabled = true;
-        private bool _triggerAllies = false;
-        private bool _triggerEnemies = false;
+        private bool _triggerAllies = true;
+        private bool _triggerEnemies = true;
         private bool _spawnProtection = false;
         private bool _triggerBurst = true;
         private bool _triggerBurstRandom = true;
@@ -35,7 +30,12 @@ namespace Smurf.GlobalOffensive.Updaters
             {
                 if ((_triggerAllies && target.Team == Smurf.LocalPlayer.Team) || (_triggerEnemies && target.Team != Smurf.LocalPlayer.Team))
                 {
+                    //If our targets is immune in gungame / deathmatch.
+                    if (_spawnProtection)
+                        if (target.GunGameImmune)
+                            return;
 
+                    Shoot();
                 }
             }
         }

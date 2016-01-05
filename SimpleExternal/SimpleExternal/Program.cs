@@ -43,6 +43,7 @@ namespace SimpleExternal
                 if (Smurf.GlobalOffensive.Smurf.Client.InGame && Smurf.GlobalOffensive.Smurf.LocalPlayer != null && Smurf.GlobalOffensive.Smurf.LocalPlayer.IsValid)
                 {
                     var me = Smurf.GlobalOffensive.Smurf.LocalPlayer;
+                    var myWeapon = Smurf.GlobalOffensive.Smurf.LocalPlayerWeapon;
 
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("ID:\t\t{0}", me.Id);
@@ -51,13 +52,15 @@ namespace SimpleExternal
                     Console.WriteLine("Position:\t{0}", me.Position);
                     Console.WriteLine("Team:\t\t{0}", me.Team);
                     Console.WriteLine("Player Count:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Players.Count);
-                    Console.WriteLine("Weapon Count:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Weapons.Count);
-                    Console.WriteLine("Entity Count:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Entities.Count);
+                    //Console.WriteLine("LocalPlayerWeapon Count:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Weapons.Count);
+                    //Console.WriteLine("Entity Count:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Entities.Count);
                     Console.WriteLine("Velocity: \t{0}", me.GetVelocity());
                     Console.WriteLine("Shots Fired: \t{0}", me.ShotsFired);
                     Console.WriteLine("VecPunch: \t{0}", me.VecPunch);
-
-
+                    Console.WriteLine("Immune: \t{0}", me.GunGameImmune);
+                    Console.WriteLine("--LocalPlayerWeapon--");
+                    Console.WriteLine("Zoom Level: \t{0}", myWeapon.ZoomLevel);
+                    Console.WriteLine("Clip1: \t{0}",myWeapon.Clip1);
                     Thread.Sleep(500);
                 }
             }

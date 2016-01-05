@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Objects
 {
     public class Player : BaseEntity
     {
+
         public Player(IntPtr baseAddress) : base(baseAddress)
         {           
 
@@ -24,5 +21,18 @@ namespace Smurf.GlobalOffensive.Objects
 
             return (int)velocity;
         }
+
+        //public bool IsInAir()
+        //{
+        //    
+        //}
+
+        public Weapon GetCurrentWeapon(IntPtr baseAdress)
+        {
+            int wepptr = Smurf.Memory.Read<int>(baseAdress + Offsets.Player.ActiveWeapon);
+            int wepptr1 = wepptr & 0xfff;
+            return new Weapon(Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.EntityList + (wepptr1 - 1)*0x10));
+        }
+
     }
 }

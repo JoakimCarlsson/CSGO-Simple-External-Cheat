@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Numerics;
-using Smurf.GlobalOffensive.Data;
 using Smurf.GlobalOffensive.Data.Enums;
 using Smurf.GlobalOffensive.Patchables;
 
@@ -44,6 +43,7 @@ namespace Smurf.GlobalOffensive.Objects
 		public float Distance => Vector3.Distance(Smurf.LocalPlayer.Position, Position);
         public int ShotsFired => ReadField<int>(Offsets.LocalPlayer.ShotsFired);
 	    private int VirtualTable => ReadField<int>(0x08);
+        public bool GunGameImmune => ReadField<bool>(Offsets.Player.GunGameImmune);
 	    public Vector3 VecPunch => ReadField<Vector3>(Offsets.LocalPlayer.VecPunch);
 
         public bool IsWeapon()

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Numerics;
-using System.Security.AccessControl;
-using Smurf.GlobalOffensive.Math;
 using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Updaters
@@ -30,6 +28,10 @@ namespace Smurf.GlobalOffensive.Updaters
 
             if (Smurf.LocalPlayer.ShotsFired > 1)
             {
+
+                if (Smurf.LocalPlayerWeapon.Clip1 == 0)
+                    return;
+
                 ViewAngels = Smurf.Memory.Read<Vector3>((IntPtr)(Smurf.ClientState + Offsets.ClientState.ViewAngles));
                 NewViewAngels = ViewAngels;
 

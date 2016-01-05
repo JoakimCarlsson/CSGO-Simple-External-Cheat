@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Numerics;
 using Smurf.Common;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Patchables;
@@ -18,8 +16,8 @@ namespace Smurf.GlobalOffensive
         private readonly int _capacity;
         // Exposed through a read-only list, users of the API won't be able to change what's going on in game anyway.
         private readonly List<BaseEntity> _players = new List<BaseEntity>();
-        private readonly List<BaseEntity> _weapons = new List<BaseEntity>();
-        private readonly List<BaseEntity> _entities = new List<BaseEntity>();
+       // private readonly List<BaseEntity> _weapons = new List<BaseEntity>();
+       // private readonly List<BaseEntity> _entities = new List<BaseEntity>();
 
         private readonly int _ticksPerSecond;
         private TimeSpan _lastUpdate = TimeSpan.Zero;
@@ -34,15 +32,14 @@ namespace Smurf.GlobalOffensive
         {
             _capacity = capacity;
             _ticksPerSecond = ticksPerSecond;
-
             Console.WriteLine($"ObjectManager initialized. Capacity = {capacity}, TPS = {ticksPerSecond}");
         }
 
         public IReadOnlyList<BaseEntity> Players => _players;
-        public IReadOnlyList<BaseEntity> Weapons => _weapons;
-        public IReadOnlyList<BaseEntity> Entities => _entities;
+        //public IReadOnlyList<BaseEntity> Weapons => _weapons;
+        //public IReadOnlyList<BaseEntity> Entities => _entities;
         internal LocalPlayer LocalPlayer { get; private set; }
-        internal Weapon Weapon { get; private set; }
+        internal Weapon LocalPlayerWeapon { get; private set; }
 
         public void Update()
         {
@@ -69,15 +66,21 @@ namespace Smurf.GlobalOffensive
             // Then again, this is significantly less code, and performance wise not too big an impact. Leave it be for now,
             // but consider updating this in the future.
             _players.Clear();
-            _weapons.Clear();
-            _entities.Clear();
+            //_weapons.Clear();
+            //_entities.Clear();
 
             var localPlayerPtr = Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.LocalPlayer);
+            //var WeaponId = Smurf.Memory.Read<int>(localPlayerPtr + Offsets.Player.ActiveWeapon) & 0xfff;
+            //var WeaponEntId = WeaponId + 0xfff;
+            //var CurrentWeapon = Smurf.Memory.Read<IntPtr>((IntPtr) (_entityList + (WeaponEntId - 1)*0x10));
+
 
             LocalPlayer = new LocalPlayer(localPlayerPtr);
+            //LocalPlayerWeapon = new LocalPlayerWeapon((IntPtr)CurrentWeapon);
+            LocalPlayerWeapon = LocalPlayer.GetCurrentWeapon(localPlayerPtr);
 
             // TODO: Actually get the num nodes in the entity list
-            for (var i = 0; i < 4096; i++)
+            for (var i = 0; i < _capacity; i++)
             {
                 var entity = new BaseEntity(GetEntityPtr(i));
 
@@ -86,10 +89,10 @@ namespace Smurf.GlobalOffensive
 
                 if (entity.IsPlayer())
                     _players.Add(new Player(GetEntityPtr(i)));
-                else if (entity.IsWeapon())
-                    _weapons.Add(new Weapon(GetEntityPtr(i)));
-                else
-                    _entities.Add(new BaseEntity(GetEntityPtr(i)));
+                //else if (entity.IsWeapon())
+                //    _weapons.Add(new LocalPlayerWeapon(GetEntityPtr(i)));
+                //else
+                //    _entities.Add(new BaseEntity(GetEntityPtr(i)));
             }
             _lastUpdate = timeStamp;
         }
