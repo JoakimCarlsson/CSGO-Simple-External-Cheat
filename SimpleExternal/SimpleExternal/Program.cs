@@ -40,7 +40,7 @@ namespace SimpleExternal
                 Console.Clear();
                 Console.WriteLine("State: {0}\n\n", Smurf.GlobalOffensive.Smurf.Client.State);
 
-                if (Smurf.GlobalOffensive.Smurf.Client.InGame && Smurf.GlobalOffensive.Smurf.LocalPlayer != null && Smurf.GlobalOffensive.Smurf.LocalPlayer.IsValid)
+                if (Smurf.GlobalOffensive.Smurf.Client.InGame && Smurf.GlobalOffensive.Smurf.LocalPlayer != null && Smurf.GlobalOffensive.Smurf.LocalPlayerWeapon != null &&Smurf.GlobalOffensive.Smurf.LocalPlayer.IsValid)
                 {
                     var me = Smurf.GlobalOffensive.Smurf.LocalPlayer;
                     var myWeapon = Smurf.GlobalOffensive.Smurf.LocalPlayerWeapon;

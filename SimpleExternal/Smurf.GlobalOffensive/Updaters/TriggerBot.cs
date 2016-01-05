@@ -4,38 +4,51 @@ namespace Smurf.GlobalOffensive.Updaters
 {
     public class TriggerBot
     {
-        private bool _triggerEnabled = true;
-        private bool _triggerAllies = true;
-        private bool _triggerEnemies = true;
-        private bool _spawnProtection = false;
-        private bool _triggerBurst = true;
-        private bool _triggerBurstRandom = true;
-        private int _burstMin = 0;
-        private int _burstMax = 1;
-        private int _delayFirstShotMax = 32;
-        private int _delayFirstShotMin = 32;
-        private int _delayShotsMax = 32;
-        private int _delayShotsMin = 32;
+        private bool _triggerEnabled;
+        private bool _triggerAllies;
+        private bool _triggerEnemies;
+        private bool _spawnProtection;
+        private bool _triggerBurst;
+        private bool _triggerBurstRandom;
+        private int _burstMin;
+        private int _burstMax;
+        private int _delayFirstShot;
+        private int _delayShots;
+        private WinAPI.VirtualKeyShort _triggerKey;
+
 
         public void Update()
         {
             if (Smurf.LocalPlayer == null)
                 return;
 
+            _triggerEnabled = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Enabled");
+            _triggerKey = Smurf.Settings.GetKey(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Key");
+            _triggerEnemies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Enemies");
+            _triggerAllies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Allies");
+            _spawnProtection = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Spawn Protected");
+            _triggerBurst = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Burst Enabled");
+            _triggerBurstRandom = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Burst Randomize");
+            _burstMin = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Burst Shots Min");
+            _burstMax = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Burst Shots Max");
+            _delayFirstShot = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Delay FirstShot");
+            _delayShots = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Delay Shots");
+
+
+            if (!_triggerEnabled)
+                return;
+
             var target = Smurf.LocalPlayer.Target;
             if (target == null)
                 return;
 
-            if (Smurf.KeyUtils.KeyIsDown(18)) //ALT
+
+
+            if (Smurf.KeyUtils.KeyIsDown(_triggerKey)) //ALT
             {
                 if ((_triggerAllies && target.Team == Smurf.LocalPlayer.Team) || (_triggerEnemies && target.Team != Smurf.LocalPlayer.Team))
                 {
-                    //If our targets is immune in gungame / deathmatch.
-                    if (_spawnProtection)
-                        if (target.GunGameImmune)
-                            return;
 
-                    Shoot();
                 }
             }
         }

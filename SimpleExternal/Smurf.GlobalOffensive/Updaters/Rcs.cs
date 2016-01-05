@@ -8,9 +8,9 @@ namespace Smurf.GlobalOffensive.Updaters
     public class Rcs
     {
         #region Fields
-        public Vector3 NewViewAngels;
-        public float Yaw = 2f;
-        public float Pitch = 2.3f;
+        private Vector3 NewViewAngels;
+        private float Yaw, Pitch;
+        private int RcsStart;
         #endregion
 
         #region Properties
@@ -23,10 +23,14 @@ namespace Smurf.GlobalOffensive.Updaters
 
         public void Update()
         {
-            if (Smurf.LocalPlayer == null)
+            if (Smurf.LocalPlayer == null || Smurf.LocalPlayerWeapon == null)
                 return;
 
-            if (Smurf.LocalPlayer.ShotsFired > 1)
+            Yaw = Smurf.Settings.GetFloat(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Force Yaw");
+            Pitch = Smurf.Settings.GetFloat(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Force Pitch");
+            RcsStart = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Start");
+
+            if (Smurf.LocalPlayer.ShotsFired > RcsStart)
             {
 
                 if (Smurf.LocalPlayerWeapon.Clip1 == 0)

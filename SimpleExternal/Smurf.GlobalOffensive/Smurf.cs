@@ -13,6 +13,7 @@ namespace Smurf.GlobalOffensive
         public static int ClientState;
 
         public static NativeMemory Memory { get; private set; }
+        public static Settings Settings { get; set; }
         public static LocalPlayer LocalPlayer => Objects.LocalPlayer;
         public static Weapon LocalPlayerWeapon => Objects.LocalPlayerWeapon;
         public static ObjectManager Objects { get; private set; }
@@ -53,6 +54,7 @@ namespace Smurf.GlobalOffensive
             TriggerBot = new TriggerBot();
             KeyUtils = new KeyUtils();
             BunnyJump = new BunnyJump();
+            Settings = new Settings();
 
             var enginePtr = Memory.Read<IntPtr>(EngineBase + Offsets.ClientState.Base);
 

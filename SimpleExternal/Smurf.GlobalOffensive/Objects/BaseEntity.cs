@@ -144,7 +144,7 @@ namespace Smurf.GlobalOffensive.Objects
                 return 0;
             }
         }
-        private string GetClassName()
+        public string GetClassName()
         {
             try
             {
@@ -152,7 +152,8 @@ namespace Smurf.GlobalOffensive.Objects
                 if (clientClass != 0)
                 {
                     var ptr = Smurf.Memory.Read<int>((IntPtr)(clientClass + 8));
-                    return Smurf.Memory.ReadString((IntPtr)ptr, Encoding.ASCII, 32);
+                    var name = Smurf.Memory.ReadString((IntPtr)ptr, Encoding.ASCII, 32);
+                    return name;
                 }
                 return "none";
             }

@@ -70,15 +70,11 @@ namespace Smurf.GlobalOffensive
             //_entities.Clear();
 
             var localPlayerPtr = Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.LocalPlayer);
-            //var WeaponId = Smurf.Memory.Read<int>(localPlayerPtr + Offsets.Player.ActiveWeapon) & 0xfff;
-            //var WeaponEntId = WeaponId + 0xfff;
-            //var CurrentWeapon = Smurf.Memory.Read<IntPtr>((IntPtr) (_entityList + (WeaponEntId - 1)*0x10));
 
 
             LocalPlayer = new LocalPlayer(localPlayerPtr);
-            //LocalPlayerWeapon = new LocalPlayerWeapon((IntPtr)CurrentWeapon);
             LocalPlayerWeapon = LocalPlayer.GetCurrentWeapon(localPlayerPtr);
-            Console.WriteLine(LocalPlayerWeapon.ClassName);
+
             // TODO: Actually get the num nodes in the entity list
             for (var i = 0; i < _capacity; i++)
             {
