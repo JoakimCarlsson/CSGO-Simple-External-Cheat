@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using System.Text;
 using Smurf.GlobalOffensive.Data.Enums;
 using Smurf.GlobalOffensive.Patchables;
 
@@ -16,10 +17,11 @@ namespace Smurf.GlobalOffensive.Objects
 		/// <param name="baseAddress">The base address.</param>
 		internal BaseEntity(IntPtr baseAddress) : base(baseAddress)
 		{
-		}
+
+        }
 
         private uint _classId;
-
+	    private string _className;
         private uint ClassId
         {
             get
@@ -29,6 +31,16 @@ namespace Smurf.GlobalOffensive.Objects
                 return _classId;
             }
             set { _classId = value; }
+        }
+        public string ClassName
+        {
+            get
+            {
+                if (_className == null)
+                    _className = GetClassName();
+                return _className;
+            }
+            set { _className = value; }
         }
         public int Id => ReadField<int>(Offsets.BaseEntity.Index);
 		public Vector3 Position => ReadField<Vector3>(Offsets.BaseEntity.Position);
@@ -130,6 +142,23 @@ namespace Smurf.GlobalOffensive.Objects
             catch
             {
                 return 0;
+            }
+        }
+        private string GetClassName()
+        {
+            try
+            {
+                var clientClass = GetClientClass();
+                if (clientClass != 0)
+                {
+                    var ptr = Smurf.Memory.Read<int>((IntPtr)(clientClass + 8));
+                    return Smurf.Memory.ReadString((IntPtr)ptr, Encoding.ASCII, 32);
+                }
+                return "none";
+            }
+            catch
+            {
+                return "none";
             }
         }
     }
