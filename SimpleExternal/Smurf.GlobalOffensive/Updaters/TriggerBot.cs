@@ -1,9 +1,19 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 
 namespace Smurf.GlobalOffensive.Updaters
 {
     public class TriggerBot
     {
+        #region Properties
+
+        public bool AimOntarget { get; set; }
+        private long TriggerLastTarget { get; set; }
+        private long TriggerLastShot { get; set; }
+
+        #endregion
+
+        #region Fields
         private bool _triggerEnabled;
         private bool _triggerAllies;
         private bool _triggerEnemies;
@@ -15,8 +25,9 @@ namespace Smurf.GlobalOffensive.Updaters
         private int _delayFirstShot;
         private int _delayShots;
         private WinAPI.VirtualKeyShort _triggerKey;
+        #endregion
 
-
+        #region Methods
         public void Update()
         {
             if (Smurf.LocalPlayer == null)
@@ -38,23 +49,43 @@ namespace Smurf.GlobalOffensive.Updaters
             if (!_triggerEnabled)
                 return;
 
-            var target = Smurf.LocalPlayer.Target;
-            if (target == null)
-                return;
-
-
 
             if (Smurf.KeyUtils.KeyIsDown(_triggerKey))
             {
+                var target = Smurf.LocalPlayer.Target;
+                if (target == null)
+                {
+                    return;
+                }
+
                 if ((_triggerAllies && target.Team == Smurf.LocalPlayer.Team) || (_triggerEnemies && target.Team != Smurf.LocalPlayer.Team))
                 {
-                    if (_spawnProtection)
-                        if (target.GunGameImmune)
+                    if (!AimOntarget)
+                    {
+                        AimOntarget = true;
+                        TriggerLastTarget = DateTime.Now.Ticks;
+                    }
+                    else
+                    {
+                        if (!(new TimeSpan(DateTime.Now.Ticks - TriggerLastTarget).TotalMilliseconds >= _delayFirstShot))
+                            return;
+                        if (!(new TimeSpan(DateTime.Now.Ticks - TriggerLastShot).TotalMilliseconds >= _delayShots))
                             return;
 
-                    Shoot();
+                        TriggerLastShot = DateTime.Now.Ticks;
+
+                        if (_spawnProtection)
+                            if (target.GunGameImmune)
+                                return;
+
+                        Shoot();
+                    }
                 }
             }
+            else
+                AimOntarget = false;
+
+            #endregion
         }
 
         private static void Shoot()

@@ -31,7 +31,7 @@ namespace SimpleExternal
                 Smurf.GlobalOffensive.Smurf.KeyUtils.Update();
                 Smurf.GlobalOffensive.Smurf.BunnyJump.Update();
                 Smurf.GlobalOffensive.Smurf.Settings.Update();
-                Thread.Sleep(5);
+                Thread.Sleep(10);
             }
         }
 
@@ -54,17 +54,17 @@ namespace SimpleExternal
                     Console.WriteLine("Position:\t{0}", me.Position);
                     Console.WriteLine("Team:\t\t{0}", me.Team);
                     Console.WriteLine("Player Count:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Players.Count);
-                    //Console.WriteLine("LocalPlayerWeapon Count:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Weapons.Count);
-                    //Console.WriteLine("Entity Count:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Entities.Count);
                     Console.WriteLine("Velocity: \t{0}", me.GetVelocity());
                     Console.WriteLine("Shots Fired: \t{0}", me.ShotsFired);
                     Console.WriteLine("VecPunch: \t{0}", me.VecPunch);
                     Console.WriteLine("Immune: \t{0}", me.GunGameImmune);
                     Console.WriteLine("--LocalPlayerWeapon--");
-                    Console.WriteLine("Zoom Level: \t{0}", myWeapon.ZoomLevel);
                     Console.WriteLine("Clip1: \t{0}",myWeapon.Clip1);
-                    Thread.Sleep(500);
+                    Console.WriteLine("--Misc--");
+                    Console.WriteLine("Bomb Time Left: \t {0}");
+                    Console.WriteLine("Aim on target:  {0}\t", Smurf.GlobalOffensive.Smurf.TriggerBot.AimOntarget);
                 }
+                Thread.Sleep(500);
             }
         }
     }

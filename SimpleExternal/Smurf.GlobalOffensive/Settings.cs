@@ -22,7 +22,7 @@ namespace Smurf.GlobalOffensive
 
         public void Update()
         {
-            if (Smurf.KeyUtils.KeyIsDown(9)) //Tab Key, don't hard code key, will fix later.
+            if (Smurf.KeyUtils.KeyWentDown(9)) //Tab Key, don't hard code key, will fix later.
             {
                 Console.WriteLine("Reload Config.");
                 _data = Parser.ReadFile("Config.ini");
