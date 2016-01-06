@@ -44,11 +44,15 @@ namespace Smurf.GlobalOffensive.Updaters
 
 
 
-            if (Smurf.KeyUtils.KeyIsDown(_triggerKey)) //ALT
+            if (Smurf.KeyUtils.KeyIsDown(_triggerKey))
             {
                 if ((_triggerAllies && target.Team == Smurf.LocalPlayer.Team) || (_triggerEnemies && target.Team != Smurf.LocalPlayer.Team))
                 {
+                    if (_spawnProtection)
+                        if (target.GunGameImmune)
+                            return;
 
+                    Shoot();
                 }
             }
         }

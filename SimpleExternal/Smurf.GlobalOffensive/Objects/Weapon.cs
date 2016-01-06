@@ -16,6 +16,11 @@ namespace Smurf.GlobalOffensive.Objects
 
         public string FormateWeaponName(string weaponClassId)
         {
+            //todo temp fix
+            if (weaponClassId == "none" || weaponClassId == "CKnife" || weaponClassId == "BaseEntity")
+            {
+                return "Default";
+            }
             //Will remove the C from all the weapons.
             var formatedWeaponName = weaponClassId.Remove(0, 1);
 

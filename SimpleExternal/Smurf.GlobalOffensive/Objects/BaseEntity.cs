@@ -57,6 +57,12 @@ namespace Smurf.GlobalOffensive.Objects
 	    private int VirtualTable => ReadField<int>(0x08);
         public bool GunGameImmune => ReadField<bool>(Offsets.Player.GunGameImmune);
 	    public Vector3 VecPunch => ReadField<Vector3>(Offsets.LocalPlayer.VecPunch);
+	    public bool InAir => IsInAir();
+
+	    private bool IsInAir()
+	    {
+            return Flags == 256;
+        }
 
         public bool IsWeapon()
         {

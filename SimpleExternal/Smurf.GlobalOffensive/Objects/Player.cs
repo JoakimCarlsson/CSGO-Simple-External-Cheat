@@ -22,11 +22,6 @@ namespace Smurf.GlobalOffensive.Objects
             return (int)velocity;
         }
 
-        //public bool IsInAir()
-        //{
-        //    
-        //}
-
         public Weapon GetCurrentWeapon(IntPtr baseAdress)
         {
             int wepptr = Smurf.Memory.Read<int>(baseAdress + Offsets.Player.ActiveWeapon);

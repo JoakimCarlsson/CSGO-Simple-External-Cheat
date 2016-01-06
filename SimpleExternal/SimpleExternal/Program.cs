@@ -24,11 +24,13 @@ namespace SimpleExternal
 
             while (true)
             {
+                //TODO add more threads
                 Smurf.GlobalOffensive.Smurf.Objects.Update();
                 Smurf.GlobalOffensive.Smurf.ControlRecoil.Update();
                 Smurf.GlobalOffensive.Smurf.TriggerBot.Update();
                 Smurf.GlobalOffensive.Smurf.KeyUtils.Update();
                 Smurf.GlobalOffensive.Smurf.BunnyJump.Update();
+                Smurf.GlobalOffensive.Smurf.Settings.Update();
                 Thread.Sleep(5);
             }
         }

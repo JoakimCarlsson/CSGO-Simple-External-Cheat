@@ -16,13 +16,12 @@ namespace Smurf.GlobalOffensive.Updaters
             if (!_bunnyJumpEnabled)
                 return;
 
-            //We don't want to just stand and jump.
             if (Smurf.LocalPlayer.GetVelocity() <= 0)
                 return;
 
             if (Smurf.KeyUtils.KeyIsDown(_bunnyJumpKey))
             {
-                Smurf.Memory.Write(Smurf.ClientBase + Offsets.Misc.Jump, Smurf.LocalPlayer.Flags == 256 ? 4 : 5);
+                Smurf.Memory.Write(Smurf.ClientBase + Offsets.Misc.Jump, Smurf.LocalPlayer.InAir ? 4 : 5);
             }
         }
         #endregion

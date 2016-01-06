@@ -10,7 +10,7 @@ namespace Smurf.GlobalOffensive
     public class Settings
     {
         private static readonly FileIniDataParser Parser = new FileIniDataParser();
-        private readonly IniData _data;
+        private IniData _data;
         public Settings()
         {
             if (!File.Exists("Config.ini"))
@@ -18,6 +18,15 @@ namespace Smurf.GlobalOffensive
                 CreateConfigFile();
             }
             _data = Parser.ReadFile("Config.ini");
+        }
+
+        public void Update()
+        {
+            if (Smurf.KeyUtils.KeyIsDown(9)) //Tab Key, don't hard code key, will fix later.
+            {
+                Console.WriteLine("Reload Config.");
+                _data = Parser.ReadFile("Config.ini");
+            }
         }
 
         private void CreateConfigFile()
@@ -65,6 +74,10 @@ namespace Smurf.GlobalOffensive
                 //Machine Guins
                 "M249",
                 "Negev",
+
+                //Other
+                //TODO this should not be used, will fix it later.
+                "Default"
             };
 
             var builder = new StringBuilder();
