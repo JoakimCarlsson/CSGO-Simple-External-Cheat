@@ -16,13 +16,12 @@ namespace Smurf.GlobalOffensive.Updaters
             if (!_bunnyJumpEnabled)
                 return;
 
-            if (Smurf.LocalPlayer.GetVelocity() <= 0)
+            if (Smurf.LocalPlayer.Velocity <= 100)
                 return;
 
             if (Smurf.KeyUtils.KeyIsDown(_bunnyJumpKey))
-            {
                 Smurf.Memory.Write(Smurf.ClientBase + Offsets.Misc.Jump, Smurf.LocalPlayer.InAir ? 4 : 5);
-            }
+            
         }
         #endregion
 

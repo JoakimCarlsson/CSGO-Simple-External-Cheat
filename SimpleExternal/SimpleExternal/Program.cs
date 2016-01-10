@@ -54,15 +54,14 @@ namespace SimpleExternal
                     Console.WriteLine("Position:\t{0}", me.Position);
                     Console.WriteLine("Team:\t\t{0}", me.Team);
                     Console.WriteLine("Player Count:\t{0}", Smurf.GlobalOffensive.Smurf.Objects.Players.Count);
-                    Console.WriteLine("Velocity: \t{0}", me.GetVelocity());
+                    Console.WriteLine("Velocity: \t{0}", me.Velocity);
                     Console.WriteLine("Shots Fired: \t{0}", me.ShotsFired);
                     Console.WriteLine("VecPunch: \t{0}", me.VecPunch);
                     Console.WriteLine("Immune: \t{0}", me.GunGameImmune);
-                    Console.WriteLine("--LocalPlayerWeapon--");
+                    Console.WriteLine("Active Weapon: \t{0}", myWeapon.WeaponName);
                     Console.WriteLine("Clip1: \t{0}",myWeapon.Clip1);
-                    Console.WriteLine("--Misc--");
-                    Console.WriteLine("Bomb Time Left: \t {0}");
-                    Console.WriteLine("Aim on target:  {0}\t", Smurf.GlobalOffensive.Smurf.TriggerBot.AimOntarget);
+                    //Console.WriteLine("Aim On Target: \t{0}", Smurf.GlobalOffensive.Smurf.TriggerBot.AimOntarget);
+                    //Console.WriteLine("Trigger Shooting: \t{0}", Smurf.GlobalOffensive.Smurf.TriggerBot._triggerShooting);
                 }
                 Thread.Sleep(500);
             }

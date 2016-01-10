@@ -5,21 +5,20 @@ namespace Smurf.GlobalOffensive.Updaters
 {
     public class TriggerBot
     {
-        #region Properties
-
-        public bool AimOntarget { get; set; }
-        private long TriggerLastTarget { get; set; }
-        private long TriggerLastShot { get; set; }
-
-        #endregion
-
         #region Fields
+        public bool AimOntarget;
+        private long _triggerLastTarget;
+        private long _triggerLastShot;
         private bool _triggerEnabled;
         private bool _triggerAllies;
         private bool _triggerEnemies;
         private bool _spawnProtection;
         private bool _triggerBurst;
         private bool _triggerBurstRandom;
+        public bool _triggerShooting;
+        private int _burstCount;
+        private int _burstCountFired = 0;
+        private int _lastClip;
         private int _burstMin;
         private int _burstMax;
         private int _delayFirstShot;
@@ -45,34 +44,27 @@ namespace Smurf.GlobalOffensive.Updaters
             _delayFirstShot = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Delay FirstShot");
             _delayShots = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Delay Shots");
 
-
             if (!_triggerEnabled)
                 return;
-
 
             if (Smurf.KeyUtils.KeyIsDown(_triggerKey))
             {
                 var target = Smurf.LocalPlayer.Target;
-                if (target == null)
-                {
-                    return;
-                }
-
-                if ((_triggerAllies && target.Team == Smurf.LocalPlayer.Team) || (_triggerEnemies && target.Team != Smurf.LocalPlayer.Team))
+                if (target != null && ((_triggerAllies && target.Team == Smurf.LocalPlayer.Team) || (_triggerEnemies && target.Team != Smurf.LocalPlayer.Team)))
                 {
                     if (!AimOntarget)
                     {
                         AimOntarget = true;
-                        TriggerLastTarget = DateTime.Now.Ticks;
+                        _triggerLastTarget = DateTime.Now.Ticks;
                     }
                     else
                     {
-                        if (!(new TimeSpan(DateTime.Now.Ticks - TriggerLastTarget).TotalMilliseconds >= _delayFirstShot))
+                        if (
+                            !(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _delayFirstShot))
                             return;
-                        if (!(new TimeSpan(DateTime.Now.Ticks - TriggerLastShot).TotalMilliseconds >= _delayShots))
+                        if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _delayShots))
                             return;
-
-                        TriggerLastShot = DateTime.Now.Ticks;
+                        _triggerLastShot = DateTime.Now.Ticks;
 
                         if (_spawnProtection)
                             if (target.GunGameImmune)
@@ -80,6 +72,7 @@ namespace Smurf.GlobalOffensive.Updaters
 
                         Shoot();
                     }
+
                 }
             }
             else

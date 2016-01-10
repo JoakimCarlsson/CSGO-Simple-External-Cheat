@@ -20,9 +20,12 @@ namespace Smurf.GlobalOffensive
             _data = Parser.ReadFile("Config.ini");
         }
 
+        private WinAPI.VirtualKeyShort ReloadConfigKey;
+
         public void Update()
         {
-            if (Smurf.KeyUtils.KeyWentDown(9)) //Tab Key, don't hard code key, will fix later.
+            ReloadConfigKey = Smurf.Settings.GetKey("Misc", "Reload Config Key");
+            if (Smurf.KeyUtils.KeyWentDown(ReloadConfigKey)) //Tab Key, don't hard code key, will fix later.
             {
                 Console.WriteLine("Reload Config.");
                 _data = Parser.ReadFile("Config.ini");
@@ -81,10 +84,12 @@ namespace Smurf.GlobalOffensive
             };
 
             var builder = new StringBuilder();
-            //Misc
             builder.AppendLine("[Bunny Jump]");
             builder.AppendLine("Bunny Jump Enabled = True");
             builder.AppendLine("Bunny Jump Key = 32").AppendLine();
+            //Misc
+            builder.AppendLine("[Misc]");
+            builder.AppendLine("Reload Config Key = 9");
 
             foreach (var weapon in weaponList)
             {
@@ -92,8 +97,8 @@ namespace Smurf.GlobalOffensive
                 //RCS
                 builder.AppendLine("Rcs Enabled = True");
                 builder.AppendLine("Rcs Start = 1");
-                builder.AppendLine("Rcs Force Yaw = 2,3");
-                builder.AppendLine("Rcs Force Pitch = 2,3").AppendLine();
+                builder.AppendLine("Rcs Force Yaw = 2,1");
+                builder.AppendLine("Rcs Force Pitch = 2,2").AppendLine();
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 18");
@@ -104,8 +109,8 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Burst Randomize = False");
                 builder.AppendLine("Trigger Burst Shots Min = 0");
                 builder.AppendLine("Trigger Burst Shots Max = 0");
-                builder.AppendLine("Trigger Delay FirstShot = 21");
-                builder.AppendLine("Trigger Delay Shots = 21").AppendLine();
+                builder.AppendLine("Trigger Delay FirstShot = 35");
+                builder.AppendLine("Trigger Delay Shots = 35").AppendLine();
             }
             if (!File.Exists("Config.ini"))
             {

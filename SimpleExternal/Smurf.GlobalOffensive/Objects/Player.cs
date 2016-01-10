@@ -12,6 +12,7 @@ namespace Smurf.GlobalOffensive.Objects
 
         }
         public Vector3 VecVelocity => ReadField<Vector3>(Offsets.Player.VecVelocity);
+        public int Velocity => GetVelocity();
 
         public int GetVelocity()
         {

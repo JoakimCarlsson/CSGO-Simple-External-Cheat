@@ -32,7 +32,6 @@ namespace Smurf.GlobalOffensive.Updaters
 
             if (Smurf.LocalPlayer.ShotsFired > RcsStart)
             {
-
                 if (Smurf.LocalPlayerWeapon.Clip1 == 0)
                     return;
 
