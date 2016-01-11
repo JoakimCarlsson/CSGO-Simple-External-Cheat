@@ -34,9 +34,42 @@ namespace Smurf.GlobalOffensive
 
         private void CreateConfigFile()
         {
-            var weaponList = new List<string>
+            List<string> snipersList = new List<string>
             {
-                //Pistols
+                "AWP",
+                "SSG08",
+                "SCAR20",
+                "G3SG1",
+
+            };
+            List<string> machineGunList = new List<string>
+            {
+                "M249",
+                "Negev",
+            };
+
+            List<string> heavyList = new List<string>
+            {
+                "NOVA",
+                "XM1014",
+                "Sawedoff",
+                "Mag7",
+                //TODO this should not be used, will fix it later.
+                "Default"
+            };
+
+            List<string> smgList = new List<string>
+            {
+                "MAC10",
+                "MP9",
+                "MP7",
+                "UMP45",
+                "Bizon",
+                "P90",
+            };
+
+            List<string> pistolList = new List<string>
+            {
                 "DEagle",
                 "Elite",
                 "FiveSeven",
@@ -44,43 +77,17 @@ namespace Smurf.GlobalOffensive
                 "P228",
                 "P250",
                 "HKP2000",
-                "Tec9",
+                "Tec9",  
+            };
 
-                //Heavy
-                "NOVA",
-                "XM1014",
-                "Sawedoff",
-                "Mag7",
-
-                //SMG
-                "MAC10",
-                "MP9",
-                "MP7",
-                "UMP45",
-                "Bizon",
-                "P90",
-
-                //Rifles
+            List<string> rifleList = new List<string>
+            {
                 "GalilAR",
                 "AK47",
                 "SG556",
                 "Famas",
                 "M4A1",
                 "Aug",
-
-                //Snipers
-                "AWP",
-                "SSG08",
-                "SCAR20",
-                "G3SG1",
-
-                //Machine Guins
-                "M249",
-                "Negev",
-
-                //Other
-                //TODO this should not be used, will fix it later.
-                "Default"
             };
 
             var builder = new StringBuilder();
@@ -98,7 +105,25 @@ namespace Smurf.GlobalOffensive
             builder.AppendLine("[Misc]");
             builder.AppendLine("Reload Config Key = 9").AppendLine();
 
-            foreach (var weapon in weaponList)
+            foreach (var weapon in pistolList)
+            {
+                builder.AppendLine("[" + weapon + "]");
+                //RCS
+                builder.AppendLine("Rcs Enabled = False");
+                builder.AppendLine("Rcs Start = 1");
+                builder.AppendLine("Rcs Force Yaw = 2,1");
+                builder.AppendLine("Rcs Force Pitch = 2,2").AppendLine();
+                //Trigger
+                builder.AppendLine("Trigger Enabled = True");
+                builder.AppendLine("Trigger Key = 18");
+                builder.AppendLine("Trigger Enemies = True");
+                builder.AppendLine("Trigger Allies = False");
+                builder.AppendLine("Trigger Burst Enabled = False");
+                builder.AppendLine("Trigger Spawn Protected = False");
+                builder.AppendLine("Trigger Delay FirstShot = 35");
+                builder.AppendLine("Trigger Delay Shots = 35").AppendLine();
+            }
+            foreach (var weapon in rifleList)
             {
                 builder.AppendLine("[" + weapon + "]");
                 //RCS
@@ -113,12 +138,83 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
                 builder.AppendLine("Trigger Spawn Protected = False");
-                builder.AppendLine("Trigger Burst Randomize = False");
-                builder.AppendLine("Trigger Burst Shots Min = 0");
-                builder.AppendLine("Trigger Burst Shots Max = 0");
                 builder.AppendLine("Trigger Delay FirstShot = 35");
                 builder.AppendLine("Trigger Delay Shots = 35").AppendLine();
             }
+            foreach (var weapon in smgList)
+            {
+                builder.AppendLine("[" + weapon + "]");
+                //RCS
+                builder.AppendLine("Rcs Enabled = True");
+                builder.AppendLine("Rcs Start = 1");
+                builder.AppendLine("Rcs Force Yaw = 2,1");
+                builder.AppendLine("Rcs Force Pitch = 2,2").AppendLine();
+                //Trigger
+                builder.AppendLine("Trigger Enabled = True");
+                builder.AppendLine("Trigger Key = 18");
+                builder.AppendLine("Trigger Enemies = True");
+                builder.AppendLine("Trigger Allies = False");
+                builder.AppendLine("Trigger Burst Enabled = False");
+                builder.AppendLine("Trigger Spawn Protected = False");
+                builder.AppendLine("Trigger Delay FirstShot = 35");
+                builder.AppendLine("Trigger Delay Shots = 35").AppendLine();
+            }
+            foreach (var weapon in snipersList)
+            {
+                builder.AppendLine("[" + weapon + "]");
+                //RCS
+                builder.AppendLine("Rcs Enabled = False");
+                builder.AppendLine("Rcs Start = 1");
+                builder.AppendLine("Rcs Force Yaw = 2,1");
+                builder.AppendLine("Rcs Force Pitch = 2,2").AppendLine();
+                //Trigger
+                builder.AppendLine("Trigger Enabled = True");
+                builder.AppendLine("Trigger Key = 18");
+                builder.AppendLine("Trigger Enemies = True");
+                builder.AppendLine("Trigger Allies = False");
+                builder.AppendLine("Trigger Burst Enabled = False");
+                builder.AppendLine("Trigger Spawn Protected = False");
+                builder.AppendLine("Trigger Delay FirstShot = 35");
+                builder.AppendLine("Trigger Delay Shots = 35").AppendLine();
+            }
+            foreach (var weapon in machineGunList)
+            {
+                builder.AppendLine("[" + weapon + "]");
+                //RCS
+                builder.AppendLine("Rcs False = True");
+                builder.AppendLine("Rcs Start = 1");
+                builder.AppendLine("Rcs Force Yaw = 2,1");
+                builder.AppendLine("Rcs Force Pitch = 2,2").AppendLine();
+                //Trigger
+                builder.AppendLine("Trigger Enabled = True");
+                builder.AppendLine("Trigger Key = 18");
+                builder.AppendLine("Trigger Enemies = True");
+                builder.AppendLine("Trigger Allies = False");
+                builder.AppendLine("Trigger Burst Enabled = False");
+                builder.AppendLine("Trigger Spawn Protected = False");
+                builder.AppendLine("Trigger Delay FirstShot = 35");
+                builder.AppendLine("Trigger Delay Shots = 35").AppendLine();
+            }
+            foreach (var weapon in heavyList)
+            {
+                builder.AppendLine("[" + weapon + "]");
+                //RCS
+                builder.AppendLine("Rcs False = True");
+                builder.AppendLine("Rcs Start = 1");
+                builder.AppendLine("Rcs Force Yaw = 2,1");
+                builder.AppendLine("Rcs Force Pitch = 2,2").AppendLine();
+                //Trigger
+                builder.AppendLine("Trigger Enabled = False");
+                builder.AppendLine("Trigger Key = 18");
+                builder.AppendLine("Trigger Enemies = True");
+                builder.AppendLine("Trigger Allies = False");
+                builder.AppendLine("Trigger Burst Enabled = False");
+                builder.AppendLine("Trigger Spawn Protected = False");
+                builder.AppendLine("Trigger Delay FirstShot = 35");
+                builder.AppendLine("Trigger Delay Shots = 35").AppendLine();
+            }
+
+
             if (!File.Exists("Config.ini"))
             {
                 var sr = new StreamWriter(@"Config.ini");
