@@ -31,6 +31,7 @@ namespace SimpleExternal
                 Smurf.GlobalOffensive.Smurf.KeyUtils.Update();
                 Smurf.GlobalOffensive.Smurf.BunnyJump.Update();
                 Smurf.GlobalOffensive.Smurf.Settings.Update();
+                Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
                 Thread.Sleep(10);
             }
         }
@@ -60,8 +61,6 @@ namespace SimpleExternal
                     Console.WriteLine("Immune: \t{0}", me.GunGameImmune);
                     Console.WriteLine("Active Weapon: \t{0}", myWeapon.WeaponName);
                     Console.WriteLine("Clip1: \t{0}",myWeapon.Clip1);
-                    //Console.WriteLine("Aim On Target: \t{0}", Smurf.GlobalOffensive.Smurf.TriggerBot.AimOntarget);
-                    //Console.WriteLine("Trigger Shooting: \t{0}", Smurf.GlobalOffensive.Smurf.TriggerBot._triggerShooting);
                 }
                 Thread.Sleep(500);
             }

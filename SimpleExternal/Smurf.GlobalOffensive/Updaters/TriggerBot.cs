@@ -24,13 +24,7 @@ namespace Smurf.GlobalOffensive.Updaters
             if (Smurf.LocalPlayer == null)
                 return;
 
-            _triggerEnabled = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Enabled");
-            _triggerKey = Smurf.Settings.GetKey(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Key");
-            _triggerEnemies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Enemies");
-            _triggerAllies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Allies");
-            _spawnProtection = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Spawn Protected");
-            _delayFirstShot = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Delay FirstShot");
-            _delayShots = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Delay Shots");
+            ReadSettings();
 
             if (!_triggerEnabled)
                 return;
@@ -67,6 +61,17 @@ namespace Smurf.GlobalOffensive.Updaters
                 AimOntarget = false;
 
             #endregion
+        }
+
+        private void ReadSettings()
+        {
+            _triggerEnabled = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Enabled");
+            _triggerKey = Smurf.Settings.GetKey(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Key");
+            _triggerEnemies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Enemies");
+            _triggerAllies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Allies");
+            _spawnProtection = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Spawn Protected");
+            _delayFirstShot = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Delay FirstShot");
+            _delayShots = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Delay Shots");
         }
 
         private static void Shoot()

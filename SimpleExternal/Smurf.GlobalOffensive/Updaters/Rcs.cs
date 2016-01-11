@@ -26,9 +26,7 @@ namespace Smurf.GlobalOffensive.Updaters
             if (Smurf.LocalPlayer == null || Smurf.LocalPlayerWeapon == null)
                 return;
 
-            Yaw = Smurf.Settings.GetFloat(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Force Yaw");
-            Pitch = Smurf.Settings.GetFloat(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Force Pitch");
-            RcsStart = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Start");
+            ReadSettïngs();
 
             if (Smurf.LocalPlayer.ShotsFired > RcsStart)
             {
@@ -55,6 +53,14 @@ namespace Smurf.GlobalOffensive.Updaters
 
             LastPunch = Smurf.LocalPlayer.VecPunch;
         }
+
+        private void ReadSettïngs()
+        {
+            Yaw = Smurf.Settings.GetFloat(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Force Yaw");
+            Pitch = Smurf.Settings.GetFloat(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Force Pitch");
+            RcsStart = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Start");
+        }
+
         public static void SetViewAngles(Vector3 viewAngles)
         {
             //TODO Clamp VIewangels before we set them.

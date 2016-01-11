@@ -51,8 +51,8 @@ namespace Smurf.GlobalOffensive.Objects
 		public bool IsAlive => ReadField<byte>(Offsets.Player.LifeState) == 0;
 		public bool IsFriendly => Team == Smurf.LocalPlayer.Team;
 		public PlayerTeam Team => (PlayerTeam) ReadField<int>(Offsets.BaseEntity.Team);
-		public float DistanceSqr => Vector3.DistanceSquared(Smurf.LocalPlayer.Position, Position);
 		public float Distance => Vector3.Distance(Smurf.LocalPlayer.Position, Position);
+        public float DistanceMeters => Vector3.Distance(Smurf.LocalPlayer.Position, Position)* 0.01905f;
         public int ShotsFired => ReadField<int>(Offsets.LocalPlayer.ShotsFired);
 	    private int VirtualTable => ReadField<int>(0x08);
         public bool GunGameImmune => ReadField<bool>(Offsets.Player.GunGameImmune);

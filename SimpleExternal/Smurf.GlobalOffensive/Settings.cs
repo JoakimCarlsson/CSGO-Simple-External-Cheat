@@ -87,9 +87,16 @@ namespace Smurf.GlobalOffensive
             builder.AppendLine("[Bunny Jump]");
             builder.AppendLine("Bunny Jump Enabled = True");
             builder.AppendLine("Bunny Jump Key = 32").AppendLine();
+
+            //SoundESP
+            builder.AppendLine("[Sound ESP]");
+            builder.AppendLine("Sound ESP = True");
+            builder.AppendLine("Sound Range = 10");
+            builder.AppendLine("Sound Interval = 1000");
+            builder.AppendLine("Sound Volume = 100").AppendLine();
             //Misc
             builder.AppendLine("[Misc]");
-            builder.AppendLine("Reload Config Key = 9");
+            builder.AppendLine("Reload Config Key = 9").AppendLine();
 
             foreach (var weapon in weaponList)
             {

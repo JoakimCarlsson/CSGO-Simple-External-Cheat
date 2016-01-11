@@ -10,8 +10,7 @@ namespace Smurf.GlobalOffensive.Updaters
             if (Smurf.LocalPlayer == null)
                 return;
 
-            _bunnyJumpEnabled = Smurf.Settings.GetBool("Bunny Jump", "Bunny Jump Enabled");
-            _bunnyJumpKey = Smurf.Settings.GetKey("Bunny Jump", "Bunny Jump Key");
+            ReadSettings();
 
             if (!_bunnyJumpEnabled)
                 return;
@@ -21,7 +20,13 @@ namespace Smurf.GlobalOffensive.Updaters
 
             if (Smurf.KeyUtils.KeyIsDown(_bunnyJumpKey))
                 Smurf.Memory.Write(Smurf.ClientBase + Offsets.Misc.Jump, Smurf.LocalPlayer.InAir ? 4 : 5);
-            
+
+        }
+
+        private void ReadSettings()
+        {
+            _bunnyJumpEnabled = Smurf.Settings.GetBool("Bunny Jump", "Bunny Jump Enabled");
+            _bunnyJumpKey = Smurf.Settings.GetKey("Bunny Jump", "Bunny Jump Key");
         }
         #endregion
 
