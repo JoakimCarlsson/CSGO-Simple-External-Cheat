@@ -15,7 +15,7 @@ namespace Smurf.GlobalOffensive
         // Obtain this dynamically from the game at a later stage.
         private readonly int _capacity;
         // Exposed through a read-only list, users of the API won't be able to change what's going on in game anyway.
-        private readonly List<BaseEntity> _players = new List<BaseEntity>();
+        private readonly List<Player> _players = new List<Player>();
        // private readonly List<BaseEntity> _weapons = new List<BaseEntity>();
        // private readonly List<BaseEntity> _entities = new List<BaseEntity>();
 
@@ -35,7 +35,7 @@ namespace Smurf.GlobalOffensive
             Console.WriteLine($"ObjectManager initialized. Capacity = {capacity}, TPS = {ticksPerSecond}");
         }
 
-        public IReadOnlyList<BaseEntity> Players => _players;
+        public IReadOnlyList<Player> Players => _players;
         //public IReadOnlyList<BaseEntity> Weapons => _weapons;
         //public IReadOnlyList<BaseEntity> Entities => _entities;
         internal LocalPlayer LocalPlayer { get; private set; }

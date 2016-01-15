@@ -57,12 +57,6 @@ namespace Smurf.GlobalOffensive.Objects
 	    private int VirtualTable => ReadField<int>(0x08);
         public bool GunGameImmune => ReadField<bool>(Offsets.Player.GunGameImmune);
 	    public Vector3 VecPunch => ReadField<Vector3>(Offsets.LocalPlayer.VecPunch);
-	    public bool InAir => IsInAir();
-
-	    private bool IsInAir()
-	    {
-            return Flags == 256;
-        }
 
         public bool IsWeapon()
         {
@@ -150,7 +144,6 @@ namespace Smurf.GlobalOffensive.Objects
                 return 0;
             }
         }
-
 	    internal string GetClassName()
         {
             try
@@ -168,17 +161,6 @@ namespace Smurf.GlobalOffensive.Objects
             {
                 return "none";
             }
-        }
-        public Vector3 GetBonePos(int target, int bone)
-        {
-            int bMatrix = Smurf.Memory.Read<int>((IntPtr)(target + Offsets.BaseEntity.BoneMatrix));
-            Vector3 vec = new Vector3
-            {
-                X = Smurf.Memory.Read<float>((IntPtr)(bMatrix + (0x30 * bone) + 0xC)),
-                Y = Smurf.Memory.Read<float>((IntPtr)(bMatrix + (0x30 * bone) + 0x1C)),
-                Z = Smurf.Memory.Read<float>((IntPtr)(bMatrix + (0x30 * bone) + 0x2C))
-            };
-            return vec;
         }
     }
 }
