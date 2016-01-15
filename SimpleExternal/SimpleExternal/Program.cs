@@ -10,6 +10,7 @@ namespace SimpleExternal
         private static void Main(string[] args)
         {
             Thread thread1 = new Thread(UpdateInfo);
+            Thread thread2 = new Thread(UpdateSoundESP);
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Smurf Bot 0.1 \n For local development use only. Do not redistribute");
@@ -31,6 +32,7 @@ namespace SimpleExternal
                 Smurf.GlobalOffensive.Smurf.KeyUtils.Update();
                 Smurf.GlobalOffensive.Smurf.BunnyJump.Update();
                 Smurf.GlobalOffensive.Smurf.Settings.Update();
+                Smurf.GlobalOffensive.Smurf.Aimbot.Update();
                 Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
                 Thread.Sleep(10);
             }
@@ -47,7 +49,6 @@ namespace SimpleExternal
                 {
                     var me = Smurf.GlobalOffensive.Smurf.LocalPlayer;
                     var myWeapon = Smurf.GlobalOffensive.Smurf.LocalPlayerWeapon;
-
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("ID:\t\t{0}", me.Id);
                     Console.WriteLine("Health:\t\t{0}", me.Health);
@@ -63,6 +64,14 @@ namespace SimpleExternal
                     Console.WriteLine("Clip1: \t{0}",myWeapon.Clip1);
                 }
                 Thread.Sleep(500);
+            }
+        }
+
+        private static void UpdateSoundESP()
+        {
+            while (true)
+            {
+                Thread.Sleep(10);
             }
         }
     }

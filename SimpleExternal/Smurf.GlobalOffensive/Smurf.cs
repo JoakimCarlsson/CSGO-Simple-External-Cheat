@@ -20,6 +20,7 @@ namespace Smurf.GlobalOffensive
         public static Rcs ControlRecoil { get; set; }
         public static TriggerBot TriggerBot { get; set; }
         public static BunnyJump BunnyJump { get; set; }
+        public static Aimbot Aimbot { get; set; }
         public static SoundESP SoundEsp { get; set; }
         public static KeyUtils KeyUtils { get; set; }
         public static GameClient Client { get; private set; }
@@ -57,6 +58,7 @@ namespace Smurf.GlobalOffensive
             BunnyJump = new BunnyJump();
             Settings = new Settings();
             SoundEsp = new SoundESP();
+            Aimbot = new Aimbot();
 
             var enginePtr = Memory.Read<IntPtr>(EngineBase + Offsets.ClientState.Base);
 

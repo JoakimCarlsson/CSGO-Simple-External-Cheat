@@ -150,7 +150,8 @@ namespace Smurf.GlobalOffensive.Objects
                 return 0;
             }
         }
-        public string GetClassName()
+
+	    internal string GetClassName()
         {
             try
             {
@@ -167,6 +168,17 @@ namespace Smurf.GlobalOffensive.Objects
             {
                 return "none";
             }
+        }
+        public Vector3 GetBonePos(int target, int bone)
+        {
+            int bMatrix = Smurf.Memory.Read<int>((IntPtr)(target + Offsets.BaseEntity.BoneMatrix));
+            Vector3 vec = new Vector3
+            {
+                X = Smurf.Memory.Read<float>((IntPtr)(bMatrix + (0x30 * bone) + 0xC)),
+                Y = Smurf.Memory.Read<float>((IntPtr)(bMatrix + (0x30 * bone) + 0x1C)),
+                Z = Smurf.Memory.Read<float>((IntPtr)(bMatrix + (0x30 * bone) + 0x2C))
+            };
+            return vec;
         }
     }
 }

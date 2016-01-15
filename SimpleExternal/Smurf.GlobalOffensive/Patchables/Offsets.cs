@@ -35,6 +35,7 @@
             public static int Dormant = 0xE9;
             public static int Index = 0x64;
             public static int EntitySize = 0x10;
+            public static int BoneMatrix = 0x000042A8;
         }
 
         public class Player

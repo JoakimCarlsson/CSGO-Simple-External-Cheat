@@ -8,13 +8,13 @@ namespace Smurf.GlobalOffensive.Objects
     {
 
         public Player(IntPtr baseAddress) : base(baseAddress)
-        {           
+        {
 
         }
         public Vector3 VecVelocity => ReadField<Vector3>(Offsets.Player.VecVelocity);
         public int Velocity => GetVelocity();
 
-        public int GetVelocity()
+        private int GetVelocity()
         {
             var vector2 = new Vector2(Smurf.LocalPlayer.VecVelocity.X, Smurf.LocalPlayer.VecVelocity.Y);
             var length = vector2.Length();
@@ -27,8 +27,7 @@ namespace Smurf.GlobalOffensive.Objects
         {
             int wepptr = Smurf.Memory.Read<int>(baseAdress + Offsets.Player.ActiveWeapon);
             int wepptr1 = wepptr & 0xfff;
-            return new Weapon(Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.EntityList + (wepptr1 - 1)*0x10));
+            return new Weapon(Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.EntityList + (wepptr1 - 1) * 0x10));
         }
-
     }
 }

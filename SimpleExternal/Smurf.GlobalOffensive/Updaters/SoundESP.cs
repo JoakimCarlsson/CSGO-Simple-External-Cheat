@@ -51,7 +51,7 @@ namespace Smurf.GlobalOffensive.Updaters
                     break;
                 }
                 if (leastDist == float.MaxValue) return;
-                Console.Beep();
+               // Console.Beep();
                 Thread.Sleep(50);
                 _lastBeep = DateTime.Now.Ticks;
             }
