@@ -44,7 +44,8 @@ namespace Smurf.GlobalOffensive.Objects
         }
         public int Id => ReadField<int>(Offsets.BaseEntity.Index);
 		public Vector3 Position => ReadField<Vector3>(Offsets.BaseEntity.Position);
-		public int Health => ReadField<int>(Offsets.BaseEntity.Health);
+		public Vector3 VecView => ReadField<Vector3>(Offsets.LocalPlayer.VecViewOffset);
+        public int Health => ReadField<int>(Offsets.BaseEntity.Health);
 		public int Armor => ReadField<int>(Offsets.BaseEntity.Armor);
 		public int Flags => ReadField<int>(Offsets.Player.Flags);
 		public bool IsDormant => ReadField<int>(Offsets.BaseEntity.Dormant) == 1;
@@ -57,6 +58,9 @@ namespace Smurf.GlobalOffensive.Objects
 	    private int VirtualTable => ReadField<int>(0x08);
         public bool GunGameImmune => ReadField<bool>(Offsets.Player.GunGameImmune);
 	    public Vector3 VecPunch => ReadField<Vector3>(Offsets.LocalPlayer.VecPunch);
+	    public long SpottedByMask => ReadField<long>(Offsets.BaseEntity.SpottedByMask);
+	    public bool IsSpotted => ReadField<bool>(Offsets.BaseEntity.Spotted);
+
 
         public bool IsWeapon()
         {
@@ -161,6 +165,14 @@ namespace Smurf.GlobalOffensive.Objects
             {
                 return "none";
             }
+        }
+        public bool SeenBy(int entityIndex)
+        {
+            return (SpottedByMask & (0x1 << entityIndex)) != 0;
+        }
+        public bool SeenBy(BaseEntity ent)
+        {
+            return SeenBy(ent.Id - 1);
         }
     }
 }

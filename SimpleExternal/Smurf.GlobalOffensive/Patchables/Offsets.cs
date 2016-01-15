@@ -36,6 +36,8 @@
             public static int Index = 0x64;
             public static int EntitySize = 0x10;
             public static int BoneMatrix = 0x000042A8;
+            public static int Spotted = 0x00000935;
+            public static int SpottedByMask = 0x00000978;
         }
 
         public class Player

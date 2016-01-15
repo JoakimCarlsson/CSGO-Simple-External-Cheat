@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using Smurf.GlobalOffensive.Math;
 using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Updaters
@@ -8,7 +9,7 @@ namespace Smurf.GlobalOffensive.Updaters
     public class Rcs
     {
         #region Fields
-        private Vector3 NewViewAngels;
+        public Vector3 NewViewAngels;
         private float Yaw, Pitch;
         private int RcsStart;
         #endregion
@@ -63,7 +64,7 @@ namespace Smurf.GlobalOffensive.Updaters
 
         public static void SetViewAngles(Vector3 viewAngles)
         {
-            //TODO Clamp VIewangels before we set them.
+            viewAngles.ClampAngle();
             Smurf.Memory.Write((IntPtr)(Smurf.ClientState + Offsets.ClientState.ViewAngles), viewAngles);
         }
         #endregion

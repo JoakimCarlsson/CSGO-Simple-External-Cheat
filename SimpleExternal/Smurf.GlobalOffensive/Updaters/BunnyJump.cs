@@ -1,4 +1,5 @@
-﻿using Smurf.GlobalOffensive.Patchables;
+﻿using System.Threading;
+using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Updaters
 {
@@ -7,20 +8,24 @@ namespace Smurf.GlobalOffensive.Updaters
         #region Methods
         public void Update()
         {
-            if (Smurf.LocalPlayer == null)
-                return;
+                if (Smurf.LocalPlayer == null)
+                    return;
 
-            ReadSettings();
+                ReadSettings();
 
-            if (!_bunnyJumpEnabled)
-                return;
+                if (!_bunnyJumpEnabled)
+                    return;
 
-            if (Smurf.LocalPlayer.Velocity <= 100)
-                return;
+                if (Smurf.LocalPlayer.Velocity <= 100)
+                    return;
 
+                BHop();
+        }
+
+        private void BHop()
+        {
             if (Smurf.KeyUtils.KeyIsDown(_bunnyJumpKey))
                 Smurf.Memory.Write(Smurf.ClientBase + Offsets.Misc.Jump, Smurf.LocalPlayer.InAir ? 4 : 5);
-
         }
 
         private void ReadSettings()
