@@ -16,19 +16,6 @@ namespace Smurf.GlobalOffensive.Updaters
         {
             if (Smurf.LocalPlayer == null)
                 return;
-
-            var targets = Smurf.Objects.Players.Where(p => p.Id != Smurf.LocalPlayer.Id && p.Health > 0  && !p.IsDormant /*&& !p.InAir*/);
-
-            if (true)
-                targets = targets.Where(x => x.SeenBy(Smurf.LocalPlayer));
-            targets = targets.OrderBy(x => (x.Position - Smurf.LocalPlayer.Position).Length());
-            Vector3 closest = Vector3.Zero;
-            float closestFov = float.MaxValue;
-
-            foreach (var target in targets)
-            {
-
-            }
         }
     }
 }

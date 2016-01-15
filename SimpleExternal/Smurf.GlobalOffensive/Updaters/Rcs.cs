@@ -27,13 +27,18 @@ namespace Smurf.GlobalOffensive.Updaters
             if (Smurf.LocalPlayer == null || Smurf.LocalPlayerWeapon == null)
                 return;
 
-            ReadSettïngs();
+            if (Smurf.LocalPlayerWeapon.Clip1 == 0)
+                return;
 
+            ReadSettïngs();
+            ControlRecoil();
+            LastPunch = Smurf.LocalPlayer.VecPunch;
+        }
+
+        private void ControlRecoil()
+        {
             if (Smurf.LocalPlayer.ShotsFired > RcsStart)
             {
-                if (Smurf.LocalPlayerWeapon.Clip1 == 0)
-                    return;
-
                 ViewAngels = Smurf.Memory.Read<Vector3>((IntPtr)(Smurf.ClientState + Offsets.ClientState.ViewAngles));
                 NewViewAngels = ViewAngels;
 
@@ -49,10 +54,7 @@ namespace Smurf.GlobalOffensive.Updaters
 
                     SetViewAngles(NewViewAngels);
                 }
-
             }
-
-            LastPunch = Smurf.LocalPlayer.VecPunch;
         }
 
         private void ReadSettïngs()

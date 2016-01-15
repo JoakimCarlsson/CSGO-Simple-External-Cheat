@@ -12,43 +12,39 @@ namespace SimpleExternal
         {
             Thread thread1 = new Thread(UpdateInfo);
             Thread thread2 = new Thread(UpdateBHop);
-            Thread thread3 = new Thread(UpdateRCS);
+            Thread thread3 = new Thread(UpdateRcs);
             Thread thread4 = new Thread(UpdateSettings);
+            Thread thread5 = new Thread(UpdateKeyUtils);
 
 
             Console.ForegroundColor = ConsoleColor.White;
-            //Console.WriteLine("Smurf Bot 0.1 \n For local development use only. Do not redistribute");
             Console.Title = "Smurf Bot";
 
             Process process = Process.GetProcessesByName("csgo")[0];
             Smurf.GlobalOffensive.Smurf.Attach(process);
 
-            StartThreads(thread1, thread2, thread3, thread4);
+            StartThreads(thread1, thread2, thread3, thread4, thread5);
 
             while (true)
             {
                 //TODO add more threads
                 Smurf.GlobalOffensive.Smurf.Objects.Update();
                 Smurf.GlobalOffensive.Smurf.TriggerBot.Update();
-                Smurf.GlobalOffensive.Smurf.KeyUtils.Update();
-                Smurf.GlobalOffensive.Smurf.Aimbot.Update();
+                //Smurf.GlobalOffensive.Smurf.Aimbot.Update();
                 Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
                 Thread.Sleep(10);
             }
         }
 
-        private static void StartThreads(Thread thread1, Thread thread2, Thread thread3, Thread thread4)
+        private static void StartThreads(params Thread[] threads)
         {
-            List<Thread> threads = new List<Thread> { thread1, thread2, thread3, thread4 };
-
-            foreach (Thread thread in threads)
+            foreach (var thread in threads)
             {
                 thread.IsBackground = true;
                 thread.Priority = ThreadPriority.Highest;
                 thread.Start();
             }
         }
-
         private static void UpdateInfo()
         {
             while (true)
@@ -85,7 +81,7 @@ namespace SimpleExternal
                 Thread.Sleep(10);
             }
         }
-        private static void UpdateRCS()
+        private static void UpdateRcs()
         {
             while (true)
             {
@@ -98,6 +94,14 @@ namespace SimpleExternal
             while (true)
             {
                 Smurf.GlobalOffensive.Smurf.Settings.Update();
+                Thread.Sleep(10);
+            }
+        }
+        private static void UpdateKeyUtils()
+        {
+            while (true)
+            {
+                Smurf.GlobalOffensive.Smurf.KeyUtils.Update();
                 Thread.Sleep(10);
             }
         }
