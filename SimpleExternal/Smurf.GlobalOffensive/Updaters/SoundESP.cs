@@ -18,7 +18,7 @@ namespace Smurf.GlobalOffensive.Updaters
 
         public void Update()
         {
-            if (Smurf.LocalPlayer == null)
+            if (!Smurf.Objects.ShouldUpdate(false, false, false))
                 return;
 
             ReadSettings();

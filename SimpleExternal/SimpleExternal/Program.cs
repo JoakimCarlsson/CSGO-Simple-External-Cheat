@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
+using System.Linq;
 using System.Threading;
 
 namespace SimpleExternal
@@ -10,7 +9,7 @@ namespace SimpleExternal
     {
         private static void Main(string[] args)
         {
-            Thread thread1 = new Thread(UpdateInfo);
+            Thread thread1 = new Thread(PrintInfo);
             Thread thread2 = new Thread(UpdateBHop);
             Thread thread3 = new Thread(UpdateRcs);
             Thread thread4 = new Thread(UpdateSettings);
@@ -22,17 +21,15 @@ namespace SimpleExternal
 
             Process process = Process.GetProcessesByName("csgo")[0];
             Smurf.GlobalOffensive.Smurf.Attach(process);
-
             StartThreads(thread1, thread2, thread3, thread4, thread5);
 
             while (true)
             {
-                //TODO add more threads
                 Smurf.GlobalOffensive.Smurf.Objects.Update();
                 Smurf.GlobalOffensive.Smurf.TriggerBot.Update();
-                //Smurf.GlobalOffensive.Smurf.Aimbot.Update();
-                Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
-                Thread.Sleep(10);
+               // Smurf.GlobalOffensive.Smurf.Aimbot.Update();
+                //Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
+                Thread.Sleep(5);
             }
         }
 
@@ -45,7 +42,7 @@ namespace SimpleExternal
                 thread.Start();
             }
         }
-        private static void UpdateInfo()
+        private static void PrintInfo()
         {
             while (true)
             {
@@ -69,7 +66,10 @@ namespace SimpleExternal
                     Console.WriteLine("Immune: \t{0}", me.GunGameImmune);
                     Console.WriteLine("Active Weapon: \t{0}", myWeapon.WeaponName);
                     Console.WriteLine("Clip1: \t{0}",myWeapon.Clip1);
+                    if (Smurf.GlobalOffensive.Smurf.Aimbot.ValidTargets != null)
+                        Console.WriteLine("valid Targets: \t{0}", Smurf.GlobalOffensive.Smurf.Aimbot.ValidTargets.Count());
                 }
+                //Thread.Sleep(10);
                 Thread.Sleep(500);
             }
         }

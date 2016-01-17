@@ -21,7 +21,7 @@ namespace Smurf.GlobalOffensive.Updaters
         #region Methods
         public void Update()
         {
-            if (Smurf.LocalPlayer == null)
+            if (!Smurf.Objects.ShouldUpdate())
                 return;
 
             ReadSettings();
@@ -41,8 +41,7 @@ namespace Smurf.GlobalOffensive.Updaters
                     }
                     else
                     {
-                        if (
-                            !(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _delayFirstShot))
+                        if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _delayFirstShot))
                             return;
                         if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _delayShots))
                             return;
@@ -51,10 +50,8 @@ namespace Smurf.GlobalOffensive.Updaters
                         if (_spawnProtection)
                             if (target.GunGameImmune)
                                 return;
-
                         Shoot();
                     }
-
                 }
             }
             else
@@ -73,7 +70,6 @@ namespace Smurf.GlobalOffensive.Updaters
             _delayFirstShot = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Delay FirstShot");
             _delayShots = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Delay Shots");
         }
-
         private static void Shoot()
         {
             WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTDOWN, 0, 0, 0, 0);

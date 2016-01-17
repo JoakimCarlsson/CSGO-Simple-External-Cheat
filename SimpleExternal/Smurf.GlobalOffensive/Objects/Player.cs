@@ -11,7 +11,9 @@ namespace Smurf.GlobalOffensive.Objects
         {
 
         }
+
         public Vector3 VecVelocity => ReadField<Vector3>(Offsets.Player.VecVelocity);
+        //TODO This will return the velocity of the localplayer.
         public int Velocity => GetVelocity();
         public bool InAir => IsInAir();
         private bool IsInAir()

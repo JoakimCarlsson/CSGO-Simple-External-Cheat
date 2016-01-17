@@ -8,10 +8,10 @@ namespace Smurf.GlobalOffensive.Updaters
         #region Methods
         public void Update()
         {
-                if (Smurf.LocalPlayer == null)
-                    return;
+            if (!Smurf.Objects.ShouldUpdate(false, false))
+                return;
 
-                ReadSettings();
+            ReadSettings();
 
                 if (!_bunnyJumpEnabled)
                     return;

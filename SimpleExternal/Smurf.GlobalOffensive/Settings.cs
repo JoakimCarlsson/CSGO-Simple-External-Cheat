@@ -31,7 +31,6 @@ namespace Smurf.GlobalOffensive
                 _data = Parser.ReadFile("Config.ini");
             }
         }
-
         private void CreateConfigFile()
         {
             List<string> snipersList = new List<string>
@@ -54,8 +53,6 @@ namespace Smurf.GlobalOffensive
                 "XM1014",
                 "Sawedoff",
                 "Mag7",
-                //TODO this should not be used, will fix it later.
-                "Default"
             };
 
             List<string> smgList = new List<string>
@@ -108,6 +105,15 @@ namespace Smurf.GlobalOffensive
             foreach (var weapon in pistolList)
             {
                 builder.AppendLine("[" + weapon + "]");
+                //Aimbot
+                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aim Key = 01");
+                builder.AppendLine("Aim FOV = 3");
+                builder.AppendLine("Aim Bone = 6");
+                builder.AppendLine("Aim Smooth = 50");
+                builder.AppendLine("Aim Spotted = True");
+                builder.AppendLine("Aim Enemies = True");
+                builder.AppendLine("Aim Allies = False").AppendLine();
                 //RCS
                 builder.AppendLine("Rcs Enabled = False");
                 builder.AppendLine("Rcs Start = 1");
@@ -126,6 +132,16 @@ namespace Smurf.GlobalOffensive
             foreach (var weapon in rifleList)
             {
                 builder.AppendLine("[" + weapon + "]");
+                //Aimbot
+                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aim Key = 01");
+                builder.AppendLine("Aim FOV = 3");
+                builder.AppendLine("Aim Bone = 6");
+                builder.AppendLine("Aim Smooth = 50");
+                builder.AppendLine("Aim Spotted = True");
+                builder.AppendLine("Aim Enemies = True");
+                builder.AppendLine("Aim Allies = False").AppendLine();
+
                 //RCS
                 builder.AppendLine("Rcs Enabled = True");
                 builder.AppendLine("Rcs Start = 1");
@@ -144,6 +160,15 @@ namespace Smurf.GlobalOffensive
             foreach (var weapon in smgList)
             {
                 builder.AppendLine("[" + weapon + "]");
+                //Aimbot
+                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aim Key = 01");
+                builder.AppendLine("Aim FOV = 3");
+                builder.AppendLine("Aim Bone = 6");
+                builder.AppendLine("Aim Smooth = 50");
+                builder.AppendLine("Aim Spotted = True");
+                builder.AppendLine("Aim Enemies = True");
+                builder.AppendLine("Aim Allies = False").AppendLine();
                 //RCS
                 builder.AppendLine("Rcs Enabled = True");
                 builder.AppendLine("Rcs Start = 1");
@@ -162,6 +187,15 @@ namespace Smurf.GlobalOffensive
             foreach (var weapon in snipersList)
             {
                 builder.AppendLine("[" + weapon + "]");
+                //Aimbot
+                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aim Key = 01");
+                builder.AppendLine("Aim FOV = 3");
+                builder.AppendLine("Aim Bone = 6");
+                builder.AppendLine("Aim Smooth = 50");
+                builder.AppendLine("Aim Spotted = True");
+                builder.AppendLine("Aim Enemies = True");
+                builder.AppendLine("Aim Allies = False").AppendLine();
                 //RCS
                 builder.AppendLine("Rcs Enabled = False");
                 builder.AppendLine("Rcs Start = 1");
@@ -180,8 +214,17 @@ namespace Smurf.GlobalOffensive
             foreach (var weapon in machineGunList)
             {
                 builder.AppendLine("[" + weapon + "]");
+                //Aimbot
+                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aim Key = 01");
+                builder.AppendLine("Aim FOV = 3");
+                builder.AppendLine("Aim Bone = 6");
+                builder.AppendLine("Aim Smooth = 50");
+                builder.AppendLine("Aim Spotted = True");
+                builder.AppendLine("Aim Enemies = True");
+                builder.AppendLine("Aim Allies = False").AppendLine();
                 //RCS
-                builder.AppendLine("Rcs False = True");
+                builder.AppendLine("Rcs Enabled = True");
                 builder.AppendLine("Rcs Start = 1");
                 builder.AppendLine("Rcs Force Yaw = 2,1");
                 builder.AppendLine("Rcs Force Pitch = 2,2").AppendLine();
@@ -198,8 +241,17 @@ namespace Smurf.GlobalOffensive
             foreach (var weapon in heavyList)
             {
                 builder.AppendLine("[" + weapon + "]");
+                //Aimbot
+                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aim Key = 01");
+                builder.AppendLine("Aim FOV = 3");
+                builder.AppendLine("Aim Bone = 6");
+                builder.AppendLine("Aim Smooth = 50");
+                builder.AppendLine("Aim Spotted = True");
+                builder.AppendLine("Aim Enemies = True");
+                builder.AppendLine("Aim Allies = False").AppendLine();
                 //RCS
-                builder.AppendLine("Rcs False = True");
+                builder.AppendLine("Rcs Enabled = True");
                 builder.AppendLine("Rcs Start = 1");
                 builder.AppendLine("Rcs Force Yaw = 2,1");
                 builder.AppendLine("Rcs Force Pitch = 2,2").AppendLine();
@@ -253,6 +305,7 @@ namespace Smurf.GlobalOffensive
 
         public bool GetBool(string section, string key)
         {
+
             var keyValue = _data[section][key];
             var setting = bool.Parse(keyValue);
             return setting;

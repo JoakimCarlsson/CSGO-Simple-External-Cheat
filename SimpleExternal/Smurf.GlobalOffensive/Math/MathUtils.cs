@@ -12,39 +12,18 @@ namespace Smurf.GlobalOffensive.Math
         #region Methods
         public static Vector3 ClampAngle(this Vector3 src)
         {
-            if (src.X > 89.0f && src.X <= 180.0f)
-            {
-                src.X = 89.0f;
-            }
-
-            if (src.X > 180f)
-            {
+            if (src.X > 89f)
                 src.X -= 360f;
-            }
-
-            if (src.X < -89.0f)
-            {
-                src.X = -89.0f;
-            }
-
+            else if (src.X < -89f)
+                src.X += 360f;
             if (src.Y > 180f)
-            {
                 src.Y -= 360f;
-            }
-
-            if (src.Y < -180f)
-            {
+            else if (src.Y < -180f)
                 src.Y += 360f;
-            }
 
-            if (src.Z != 0.0f)
-            {
-                src.Z = 0.0f;
-            }
-
+            src.Z = 0;
             return src;
         }
-
         public static Vector3 CalcAngle(this Vector3 src, Vector3 dst)
         {
             Vector3 ret = new Vector3();
@@ -62,11 +41,6 @@ namespace Smurf.GlobalOffensive.Math
         public static float RadiansToDegrees(float rad)
         {
             return (float)(rad * RAD_2_DEG);
-        }
-
-        public static Vector3 SmoothAngle(this Vector3 src, Vector3 dest, float smoothAmount)
-        {
-            return src + (dest - src) * smoothAmount;
         }
         #endregion
     }
