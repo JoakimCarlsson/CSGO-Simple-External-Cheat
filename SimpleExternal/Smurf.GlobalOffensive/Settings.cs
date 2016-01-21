@@ -74,7 +74,7 @@ namespace Smurf.GlobalOffensive
                 "P228",
                 "P250",
                 "HKP2000",
-                "Tec9",  
+                "Tec9",
             };
 
             List<string> rifleList = new List<string>
@@ -108,7 +108,7 @@ namespace Smurf.GlobalOffensive
                 //Aimbot
                 builder.AppendLine("Aimbot Enabled = True");
                 builder.AppendLine("Aim Key = 01");
-                builder.AppendLine("Aim FOV = 3");
+                builder.AppendLine("Aim Fov = 3");
                 builder.AppendLine("Aim Bone = 6");
                 builder.AppendLine("Aim Smooth = 50");
                 builder.AppendLine("Aim Spotted = True");
@@ -135,7 +135,7 @@ namespace Smurf.GlobalOffensive
                 //Aimbot
                 builder.AppendLine("Aimbot Enabled = True");
                 builder.AppendLine("Aim Key = 01");
-                builder.AppendLine("Aim FOV = 3");
+                builder.AppendLine("Aim Fov = 3");
                 builder.AppendLine("Aim Bone = 6");
                 builder.AppendLine("Aim Smooth = 50");
                 builder.AppendLine("Aim Spotted = True");
@@ -163,7 +163,7 @@ namespace Smurf.GlobalOffensive
                 //Aimbot
                 builder.AppendLine("Aimbot Enabled = True");
                 builder.AppendLine("Aim Key = 01");
-                builder.AppendLine("Aim FOV = 3");
+                builder.AppendLine("Aim Fov = 3");
                 builder.AppendLine("Aim Bone = 6");
                 builder.AppendLine("Aim Smooth = 50");
                 builder.AppendLine("Aim Spotted = True");
@@ -188,9 +188,9 @@ namespace Smurf.GlobalOffensive
             {
                 builder.AppendLine("[" + weapon + "]");
                 //Aimbot
-                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aimbot Enabled = False");
                 builder.AppendLine("Aim Key = 01");
-                builder.AppendLine("Aim FOV = 3");
+                builder.AppendLine("Aim Fov = 3");
                 builder.AppendLine("Aim Bone = 6");
                 builder.AppendLine("Aim Smooth = 50");
                 builder.AppendLine("Aim Spotted = True");
@@ -215,9 +215,9 @@ namespace Smurf.GlobalOffensive
             {
                 builder.AppendLine("[" + weapon + "]");
                 //Aimbot
-                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aimbot Enabled = False");
                 builder.AppendLine("Aim Key = 01");
-                builder.AppendLine("Aim FOV = 3");
+                builder.AppendLine("Aim Fov = 3");
                 builder.AppendLine("Aim Bone = 6");
                 builder.AppendLine("Aim Smooth = 50");
                 builder.AppendLine("Aim Spotted = True");
@@ -242,9 +242,9 @@ namespace Smurf.GlobalOffensive
             {
                 builder.AppendLine("[" + weapon + "]");
                 //Aimbot
-                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aimbot Enabled = False");
                 builder.AppendLine("Aim Key = 01");
-                builder.AppendLine("Aim FOV = 3");
+                builder.AppendLine("Aim Fov = 3");
                 builder.AppendLine("Aim Bone = 6");
                 builder.AppendLine("Aim Smooth = 50");
                 builder.AppendLine("Aim Spotted = True");
@@ -256,7 +256,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Rcs Force Yaw = 2,1");
                 builder.AppendLine("Rcs Force Pitch = 2,2").AppendLine();
                 //Trigger
-                builder.AppendLine("Trigger Enabled = False");
+                builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 18");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
@@ -277,9 +277,17 @@ namespace Smurf.GlobalOffensive
 
         public int GetInt(string section, string key)
         {
-            var keyValue = _data[section][key];
-            var setting = int.Parse(keyValue);
-            return setting;
+            try
+            {
+                var keyValue = _data[section][key];
+                var setting = int.Parse(keyValue);
+                return setting;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return 0;
         }
 
         public string GetString(string section, string key)
@@ -298,24 +306,47 @@ namespace Smurf.GlobalOffensive
 
         public float GetFloat(string section, string key)
         {
-            var keyValue = _data[section][key];
-            var setting = float.Parse(keyValue);
-            return setting;
+            try
+            {
+                string keyValue = _data[section][key];
+                float setting = float.Parse(keyValue);
+                return setting;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return 0;
         }
 
         public bool GetBool(string section, string key)
         {
-
-            var keyValue = _data[section][key];
-            var setting = bool.Parse(keyValue);
-            return setting;
+            try
+            {
+                var keyValue = _data[section][key];
+                var setting = bool.Parse(keyValue);
+                return setting;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return false;
         }
 
         public WinAPI.VirtualKeyShort GetKey(string section, string key)
         {
-            var keyValue = _data[section][key];
-            var button = (WinAPI.VirtualKeyShort)int.Parse(keyValue);
-            return button;
+            try
+            {
+                var keyValue = _data[section][key];
+                var button = (WinAPI.VirtualKeyShort)int.Parse(keyValue);
+                return button;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return WinAPI.VirtualKeyShort.ACCEPT;
         }
     }
 }

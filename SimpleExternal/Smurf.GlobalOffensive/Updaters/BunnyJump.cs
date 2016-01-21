@@ -8,7 +8,7 @@ namespace Smurf.GlobalOffensive.Updaters
         #region Methods
         public void Update()
         {
-            if (!Smurf.Objects.ShouldUpdate(false, false))
+            if (!Smurf.Objects.ShouldUpdate(false,false,false))
                 return;
 
             ReadSettings();

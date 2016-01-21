@@ -10,9 +10,10 @@ namespace Smurf.GlobalOffensive.Updaters
     {
         #region Fields
         public Vector3 NewViewAngels;
-        private float Yaw, Pitch;
+        private float _maxYaw, _maxPitch, _minYaw, _minPitch;
         private bool _rcsEnabled;
-        private int RcsStart;
+        private int _rcsStart;
+        private string _currentWeapon;
         #endregion
 
         #region Properties
@@ -34,7 +35,7 @@ namespace Smurf.GlobalOffensive.Updaters
             ReadSettïngs();
 
             if (!_rcsEnabled)
-return;
+                return;
 
             ControlRecoil();
             LastPunch = Smurf.LocalPlayer.VecPunch;
@@ -43,7 +44,7 @@ return;
         private void ControlRecoil()
         {
             if (!Smurf.TriggerBot.AimOntarget)
-                if (Smurf.LocalPlayer.ShotsFired <= RcsStart)
+                if (Smurf.LocalPlayer.ShotsFired <= _rcsStart)
                     return;
 
             ViewAngels = Smurf.Memory.Read<Vector3>((IntPtr)(Smurf.ClientState + Offsets.ClientState.ViewAngles));
@@ -54,10 +55,10 @@ return;
             if (punch.X != 0 || punch.Y != 0)
             {
                 //Yaw
-                NewViewAngels.X -= punch.X * Yaw;
+                NewViewAngels.X -= punch.X * _maxYaw;
 
                 //Pitch
-                NewViewAngels.Y -= punch.Y * Pitch;
+                NewViewAngels.Y -= punch.Y * _maxPitch;
 
                 SetViewAngles(NewViewAngels);
             }
@@ -66,9 +67,9 @@ return;
         private void ReadSettïngs()
         {
             _rcsEnabled = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Enabled");
-            Yaw = Smurf.Settings.GetFloat(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Force Yaw");
-            Pitch = Smurf.Settings.GetFloat(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Force Pitch");
-            RcsStart = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Start");
+            _maxYaw = Smurf.Settings.GetFloat(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Force Yaw");
+            _maxPitch = Smurf.Settings.GetFloat(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Force Pitch");
+            _rcsStart = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Start");
         }
 
         public void SetViewAngles(Vector3 viewAngles)

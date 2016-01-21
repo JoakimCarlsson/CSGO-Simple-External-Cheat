@@ -27,7 +27,7 @@ namespace SimpleExternal
             {
                 Smurf.GlobalOffensive.Smurf.Objects.Update();
                 Smurf.GlobalOffensive.Smurf.TriggerBot.Update();
-               // Smurf.GlobalOffensive.Smurf.Aimbot.Update();
+                //Smurf.GlobalOffensive.Smurf.Aimbot.Update();
                 //Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
                 Thread.Sleep(5);
             }
@@ -49,7 +49,7 @@ namespace SimpleExternal
                 Console.Clear();
                 Console.WriteLine("State: {0}\n\n", Smurf.GlobalOffensive.Smurf.Client.State);
 
-                if (Smurf.GlobalOffensive.Smurf.Client.InGame && Smurf.GlobalOffensive.Smurf.LocalPlayer != null && Smurf.GlobalOffensive.Smurf.LocalPlayerWeapon != null &&Smurf.GlobalOffensive.Smurf.LocalPlayer.IsValid)
+                if (Smurf.GlobalOffensive.Smurf.Client.InGame && Smurf.GlobalOffensive.Smurf.LocalPlayer != null && Smurf.GlobalOffensive.Smurf.LocalPlayerWeapon != null &&Smurf.GlobalOffensive.Smurf.LocalPlayer.IsValid && Smurf.GlobalOffensive.Smurf.LocalPlayer.IsAlive)
                 {
                     var me = Smurf.GlobalOffensive.Smurf.LocalPlayer;
                     var myWeapon = Smurf.GlobalOffensive.Smurf.LocalPlayerWeapon;
@@ -66,8 +66,6 @@ namespace SimpleExternal
                     Console.WriteLine("Immune: \t{0}", me.GunGameImmune);
                     Console.WriteLine("Active Weapon: \t{0}", myWeapon.WeaponName);
                     Console.WriteLine("Clip1: \t{0}",myWeapon.Clip1);
-                    if (Smurf.GlobalOffensive.Smurf.Aimbot.ValidTargets != null)
-                        Console.WriteLine("valid Targets: \t{0}", Smurf.GlobalOffensive.Smurf.Aimbot.ValidTargets.Count());
                 }
                 //Thread.Sleep(10);
                 Thread.Sleep(500);

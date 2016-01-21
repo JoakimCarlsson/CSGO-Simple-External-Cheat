@@ -63,9 +63,7 @@ namespace Smurf.GlobalOffensive
                 return;
             }
 
-            // Prevent duplicate entries - more efficient would be maintaining a dictionary and updating entities.
-            // Then again, this is significantly less code, and performance wise not too big an impact. Leave it be for now,
-            // but consider updating this in the future.
+            //TODO Make this a dicionary or tuple so we don't have to .Clear it, update the enties insted.
             _players.Clear();
             //_weapons.Clear();
             //_entities.Clear();
@@ -139,8 +137,6 @@ namespace Smurf.GlobalOffensive
             if (checkKnife)
                 if (Smurf.LocalPlayerWeapon.ClassName == "CKnife")
                     return false;
-
-
 
             return true;
         }

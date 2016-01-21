@@ -39,13 +39,13 @@ namespace Smurf.GlobalOffensive.Objects
         public Vector3 GetBonePos(int baseAdress, int bone)
         {
             int bMatrix = Smurf.Memory.Read<int>((IntPtr)(baseAdress + Offsets.BaseEntity.BoneMatrix));
-            Vector3 vec = new Vector3
+            Vector3 bonePos = new Vector3
             {
                 X = Smurf.Memory.Read<float>((IntPtr)(bMatrix + (0x30 * bone) + 0xC)),
                 Y = Smurf.Memory.Read<float>((IntPtr)(bMatrix + (0x30 * bone) + 0x1C)),
                 Z = Smurf.Memory.Read<float>((IntPtr)(bMatrix + (0x30 * bone) + 0x2C))
             };
-            return vec;
+            return bonePos;
         }
 
     }
