@@ -41,7 +41,7 @@ namespace Smurf.GlobalOffensive.Updaters
             LastPunch = Smurf.LocalPlayer.VecPunch;
         }
 
-        private void ControlRecoil()
+        public void ControlRecoil(bool aimbot = false)
         {
             if (!Smurf.TriggerBot.AimOntarget)
                 if (Smurf.LocalPlayer.ShotsFired <= _rcsStart)
@@ -51,15 +51,10 @@ namespace Smurf.GlobalOffensive.Updaters
             NewViewAngels = ViewAngels;
 
             var punch = Smurf.LocalPlayer.VecPunch - LastPunch;
-
-            if (punch.X != 0 || punch.Y != 0)
+            if ((punch.X != 0 || punch.Y != 0))
             {
-                //Yaw
                 NewViewAngels.X -= punch.X * _maxYaw;
-
-                //Pitch
                 NewViewAngels.Y -= punch.Y * _maxPitch;
-
                 SetViewAngles(NewViewAngels);
             }
         }

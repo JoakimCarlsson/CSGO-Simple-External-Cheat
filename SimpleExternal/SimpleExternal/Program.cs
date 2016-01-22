@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace SimpleExternal
@@ -29,7 +30,7 @@ namespace SimpleExternal
                 Smurf.GlobalOffensive.Smurf.TriggerBot.Update();
                 //Smurf.GlobalOffensive.Smurf.Aimbot.Update();
                 //Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
-                Thread.Sleep(5);
+                Thread.Sleep(3);
             }
         }
 
@@ -49,10 +50,12 @@ namespace SimpleExternal
                 Console.Clear();
                 Console.WriteLine("State: {0}\n\n", Smurf.GlobalOffensive.Smurf.Client.State);
 
-                if (Smurf.GlobalOffensive.Smurf.Client.InGame && Smurf.GlobalOffensive.Smurf.LocalPlayer != null && Smurf.GlobalOffensive.Smurf.LocalPlayerWeapon != null &&Smurf.GlobalOffensive.Smurf.LocalPlayer.IsValid && Smurf.GlobalOffensive.Smurf.LocalPlayer.IsAlive)
+                if (Smurf.GlobalOffensive.Smurf.Client.InGame && Smurf.GlobalOffensive.Smurf.LocalPlayer != null && Smurf.GlobalOffensive.Smurf.LocalPlayerWeapon != null && Smurf.GlobalOffensive.Smurf.LocalPlayer.IsValid && Smurf.GlobalOffensive.Smurf.LocalPlayer.IsAlive)
                 {
                     var me = Smurf.GlobalOffensive.Smurf.LocalPlayer;
                     var myWeapon = Smurf.GlobalOffensive.Smurf.LocalPlayerWeapon;
+                    var t = Smurf.GlobalOffensive.Smurf.Aimbot.ActiveTarget;
+
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("ID:\t\t{0}", me.Id);
                     Console.WriteLine("Health:\t\t{0}", me.Health);
@@ -65,7 +68,12 @@ namespace SimpleExternal
                     Console.WriteLine("VecPunch: \t{0}", me.VecPunch);
                     Console.WriteLine("Immune: \t{0}", me.GunGameImmune);
                     Console.WriteLine("Active Weapon: \t{0}", myWeapon.WeaponName);
-                    Console.WriteLine("Clip1: \t{0}",myWeapon.Clip1);
+                    Console.WriteLine("Clip1: \t{0}", myWeapon.Clip1);
+                    Console.WriteLine("\n");
+                    Console.WriteLine("Active Target Id: \t{0}", t?.Id.ToString() ?? "none");
+                    Console.WriteLine("Active Target Health: \t{0}", t?.Health.ToString() ?? "none");
+                    Console.WriteLine("Active Target Flags: \t{0}", t?.Flags.ToString() ?? "none"); //768 jumping
+                    Console.WriteLine(Smurf.GlobalOffensive.Smurf.ControlRecoil.NewViewAngels);
                 }
                 //Thread.Sleep(10);
                 Thread.Sleep(500);

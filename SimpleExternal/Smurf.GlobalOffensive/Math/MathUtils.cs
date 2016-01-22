@@ -40,7 +40,11 @@ namespace Smurf.GlobalOffensive.Math
 
         public static float RadiansToDegrees(float rad)
         {
-            return (float)(rad * RAD_2_DEG);
+            return rad * RAD_2_DEG;
+        }
+        public static Vector3 SmoothAngle(this Vector3 src, Vector3 dest, float smoothAmount)
+        {
+            return src + (dest - src) * smoothAmount;
         }
         #endregion
     }
