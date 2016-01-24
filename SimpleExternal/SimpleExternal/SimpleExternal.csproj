@@ -95,6 +95,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataBase\DataBase.csproj">
+      <Project>{4B0E5A3C-0BE5-4807-A14B-53ABB6DAE6C2}</Project>
+      <Name>DataBase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Smurf.GlobalOffensive\Smurf.GlobalOffensive.csproj">
       <Project>{e0dc8180-9d77-4d3a-b1d3-6e0f754117d5}</Project>
       <Name>Smurf.GlobalOffensive</Name>

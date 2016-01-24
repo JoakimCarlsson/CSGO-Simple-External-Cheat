@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -10,26 +11,45 @@ namespace SimpleExternal
     {
         private static void Main(string[] args)
         {
-           // Thread thread1 = new Thread(PrintInfo);
-            Thread thread2 = new Thread(UpdateBHop);
-            Thread thread3 = new Thread(UpdateRcs);
-            Thread thread4 = new Thread(UpdateSettings);
-            Thread thread5 = new Thread(UpdateKeyUtils);
-
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Title = "Smurf Bot";
-
-            Process process = Process.GetProcessesByName("csgo")[0];
-            Smurf.GlobalOffensive.Smurf.Attach(process);
-            StartThreads(/*thread1,*/ thread2, thread3, thread4, thread5);
-
-            while (true)
+            if (!File.Exists("Config.ini"))
             {
-                Smurf.GlobalOffensive.Smurf.Objects.Update();
-                Smurf.GlobalOffensive.Smurf.TriggerBot.Update();
-                //Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
-                Thread.Sleep(3);
+                Smurf.GlobalOffensive.Smurf.connection.Main();
+            }
+            else
+            {
+                var username = Smurf.GlobalOffensive.Smurf.GetUsername();
+                var password = Smurf.GlobalOffensive.Smurf.GetPassword();
+                Smurf.GlobalOffensive.Smurf.connection.Login(username, password);
+            }
+
+            if (Smurf.GlobalOffensive.Smurf.connection.loggedIn)
+            {
+                // Thread thread1 = new Thread(PrintInfo);
+                Thread thread2 = new Thread(UpdateBHop);
+                Thread thread3 = new Thread(UpdateRcs);
+                Thread thread4 = new Thread(UpdateSettings);
+                Thread thread5 = new Thread(UpdateKeyUtils);
+
+
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Title = "Smurf Bot";
+
+                Process process = Process.GetProcessesByName("csgo")[0];
+                Smurf.GlobalOffensive.Smurf.Attach(process);
+                StartThreads(/*thread1,*/ thread2, thread3, thread4, thread5);
+
+                while (true)
+                {
+                    Smurf.GlobalOffensive.Smurf.Objects.Update();
+                    Smurf.GlobalOffensive.Smurf.TriggerBot.Update();
+                    Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
+                    Thread.Sleep(3);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Wrong username or password");
+                Console.ReadLine();
             }
         }
 
@@ -104,5 +124,7 @@ namespace SimpleExternal
                 Thread.Sleep(10);
             }
         }
+
+
     }
 }

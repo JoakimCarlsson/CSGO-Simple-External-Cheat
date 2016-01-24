@@ -11,6 +11,7 @@ namespace Smurf.GlobalOffensive.Updaters
     {
         private long _lastBeep;
         private bool _enabled;
+        private int _sound;
         private float _range;
         private float _interval;
         private float _volume;
@@ -25,6 +26,8 @@ namespace Smurf.GlobalOffensive.Updaters
 
             if (_enabled)
             {
+                Smurf.SoundManager.SetVolume(_volume / 100f);
+
                 var span = new TimeSpan(DateTime.Now.Ticks - _lastBeep);
                 if (span.TotalMilliseconds > _interval)
                 {
@@ -51,7 +54,7 @@ namespace Smurf.GlobalOffensive.Updaters
                     break;
                 }
                 if (leastDist == float.MaxValue) return;
-               // Console.Beep();
+                Smurf.SoundManager.Play(_sound - 1);
                 Thread.Sleep(50);
                 _lastBeep = DateTime.Now.Ticks;
             }
@@ -61,6 +64,7 @@ namespace Smurf.GlobalOffensive.Updaters
         {
             _enabled = Smurf.Settings.GetBool("Sound ESP", "Sound ESP");
             _range = Smurf.Settings.GetInt("Sound ESP", "Sound Range");
+            _sound = Smurf.Settings.GetInt("Sound ESP", "Sonar Sound");
             _interval = Smurf.Settings.GetInt("Sound ESP", "Sound Interval");
             _volume = Smurf.Settings.GetInt("Sound ESP", "Sound Volume");
         }

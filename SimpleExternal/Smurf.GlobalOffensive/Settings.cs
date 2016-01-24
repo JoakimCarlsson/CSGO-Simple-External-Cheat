@@ -11,11 +11,14 @@ namespace Smurf.GlobalOffensive
     {
         private static readonly FileIniDataParser Parser = new FileIniDataParser();
         private IniData _data;
-        public Settings()
+        public Settings(bool createConfig = false)
         {
             if (!File.Exists("Config.ini"))
             {
-                CreateConfigFile();
+                if (createConfig)
+                {
+                  CreateConfigFile();
+                }
             }
             _data = Parser.ReadFile("Config.ini");
         }
@@ -88,6 +91,10 @@ namespace Smurf.GlobalOffensive
             };
 
             var builder = new StringBuilder();
+            builder.AppendLine("[User]");
+            builder.AppendLine("Username = " + Smurf.connection.username);
+            builder.AppendLine("Password = " + Smurf.connection.password).AppendLine();
+
             builder.AppendLine("[Bunny Jump]");
             builder.AppendLine("Bunny Jump Enabled = True");
             builder.AppendLine("Bunny Jump Key = 32").AppendLine();
@@ -97,6 +104,7 @@ namespace Smurf.GlobalOffensive
             builder.AppendLine("Sound ESP = True");
             builder.AppendLine("Sound Range = 10");
             builder.AppendLine("Sound Interval = 1000");
+            builder.AppendLine("Sonar Sound = 1");
             builder.AppendLine("Sound Volume = 100").AppendLine();
             //Misc
             builder.AppendLine("[Misc]");
@@ -248,7 +256,6 @@ namespace Smurf.GlobalOffensive
             var setting = uint.Parse(keyValue);
             return setting;
         }
-
         public float GetFloat(string section, string key)
         {
             try
