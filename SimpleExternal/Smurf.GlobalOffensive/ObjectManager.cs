@@ -63,7 +63,6 @@ namespace Smurf.GlobalOffensive
                 return;
             }
 
-            //TODO Make this a dicionary or tuple so we don't have to .Clear it, update the enties insted.
             _players.Clear();
             //_weapons.Clear();
             //_entities.Clear();

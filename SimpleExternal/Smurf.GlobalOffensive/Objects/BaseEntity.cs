@@ -53,8 +53,8 @@ namespace Smurf.GlobalOffensive.Objects
 	    private int VirtualTable => ReadField<int>(0x08);
         public bool GunGameImmune => ReadField<bool>(Offsets.Player.GunGameImmune);
 	    public Vector3 VecPunch => ReadField<Vector3>(Offsets.LocalPlayer.VecPunch);
-	    public long SpottedByMask => ReadField<long>(Offsets.BaseEntity.SpottedByMask);
-	    public bool IsSpotted => ReadField<bool>(Offsets.BaseEntity.Spotted);
+	   // public long SpottedByMask => ReadField<long>(Offsets.BaseEntity.SpottedByMask);
+	   // public bool IsSpotted => ReadField<bool>(Offsets.BaseEntity.Spotted);
 
 
         public bool IsWeapon()
@@ -161,13 +161,13 @@ namespace Smurf.GlobalOffensive.Objects
                 return "none";
             }
         }
-        public bool SeenBy(int entityIndex)
-        {
-            return (SpottedByMask & (0x1 << entityIndex)) != 0;
-        }
-        public bool SeenBy(BaseEntity ent)
-        {
-            return SeenBy(ent.Id - 1);
-        }
+        //public bool SeenBy(int entityIndex)
+        //{
+        //    return (SpottedByMask & (0x1 << entityIndex)) != 0;
+        //}
+        //public bool SeenBy(BaseEntity ent)
+        //{
+        //    return SeenBy(ent.Id - 1);
+        //}
     }
 }
