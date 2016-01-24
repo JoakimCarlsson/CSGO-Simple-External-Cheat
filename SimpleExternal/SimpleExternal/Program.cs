@@ -54,7 +54,6 @@ namespace SimpleExternal
                 {
                     var me = Smurf.GlobalOffensive.Smurf.LocalPlayer;
                     var myWeapon = Smurf.GlobalOffensive.Smurf.LocalPlayerWeapon;
-                    var t = Smurf.GlobalOffensive.Smurf.Aimbot.ActiveTarget;
 
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("ID:\t\t{0}", me.Id);
@@ -70,10 +69,6 @@ namespace SimpleExternal
                     Console.WriteLine("Active Weapon: \t{0}", myWeapon.WeaponName);
                     Console.WriteLine("Clip1: \t{0}", myWeapon.Clip1);
                     Console.WriteLine("\n");
-                    Console.WriteLine("Active Target Id: \t{0}", t?.Id.ToString() ?? "none");
-                    Console.WriteLine("Active Target Health: \t{0}", t?.Health.ToString() ?? "none");
-                    Console.WriteLine("Active Target Flags: \t{0}", t?.Flags.ToString() ?? "none"); //768 jumping
-                    Console.WriteLine(Smurf.GlobalOffensive.Smurf.ControlRecoil.NewViewAngels);
                 }
                 //Thread.Sleep(10);
                 Thread.Sleep(500);

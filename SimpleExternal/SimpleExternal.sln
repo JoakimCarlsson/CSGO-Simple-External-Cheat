@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smurf.GlobalOffensive", "Sm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smurf.Common", "Smurf.Common\Smurf.Common.csproj", "{9BDCFB93-87DD-44D6-93D2-82BFDCD4DFE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smurf.GlobalOffensive.Tests", "Smurf.GlobalOffensive.Tests\Smurf.GlobalOffensive.Tests.csproj", "{D5362B83-C19A-4162-AF16-A8EFA2C8EFCA}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,18 +55,6 @@ Global
 		{9BDCFB93-87DD-44D6-93D2-82BFDCD4DFE8}.Release|x64.Build.0 = Release|x64
 		{9BDCFB93-87DD-44D6-93D2-82BFDCD4DFE8}.Release|x86.ActiveCfg = Release|x86
 		{9BDCFB93-87DD-44D6-93D2-82BFDCD4DFE8}.Release|x86.Build.0 = Release|x86
-		{D5362B83-C19A-4162-AF16-A8EFA2C8EFCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5362B83-C19A-4162-AF16-A8EFA2C8EFCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5362B83-C19A-4162-AF16-A8EFA2C8EFCA}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{D5362B83-C19A-4162-AF16-A8EFA2C8EFCA}.Debug|x64.Build.0 = Debug|Any CPU
-		{D5362B83-C19A-4162-AF16-A8EFA2C8EFCA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D5362B83-C19A-4162-AF16-A8EFA2C8EFCA}.Debug|x86.Build.0 = Debug|Any CPU
-		{D5362B83-C19A-4162-AF16-A8EFA2C8EFCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5362B83-C19A-4162-AF16-A8EFA2C8EFCA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5362B83-C19A-4162-AF16-A8EFA2C8EFCA}.Release|x64.ActiveCfg = Release|Any CPU
-		{D5362B83-C19A-4162-AF16-A8EFA2C8EFCA}.Release|x64.Build.0 = Release|Any CPU
-		{D5362B83-C19A-4162-AF16-A8EFA2C8EFCA}.Release|x86.ActiveCfg = Release|Any CPU
-		{D5362B83-C19A-4162-AF16-A8EFA2C8EFCA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

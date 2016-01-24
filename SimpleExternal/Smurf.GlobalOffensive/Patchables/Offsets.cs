@@ -60,12 +60,12 @@
             public static int ItemDefinitionIndex = 0x000032B4;
             public static int State = 0x000031E8;
             public static int Clip1 = 0x000031F4;
-            public static int NextPrimaryAttack = 0x000031C8;
+           // public static int NextPrimaryAttack = 0x000031C8;
             public static int WeaponId = 0x000032DC;
-            public static int CanReload = 0x00003235;
+            //public static int CanReload = 0x00003235;
             public static int WeaponTableIndex = 0x00004E70;
             public static int AccuracyPenalty = 0x00004EC0;
-            public static int ZoomLevel = 0x000032B0;
+            //public static int ZoomLevel = 0x000032B0;
         }
     }
 }
