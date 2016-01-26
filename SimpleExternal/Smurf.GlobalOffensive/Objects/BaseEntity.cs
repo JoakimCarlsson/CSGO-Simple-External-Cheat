@@ -39,7 +39,9 @@ namespace Smurf.GlobalOffensive.Objects
         }
         public int Id => ReadField<int>(Offsets.BaseEntity.Index);
 		public Vector3 Position => ReadField<Vector3>(Offsets.BaseEntity.Position);
+		public Vector3 VecView => ReadField<Vector3>(Offsets.LocalPlayer.VecViewOffset);
         public int Health => ReadField<int>(Offsets.BaseEntity.Health);
+		public int Armor => ReadField<int>(Offsets.BaseEntity.Armor);
 		public int Flags => ReadField<int>(Offsets.Player.Flags);
 		public bool IsDormant => ReadField<int>(Offsets.BaseEntity.Dormant) == 1;
 		public bool IsAlive => ReadField<byte>(Offsets.Player.LifeState) == 0;
