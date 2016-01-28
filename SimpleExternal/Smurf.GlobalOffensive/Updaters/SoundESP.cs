@@ -9,6 +9,7 @@ namespace Smurf.GlobalOffensive.Updaters
 {
     public class SoundESP
     {
+        private int _sound;
         private long _lastBeep;
         private bool _enabled;
         private float _range;
@@ -18,7 +19,7 @@ namespace Smurf.GlobalOffensive.Updaters
 
         public void Update()
         {
-            if (!Smurf.Objects.ShouldUpdate(false, false,false))
+            if (!Smurf.Objects.ShouldUpdate(false, false, false))
                 return;
 
             ReadSettings();
@@ -50,8 +51,11 @@ namespace Smurf.GlobalOffensive.Updaters
                     leastDist = distance;
                     break;
                 }
-                if (leastDist == float.MaxValue) return;
-               // Console.Beep();
+                if (leastDist == float.MaxValue)
+                    return;
+
+                //Smurf.SoundManager.Play(0);
+                Smurf.SoundManager.Play(_sound - 1);
                 Thread.Sleep(50);
                 _lastBeep = DateTime.Now.Ticks;
             }
@@ -63,6 +67,7 @@ namespace Smurf.GlobalOffensive.Updaters
             _range = Smurf.Settings.GetInt("Sound ESP", "Sound Range");
             _interval = Smurf.Settings.GetInt("Sound ESP", "Sound Interval");
             _volume = Smurf.Settings.GetInt("Sound ESP", "Sound Volume");
+            _sound = Smurf.Settings.GetInt("Sound ESP", "Sound Track");
         }
     }
 }

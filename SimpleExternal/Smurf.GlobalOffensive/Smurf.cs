@@ -3,6 +3,7 @@ using System.Diagnostics;
 using BlueRain;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Patchables;
+using Smurf.GlobalOffensive.Properties;
 using Smurf.GlobalOffensive.Updaters;
 
 namespace Smurf.GlobalOffensive
@@ -21,6 +22,7 @@ namespace Smurf.GlobalOffensive
         public static TriggerBot TriggerBot { get; set; }
         public static BunnyJump BunnyJump { get; set; }
         public static SoundESP SoundEsp { get; set; }
+        public static SoundManager SoundManager { get; set; }
         public static KeyUtils KeyUtils { get; set; }
         public static GameClient Client { get; private set; }
         public static IntPtr ClientBase { get; private set; }
@@ -57,6 +59,7 @@ namespace Smurf.GlobalOffensive
             BunnyJump = new BunnyJump();
             Settings = new Settings();
             SoundEsp = new SoundESP();
+            SoundManager = new SoundManager(2);
 
             var enginePtr = Memory.Read<IntPtr>(EngineBase + Offsets.ClientState.Base);
 
@@ -71,6 +74,7 @@ namespace Smurf.GlobalOffensive
 
            //Console.WriteLine($"Smurf attached successfully to process with ID {process.Id}.");
 
+            SoundManager.Add(0, Resources.beep);
             _isAttached = true;
         }
     }
