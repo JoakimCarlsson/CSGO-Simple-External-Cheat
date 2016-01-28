@@ -10,7 +10,8 @@ namespace SimpleExternal
     {
         private static void Main(string[] args)
         {
-            LicenseGlobal.Seal.Initialize("6A5E0000");
+            //LicenseGlobal.Seal.Initialize("6A5E0000");
+
             Thread thread1 = new Thread(PrintInfo);
             Thread thread2 = new Thread(UpdateBHop);
             Thread thread3 = new Thread(UpdateRcs);
@@ -19,7 +20,7 @@ namespace SimpleExternal
 
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Title = "Smurf Bots";
+            Console.Title = "Smurf Bot";
 
             Process process = Process.GetProcessesByName("csgo")[0];
             Smurf.GlobalOffensive.Smurf.Attach(process);
@@ -30,6 +31,7 @@ namespace SimpleExternal
                 Smurf.GlobalOffensive.Smurf.Objects.Update();
                 Smurf.GlobalOffensive.Smurf.TriggerBot.Update();
                 Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
+                Smurf.GlobalOffensive.Smurf.Radar.Update();
                 Thread.Sleep(3);
             }
         }
@@ -68,7 +70,6 @@ namespace SimpleExternal
                     Console.WriteLine("Immune: \t{0}", me.GunGameImmune);
                     Console.WriteLine("Active Weapon: \t{0}", myWeapon.WeaponName);
                     Console.WriteLine("Clip1: \t{0}", myWeapon.Clip1);
-                    Console.WriteLine("\n");
                 }
                 Thread.Sleep(500);
             }

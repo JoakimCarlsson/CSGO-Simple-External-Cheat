@@ -1,4 +1,6 @@
-﻿namespace Smurf.GlobalOffensive.Patchables
+﻿using System.Windows.Forms;
+
+namespace Smurf.GlobalOffensive.Patchables
 {
     class Offsets
     {
@@ -35,6 +37,7 @@
             public static int Dormant = 0x000000E9;
             public static int Index = 0x64;
             public static int EntitySize = 0x10;
+            public static int Spotted = 0x935;
         }
 
         public class Player
