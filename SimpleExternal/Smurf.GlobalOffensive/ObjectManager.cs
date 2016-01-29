@@ -32,9 +32,7 @@ namespace Smurf.GlobalOffensive
         /// <param name="ticksPerSecond">The ticks per second.</param>
         public ObjectManager(IntPtr baseAddress, int ticksPerSecond = 10) : base(baseAddress)
         {
-            //_capacity = capacity;
             _ticksPerSecond = ticksPerSecond;
-            //Console.WriteLine($"ObjectManager initialized. Capacity = {capacity}, TPS = {ticksPerSecond}");
         }
 
         public IReadOnlyList<Player> Players => _players;
@@ -70,11 +68,10 @@ namespace Smurf.GlobalOffensive
 
             var localPlayerPtr = Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.LocalPlayer);
 
-
             LocalPlayer = new LocalPlayer(localPlayerPtr);
             LocalPlayerWeapon = LocalPlayer.GetCurrentWeapon(localPlayerPtr);
 
-            var capacity = Smurf.Memory.Read<int>(Smurf.ClientBase + (int)Offsets.Misc.EntityList + 0x4);
+            var capacity = Smurf.Memory.Read<int>(Smurf.ClientBase + Offsets.Misc.EntityList + 0x4);
             for (var i = 0; i < capacity; i++)
             {
                 var entity = new BaseEntity(GetEntityPtr(i));

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace SimpleExternal
 {
     internal class Program
     {
+        private static Process[] _processesName;
         private static void Main(string[] args)
         {
             //LicenseGlobal.Seal.Initialize("6A5E0000");

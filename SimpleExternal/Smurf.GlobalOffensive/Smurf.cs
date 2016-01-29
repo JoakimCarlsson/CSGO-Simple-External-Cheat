@@ -38,7 +38,6 @@ namespace Smurf.GlobalOffensive
                 Memory = new LocalProcessMemory(process);
             else
                 Memory = new ExternalProcessMemory(process);
-
             ClientBase = Memory.GetModule("client.dll").BaseAddress;
             EngineBase = Memory.GetModule("engine.dll").BaseAddress;
             ClientState = Memory.Read<int>(EngineBase + Offsets.ClientState.Base);

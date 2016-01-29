@@ -22,11 +22,6 @@ namespace Smurf.GlobalOffensive.Patchables
             public static int ViewAngles = 0x00004D0C;
         }
 
-        public class GameResources
-        {
-
-        }
-
         public class BaseEntity
         {
             //m_vecOrigin
