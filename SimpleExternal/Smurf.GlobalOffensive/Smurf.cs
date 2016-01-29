@@ -43,7 +43,7 @@ namespace Smurf.GlobalOffensive
             EngineBase = Memory.GetModule("engine.dll").BaseAddress;
             ClientState = Memory.Read<int>(EngineBase + Offsets.ClientState.Base);
 
-            Objects = new ObjectManager(ClientBase + Offsets.Misc.EntityList, 128);
+            Objects = new ObjectManager(ClientBase + Offsets.Misc.EntityList);
             ControlRecoil = new Rcs();
             TriggerBot = new TriggerBot();
             KeyUtils = new KeyUtils();

@@ -25,9 +25,11 @@ namespace Smurf.GlobalOffensive.Updaters
             {
                 if (player.Team == Smurf.LocalPlayer.Team)
                     continue;
+                if (!player.IsAlive)
+                    continue;
 
-                //if (!player.IsDormant &&!player.IsSpotted)
-                Smurf.Memory.Write(player.BaseAddress + Offsets.BaseEntity.Spotted, 1);
+                if (!player.IsDormant &&!player.IsSpotted)
+                    Smurf.Memory.Write(player.BaseAddress + Offsets.BaseEntity.Spotted, 1);
             }
         }
 

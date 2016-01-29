@@ -15,11 +15,11 @@ namespace Smurf.GlobalOffensive
     public class ObjectManager : NativeObject
     {
         // Obtain this dynamically from the game at a later stage.
-        private readonly int _capacity;
+        //private readonly int _capacity;
         // Exposed through a read-only list, users of the API won't be able to change what's going on in game anyway.
         private readonly List<Player> _players = new List<Player>();
-        // private readonly List<BaseEntity> _weapons = new List<BaseEntity>();
-        // private readonly List<BaseEntity> _entities = new List<BaseEntity>();
+        private readonly List<BaseEntity> _weapons = new List<BaseEntity>();
+        private readonly List<BaseEntity> _entities = new List<BaseEntity>();
 
         private readonly int _ticksPerSecond;
         private TimeSpan _lastUpdate = TimeSpan.Zero;
@@ -30,11 +30,11 @@ namespace Smurf.GlobalOffensive
         /// <param name="baseAddress">The base address.</param>
         /// <param name="capacity">The capacity.</param>
         /// <param name="ticksPerSecond">The ticks per second.</param>
-        public ObjectManager(IntPtr baseAddress, int capacity, int ticksPerSecond = 10) : base(baseAddress)
+        public ObjectManager(IntPtr baseAddress, int ticksPerSecond = 10) : base(baseAddress)
         {
-            _capacity = capacity;
+            //_capacity = capacity;
             _ticksPerSecond = ticksPerSecond;
-            Console.WriteLine($"ObjectManager initialized. Capacity = {capacity}, TPS = {ticksPerSecond}");
+            //Console.WriteLine($"ObjectManager initialized. Capacity = {capacity}, TPS = {ticksPerSecond}");
         }
 
         public IReadOnlyList<Player> Players => _players;
@@ -74,8 +74,8 @@ namespace Smurf.GlobalOffensive
             LocalPlayer = new LocalPlayer(localPlayerPtr);
             LocalPlayerWeapon = LocalPlayer.GetCurrentWeapon(localPlayerPtr);
 
-            // TODO: Actually get the num nodes in the entity list
-            for (var i = 0; i < _capacity; i++)
+            var capacity = Smurf.Memory.Read<int>(Smurf.ClientBase + (int)Offsets.Misc.EntityList + 0x4);
+            for (var i = 0; i < capacity; i++)
             {
                 var entity = new BaseEntity(GetEntityPtr(i));
 
@@ -85,7 +85,7 @@ namespace Smurf.GlobalOffensive
                 if (entity.IsPlayer())
                     _players.Add(new Player(GetEntityPtr(i)));
                 //else if (entity.IsWeapon())
-                //    _weapons.Add(new LocalPlayerWeapon(GetEntityPtr(i)));
+                //    _weapons.Add(new Weapon(GetEntityPtr(i)));
                 //else
                 //    _entities.Add(new BaseEntity(GetEntityPtr(i)));
             }
@@ -94,7 +94,6 @@ namespace Smurf.GlobalOffensive
 
         private IntPtr GetEntityPtr(int index)
         {
-            // ptr = entityList + (idx * size)
             return Smurf.Memory.Read<IntPtr>(BaseAddress + index * Offsets.BaseEntity.EntitySize);
         }
 

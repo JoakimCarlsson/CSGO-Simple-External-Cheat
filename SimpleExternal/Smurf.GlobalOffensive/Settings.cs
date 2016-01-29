@@ -240,9 +240,17 @@ namespace Smurf.GlobalOffensive
 
         public string GetString(string section, string key)
         {
-            var keyValue = _data[section][key];
-            var setting = keyValue;
-            return setting;
+            try
+            {
+                var keyValue = _data[section][key];
+                var setting = keyValue;
+                return setting;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return "M4A1";
         }
 
         public uint GetUInt(string section, string key)
