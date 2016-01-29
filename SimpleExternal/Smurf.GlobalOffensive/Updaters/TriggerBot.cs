@@ -63,7 +63,7 @@ namespace Smurf.GlobalOffensive.Updaters
         private void ReadSettings()
         {
             _triggerEnabled = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Enabled");
-            _triggerKey = Smurf.Settings.GetKey(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Key");
+            _triggerKey = (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Key"), 16);
             _triggerEnemies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Enemies");
             _triggerAllies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Allies");
             _spawnProtection = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Spawn Protected");

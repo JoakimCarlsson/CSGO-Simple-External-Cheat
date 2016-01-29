@@ -11,6 +11,8 @@ namespace Smurf.GlobalOffensive
     {
         private static readonly FileIniDataParser Parser = new FileIniDataParser();
         private IniData _data;
+        private WinAPI.VirtualKeyShort _reloadConfigKey;
+
         public Settings()
         {
             if (!File.Exists("Config.ini"))
@@ -20,12 +22,11 @@ namespace Smurf.GlobalOffensive
             _data = Parser.ReadFile("Config.ini");
         }
 
-        private WinAPI.VirtualKeyShort ReloadConfigKey;
 
         public void Update()
         {
-            ReloadConfigKey = Smurf.Settings.GetKey("Misc", "Reload Config Key");
-            if (Smurf.KeyUtils.KeyWentDown(ReloadConfigKey)) //Tab Key, don't hard code key, will fix later.
+            _reloadConfigKey = (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString("Misc", "Reload Config Key"), 16);
+            if (Smurf.KeyUtils.KeyWentDown(_reloadConfigKey)) //Tab Key, don't hard code key, will fix later.
             {
                 Console.WriteLine("Reload Config.");
                 _data = Parser.ReadFile("Config.ini");
@@ -90,7 +91,7 @@ namespace Smurf.GlobalOffensive
             var builder = new StringBuilder();
             builder.AppendLine("[Bunny Jump]");
             builder.AppendLine("Bunny Jump Enabled = True");
-            builder.AppendLine("Bunny Jump Key = 32").AppendLine();
+            builder.AppendLine("Bunny Jump Key = 0x20").AppendLine();
 
             //SoundESP
             builder.AppendLine("[Sound ESP]");
@@ -101,7 +102,8 @@ namespace Smurf.GlobalOffensive
             builder.AppendLine("Sound Volume = 100").AppendLine();
             //Misc
             builder.AppendLine("[Misc]");
-            builder.AppendLine("Reload Config Key = 9").AppendLine();
+            builder.AppendLine("Radar = True");
+            builder.AppendLine("Reload Config Key = 0x35").AppendLine();
 
             foreach (var weapon in pistolList)
             {
@@ -113,7 +115,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Rcs Force Pitch = 2").AppendLine();
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
-                builder.AppendLine("Trigger Key = 18");
+                builder.AppendLine("Trigger Key = 0x12");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -131,7 +133,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Rcs Force Pitch = 2").AppendLine();
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
-                builder.AppendLine("Trigger Key = 18");
+                builder.AppendLine("Trigger Key = 0x12");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -149,7 +151,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Rcs Force Pitch = 2").AppendLine();
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
-                builder.AppendLine("Trigger Key = 18");
+                builder.AppendLine("Trigger Key = 0x12");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -167,7 +169,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Rcs Force Pitch = 2").AppendLine();
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
-                builder.AppendLine("Trigger Key = 18");
+                builder.AppendLine("Trigger Key = 0x12");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -185,7 +187,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Rcs Force Pitch = 2").AppendLine();
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
-                builder.AppendLine("Trigger Key = 18");
+                builder.AppendLine("Trigger Key = 0x12");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -203,7 +205,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Rcs Force Pitch = 2").AppendLine();
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
-                builder.AppendLine("Trigger Key = 18");
+                builder.AppendLine("Trigger Key = 0x12");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");

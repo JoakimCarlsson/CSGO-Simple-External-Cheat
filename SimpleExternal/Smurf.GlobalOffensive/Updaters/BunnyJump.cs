@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Updaters
@@ -31,7 +32,7 @@ namespace Smurf.GlobalOffensive.Updaters
         private void ReadSettings()
         {
             _bunnyJumpEnabled = Smurf.Settings.GetBool("Bunny Jump", "Bunny Jump Enabled");
-            _bunnyJumpKey = Smurf.Settings.GetKey("Bunny Jump", "Bunny Jump Key");
+            _bunnyJumpKey = (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString("Bunny Jump", "Bunny Jump Key"), 16);
         }
         #endregion
 

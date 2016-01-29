@@ -32,7 +32,7 @@ namespace Smurf.GlobalOffensive.Patchables
             //m_vecOrigin
             public static int Position = 0x134;
             public static int Team = 0xF0;
-            public static int Armor = 0xC4F4;
+            public static int Armor = 0x0000A8E4;
             public static int Health = 0xFC;
             public static int Dormant = 0x000000E9;
             public static int Index = 0x64;

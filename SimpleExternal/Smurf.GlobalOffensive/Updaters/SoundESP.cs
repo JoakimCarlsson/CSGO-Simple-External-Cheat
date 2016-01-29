@@ -24,41 +24,43 @@ namespace Smurf.GlobalOffensive.Updaters
 
             ReadSettings();
 
-            if (_enabled)
+            if (!_enabled)
+                return;
+            Smurf.SoundManager.SetVolume(_volume / 100f);
+
+            var span = new TimeSpan(DateTime.Now.Ticks - _lastBeep);
+            if (span.TotalMilliseconds > _interval)
             {
-                var span = new TimeSpan(DateTime.Now.Ticks - _lastBeep);
-                if (span.TotalMilliseconds > _interval)
-                {
-                    _lastBeep = DateTime.Now.Ticks;
-                }
-
-                var minRange = _range / _interval * (float)span.TotalMilliseconds;
-
-                var leastDist = float.MaxValue;
-
-                foreach (var player in Smurf.Objects.Players)
-                {
-                    if (player.Id == Smurf.LocalPlayer.Id)
-                        continue;
-                    if (player.Health == 0)
-                        continue;
-                    if (player.Team == Smurf.LocalPlayer.Team)
-                        continue;
-
-                    var distance = player.DistanceMeters;
-                    if (!(distance <= minRange))
-                        continue;
-                    leastDist = distance;
-                    break;
-                }
-                if (leastDist == float.MaxValue)
-                    return;
-
-                //Smurf.SoundManager.Play(0);
-                Smurf.SoundManager.Play(_sound - 1);
-                Thread.Sleep(50);
                 _lastBeep = DateTime.Now.Ticks;
             }
+
+            var minRange = _range / _interval * (float)span.TotalMilliseconds;
+
+            var leastDist = float.MaxValue;
+
+            foreach (var player in Smurf.Objects.Players)
+            {
+                if (player.Id == Smurf.LocalPlayer.Id)
+                    continue;
+                if (!player.IsAlive)
+                    continue;
+                if (player.Team == Smurf.LocalPlayer.Team)
+                    continue;
+
+                var distance = player.DistanceMeters;
+
+                if (!(distance <= minRange))
+                    continue;
+                leastDist = distance;
+                break;
+            }
+            if (leastDist == float.MaxValue)
+                return;
+
+            //Smurf.SoundManager.Play(0);
+            Smurf.SoundManager.Play(_sound - 1);
+            Thread.Sleep(50);
+            _lastBeep = DateTime.Now.Ticks;
         }
 
         private void ReadSettings()
