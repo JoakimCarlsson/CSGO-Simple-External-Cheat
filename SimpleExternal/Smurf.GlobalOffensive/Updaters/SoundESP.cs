@@ -46,6 +46,8 @@ namespace Smurf.GlobalOffensive.Updaters
                     continue;
                 if (player.Team == Smurf.LocalPlayer.Team)
                     continue;
+                if (player.IsDormant)
+                    continue;
 
                 var distance = player.DistanceMeters;
 

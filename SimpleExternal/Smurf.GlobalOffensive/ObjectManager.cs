@@ -5,6 +5,7 @@ using Smurf.Common;
 using Smurf.GlobalOffensive.Data.Enums;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Patchables;
+using Smurf.GlobalOffensive.Properties;
 
 namespace Smurf.GlobalOffensive
 {
