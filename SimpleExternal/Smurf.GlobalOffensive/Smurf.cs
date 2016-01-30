@@ -22,6 +22,7 @@ namespace Smurf.GlobalOffensive
         public static TriggerBot TriggerBot { get; set; }
         public static BunnyJump BunnyJump { get; set; }
         public static SoundESP SoundEsp { get; set; }
+        public static AutoPistol AutoPistol { get; set; }
         public static Radar Radar { get; set; }
         public static NoFlash NoFlash { get; set; }
         public static SoundManager SoundManager { get; set; }
@@ -52,6 +53,7 @@ namespace Smurf.GlobalOffensive
             SoundEsp = new SoundESP();
             Radar = new Radar();
             NoFlash = new NoFlash();
+            AutoPistol = new AutoPistol();
             SoundManager = new SoundManager(2);
 
             var enginePtr = Memory.Read<IntPtr>(EngineBase + Offsets.ClientState.Base);

@@ -77,10 +77,10 @@ namespace Smurf.GlobalOffensive.Updaters
                 Console.WriteLine(e);
             }
         }
-        private static void Shoot()
+        public void Shoot()
         {
             WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTDOWN, 0, 0, 0, 0);
-            Thread.Sleep(1);
+            Thread.Sleep(10);
             WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTUP, 0, 0, 0, 0);
         }
     }

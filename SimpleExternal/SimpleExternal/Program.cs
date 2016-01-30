@@ -9,7 +9,7 @@ namespace SimpleExternal
         private static Process[] _processesName;
         private static void Main(string[] args)
         {
-            //LicenseGlobal.Seal.Initialize("6A5E0000");
+           // LicenseGlobal.Seal.Initialize("6A5E0000");
             Thread thread1 = new Thread(PrintInfo);
             Thread thread2 = new Thread(UpdateBHop);
             Thread thread3 = new Thread(UpdateRcs);
@@ -70,6 +70,7 @@ namespace SimpleExternal
                     Console.WriteLine("Clip1: \t\t{0}", myWeapon.Clip1);
                     Console.WriteLine("Flags: \t\t{0}", me.Flags);
                     Console.WriteLine("Flash: \t\t{0}", me.FlashMaxAlpha);
+                    Console.WriteLine("Weapon Group: \t{0}", myWeapon.WeaponGroup);
                 }
 
                 Thread.Sleep(500);
@@ -105,6 +106,7 @@ namespace SimpleExternal
             {
                 Smurf.GlobalOffensive.Smurf.KeyUtils.Update();
                 Smurf.GlobalOffensive.Smurf.NoFlash.Update();
+                Smurf.GlobalOffensive.Smurf.AutoPistol.Update();
                 Thread.Sleep(10);
             }
         }

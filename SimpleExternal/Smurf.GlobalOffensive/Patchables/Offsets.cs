@@ -9,6 +9,7 @@ namespace Smurf.GlobalOffensive.Patchables
             public static int EntityList = 0x04A5C9C4;
             public static int ViewMatrix = 0x04A4E584;
             public static int LocalPlayer = 0x00A6E444;
+            public static int ForceAttack = 0x02EC89E8;
             public static int Jump = 0x04AF150C;
         }
 
