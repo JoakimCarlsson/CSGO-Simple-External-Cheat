@@ -33,6 +33,7 @@ namespace Smurf.GlobalOffensive.Patchables
             public static int Index = 0x64;
             public static int EntitySize = 0x10;
             public static int Spotted = 0x935;
+            public static int BoneMatrix = 0x00002698;
         }
 
         public class Player
@@ -41,7 +42,8 @@ namespace Smurf.GlobalOffensive.Patchables
             public static int Flags = 0x100;
             public static int ActiveWeapon = 0x00002EE8; // m_hActiveWeapon
             public static int VecVelocity = 0x00000110;
-            public static int GunGameImmune = 0x00003890; 
+            public static int GunGameImmune = 0x00003890;
+            public static int FlashMaxAlpha = 0x0000A2E4;
         }
         public class LocalPlayer
         {
@@ -55,7 +57,7 @@ namespace Smurf.GlobalOffensive.Patchables
             public static int ItemDefinitionIndex = 0x000032B4;
             public static int State = 0x000031E8;
             public static int Clip1 = 0x000031F4;
-           // public static int NextPrimaryAttack = 0x000031C8;
+            // public static int NextPrimaryAttack = 0x000031C8;
             public static int WeaponId = 0x000032DC;
             //public static int CanReload = 0x00003235;
             public static int WeaponTableIndex = 0x00004E70;

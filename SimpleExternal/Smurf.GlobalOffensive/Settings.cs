@@ -103,6 +103,8 @@ namespace Smurf.GlobalOffensive
             //Misc
             builder.AppendLine("[Misc]");
             builder.AppendLine("Radar = True");
+            builder.AppendLine("Auto Pistol = False");
+            builder.AppendLine("No Flash = False");
             builder.AppendLine("Reload Config Key = 0x35").AppendLine();
 
             foreach (var weapon in pistolList)

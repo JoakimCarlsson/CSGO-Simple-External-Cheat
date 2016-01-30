@@ -119,7 +119,9 @@
     <Compile Include="Smurf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoundManager.cs" />
+    <Compile Include="Updaters\AutoPistol.cs" />
     <Compile Include="Updaters\BunnyJump.cs" />
+    <Compile Include="Updaters\NoFlash.cs" />
     <Compile Include="Updaters\Radar.cs" />
     <Compile Include="Updaters\Rcs.cs" />
     <Compile Include="Updaters\SoundESP.cs" />

@@ -23,6 +23,7 @@ namespace Smurf.GlobalOffensive
         public static BunnyJump BunnyJump { get; set; }
         public static SoundESP SoundEsp { get; set; }
         public static Radar Radar { get; set; }
+        public static NoFlash NoFlash { get; set; }
         public static SoundManager SoundManager { get; set; }
         public static KeyUtils KeyUtils { get; set; }
         public static GameClient Client { get; private set; }
@@ -50,6 +51,7 @@ namespace Smurf.GlobalOffensive
             Settings = new Settings();
             SoundEsp = new SoundESP();
             Radar = new Radar();
+            NoFlash = new NoFlash();
             SoundManager = new SoundManager(2);
 
             var enginePtr = Memory.Read<IntPtr>(EngineBase + Offsets.ClientState.Base);
