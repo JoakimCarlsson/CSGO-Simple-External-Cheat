@@ -67,7 +67,8 @@ namespace SimpleExternal
                     Console.WriteLine("VecPunch: \t{0}", me.VecPunch);
                     Console.WriteLine("Immune: \t{0}", me.GunGameImmune);
                     Console.WriteLine("Active Weapon: \t{0}", myWeapon.WeaponName);
-                    Console.WriteLine("Clip1: \t{0}", myWeapon.Clip1);
+                    Console.WriteLine("Clip1: \t\t{0}", myWeapon.Clip1);
+                    Console.WriteLine("Flags: \t\t{0}", me.Flags);
                 }
 
                 Thread.Sleep(500);

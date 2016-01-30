@@ -18,7 +18,8 @@ namespace Smurf.GlobalOffensive.Objects
         public bool InAir => IsInAir();
         private bool IsInAir()
         {
-            return Flags == 256;
+            return Flags == 256 || Flags == 262;
+            //262
         }
 
         private int GetVelocity()
