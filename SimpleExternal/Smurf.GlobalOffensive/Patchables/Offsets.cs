@@ -35,6 +35,7 @@ namespace Smurf.GlobalOffensive.Patchables
             public static int EntitySize = 0x10;
             public static int Spotted = 0x935;
             public static int BoneMatrix = 0x00002698;
+            public static int SpottedByMask = 0x00000978;
         }
 
         public class Player

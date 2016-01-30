@@ -13,8 +13,10 @@ namespace Smurf.GlobalOffensive.Updaters
         private bool _triggerAllies;
         private bool _triggerEnemies;
         private bool _spawnProtection;
+        private bool _triggerDash;
         private int _delayFirstShot;
         private int _delayShots;
+
         private WinAPI.VirtualKeyShort _triggerKey;
         #endregion
 
@@ -50,6 +52,10 @@ namespace Smurf.GlobalOffensive.Updaters
                         if (_spawnProtection)
                             if (target.GunGameImmune)
                                 return;
+                        if (_triggerDash)
+                            if (Smurf.LocalPlayer.Velocity > 1)
+                                return;
+
                         Shoot();
                     }
                 }
@@ -71,6 +77,7 @@ namespace Smurf.GlobalOffensive.Updaters
                 _spawnProtection = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Spawn Protected");
                 _delayFirstShot = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Delay FirstShot");
                 _delayShots = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Delay Shots");
+                _triggerDash = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Dash");
             }
             catch (Exception e)
             {

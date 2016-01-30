@@ -6,10 +6,9 @@ namespace SimpleExternal
 {
     internal class Program
     {
-        private static Process[] _processesName;
         private static void Main(string[] args)
         {
-           // LicenseGlobal.Seal.Initialize("6A5E0000");
+            //LicenseGlobal.Seal.Initialize("6A5E0000");
             Thread thread1 = new Thread(PrintInfo);
             Thread thread2 = new Thread(UpdateBHop);
             Thread thread3 = new Thread(UpdateRcs);
@@ -28,12 +27,12 @@ namespace SimpleExternal
             {
                 Smurf.GlobalOffensive.Smurf.Objects.Update();
                 Smurf.GlobalOffensive.Smurf.TriggerBot.Update();
+                Smurf.GlobalOffensive.Smurf.Aimbot.Update();
                 Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
                 Smurf.GlobalOffensive.Smurf.Radar.Update();
                 Thread.Sleep(3);
             }
         }
-
         private static void StartThreads(params Thread[] threads)
         {
             foreach (var thread in threads)

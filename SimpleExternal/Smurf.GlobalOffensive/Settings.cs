@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using IniParser;
 using IniParser.Model;
+using Smurf.GlobalOffensive.Updaters;
 
 namespace Smurf.GlobalOffensive
 {
@@ -109,6 +110,14 @@ namespace Smurf.GlobalOffensive
             foreach (var weapon in pistolList)
             {
                 builder.AppendLine("[" + weapon + "]");
+                //Aimbot
+                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aimbot Key = 0x01");
+                builder.AppendLine("Aimbot Fov = 3");
+                builder.AppendLine("Aimbot Smooth = 50");
+                builder.AppendLine("Aimbot Aim Friendly = False");
+                builder.AppendLine("Aimbot Aim Enemies = True");
+                builder.AppendLine("Aimbot Bone = 6").AppendLine();
                 //Auto Pistol
                 builder.AppendLine("Auto Pistol = False");
                 builder.AppendLine("Auto Pistol Delay = 0").AppendLine();
@@ -120,6 +129,7 @@ namespace Smurf.GlobalOffensive
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
+                builder.AppendLine("Trigger Dash = True");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -130,6 +140,14 @@ namespace Smurf.GlobalOffensive
             foreach (var weapon in rifleList)
             {
                 builder.AppendLine("[" + weapon + "]");
+                //Aimbot
+                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aimbot Key = 0x01");
+                builder.AppendLine("Aimbot Fov = 3");
+                builder.AppendLine("Aimbot Smooth = 50");
+                builder.AppendLine("Aimbot Aim Friendly = False");
+                builder.AppendLine("Aimbot Aim Enemies = True");
+                builder.AppendLine("Aimbot Bone = 6").AppendLine();
                 //RCS
                 builder.AppendLine("Rcs Enabled = True");
                 builder.AppendLine("Rcs Start = 1");
@@ -138,6 +156,7 @@ namespace Smurf.GlobalOffensive
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
+                builder.AppendLine("Trigger Dash = True");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -148,6 +167,14 @@ namespace Smurf.GlobalOffensive
             foreach (var weapon in smgList)
             {
                 builder.AppendLine("[" + weapon + "]");
+                //Aimbot
+                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aimbot Key = 0x01");
+                builder.AppendLine("Aimbot Fov = 3");
+                builder.AppendLine("Aimbot Smooth = 50");
+                builder.AppendLine("Aimbot Aim Friendly = False");
+                builder.AppendLine("Aimbot Aim Enemies = True");
+                builder.AppendLine("Aimbot Bone = 6").AppendLine();
                 //RCS
                 builder.AppendLine("Rcs Enabled = True");
                 builder.AppendLine("Rcs Start = 1");
@@ -156,6 +183,7 @@ namespace Smurf.GlobalOffensive
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
+                builder.AppendLine("Trigger Dash = True");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -166,6 +194,14 @@ namespace Smurf.GlobalOffensive
             foreach (var weapon in snipersList)
             {
                 builder.AppendLine("[" + weapon + "]");
+                //Aimbot
+                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aimbot Key = 0x01");
+                builder.AppendLine("Aimbot Fov = 3");
+                builder.AppendLine("Aimbot Smooth = 50");
+                builder.AppendLine("Aimbot Aim Friendly = False");
+                builder.AppendLine("Aimbot Aim Enemies = True");
+                builder.AppendLine("Aimbot Bone = 6").AppendLine();
                 //RCS
                 builder.AppendLine("Rcs Enabled = False");
                 builder.AppendLine("Rcs Start = 1");
@@ -174,6 +210,7 @@ namespace Smurf.GlobalOffensive
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
+                builder.AppendLine("Trigger Dash = True");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -184,6 +221,14 @@ namespace Smurf.GlobalOffensive
             foreach (var weapon in machineGunList)
             {
                 builder.AppendLine("[" + weapon + "]");
+                //Aimbot
+                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aimbot Key = 0x01");
+                builder.AppendLine("Aimbot Fov = 3");
+                builder.AppendLine("Aimbot Smooth = 50");
+                builder.AppendLine("Aimbot Aim Friendly = False");
+                builder.AppendLine("Aimbot Aim Enemies = True");
+                builder.AppendLine("Aimbot Bone = 6").AppendLine();
                 //RCS
                 builder.AppendLine("Rcs Enabled = True");
                 builder.AppendLine("Rcs Start = 1");
@@ -192,6 +237,7 @@ namespace Smurf.GlobalOffensive
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
+                builder.AppendLine("Trigger Dash = True");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -202,14 +248,23 @@ namespace Smurf.GlobalOffensive
             foreach (var weapon in heavyList)
             {
                 builder.AppendLine("[" + weapon + "]");
+                //Aimbot
+                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aimbot Key = 0x01");
+                builder.AppendLine("Aimbot Fov = 3");
+                builder.AppendLine("Aimbot Smooth = 50");
+                builder.AppendLine("Aimbot Aim Friendly = False");
+                builder.AppendLine("Aimbot Aim Enemies = True");
+                builder.AppendLine("Aimbot Bone = 6").AppendLine();
                 //RCS
-                builder.AppendLine("Rcs Enabled = True");
+                builder.AppendLine("Rcs Enabled = False");
                 builder.AppendLine("Rcs Start = 1");
                 builder.AppendLine("Rcs Force Yaw = 2");
                 builder.AppendLine("Rcs Force Pitch = 2").AppendLine();
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
+                builder.AppendLine("Trigger Dash = True");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -289,7 +344,7 @@ namespace Smurf.GlobalOffensive
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(section, key);
             }
             return false;
         }
