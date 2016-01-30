@@ -103,14 +103,15 @@ namespace Smurf.GlobalOffensive
             //Misc
             builder.AppendLine("[Misc]");
             builder.AppendLine("Radar = True");
-            builder.AppendLine("Auto Pistol = False");
-            builder.AppendLine("Auto Pistol Delay = 0");
             builder.AppendLine("No Flash = False");
             builder.AppendLine("Reload Config Key = 0x35").AppendLine();
 
             foreach (var weapon in pistolList)
             {
                 builder.AppendLine("[" + weapon + "]");
+                //Auto Pistol
+                builder.AppendLine("Auto Pistol = False");
+                builder.AppendLine("Auto Pistol Delay = 0").AppendLine();
                 //RCS
                 builder.AppendLine("Rcs Enabled = False");
                 builder.AppendLine("Rcs Start = 1");

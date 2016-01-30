@@ -18,6 +18,8 @@ namespace Smurf.GlobalOffensive.Updaters
         {
             if (!Smurf.Objects.ShouldUpdate())
                 return;
+            if (Smurf.LocalPlayerWeapon.WeaponGroup != "Pistol")
+                return;
 
             ReadSettigns();
 
@@ -25,21 +27,21 @@ namespace Smurf.GlobalOffensive.Updaters
                 return;
 
             //TODO Fix so we only shoot if we are active in the csgo window.
-            if (Smurf.KeyUtils.KeyIsDown(0x02) && Smurf.LocalPlayerWeapon.WeaponGroup == "Pistol")
+            if (Smurf.KeyUtils.KeyIsDown(0x02))
             {
                 if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _delay))
                     return;
 
                 _triggerLastShot = DateTime.Now.Ticks;
 
-               Shoot();
+                Shoot();
             }
         }
 
         private void ReadSettigns()
         {
-            _autoPistol = Smurf.Settings.GetBool("Misc", "Auto Pistol");
-            _delay = Smurf.Settings.GetInt("Misc", "Auto Pistol Delay");
+            _autoPistol = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Auto Pistol");
+            _delay = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Auto Pistol Delay");
         }
         public void Shoot()
         {
