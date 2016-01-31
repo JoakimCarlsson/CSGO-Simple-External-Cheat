@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using BlueRain;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Patchables;
@@ -42,6 +43,8 @@ namespace Smurf.GlobalOffensive
                 Memory = new LocalProcessMemory(process);
             else
                 Memory = new ExternalProcessMemory(process);
+
+            Thread.Sleep(2000);
             ClientBase = Memory.GetModule("client.dll").BaseAddress;
             EngineBase = Memory.GetModule("engine.dll").BaseAddress;
             ClientState = Memory.Read<int>(EngineBase + Offsets.ClientState.Base);

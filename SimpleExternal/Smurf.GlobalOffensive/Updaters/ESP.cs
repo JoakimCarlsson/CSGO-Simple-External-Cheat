@@ -71,12 +71,19 @@ namespace Smurf.GlobalOffensive.Updaters
 
         private void ReadSettings()
         {
-            if (_glowKey == 0)
+            try
             {
-                _glowActive = Smurf.Settings.GetBool("Glow ESP", "Glow ESP Enabled");
-                _glowFriendly = Smurf.Settings.GetBool("Glow ESP", "Glow ESP Allies");
-                _glowEnemies = Smurf.Settings.GetBool("Glow ESP", "Glow ESP Enemies");
-                _glowKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Smurf.Settings.GetString("Glow ESP", "Glow ESP Key"), 16);
+                if (_glowKey == 0)
+                {
+                    _glowActive = Smurf.Settings.GetBool("Glow ESP", "Glow ESP Enabled");
+                    _glowFriendly = Smurf.Settings.GetBool("Glow ESP", "Glow ESP Allies");
+                    _glowEnemies = Smurf.Settings.GetBool("Glow ESP", "Glow ESP Enemies");
+                    _glowKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Smurf.Settings.GetString("Glow ESP", "Glow ESP Key"), 16);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
         }
     }

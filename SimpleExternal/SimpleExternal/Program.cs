@@ -1,26 +1,34 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
+using Smurf.GlobalOffensive;
 
 namespace SimpleExternal
 {
     internal class Program
     {
+        private static IntPtr _hWnd;
+        private const string GameTitle = "Counter-Strike: Global Offensive";
+
         private static void Main(string[] args)
         {
-            //LicenseGlobal.Seal.Initialize("6A5E0000");
+            LicenseGlobal.Seal.Initialize("6A5E0000");
             Thread thread1 = new Thread(PrintInfo);
             Thread thread2 = new Thread(UpdateBHop);
             Thread thread3 = new Thread(UpdateRcs);
             Thread thread4 = new Thread(UpdateSettings);
             Thread thread5 = new Thread(UpdateKeyUtils);
 
-
             Console.ForegroundColor = ConsoleColor.White;
             Console.Title = "Smurf Bot";
 
-            Process process = Process.GetProcessesByName("csgo")[0];
-            Smurf.GlobalOffensive.Smurf.Attach(process);
+            Console.WriteLine("> Waiting for CSGO to start up...");
+            while ((_hWnd = WinAPI.FindWindowByCaption(_hWnd, GameTitle)) == IntPtr.Zero)
+                Thread.Sleep(250);
+
+            Process[] process = Process.GetProcessesByName("csgo");
+            Smurf.GlobalOffensive.Smurf.Attach(process[0]);
+
             StartThreads(thread1, thread2, thread3, thread4, thread5);
 
             while (true)
@@ -35,7 +43,6 @@ namespace SimpleExternal
                 Thread.Sleep(3);
             }
         }
-
         private static void StartThreads(params Thread[] threads)
         {
             foreach (var thread in threads)
@@ -51,12 +58,12 @@ namespace SimpleExternal
             {
                 Console.Clear();
                 Console.WriteLine("State: {0}\n\n", Smurf.GlobalOffensive.Smurf.Client.State);
-        
+
                 if (Smurf.GlobalOffensive.Smurf.Client.InGame && Smurf.GlobalOffensive.Smurf.LocalPlayer != null && Smurf.GlobalOffensive.Smurf.LocalPlayerWeapon != null && Smurf.GlobalOffensive.Smurf.LocalPlayer.IsValid && Smurf.GlobalOffensive.Smurf.LocalPlayer.IsAlive)
                 {
                     var me = Smurf.GlobalOffensive.Smurf.LocalPlayer;
                     var myWeapon = Smurf.GlobalOffensive.Smurf.LocalPlayerWeapon;
-        
+
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("ID:\t\t{0}", me.Id);
                     Console.WriteLine("Health:\t\t{0}", me.Health);
