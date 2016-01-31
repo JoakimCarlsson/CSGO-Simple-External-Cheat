@@ -30,14 +30,17 @@ namespace SimpleExternal
                 Smurf.GlobalOffensive.Smurf.Aimbot.Update();
                 Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
                 Smurf.GlobalOffensive.Smurf.Radar.Update();
+                Smurf.GlobalOffensive.Smurf.Glow.Update();
+
                 Thread.Sleep(3);
             }
         }
+
         private static void StartThreads(params Thread[] threads)
         {
             foreach (var thread in threads)
             {
-                thread.IsBackground = true;
+                //thread.IsBackground = true;
                 thread.Priority = ThreadPriority.Highest;
                 thread.Start();
             }
@@ -70,6 +73,7 @@ namespace SimpleExternal
                     Console.WriteLine("Flags: \t\t{0}", me.Flags);
                     Console.WriteLine("Flash: \t\t{0}", me.FlashMaxAlpha);
                     Console.WriteLine("Weapon Group: \t{0}", myWeapon.WeaponGroup);
+                    Console.WriteLine("Glow Index: \t{0}", me.GlowIndex);
                 }
 
                 Thread.Sleep(500);

@@ -10,6 +10,8 @@ namespace Smurf.GlobalOffensive.Patchables
             public static int ViewMatrix = 0x04A4E584;
             public static int LocalPlayer = 0x00A6E444;
             public static int ForceAttack = 0x02EC89E8;
+            public static int GlowObject = 0x04B71C6C;
+            public static int GlowIndex = 0x0000A300;
             public static int Jump = 0x04AF150C;
         }
 

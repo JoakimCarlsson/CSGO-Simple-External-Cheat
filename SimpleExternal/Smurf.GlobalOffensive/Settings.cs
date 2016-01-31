@@ -94,6 +94,13 @@ namespace Smurf.GlobalOffensive
             builder.AppendLine("Bunny Jump Enabled = True");
             builder.AppendLine("Bunny Jump Key = 0x20").AppendLine();
 
+            //GLOW
+            builder.AppendLine("[Glow ESP]");
+            builder.AppendLine("Glow ESP Enabled = True");
+            builder.AppendLine("Glow ESP Key = 0x02");
+            builder.AppendLine("Glow ESP Allies = True");
+            builder.AppendLine("Glow ESP Enemies = True");
+
             //SoundESP
             builder.AppendLine("[Sound ESP]");
             builder.AppendLine("Sound ESP = True");
@@ -230,7 +237,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Aimbot Aim Enemies = True");
                 builder.AppendLine("Aimbot Bone = 6").AppendLine();
                 //RCS
-                builder.AppendLine("Rcs Enabled = True");
+                builder.AppendLine("Rcs Enabled = False");
                 builder.AppendLine("Rcs Start = 1");
                 builder.AppendLine("Rcs Force Yaw = 2");
                 builder.AppendLine("Rcs Force Pitch = 2").AppendLine();

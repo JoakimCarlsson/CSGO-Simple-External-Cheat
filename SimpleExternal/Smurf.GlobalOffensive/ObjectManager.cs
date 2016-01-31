@@ -18,7 +18,7 @@ namespace Smurf.GlobalOffensive
         //private readonly int _capacity;
         // Exposed through a read-only list, users of the API won't be able to change what's going on in game anyway.
         private readonly List<Player> _players = new List<Player>();
-        private readonly List<BaseEntity> _weapons = new List<BaseEntity>();
+        private readonly List<Weapon> _weapons = new List<Weapon>();
         private readonly List<BaseEntity> _entities = new List<BaseEntity>();
 
         private readonly int _ticksPerSecond;
@@ -36,7 +36,7 @@ namespace Smurf.GlobalOffensive
         }
 
         public IReadOnlyList<Player> Players => _players;
-        //public IReadOnlyList<BaseEntity> Weapons => _weapons;
+        public IReadOnlyList<Weapon> Weapons => _weapons;
         //public IReadOnlyList<BaseEntity> Entities => _entities;
         internal LocalPlayer LocalPlayer { get; private set; }
         internal Weapon LocalPlayerWeapon { get; private set; }
@@ -63,7 +63,7 @@ namespace Smurf.GlobalOffensive
             }
 
             _players.Clear();
-            //_weapons.Clear();
+            _weapons.Clear();
             //_entities.Clear();
 
             var localPlayerPtr = Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.LocalPlayer);
@@ -81,8 +81,8 @@ namespace Smurf.GlobalOffensive
 
                 if (entity.IsPlayer())
                     _players.Add(new Player(GetEntityPtr(i)));
-                //else if (entity.IsWeapon())
-                //    _weapons.Add(new Weapon(GetEntityPtr(i)));
+                else if (entity.IsWeapon())
+                    _weapons.Add(new Weapon(GetEntityPtr(i)));
                 //else
                 //    _entities.Add(new BaseEntity(GetEntityPtr(i)));
             }
