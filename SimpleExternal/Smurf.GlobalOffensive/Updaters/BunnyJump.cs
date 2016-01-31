@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Updaters
@@ -7,20 +6,21 @@ namespace Smurf.GlobalOffensive.Updaters
     public class BunnyJump
     {
         #region Methods
+
         public void Update()
         {
-            if (!Smurf.Objects.ShouldUpdate(false,false,false))
+            if (!Smurf.Objects.ShouldUpdate(false, false, false))
                 return;
 
             ReadSettings();
 
-                if (!_bunnyJumpEnabled)
-                    return;
+            if (!_bunnyJumpEnabled)
+                return;
 
-                if (Smurf.LocalPlayer.Velocity <= 100)
-                    return;
+            if (Smurf.LocalPlayer.Velocity <= 100)
+                return;
 
-                BHop();
+            BHop();
         }
 
         private void BHop()
@@ -32,13 +32,17 @@ namespace Smurf.GlobalOffensive.Updaters
         private void ReadSettings()
         {
             _bunnyJumpEnabled = Smurf.Settings.GetBool("Bunny Jump", "Bunny Jump Enabled");
-            _bunnyJumpKey = (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString("Bunny Jump", "Bunny Jump Key"), 16);
+            _bunnyJumpKey =
+                (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString("Bunny Jump", "Bunny Jump Key"), 16);
         }
+
         #endregion
 
         #region Fields
+
         private bool _bunnyJumpEnabled;
         private WinAPI.VirtualKeyShort _bunnyJumpKey;
+
         #endregion
     }
 }

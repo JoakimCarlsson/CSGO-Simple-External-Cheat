@@ -1,8 +1,6 @@
-﻿using System.Windows.Forms;
-
-namespace Smurf.GlobalOffensive.Patchables
+﻿namespace Smurf.GlobalOffensive.Patchables
 {
-    class Offsets
+    internal class Offsets
     {
         public class Misc
         {
@@ -49,6 +47,7 @@ namespace Smurf.GlobalOffensive.Patchables
             public static int GunGameImmune = 0x00003890;
             public static int FlashMaxAlpha = 0x0000A2E4;
         }
+
         public class LocalPlayer
         {
             public static int CrosshairId = 0x0000A940;
@@ -56,6 +55,7 @@ namespace Smurf.GlobalOffensive.Patchables
             public static int VecPunch = 0x00003018;
             public static int ShotsFired = 0x0000A2A0;
         }
+
         public class Weapon
         {
             public static int ItemDefinitionIndex = 0x000032B4;

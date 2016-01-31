@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Smurf.GlobalOffensive.Patchables;
+﻿using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Updaters
 {
     public class Radar
     {
         private bool _radar;
+
         public void Update()
         {
             if (!Smurf.Objects.ShouldUpdate())
@@ -28,7 +24,7 @@ namespace Smurf.GlobalOffensive.Updaters
                 if (!player.IsAlive)
                     continue;
 
-                if (!player.IsDormant &&!player.IsSpotted)
+                if (!player.IsDormant && !player.IsSpotted)
                     Smurf.Memory.Write(player.BaseAddress + Offsets.BaseEntity.Spotted, 1);
             }
         }

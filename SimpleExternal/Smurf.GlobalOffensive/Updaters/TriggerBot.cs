@@ -5,22 +5,8 @@ namespace Smurf.GlobalOffensive.Updaters
 {
     public class TriggerBot
     {
-        #region Fields
-        public bool AimOntarget;
-        private long _triggerLastTarget;
-        private long _triggerLastShot;
-        private bool _triggerEnabled;
-        private bool _triggerAllies;
-        private bool _triggerEnemies;
-        private bool _spawnProtection;
-        private bool _triggerDash;
-        private int _delayFirstShot;
-        private int _delayShots;
-
-        private WinAPI.VirtualKeyShort _triggerKey;
-        #endregion
-
         #region Methods
+
         public void Update()
         {
             if (!Smurf.Objects.ShouldUpdate())
@@ -34,7 +20,9 @@ namespace Smurf.GlobalOffensive.Updaters
             if (Smurf.KeyUtils.KeyIsDown(_triggerKey))
             {
                 var target = Smurf.LocalPlayer.Target;
-                if (target != null && ((_triggerAllies && target.Team == Smurf.LocalPlayer.Team) || (_triggerEnemies && target.Team != Smurf.LocalPlayer.Team)))
+                if (target != null &&
+                    ((_triggerAllies && target.Team == Smurf.LocalPlayer.Team) ||
+                     (_triggerEnemies && target.Team != Smurf.LocalPlayer.Team)))
                 {
                     if (!AimOntarget)
                     {
@@ -43,7 +31,8 @@ namespace Smurf.GlobalOffensive.Updaters
                     }
                     else
                     {
-                        if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _delayFirstShot))
+                        if (
+                            !(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _delayFirstShot))
                             return;
                         if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _delayShots))
                             return;
@@ -71,7 +60,9 @@ namespace Smurf.GlobalOffensive.Updaters
             try
             {
                 _triggerEnabled = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Enabled");
-                _triggerKey = (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Key"), 16);
+                _triggerKey =
+                    (WinAPI.VirtualKeyShort)
+                        Convert.ToInt32(Smurf.Settings.GetString(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Key"), 16);
                 _triggerEnemies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Enemies");
                 _triggerAllies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Allies");
                 _spawnProtection = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Spawn Protected");
@@ -84,11 +75,29 @@ namespace Smurf.GlobalOffensive.Updaters
                 Console.WriteLine(e);
             }
         }
+
         public void Shoot()
         {
             WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTDOWN, 0, 0, 0, 0);
             Thread.Sleep(10);
             WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTUP, 0, 0, 0, 0);
         }
+
+        #region Fields
+
+        public bool AimOntarget;
+        private long _triggerLastTarget;
+        private long _triggerLastShot;
+        private bool _triggerEnabled;
+        private bool _triggerAllies;
+        private bool _triggerEnemies;
+        private bool _spawnProtection;
+        private bool _triggerDash;
+        private int _delayFirstShot;
+        private int _delayShots;
+
+        private WinAPI.VirtualKeyShort _triggerKey;
+
+        #endregion
     }
 }

@@ -103,10 +103,8 @@ namespace Smurf.GlobalOffensive
             public IntPtr modBaseAddr;
             public uint modBaseSize;
             public IntPtr hModule;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_PATH + 1)]
-            public string szModule;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_PATH + 5)]
-            public string szExePath;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_PATH + 1)] public string szModule;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = MAX_PATH + 5)] public string szExePath;
         }
 
         [Flags]
@@ -288,7 +286,7 @@ namespace Smurf.GlobalOffensive
             public WINDOWINFO(bool? filler)
                 : this() // Allows automatic initialization of "cbSize" with "new WINDOWINFO(null/true/false)".
             {
-                cbSize = (uint)Marshal.SizeOf(typeof(WINDOWINFO));
+                cbSize = (uint) Marshal.SizeOf(typeof (WINDOWINFO));
             }
         }
 
@@ -744,7 +742,7 @@ namespace Smurf.GlobalOffensive
 
             public static int Size
             {
-                get { return Marshal.SizeOf(typeof(INPUT)); }
+                get { return Marshal.SizeOf(typeof (INPUT)); }
             }
         }
 
@@ -753,12 +751,9 @@ namespace Smurf.GlobalOffensive
         [StructLayout(LayoutKind.Explicit)]
         public struct InputUnion
         {
-            [FieldOffset(0)]
-            public MouseLLHookStruct mi;
-            [FieldOffset(0)]
-            public KEYBDINPUT ki;
-            [FieldOffset(0)]
-            public HARDWAREINPUT hi;
+            [FieldOffset(0)] public MouseLLHookStruct mi;
+            [FieldOffset(0)] public KEYBDINPUT ki;
+            [FieldOffset(0)] public HARDWAREINPUT hi;
         }
 
         /// <summary>

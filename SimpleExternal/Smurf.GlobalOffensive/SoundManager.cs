@@ -40,7 +40,7 @@ namespace Smurf.GlobalOffensive
             _audioBuffers[index] = new AudioBuffer
             {
                 Stream = _soundStreams[index].ToDataStream(),
-                AudioBytes = (int)_soundStreams[index].Length,
+                AudioBytes = (int) _soundStreams[index].Length,
                 Flags = BufferFlags.EndOfStream
             };
             _sourceVoices[index] = new SourceVoice(_audio, _soundStreams[index].Format);

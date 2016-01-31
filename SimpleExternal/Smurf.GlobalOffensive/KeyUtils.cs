@@ -22,7 +22,7 @@ namespace Smurf.GlobalOffensive
 
         public static bool GetKeyDown(WinAPI.VirtualKeyShort key)
         {
-            return GetKeyDown((int)key);
+            return GetKeyDown((int) key);
         }
 
         public static void LMouseClick(int sleeptime)
@@ -39,7 +39,7 @@ namespace Smurf.GlobalOffensive
 
         public static bool GetKeyDownAsync(int key)
         {
-            return GetKeyDownAsync((WinAPI.VirtualKeyShort)key);
+            return GetKeyDownAsync((WinAPI.VirtualKeyShort) key);
         }
 
         public static bool GetKeyDownAsync(WinAPI.VirtualKeyShort key)
@@ -55,10 +55,10 @@ namespace Smurf.GlobalOffensive
         {
             keys = new Hashtable();
             prevKeys = new Hashtable();
-            var _keys = (WinAPI.VirtualKeyShort[])Enum.GetValues(typeof(WinAPI.VirtualKeyShort));
+            var _keys = (WinAPI.VirtualKeyShort[]) Enum.GetValues(typeof (WinAPI.VirtualKeyShort));
             allKeys = new short[_keys.Length];
             for (var i = 0; i < allKeys.Length; i++)
-                allKeys[i] = (short)_keys[i];
+                allKeys[i] = (short) _keys[i];
 
             Init();
         }
@@ -93,7 +93,7 @@ namespace Smurf.GlobalOffensive
         /// </summary>
         public void Update()
         {
-            prevKeys = (Hashtable)keys.Clone();
+            prevKeys = (Hashtable) keys.Clone();
             foreach (int key in allKeys)
             {
                 keys[key] = GetKeyDown(key);
@@ -152,7 +152,7 @@ namespace Smurf.GlobalOffensive
         /// <returns></returns>
         public bool KeyWentUp(WinAPI.VirtualKeyShort key)
         {
-            return KeyWentUp((int)key);
+            return KeyWentUp((int) key);
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace Smurf.GlobalOffensive
         {
             if (!KeyExists(key))
                 return false;
-            return (bool)prevKeys[key] && !(bool)keys[key];
+            return (bool) prevKeys[key] && !(bool) keys[key];
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace Smurf.GlobalOffensive
         /// <returns></returns>
         public bool KeyWentDown(WinAPI.VirtualKeyShort key)
         {
-            return KeyWentDown((int)key);
+            return KeyWentDown((int) key);
         }
 
         /// <summary>
@@ -186,7 +186,7 @@ namespace Smurf.GlobalOffensive
         {
             if (!KeyExists(key))
                 return false;
-            return !(bool)prevKeys[key] && (bool)keys[key];
+            return !(bool) prevKeys[key] && (bool) keys[key];
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace Smurf.GlobalOffensive
         /// <returns></returns>
         public bool KeyIsDown(WinAPI.VirtualKeyShort key)
         {
-            return KeyIsDown((int)key);
+            return KeyIsDown((int) key);
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace Smurf.GlobalOffensive
         {
             if (!KeyExists(key))
                 return false;
-            return (bool)prevKeys[key] || (bool)keys[key];
+            return (bool) prevKeys[key] || (bool) keys[key];
         }
 
         /// <summary>

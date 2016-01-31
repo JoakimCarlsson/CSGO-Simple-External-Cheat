@@ -5,21 +5,23 @@ using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Updaters
 {
-
     public class Rcs
     {
         #region Fields
+
         public Vector3 NewViewAngels;
         private float _maxYaw, _maxPitch, _minYaw, _minPitch;
         private bool _rcsEnabled;
         private int _rcsStart;
         private string _currentWeapon;
+
         #endregion
 
         #region Properties
 
         public Vector3 ViewAngels { get; set; }
         public Vector3 LastPunch { get; set; }
+
         #endregion
 
         #region Methods
@@ -47,14 +49,14 @@ namespace Smurf.GlobalOffensive.Updaters
                 if (Smurf.LocalPlayer.ShotsFired <= _rcsStart)
                     return;
 
-            ViewAngels = Smurf.Memory.Read<Vector3>((IntPtr)(Smurf.ClientState + Offsets.ClientState.ViewAngles));
+            ViewAngels = Smurf.Memory.Read<Vector3>((IntPtr) (Smurf.ClientState + Offsets.ClientState.ViewAngles));
             NewViewAngels = ViewAngels;
 
             var punch = Smurf.LocalPlayer.VecPunch - LastPunch;
-            if ((punch.X != 0 || punch.Y != 0))
+            if (punch.X != 0 || punch.Y != 0)
             {
-                NewViewAngels.X -= punch.X * _maxYaw;
-                NewViewAngels.Y -= punch.Y * _maxPitch;
+                NewViewAngels.X -= punch.X*_maxYaw;
+                NewViewAngels.Y -= punch.Y*_maxPitch;
                 SetViewAngles(NewViewAngels);
             }
         }
@@ -70,8 +72,9 @@ namespace Smurf.GlobalOffensive.Updaters
         public void SetViewAngles(Vector3 viewAngles)
         {
             viewAngles.ClampAngle();
-            Smurf.Memory.Write((IntPtr)(Smurf.ClientState + Offsets.ClientState.ViewAngles), viewAngles);
+            Smurf.Memory.Write((IntPtr) (Smurf.ClientState + Offsets.ClientState.ViewAngles), viewAngles);
         }
+
         #endregion
     }
 }

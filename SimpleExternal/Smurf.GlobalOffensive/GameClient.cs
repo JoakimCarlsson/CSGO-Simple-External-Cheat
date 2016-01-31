@@ -10,7 +10,6 @@ namespace Smurf.GlobalOffensive
     /// </summary>
     public class GameClient : NativeObject
     {
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameClient" /> class.
         /// </summary>
@@ -18,7 +17,7 @@ namespace Smurf.GlobalOffensive
         public GameClient(IntPtr baseAddress) : base(baseAddress)
         {
             Console.WriteLine
-            ("GameClient initialized.");
+                ("GameClient initialized.");
         }
 
         /// <summary>
@@ -35,7 +34,7 @@ namespace Smurf.GlobalOffensive
         /// <value>
         ///     The state.
         /// </value>
-        public SignonState State => (SignonState)ReadField<int>(Offsets.ClientState.GameState);
+        public SignonState State => (SignonState) ReadField<int>(Offsets.ClientState.GameState);
 
         /// <summary>
         ///     Gets a value indicating whether [in game].

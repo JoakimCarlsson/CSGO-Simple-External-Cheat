@@ -4,7 +4,6 @@ using System.IO;
 using System.Text;
 using IniParser;
 using IniParser.Model;
-using Smurf.GlobalOffensive.Updaters;
 
 namespace Smurf.GlobalOffensive
 {
@@ -26,48 +25,49 @@ namespace Smurf.GlobalOffensive
 
         public void Update()
         {
-            _reloadConfigKey = (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString("Misc", "Reload Config Key"), 16);
+            _reloadConfigKey =
+                (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString("Misc", "Reload Config Key"), 16);
             if (Smurf.KeyUtils.KeyWentDown(_reloadConfigKey)) //Tab Key, don't hard code key, will fix later.
             {
                 Console.WriteLine("Reload Config.");
                 _data = Parser.ReadFile("Config.ini");
             }
         }
+
         private void CreateConfigFile()
         {
-            List<string> snipersList = new List<string>
+            var snipersList = new List<string>
             {
                 "AWP",
                 "SSG08",
                 "SCAR20",
-                "G3SG1",
-
+                "G3SG1"
             };
-            List<string> machineGunList = new List<string>
+            var machineGunList = new List<string>
             {
                 "M249",
-                "Negev",
+                "Negev"
             };
 
-            List<string> heavyList = new List<string>
+            var heavyList = new List<string>
             {
                 "NOVA",
                 "XM1014",
                 "Sawedoff",
-                "Mag7",
+                "Mag7"
             };
 
-            List<string> smgList = new List<string>
+            var smgList = new List<string>
             {
                 "MAC10",
                 "MP9",
                 "MP7",
                 "UMP45",
                 "Bizon",
-                "P90",
+                "P90"
             };
 
-            List<string> pistolList = new List<string>
+            var pistolList = new List<string>
             {
                 "DEagle",
                 "Elite",
@@ -76,17 +76,17 @@ namespace Smurf.GlobalOffensive
                 "P228",
                 "P250",
                 "HKP2000",
-                "Tec9",
+                "Tec9"
             };
 
-            List<string> rifleList = new List<string>
+            var rifleList = new List<string>
             {
                 "GalilAR",
                 "AK47",
                 "SG556",
                 "Famas",
                 "M4A1",
-                "Aug",
+                "Aug"
             };
 
             var builder = new StringBuilder();
@@ -330,8 +330,8 @@ namespace Smurf.GlobalOffensive
         {
             try
             {
-                string keyValue = _data[section][key];
-                float setting = float.Parse(keyValue);
+                var keyValue = _data[section][key];
+                var setting = float.Parse(keyValue);
                 return setting;
             }
             catch (Exception e)
@@ -361,7 +361,7 @@ namespace Smurf.GlobalOffensive
             try
             {
                 var keyValue = _data[section][key];
-                var button = (WinAPI.VirtualKeyShort)int.Parse(keyValue);
+                var button = (WinAPI.VirtualKeyShort) int.Parse(keyValue);
                 return button;
             }
             catch (Exception e)

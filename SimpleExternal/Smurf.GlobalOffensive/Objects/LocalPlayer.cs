@@ -29,15 +29,8 @@ namespace Smurf.GlobalOffensive.Objects
         ///     Gets the player ID for the player currently under the player's crosshair, and 0 if none.
         /// </summary>
         public int CrosshairId => ReadField<int>(Offsets.LocalPlayer.CrosshairId);
-        public int Velocity => GetVelocity();
-        private int GetVelocity()
-        {
-            var vector2 = new Vector2(Smurf.LocalPlayer.VecVelocity.X, Smurf.LocalPlayer.VecVelocity.Y);
-            var length = vector2.Length();
-            var velocity = length;
 
-            return (int)velocity;
-        }
+        public int Velocity => GetVelocity();
 
         /// <summary>
         ///     Gets the target the local player is currently aiming at, or null if none.
@@ -57,6 +50,15 @@ namespace Smurf.GlobalOffensive.Objects
 
                 return Smurf.Objects.GetPlayerById(id);
             }
+        }
+
+        private int GetVelocity()
+        {
+            var vector2 = new Vector2(Smurf.LocalPlayer.VecVelocity.X, Smurf.LocalPlayer.VecVelocity.Y);
+            var length = vector2.Length();
+            var velocity = length;
+
+            return (int) velocity;
         }
     }
 }

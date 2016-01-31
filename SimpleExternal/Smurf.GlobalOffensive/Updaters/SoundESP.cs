@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Smurf.GlobalOffensive.Updaters
 {
     public class SoundESP
     {
-        private int _sound;
-        private long _lastBeep;
         private bool _enabled;
-        private float _range;
         private float _interval;
+        private long _lastBeep;
+        private float _range;
+        private int _sound;
         private float _volume;
 
 
@@ -26,7 +22,7 @@ namespace Smurf.GlobalOffensive.Updaters
 
             if (!_enabled)
                 return;
-            Smurf.SoundManager.SetVolume(_volume / 100f);
+            Smurf.SoundManager.SetVolume(_volume/100f);
 
             var span = new TimeSpan(DateTime.Now.Ticks - _lastBeep);
             if (span.TotalMilliseconds > _interval)
@@ -34,7 +30,7 @@ namespace Smurf.GlobalOffensive.Updaters
                 _lastBeep = DateTime.Now.Ticks;
             }
 
-            var minRange = _range / _interval * (float)span.TotalMilliseconds;
+            var minRange = _range/_interval*(float) span.TotalMilliseconds;
 
             var leastDist = float.MaxValue;
 
