@@ -25,28 +25,8 @@ namespace Smurf.GlobalOffensive.Updaters
             if (!_aimbotActive)
                 return;
 
-            if (Smurf.KeyUtils.KeyIsDown(_aimbotKey))
-            {
-                if (_activeTarget == null)
-                {
-                    _activeTarget = GetTarget();
-                }
-            }
-        }
 
-        private Player GetTarget()
-        {
-            var validTargets =
-                Smurf.Objects.Players.Where(p => p.IsValid && p.IsAlive && !p.IsDormant && p.Id != Smurf.LocalPlayer.Id);
-            validTargets = validTargets.Where(p => p.SeenBy((int) Smurf.LocalPlayer.BaseAddress));
-            if (_aimEnemies)
-                validTargets = validTargets.Where(p => p.Team != Smurf.LocalPlayer.Team);
-            if (_aimFriendly)
-                validTargets = validTargets.Where(p => p.Team == Smurf.LocalPlayer.Team);
 
-            _activeTarget = validTargets.FirstOrDefault();
-
-            return null;
         }
 
         private void ReadSettings()

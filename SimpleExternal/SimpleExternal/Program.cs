@@ -12,7 +12,7 @@ namespace SimpleExternal
 
         private static void Main(string[] args)
         {
-            //LicenseGlobal.Seal.Initialize("6A5E0000");
+            LicenseGlobal.Seal.Initialize("6A5E0000");
             Thread thread1 = new Thread(PrintInfo);
             Thread thread2 = new Thread(UpdateBHop);
             Thread thread3 = new Thread(UpdateRcs);

@@ -4,12 +4,10 @@ using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Updaters
 {
-    public class ESP
+    public class Glow
     {
         private bool _glowActive, _glowFriendly, _glowEnemies;
-        private WinAPI.VirtualKeyShort _glowKey;
         public IntPtr GlowPointer { get; set; }
-
 
         public void Update()
         {
@@ -18,18 +16,13 @@ namespace Smurf.GlobalOffensive.Updaters
 
             ReadSettings();
 
-            if (Smurf.KeyUtils.KeyWentUp(_glowKey))
-            {
-                _glowActive = !_glowActive;
-            }
-
             if (!_glowActive)
                 return;
 
-            Glow();
+            DoGlow();
         }
 
-        private void Glow()
+        private void DoGlow()
         {
             GlowPointer = Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.GlowObject);
 
@@ -71,19 +64,13 @@ namespace Smurf.GlobalOffensive.Updaters
         {
             try
             {
-                if (_glowKey == 0)
-                {
                     _glowActive = Smurf.Settings.GetBool("Glow ESP", "Glow ESP Enabled");
                     _glowFriendly = Smurf.Settings.GetBool("Glow ESP", "Glow ESP Allies");
                     _glowEnemies = Smurf.Settings.GetBool("Glow ESP", "Glow ESP Enemies");
-                    _glowKey =
-                        (WinAPI.VirtualKeyShort)
-                            Convert.ToInt32(Smurf.Settings.GetString("Glow ESP", "Glow ESP Key"), 16);
-                }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+
             }
         }
     }

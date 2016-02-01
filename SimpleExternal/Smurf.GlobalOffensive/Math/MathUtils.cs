@@ -52,7 +52,6 @@ namespace Smurf.GlobalOffensive.Math
                 ret.Y += 180.0f;
             return ret;
         }
-
         #endregion
     }
 }
