@@ -8,7 +8,7 @@ namespace Smurf.GlobalOffensive.Updaters
     {
         private bool _autoPistol;
         private int _delay;
-        private long _triggerLastShot;
+        private long _lastShot;
 
         public void Update()
         {
@@ -25,10 +25,10 @@ namespace Smurf.GlobalOffensive.Updaters
             //TODO Fix so we only shoot if we are active in the csgo window.
             if (Smurf.KeyUtils.KeyIsDown(0x02))
             {
-                if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _delay))
+                if (!(new TimeSpan(DateTime.Now.Ticks - _lastShot).TotalMilliseconds >= _delay))
                     return;
 
-                _triggerLastShot = DateTime.Now.Ticks;
+                _lastShot = DateTime.Now.Ticks;
 
                 Shoot();
             }
@@ -43,9 +43,9 @@ namespace Smurf.GlobalOffensive.Updaters
         public void Shoot()
         {
             Thread.Sleep(10);
-            Smurf.Memory.Write(Smurf.ClientBase + Offsets.Misc.ForceAttack, 5);
+            WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTDOWN, 0, 0, 0, 0);
             Thread.Sleep(10);
-            Smurf.Memory.Write(Smurf.ClientBase + Offsets.Misc.ForceAttack, 4);
+            WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTUP, 0, 0, 0, 0);
         }
     }
 }

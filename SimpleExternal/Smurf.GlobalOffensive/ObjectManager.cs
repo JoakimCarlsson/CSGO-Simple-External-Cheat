@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
 using Smurf.Common;
 using Smurf.GlobalOffensive.Data.Enums;
 using Smurf.GlobalOffensive.Objects;
@@ -35,13 +37,15 @@ namespace Smurf.GlobalOffensive
         }
 
         public IReadOnlyList<Player> Players => _players;
-        public IReadOnlyList<Weapon> Weapons => _weapons;
+        //public IReadOnlyList<Weapon> Weapons => _weapons;
         //public IReadOnlyList<BaseEntity> Entities => _entities;
         internal LocalPlayer LocalPlayer { get; private set; }
         internal Weapon LocalPlayerWeapon { get; private set; }
+        public string WindowTitle { get; set; }
 
         public void Update()
         {
+            WindowTitle = GetActiveWindowTitle();
             if (!IsValid)
                 throw new InvalidOperationException(
                     "Can not update the ObjectManager when it's not properly initialized! Are you sure BaseAddress is valid?");
@@ -62,7 +66,7 @@ namespace Smurf.GlobalOffensive
             }
 
             _players.Clear();
-            _weapons.Clear();
+            //_weapons.Clear();
             //_entities.Clear();
 
             var localPlayerPtr = Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.LocalPlayer);
@@ -80,8 +84,8 @@ namespace Smurf.GlobalOffensive
 
                 if (entity.IsPlayer())
                     _players.Add(new Player(GetEntityPtr(i)));
-                else if (entity.IsWeapon())
-                    _weapons.Add(new Weapon(GetEntityPtr(i)));
+                //else if (entity.IsWeapon())
+                //    _weapons.Add(new Weapon(GetEntityPtr(i)));
                 //else
                 //    _entities.Add(new BaseEntity(GetEntityPtr(i)));
             }
@@ -103,6 +107,9 @@ namespace Smurf.GlobalOffensive
 
         public bool ShouldUpdate(bool checkKnife = true, bool checkGrenades = true, bool checkMisc = true)
         {
+            if (WindowTitle != Smurf.GameTitle)
+                return false;
+
             if (Smurf.LocalPlayer == null)
                 return false;
 
@@ -135,5 +142,22 @@ namespace Smurf.GlobalOffensive
 
             return true;
         }
+        private static string GetActiveWindowTitle()
+        {
+            const int nChars = 256;
+            var builder = new StringBuilder(nChars);
+            var handle = GetForegroundWindow();
+
+            if (GetWindowText(handle, builder, nChars) > 0)
+            {
+                return builder.ToString();
+            }
+            return null;
+        }
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        private static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
     }
 }
