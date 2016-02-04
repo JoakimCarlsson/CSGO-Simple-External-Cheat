@@ -14,7 +14,6 @@ namespace Smurf.GlobalOffensive.Updaters
     {
         #region Fields
         private static WinAPI.VirtualKeyShort _aimKey;
-        private static Vector3 _newViewAngles;
         public Player ActiveTarget;
         private static int _fov;
         private static int _bones;
@@ -22,17 +21,20 @@ namespace Smurf.GlobalOffensive.Updaters
         private static bool _aimAllies;
         private static bool _enabled;
         private static bool _aimEnemies;
-        private static bool _aimJump = true;
         public IEnumerable<Player> ValidTargets;
+        private static Vector3 _viewAngels;
         #endregion
         #region Methods
         public void Update()
         {
+
             if (!Smurf.Objects.ShouldUpdate())
                 return;
-            
+
             if (Smurf.LocalPlayerWeapon.Clip1 <= 0)
                 return;
+
+            _viewAngels = Smurf.Memory.Read<Vector3>((IntPtr)(Smurf.ClientState + Offsets.ClientState.ViewAngles));
 
             ReadSettings();
 
@@ -61,17 +63,47 @@ namespace Smurf.GlobalOffensive.Updaters
                 return;
 
             var myView = Smurf.LocalPlayer.Position + Smurf.LocalPlayer.VecView;
-            var aimView = ActiveTarget.GetBonePos((int)ActiveTarget.BaseAddress, _bones) - Smurf.ControlRecoil.NewViewAngels;
+            var aimView = ActiveTarget.GetBonePos((int)ActiveTarget.BaseAddress, _bones);
 
-            Smurf.ControlRecoil.NewViewAngels = myView.CalcAngle(aimView);
-            Smurf.ControlRecoil.NewViewAngels.ClampAngle();
+            var dst = myView.CalcAngle(aimView);
+            dst.ClampAngle();
 
-            if (Smurf.ControlRecoil.NewViewAngels != Vector3.Zero)
+            //Aimbot RCS
+            dst = ControlRecoil(dst);
+
+            //Smooth
+            dst = SmoothAim(dst);
+
+            dst.ClampAngle();
+
+            if (dst != Vector3.Zero)
             {
-                Smurf.ControlRecoil.SetViewAngles(Smurf.ControlRecoil.NewViewAngels);
+                Smurf.ControlRecoil.SetViewAngles(dst);
                 Smurf.ControlRecoil.NewViewAngels = Vector3.Zero;
             }
 
+        }
+        private Vector3 SmoothAim(Vector3 dst)
+        {
+            Vector3 delta;
+            delta.X = dst.X - _viewAngels.X;
+            delta.Y = dst.Y - _viewAngels.Y;
+            delta.Z = 0;
+
+            delta.ClampAngle();
+
+            dst.X = _viewAngels.X + delta.X / _aimSmooth;
+            dst.Y = _viewAngels.Y + delta.Y / _aimSmooth;
+            dst.Z = 0;
+            return dst;
+        }
+
+        private static Vector3 ControlRecoil(Vector3 dst)
+        {
+            dst.X -= Smurf.LocalPlayer.VecPunch.X * 2f;
+            dst.Y -= Smurf.LocalPlayer.VecPunch.Y * 2f;
+            dst.Z -= Smurf.LocalPlayer.VecPunch.Z * 2f;
+            return dst;
         }
 
         private Player GetTarget()
@@ -81,6 +113,8 @@ namespace Smurf.GlobalOffensive.Updaters
                 validTargets = validTargets.Where(p => p.Team != Smurf.LocalPlayer.Team);
             if (_aimAllies)
                 validTargets = validTargets.Where(p => p.Team == Smurf.LocalPlayer.Team);
+
+            validTargets = validTargets.OrderBy(p => (p.Position - Smurf.LocalPlayer.Position).Length());
 
             return validTargets.FirstOrDefault();
         }

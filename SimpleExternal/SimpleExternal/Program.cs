@@ -40,7 +40,7 @@ namespace SimpleExternal
                 Smurf.GlobalOffensive.Smurf.Radar.Update();
                 Smurf.GlobalOffensive.Smurf.Glow.Update();
 
-                Thread.Sleep(3);
+                Thread.Sleep(1);
             }
         }
         private static void StartThreads(params Thread[] threads)

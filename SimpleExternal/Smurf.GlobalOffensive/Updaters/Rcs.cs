@@ -10,10 +10,9 @@ namespace Smurf.GlobalOffensive.Updaters
         #region Fields
 
         public Vector3 NewViewAngels;
-        private float _maxYaw, _maxPitch, _minYaw, _minPitch;
+        private float _maxYaw, _maxPitch;
         private bool _rcsEnabled;
         private int _rcsStart;
-        private string _currentWeapon;
 
         #endregion
 
