@@ -57,10 +57,10 @@ namespace Smurf.GlobalOffensive.Updaters
             }
         }
 
-        public static float AngleDifference(Vector3 pAngleA, Vector3 pAngleB)
+        public static float AngleDifference(Vector3 viewAngle, Vector3 dst)
         {
-            float num1 = (pAngleA.X - pAngleB.X);
-            float num2 = (pAngleA.Y - pAngleB.Y);
+            float num1 = (viewAngle.X - dst.X);
+            float num2 = (viewAngle.Y - dst.Y);
             bool flag = 180.0 > num1;
             int num3 = 180.0 > (double)num2 ? 1 : 0;
             if (!flag)
@@ -83,7 +83,7 @@ namespace Smurf.GlobalOffensive.Updaters
             var aimView = ActiveTarget.GetBonePos((int)ActiveTarget.BaseAddress, _bones);
 
             var dst = myView.CalcAngle(aimView);
-            Console.WriteLine(AngleDifference(_viewAngels, dst));
+            //Console.WriteLine(AngleDifference(_viewAngels, dst));
 
             dst.ClampAngle();
             //Aimbot RCS
@@ -117,11 +117,6 @@ namespace Smurf.GlobalOffensive.Updaters
             return dst;
         }
 
-        private static double RadianToDegree(double angle)
-        {
-            return angle * (180.0 / System.Math.PI);
-        }
-
         private static Vector3 ControlRecoil(Vector3 dst)
         {
             dst.X -= Smurf.LocalPlayer.VecPunch.X * 2f;
@@ -139,7 +134,16 @@ namespace Smurf.GlobalOffensive.Updaters
                 validTargets = validTargets.Where(p => p.Team == Smurf.LocalPlayer.Team);
 
             validTargets = validTargets.OrderBy(p => (p.Position - Smurf.LocalPlayer.Position).Length());
-            return validTargets.FirstOrDefault();
+            foreach (Player validTarget in validTargets)
+            {
+                var myView = Smurf.LocalPlayer.Position + Smurf.LocalPlayer.VecView;
+                var aimView = validTarget.GetBonePos((int)validTarget.BaseAddress, _bones);
+                var dst = myView.CalcAngle(aimView);
+
+                if (AngleDifference(_viewAngels, dst) <= _fov)
+                    return validTarget;
+            }
+            return null;
         }
 
         private void ReadSettings()
