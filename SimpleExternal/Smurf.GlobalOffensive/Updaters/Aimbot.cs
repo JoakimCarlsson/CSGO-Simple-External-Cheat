@@ -14,7 +14,7 @@ namespace Smurf.GlobalOffensive.Updaters
     {
         #region Fields
         private static WinAPI.VirtualKeyShort _aimKey;
-        public Player ActiveTarget;
+        public static Player ActiveTarget;
         private static int _fov;
         private static int _bones;
         private static int _aimSmooth;
@@ -57,6 +57,23 @@ namespace Smurf.GlobalOffensive.Updaters
             }
         }
 
+        public static float AngleDifference(Vector3 pAngleA, Vector3 pAngleB)
+        {
+            float num1 = (pAngleA.X - pAngleB.X);
+            float num2 = (pAngleA.Y - pAngleB.Y);
+            bool flag = 180.0 > num1;
+            int num3 = 180.0 > (double)num2 ? 1 : 0;
+            if (!flag)
+                num1 -= 360f;
+            if (num3 == 0)
+                num2 -= 360f;
+            if (0.0 > num1)
+                num1 = num1 - num1 - num1;
+            if (0.0 > num2)
+                num2 = num2 - num2 - num2;
+            return (float)(num1 + (double)num2);
+        }
+
         private void DoAimbot()
         {
             if (!ActiveTarget.IsAlive)
@@ -66,8 +83,9 @@ namespace Smurf.GlobalOffensive.Updaters
             var aimView = ActiveTarget.GetBonePos((int)ActiveTarget.BaseAddress, _bones);
 
             var dst = myView.CalcAngle(aimView);
-            dst.ClampAngle();
+            Console.WriteLine(AngleDifference(_viewAngels, dst));
 
+            dst.ClampAngle();
             //Aimbot RCS
             dst = ControlRecoil(dst);
 
@@ -85,17 +103,23 @@ namespace Smurf.GlobalOffensive.Updaters
         }
         private Vector3 SmoothAim(Vector3 dst)
         {
+            dst.NormalizeAngle();
             Vector3 delta;
             delta.X = dst.X - _viewAngels.X;
             delta.Y = dst.Y - _viewAngels.Y;
             delta.Z = 0;
 
-            delta.ClampAngle();
+            dst.NormalizeAngle();
 
             dst.X = _viewAngels.X + delta.X / _aimSmooth;
             dst.Y = _viewAngels.Y + delta.Y / _aimSmooth;
             dst.Z = 0;
             return dst;
+        }
+
+        private static double RadianToDegree(double angle)
+        {
+            return angle * (180.0 / System.Math.PI);
         }
 
         private static Vector3 ControlRecoil(Vector3 dst)
@@ -115,7 +139,6 @@ namespace Smurf.GlobalOffensive.Updaters
                 validTargets = validTargets.Where(p => p.Team == Smurf.LocalPlayer.Team);
 
             validTargets = validTargets.OrderBy(p => (p.Position - Smurf.LocalPlayer.Position).Length());
-
             return validTargets.FirstOrDefault();
         }
 
@@ -136,6 +159,7 @@ namespace Smurf.GlobalOffensive.Updaters
 
             }
         }
+
         #endregion
     }
 }

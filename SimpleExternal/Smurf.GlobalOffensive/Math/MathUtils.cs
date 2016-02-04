@@ -52,6 +52,31 @@ namespace Smurf.GlobalOffensive.Math
                 ret.Y += 180.0f;
             return ret;
         }
+        public static Vector3 NormalizeAngle(this Vector3 angles)
+        {
+            if (angles.X > 89)
+            {
+                angles.X = 89;
+            }
+            else if (-89 > angles.X)
+            {
+                angles.X = -89;
+            }
+
+            if (angles.Y > 180)
+            {
+                angles.Y -= 360;
+            }
+            else if (-180 > angles.Y)
+            {
+                angles.Y += 360;
+            }
+
+            angles.Z = 0;
+
+            return angles;
+        }
+
         #endregion
     }
 }
