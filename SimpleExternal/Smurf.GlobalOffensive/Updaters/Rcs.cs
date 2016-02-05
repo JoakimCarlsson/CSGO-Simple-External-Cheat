@@ -9,9 +9,9 @@ namespace Smurf.GlobalOffensive.Updaters
     {
         #region Fields
 
-        public Vector3 NewViewAngels;
-        public float _maxYaw, _maxPitch;
-        public bool _rcsEnabled;
+        private Vector3 _newViewAngels;
+        public float MaxYaw, MaxPitch;
+        public bool RcsEnabled;
         private int _rcsStart;
 
         #endregion
@@ -35,7 +35,7 @@ namespace Smurf.GlobalOffensive.Updaters
 
             ReadSettïngs();
 
-            if (!_rcsEnabled)
+            if (!RcsEnabled)
                 return;
 
             ControlRecoil();
@@ -49,22 +49,22 @@ namespace Smurf.GlobalOffensive.Updaters
                     return;
 
             ViewAngels = Smurf.Memory.Read<Vector3>((IntPtr) (Smurf.ClientState + Offsets.ClientState.ViewAngles));
-            NewViewAngels = ViewAngels;
+            _newViewAngels = ViewAngels;
 
             var punch = Smurf.LocalPlayer.VecPunch - LastPunch;
             if (punch.X != 0 || punch.Y != 0)
             {
-                NewViewAngels.X -= punch.X*_maxYaw;
-                NewViewAngels.Y -= punch.Y*_maxPitch;
-                SetViewAngles(NewViewAngels);
+                _newViewAngels.X -= punch.X*MaxYaw;
+                _newViewAngels.Y -= punch.Y*MaxPitch;
+                SetViewAngles(_newViewAngels);
             }
         }
 
         private void ReadSettïngs()
         {
-            _rcsEnabled = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Enabled");
-            _maxYaw = Smurf.Settings.GetFloat(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Force Yaw");
-            _maxPitch = Smurf.Settings.GetFloat(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Force Pitch");
+            RcsEnabled = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Enabled");
+            MaxYaw = Smurf.Settings.GetFloat(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Force Yaw");
+            MaxPitch = Smurf.Settings.GetFloat(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Force Pitch");
             _rcsStart = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Rcs Start");
         }
 

@@ -7,6 +7,7 @@ namespace Smurf.GlobalOffensive.Updaters
     public class AutoPistol
     {
         private bool _autoPistol;
+        private WinAPI.VirtualKeyShort _autoPistolKey;
         private int _delay;
         private long _lastShot;
 
@@ -36,8 +37,16 @@ namespace Smurf.GlobalOffensive.Updaters
 
         private void ReadSettigns()
         {
-            _autoPistol = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Auto Pistol");
-            _delay = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Auto Pistol Delay");
+            try
+            {
+                _autoPistol = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Auto Pistol");
+                _delay = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Auto Pistol Delay");
+                _autoPistolKey = (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString(Smurf.LocalPlayerWeapon.WeaponName, "Auto Pistol Key"));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         public void Shoot()

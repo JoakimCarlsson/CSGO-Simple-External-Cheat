@@ -99,7 +99,7 @@ namespace Smurf.GlobalOffensive.Updaters
             dst = dst.ClampAngle();
 
             //Aimbot RCS
-            if (Smurf.ControlRecoil._rcsEnabled)
+            if (Smurf.ControlRecoil.RcsEnabled)
                 dst = ControlRecoil(dst);
 
             dst = dst.NormalizeAngle();
@@ -128,8 +128,8 @@ namespace Smurf.GlobalOffensive.Updaters
 
         private static Vector3 ControlRecoil(Vector3 dst)
         {
-            dst.X -= Smurf.LocalPlayer.VecPunch.X * Smurf.ControlRecoil._maxPitch;
-            dst.Y -= Smurf.LocalPlayer.VecPunch.Y * Smurf.ControlRecoil._maxYaw;
+            dst.X -= Smurf.LocalPlayer.VecPunch.X * Smurf.ControlRecoil.MaxPitch;
+            dst.Y -= Smurf.LocalPlayer.VecPunch.Y * Smurf.ControlRecoil.MaxYaw;
             //dst.Z -= Smurf.LocalPlayer.VecPunch.Z * 2f;
             return dst;
         }

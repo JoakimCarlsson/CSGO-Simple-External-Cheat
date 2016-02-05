@@ -25,8 +25,7 @@ namespace Smurf.GlobalOffensive
 
         public void Update()
         {
-            _reloadConfigKey =
-                (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString("Misc", "Reload Config Key"), 16);
+            _reloadConfigKey = (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString("Misc", "Reload Config Key"), 16);
             if (Smurf.KeyUtils.KeyWentDown(_reloadConfigKey)) //Tab Key, don't hard code key, will fix later.
             {
                 Console.WriteLine("Reload Config.");
@@ -126,6 +125,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Aimbot Bone = 6").AppendLine();
                 //Auto Pistol
                 builder.AppendLine("Auto Pistol = False");
+                builder.AppendLine("Auto Pistol Key = 0x12");
                 builder.AppendLine("Auto Pistol Delay = 0").AppendLine();
                 //RCS
                 builder.AppendLine("Rcs Enabled = False");
