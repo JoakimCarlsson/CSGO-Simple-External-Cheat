@@ -15,22 +15,14 @@ namespace Smurf.GlobalOffensive
     /// </summary>
     public class ObjectManager : NativeObject
     {
-        private readonly List<BaseEntity> _entities = new List<BaseEntity>();
-        // Obtain this dynamically from the game at a later stage.
-        //private readonly int _capacity;
-        // Exposed through a read-only list, users of the API won't be able to change what's going on in game anyway.
+
         private readonly List<Player> _players = new List<Player>();
+        //private readonly List<BaseEntity> _entities = new List<BaseEntity>();
+        //private readonly List<Weapon> _weapons = new List<Weapon>();
 
         private readonly int _ticksPerSecond;
-        private readonly List<Weapon> _weapons = new List<Weapon>();
         private TimeSpan _lastUpdate = TimeSpan.Zero;
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ObjectManager" /> class.
-        /// </summary>
-        /// <param name="baseAddress">The base address.</param>
-        /// <param name="capacity">The capacity.</param>
-        /// <param name="ticksPerSecond">The ticks per second.</param>
         public ObjectManager(IntPtr baseAddress, int ticksPerSecond = 10) : base(baseAddress)
         {
             _ticksPerSecond = ticksPerSecond;
@@ -51,16 +43,12 @@ namespace Smurf.GlobalOffensive
                     "Can not update the ObjectManager when it's not properly initialized! Are you sure BaseAddress is valid?");
 
             var timeStamp = MonotonicTimer.GetTimeStamp();
-            // Throttle the updates a little - entities won't be changing that frequently.
-            // Realistically we don't need to call this very often at all, as we only keep references to the actual
-            // entities in the game, and only resolve their members when they're actually required.
+
             if (timeStamp - _lastUpdate < TimeSpan.FromMilliseconds(1000/_ticksPerSecond))
                 return;
 
             if (!Smurf.Client.InGame)
             {
-                // No point in updating if we're not in game - we'd end up reading garbage.
-                // Do set the last update time though, we especially don't want to tick too often in menu.
                 _lastUpdate = timeStamp;
                 return;
             }
@@ -149,11 +137,11 @@ namespace Smurf.GlobalOffensive
             var handle = GetForegroundWindow();
 
             if (GetWindowText(handle, builder, nChars) > 0)
-            {
                 return builder.ToString();
-            }
+
             return null;
         }
+
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
 

@@ -32,13 +32,11 @@ namespace Smurf.GlobalOffensive.Objects
             }
             set { _classId = value; }
         }
-
         public string ClassName
         {
             get { return _className ?? (_className = GetClassName()); }
             set { _className = value; }
         }
-
         public int Id => ReadField<int>(Offsets.BaseEntity.Index);
         public Vector3 Position => ReadField<Vector3>(Offsets.BaseEntity.Position);
         public Vector3 VecView => ReadField<Vector3>(Offsets.LocalPlayer.VecViewOffset);
@@ -58,8 +56,6 @@ namespace Smurf.GlobalOffensive.Objects
         public bool GunGameImmune => ReadField<bool>(Offsets.Player.GunGameImmune);
         public Vector3 VecPunch => ReadField<Vector3>(Offsets.LocalPlayer.VecPunch);
         public long SpottedByMask => ReadField<long>(Offsets.BaseEntity.SpottedByMask);
-        // public bool IsSpotted => ReadField<bool>(Offsets.BaseEntity.Spotted);
-
         public bool IsWeapon()
         {
             return
