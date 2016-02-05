@@ -30,7 +30,7 @@ namespace Smurf.GlobalOffensive
         public static Aimbot Aimbot { get; set; }
         public static SoundManager SoundManager { get; set; }
         public static KeyUtils KeyUtils { get; set; }
-        public static Glow Glow { get; set; }
+        //public static Glow Glow { get; set; }
         public static GameClient Client { get; private set; }
         public static IntPtr ClientBase { get; private set; }
         public static IntPtr EngineBase { get; private set; }
@@ -60,7 +60,7 @@ namespace Smurf.GlobalOffensive
             Radar = new Radar();
             NoFlash = new NoFlash();
             AutoPistol = new AutoPistol();
-            Glow = new Glow();
+            //Glow = new Glow();
             Aimbot = new Aimbot();
             SoundManager = new SoundManager(2);
 

@@ -94,10 +94,10 @@ namespace Smurf.GlobalOffensive
             builder.AppendLine("Bunny Jump Key = 0x20").AppendLine();
 
             //GLOW
-            builder.AppendLine("[Glow ESP]");
-            builder.AppendLine("Glow ESP Enabled = True");
-            builder.AppendLine("Glow ESP Allies = True");
-            builder.AppendLine("Glow ESP Enemies = True").AppendLine();
+            //builder.AppendLine("[Glow ESP]");
+            //builder.AppendLine("Glow ESP Enabled = True");
+            //builder.AppendLine("Glow ESP Allies = True");
+            //builder.AppendLine("Glow ESP Enemies = True").AppendLine();
 
             //SoundESP
             builder.AppendLine("[Sound ESP]");

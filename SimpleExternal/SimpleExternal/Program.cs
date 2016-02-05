@@ -46,7 +46,7 @@ namespace SimpleExternal
                 Smurf.GlobalOffensive.Smurf.TriggerBot.Update();
                 Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
                 Smurf.GlobalOffensive.Smurf.Radar.Update();
-                Smurf.GlobalOffensive.Smurf.Glow.Update();
+                //Smurf.GlobalOffensive.Smurf.Glow.Update();
                 Thread.Sleep(1);
             }
         }
