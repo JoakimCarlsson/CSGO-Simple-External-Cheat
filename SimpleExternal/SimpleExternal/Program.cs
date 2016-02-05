@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Windows.Forms;
 using Smurf.GlobalOffensive;
 
 namespace SimpleExternal
@@ -13,6 +14,10 @@ namespace SimpleExternal
         private static void Main(string[] args)
         {
             //LicenseGlobal.Seal.Initialize("6A5E0000");
+            //foreach (var newsPost in LicenseGlobal.Seal.News)
+            //{
+            //    MessageBox.Show(LicenseGlobal.Seal.GetPostMessage(newsPost.ID), newsPost.Name);
+            //}
             Thread thread1 = new Thread(PrintInfo);
             Thread thread2 = new Thread(UpdateBHop);
             Thread thread3 = new Thread(UpdateRcs);

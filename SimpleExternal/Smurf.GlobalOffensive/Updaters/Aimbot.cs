@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Runtime.InteropServices;
 using System.Threading;
 using Smurf.GlobalOffensive.Math;
 using Smurf.GlobalOffensive.Objects;
@@ -116,18 +115,6 @@ namespace Smurf.GlobalOffensive.Updaters
             if (smoothAngle != Vector3.Zero)
                 Smurf.ControlRecoil.SetViewAngles(smoothAngle);
         }
-
-        //private Vector3 SmoothAim(Vector3 dst)
-        //{
-        //    var delta = dst - _viewAngels;
-        //    delta.NormalizeAngle();
-        //    delta.ClampAngle();
-
-        //    dst = _viewAngels + delta / _aimSmooth;
-        //    dst.NormalizeAngle();
-        //    dst.ClampAngle();
-        //    return dst;
-        //}
 
         private static Vector3 ControlRecoil(Vector3 dst)
         {
