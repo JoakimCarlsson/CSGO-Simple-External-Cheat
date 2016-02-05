@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Threading;
@@ -12,17 +11,17 @@ namespace Smurf.GlobalOffensive.Updaters
     public class Aimbot
     {
         #region Fields
-        private static WinAPI.VirtualKeyShort _aimKey;
-        public static Player ActiveTarget;
-        private static int _fov;
-        private static int _bones = 6;
-        private static string _randomBones;
-        private static int _aimSmooth;
-        private static bool _aimAllies;
-        private static bool _enabled;
-        private static bool _aimEnemies;
-        public IEnumerable<Player> ValidTargets;
+        private static Player _activeTarget;
         private static Vector3 _viewAngels;
+
+        private static WinAPI.VirtualKeyShort _aimbotKey;
+        private static int _aimbotFov;
+        private static int _aimbotBone;
+        private static string _randomBones;
+        private static int _aimbotSmooth;
+        private static bool _aimbotAllies;
+        private static bool _aimbotEnabled;
+        private static bool _aimbotEnemies;
         #endregion
 
         #region Methods
@@ -32,32 +31,29 @@ namespace Smurf.GlobalOffensive.Updaters
             if (!Smurf.Objects.ShouldUpdate())
                 return;
 
-            if (Smurf.LocalPlayerWeapon.Clip1 <= 0)
+            ReadSettings();
+
+            if (!_aimbotEnabled)
                 return;
 
             _viewAngels = Smurf.Memory.Read<Vector3>((IntPtr)(Smurf.ClientState + Offsets.ClientState.ViewAngles));
 
-            ReadSettings();
-
-            if (!_enabled)
-                return;
-
-            if (Smurf.KeyUtils.KeyIsDown(_aimKey))
+            if (Smurf.KeyUtils.KeyIsDown(_aimbotKey))
             {
-                if (ActiveTarget == null)
+                if (_activeTarget == null)
                 {
-                    ActiveTarget = GetTarget();
-                    _bones = GetRandomBone();
+                    _activeTarget = GetTarget();
+                    _aimbotBone = GetRandomBone();
                 }
 
 
-                if (ActiveTarget != null)
+                if (_activeTarget != null)
                     DoAimbot();
             }
 
-            if (Smurf.KeyUtils.KeyWentUp(_aimKey))
+            if (Smurf.KeyUtils.KeyWentUp(_aimbotKey))
             {
-                ActiveTarget = null;
+                _activeTarget = null;
                 Thread.Sleep(1); //If we don't sleep, the key will go up and on and lock onto another target. 
             }
         }
@@ -72,7 +68,7 @@ namespace Smurf.GlobalOffensive.Updaters
             return tmpBone[randomIndex];
         }
 
-        public static float AngleDifference(Vector3 viewAngle, Vector3 dst)
+        public float AngleDifference(Vector3 viewAngle, Vector3 dst)
         {
             float num1 = (viewAngle.X - dst.X);
             float num2 = (viewAngle.Y - dst.Y);
@@ -89,13 +85,13 @@ namespace Smurf.GlobalOffensive.Updaters
             return (float)(num1 + (double)num2);
         }
 
-        private void DoAimbot()
+        private static void DoAimbot()
         {
-            if (!ActiveTarget.IsAlive)
+            if (!_activeTarget.IsAlive)
                 return;
 
             var myView = Smurf.LocalPlayer.Position + Smurf.LocalPlayer.VecView;
-            var aimView = ActiveTarget.GetBonePos((int)ActiveTarget.BaseAddress, _bones);
+            var aimView = _activeTarget.GetBonePos((int)_activeTarget.BaseAddress, _aimbotBone);
 
             var dst = myView.CalcAngle(aimView);
 
@@ -104,25 +100,24 @@ namespace Smurf.GlobalOffensive.Updaters
 
             //Aimbot RCS
             if (Smurf.ControlRecoil._rcsEnabled)
-            {
                 dst = ControlRecoil(dst);
-            }
+
             dst = dst.NormalizeAngle();
             dst = dst.ClampAngle();
 
             //Smooth
-            SmoothAim(_viewAngels, dst);
+            SmoothAim( dst);
         }
 
-        private void SmoothAim(Vector3 viewAngles, Vector3 dst)
+        private static void SmoothAim(Vector3 dst)
         {
-            var smoothAngle = dst - viewAngles;
+            var smoothAngle = dst - _viewAngels;
 
             smoothAngle = smoothAngle.NormalizeAngle();
             smoothAngle = smoothAngle.ClampAngle();
 
-            smoothAngle /= _aimSmooth;
-            smoothAngle += viewAngles;
+            smoothAngle /= _aimbotSmooth;
+            smoothAngle += _viewAngels;
 
             smoothAngle = smoothAngle.NormalizeAngle();
             smoothAngle = smoothAngle.ClampAngle();
@@ -142,19 +137,19 @@ namespace Smurf.GlobalOffensive.Updaters
         private Player GetTarget()
         {
             var validTargets = Smurf.Objects.Players.Where(p => p.IsAlive && !p.IsDormant && p.Id != Smurf.LocalPlayer.Id && p.SeenBy(Smurf.LocalPlayer));
-            if (_aimEnemies)
+            if (_aimbotEnemies)
                 validTargets = validTargets.Where(p => p.Team != Smurf.LocalPlayer.Team);
-            if (_aimAllies)
+            if (_aimbotAllies)
                 validTargets = validTargets.Where(p => p.Team == Smurf.LocalPlayer.Team);
 
             validTargets = validTargets.OrderBy(p => (p.Position - Smurf.LocalPlayer.Position).Length());
             foreach (Player validTarget in validTargets)
             {
                 var myView = Smurf.LocalPlayer.Position + Smurf.LocalPlayer.VecView;
-                var aimView = validTarget.GetBonePos((int)validTarget.BaseAddress, _bones);
+                var aimView = validTarget.GetBonePos((int)validTarget.BaseAddress, _aimbotBone);
                 var dst = myView.CalcAngle(aimView);
 
-                if (AngleDifference(_viewAngels, dst) <= _fov)
+                if (AngleDifference(_viewAngels, dst) <= _aimbotFov)
                     return validTarget;
             }
             return null;
@@ -164,13 +159,13 @@ namespace Smurf.GlobalOffensive.Updaters
         {
             try
             {
-                _enabled = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Enabled");
-                _aimKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Smurf.Settings.GetString(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Key"), 16);
-                _fov = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Fov");
+                _aimbotEnabled = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Enabled");
+                _aimbotKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Smurf.Settings.GetString(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Key"), 16);
+                _aimbotFov = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Fov");
                 _randomBones = Smurf.Settings.GetString(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Bone");
-                _aimSmooth = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Smooth");
-                _aimEnemies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Aim Enemies");
-                _aimAllies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Aim Friendly");
+                _aimbotSmooth = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Smooth");
+                _aimbotEnemies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Aim Enemies");
+                _aimbotAllies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Aim Friendly");
             }
             catch (Exception e)
             {
