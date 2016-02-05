@@ -15,7 +15,8 @@ namespace Smurf.GlobalOffensive.Updaters
         private static WinAPI.VirtualKeyShort _aimKey;
         public static Player ActiveTarget;
         private static int _fov;
-        private static int _bones;
+        private static int _bones = 6;
+        private static string _randomBones;
         private static int _aimSmooth;
         private static bool _aimAllies;
         private static bool _enabled;
@@ -44,7 +45,11 @@ namespace Smurf.GlobalOffensive.Updaters
             if (Smurf.KeyUtils.KeyIsDown(_aimKey))
             {
                 if (ActiveTarget == null)
+                {
                     ActiveTarget = GetTarget();
+                    _bones = GetRandomBone();
+                }
+
 
                 if (ActiveTarget != null)
                     DoAimbot();
@@ -55,6 +60,16 @@ namespace Smurf.GlobalOffensive.Updaters
                 ActiveTarget = null;
                 Thread.Sleep(1); //If we don't sleep, the key will go up and on and lock onto another target. 
             }
+        }
+
+        private int GetRandomBone()
+        {
+            var tmpString = _randomBones.Split(',');
+            int[] tmpBone = Array.ConvertAll(tmpString, int.Parse);
+            Random random = new Random();
+            int randomIndex = random.Next(0, tmpBone.Length);
+
+            return tmpBone[randomIndex];
         }
 
         public static float AngleDifference(Vector3 viewAngle, Vector3 dst)
@@ -152,7 +167,7 @@ namespace Smurf.GlobalOffensive.Updaters
                 _enabled = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Enabled");
                 _aimKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Smurf.Settings.GetString(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Key"), 16);
                 _fov = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Fov");
-                _bones = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Bone");
+                _randomBones = Smurf.Settings.GetString(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Bone");
                 _aimSmooth = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Smooth");
                 _aimEnemies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Aim Enemies");
                 _aimAllies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Aim Friendly");

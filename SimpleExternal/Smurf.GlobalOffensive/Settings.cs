@@ -298,7 +298,7 @@ namespace Smurf.GlobalOffensive
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
             }
             return 0;
         }
@@ -313,7 +313,7 @@ namespace Smurf.GlobalOffensive
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
             }
             return "M4A1";
         }
@@ -335,7 +335,7 @@ namespace Smurf.GlobalOffensive
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
             }
             return 0;
         }
@@ -350,7 +350,7 @@ namespace Smurf.GlobalOffensive
             }
             catch (Exception e)
             {
-                Console.WriteLine(section, key);
+                Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
             }
             return false;
         }
@@ -365,7 +365,7 @@ namespace Smurf.GlobalOffensive
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
             }
             return WinAPI.VirtualKeyShort.ACCEPT;
         }
