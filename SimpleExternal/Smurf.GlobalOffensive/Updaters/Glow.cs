@@ -28,8 +28,7 @@ namespace Smurf.GlobalOffensive.Updaters
 
             #region Player Glow
 
-            foreach (
-                var player in Smurf.Objects.Players.Where(player => !player.IsDormant).Where(player => player.IsAlive))
+            foreach ( var player in Smurf.Objects.Players.Where(player => !player.IsDormant).Where(player => player.IsAlive))
             {
                 if (_glowEnemies)
                 {

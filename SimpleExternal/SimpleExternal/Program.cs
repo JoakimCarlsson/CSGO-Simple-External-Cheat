@@ -23,6 +23,7 @@ namespace SimpleExternal
             Thread thread3 = new Thread(UpdateRcs);
             Thread thread4 = new Thread(UpdateSettings);
             Thread thread5 = new Thread(UpdateKeyUtils);
+            Thread thread6 = new Thread(UpdateAimbot);
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.Title = "Smurf Bot";
@@ -34,13 +35,12 @@ namespace SimpleExternal
             Process[] process = Process.GetProcessesByName("csgo");
             Smurf.GlobalOffensive.Smurf.Attach(process[0]);
 
-            StartThreads(thread1, thread2, thread3, thread4, thread5);
+            StartThreads(thread1, thread2, thread3, thread4, thread5, thread6);
 
             while (true)
             {
                 Smurf.GlobalOffensive.Smurf.Objects.Update();
                 Smurf.GlobalOffensive.Smurf.TriggerBot.Update();
-                Smurf.GlobalOffensive.Smurf.Aimbot.Update();
                 Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
                 Smurf.GlobalOffensive.Smurf.Radar.Update();
                 Smurf.GlobalOffensive.Smurf.Glow.Update();
@@ -48,6 +48,16 @@ namespace SimpleExternal
                 Thread.Sleep(1);
             }
         }
+
+        private static void UpdateAimbot()
+        {
+            while (true)
+            {
+                Smurf.GlobalOffensive.Smurf.Aimbot.Update();
+                Thread.Sleep(1);
+            }
+        }
+
         private static void StartThreads(params Thread[] threads)
         {
             foreach (var thread in threads)
