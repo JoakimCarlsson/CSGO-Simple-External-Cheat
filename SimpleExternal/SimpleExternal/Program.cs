@@ -8,9 +8,12 @@ namespace SimpleExternal
 {
     internal class Program
     {
+        #region Fields
         private static IntPtr _hWnd;
         private const string GameTitle = "Counter-Strike: Global Offensive";
+        #endregion
 
+        #region Methods
         private static void Main(string[] args)
         {
             //LicenseGlobal.Seal.Initialize("6A5E0000");
@@ -44,20 +47,9 @@ namespace SimpleExternal
                 Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
                 Smurf.GlobalOffensive.Smurf.Radar.Update();
                 Smurf.GlobalOffensive.Smurf.Glow.Update();
-
                 Thread.Sleep(1);
             }
         }
-
-        private static void UpdateAimbot()
-        {
-            while (true)
-            {
-                Smurf.GlobalOffensive.Smurf.Aimbot.Update();
-                Thread.Sleep(1);
-            }
-        }
-
         private static void StartThreads(params Thread[] threads)
         {
             foreach (var thread in threads)
@@ -135,5 +127,15 @@ namespace SimpleExternal
                 Thread.Sleep(10);
             }
         }
+        private static void UpdateAimbot()
+        {
+            while (true)
+            {
+                Smurf.GlobalOffensive.Smurf.Aimbot.Update();
+                Thread.Sleep(1);
+            }
+        }
+        #endregion
+
     }
 }
