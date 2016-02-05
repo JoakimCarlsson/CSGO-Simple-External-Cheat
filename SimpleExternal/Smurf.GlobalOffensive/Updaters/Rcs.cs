@@ -10,8 +10,8 @@ namespace Smurf.GlobalOffensive.Updaters
         #region Fields
 
         public Vector3 NewViewAngels;
-        private float _maxYaw, _maxPitch;
-        private bool _rcsEnabled;
+        public float _maxYaw, _maxPitch;
+        public bool _rcsEnabled;
         private int _rcsStart;
 
         #endregion
@@ -70,7 +70,8 @@ namespace Smurf.GlobalOffensive.Updaters
 
         public void SetViewAngles(Vector3 viewAngles)
         {
-            viewAngles.ClampAngle();
+            viewAngles = viewAngles.NormalizeAngle();
+            viewAngles = viewAngles.ClampAngle();
             Smurf.Memory.Write((IntPtr) (Smurf.ClientState + Offsets.ClientState.ViewAngles), viewAngles);
         }
 

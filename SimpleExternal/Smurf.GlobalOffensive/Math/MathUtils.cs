@@ -6,36 +6,42 @@ namespace Smurf.GlobalOffensive.Math
     {
         #region Fields
 
-        public static float _deg2Rad = (float) (System.Math.PI/180f);
-        private static readonly float _rad2Deg = (float) (180f/System.Math.PI);
+        public static float _deg2Rad = (float)(System.Math.PI / 180f);
+        private static readonly float _rad2Deg = (float)(180f / System.Math.PI);
 
         #endregion
 
         #region Methods
 
-        public static Vector3 ClampAngle(this Vector3 src)
+        public static Vector3 ClampAngle(this Vector3 angles)
         {
-            if (src.X > 89f)
-                src.X -= 360f;
-            else if (src.X < -89f)
-                src.X += 360f;
-            if (src.Y > 180f)
-                src.Y -= 360f;
-            else if (src.Y < -180f)
-                src.Y += 360f;
+            if (angles.Y > 180.0f)
+                angles.Y = 180.0f;
 
-            src.Z = 0;
-            return src;
+            if (angles.Y < -180.0f)
+                angles.Y = -180.0f;
+
+            if (angles.X > 89.0f)
+                angles.X = 89.0f;
+
+            if (angles.X < -89.0f)
+                angles.X = -89.0f;
+
+            angles.Z = 0;
+            return angles;
         }
-
+        public static Vector3 SmoothAngle(this Vector3 src, Vector3 dest, float smoothAmount)
+        {
+            return src + (dest - src) * smoothAmount;
+        }
         public static float RadiansToDegrees(float rad)
         {
-            return rad*_rad2Deg;
+            return rad * _rad2Deg;
         }
 
         public static double DegreesToRadians(double degrees)
         {
-            var radians = System.Math.PI/180*degrees;
+            var radians = System.Math.PI / 180 * degrees;
             return radians;
         }
 
@@ -43,38 +49,38 @@ namespace Smurf.GlobalOffensive.Math
         {
             var ret = new Vector3();
             var vDelta = src - dst;
-            var fHyp = (float) System.Math.Sqrt(vDelta.X*vDelta.X + vDelta.Y*vDelta.Y);
+            var fHyp = (float)System.Math.Sqrt(vDelta.X * vDelta.X + vDelta.Y * vDelta.Y);
 
-            ret.X = RadiansToDegrees((float) System.Math.Atan(vDelta.Z/fHyp));
-            ret.Y = RadiansToDegrees((float) System.Math.Atan(vDelta.Y/vDelta.X));
+            ret.X = RadiansToDegrees((float)System.Math.Atan(vDelta.Z / fHyp));
+            ret.Y = RadiansToDegrees((float)System.Math.Atan(vDelta.Y / vDelta.X));
 
             if (vDelta.X >= 0.0f)
                 ret.Y += 180.0f;
             return ret;
         }
-        public static Vector3 NormalizeAngle(this Vector3 angles)
+        public static Vector3 NormalizeAngle(this Vector3 angle)
         {
-            if (angles.X > 89)
+            //This is probably unnecessary, but its the way the engine does it so fuck it
+            while (angle.X > 89.0f)
             {
-                angles.X = 89;
-            }
-            else if (-89 > angles.X)
-            {
-                angles.X = -89;
+                angle.X -= 180f;
             }
 
-            if (angles.Y > 180)
+            while (angle.X < -89.0f)
             {
-                angles.Y -= 360;
-            }
-            else if (-180 > angles.Y)
-            {
-                angles.Y += 360;
+                angle.X += 180f;
             }
 
-            angles.Z = 0;
+            while (angle.Y > 180f)
+            {
+                angle.Y -= 360f;
+            }
 
-            return angles;
+            while (angle.Y < -180f)
+            {
+                angle.Y += 360f;
+            }
+            return angle;
         }
 
         #endregion

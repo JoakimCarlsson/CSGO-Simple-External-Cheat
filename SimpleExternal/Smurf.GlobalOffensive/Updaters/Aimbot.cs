@@ -24,6 +24,7 @@ namespace Smurf.GlobalOffensive.Updaters
         public IEnumerable<Player> ValidTargets;
         private static Vector3 _viewAngels;
         #endregion
+
         #region Methods
         public void Update()
         {
@@ -83,45 +84,56 @@ namespace Smurf.GlobalOffensive.Updaters
             var aimView = ActiveTarget.GetBonePos((int)ActiveTarget.BaseAddress, _bones);
 
             var dst = myView.CalcAngle(aimView);
-            //Console.WriteLine(AngleDifference(_viewAngels, dst));
 
-            dst.ClampAngle();
+            dst = dst.NormalizeAngle();
+            dst = dst.ClampAngle();
+
             //Aimbot RCS
-            dst = ControlRecoil(dst);
+            if (Smurf.ControlRecoil._rcsEnabled)
+            {
+                dst = ControlRecoil(dst);
+            }
+            dst = dst.NormalizeAngle();
+            dst = dst.ClampAngle();
 
             //Smooth
-            dst = SmoothAim(dst);
-
-            dst.ClampAngle();
-
-            if (dst != Vector3.Zero)
-            {
-                Smurf.ControlRecoil.SetViewAngles(dst);
-                Smurf.ControlRecoil.NewViewAngels = Vector3.Zero;
-            }
-
+            SmoothAim(_viewAngels, dst);
         }
-        private Vector3 SmoothAim(Vector3 dst)
+
+        private void SmoothAim(Vector3 viewAngles, Vector3 dst)
         {
-            dst.NormalizeAngle();
-            Vector3 delta;
-            delta.X = dst.X - _viewAngels.X;
-            delta.Y = dst.Y - _viewAngels.Y;
-            delta.Z = 0;
+            var smoothAngle = dst - viewAngles;
 
-            dst.NormalizeAngle();
+            smoothAngle = smoothAngle.NormalizeAngle();
+            smoothAngle = smoothAngle.ClampAngle();
 
-            dst.X = _viewAngels.X + delta.X / _aimSmooth;
-            dst.Y = _viewAngels.Y + delta.Y / _aimSmooth;
-            dst.Z = 0;
-            return dst;
+            smoothAngle /= _aimSmooth;
+            smoothAngle += viewAngles;
+
+            smoothAngle = smoothAngle.NormalizeAngle();
+            smoothAngle = smoothAngle.ClampAngle();
+
+            if (smoothAngle != Vector3.Zero)
+                Smurf.ControlRecoil.SetViewAngles(smoothAngle);
         }
+
+        //private Vector3 SmoothAim(Vector3 dst)
+        //{
+        //    var delta = dst - _viewAngels;
+        //    delta.NormalizeAngle();
+        //    delta.ClampAngle();
+
+        //    dst = _viewAngels + delta / _aimSmooth;
+        //    dst.NormalizeAngle();
+        //    dst.ClampAngle();
+        //    return dst;
+        //}
 
         private static Vector3 ControlRecoil(Vector3 dst)
         {
-            dst.X -= Smurf.LocalPlayer.VecPunch.X * 2f;
-            dst.Y -= Smurf.LocalPlayer.VecPunch.Y * 2f;
-            dst.Z -= Smurf.LocalPlayer.VecPunch.Z * 2f;
+            dst.X -= Smurf.LocalPlayer.VecPunch.X * Smurf.ControlRecoil._maxPitch;
+            dst.Y -= Smurf.LocalPlayer.VecPunch.Y * Smurf.ControlRecoil._maxYaw;
+            //dst.Z -= Smurf.LocalPlayer.VecPunch.Z * 2f;
             return dst;
         }
 

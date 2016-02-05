@@ -97,9 +97,8 @@ namespace Smurf.GlobalOffensive
             //GLOW
             builder.AppendLine("[Glow ESP]");
             builder.AppendLine("Glow ESP Enabled = True");
-            builder.AppendLine("Glow ESP Key = 0x02");
             builder.AppendLine("Glow ESP Allies = True");
-            builder.AppendLine("Glow ESP Enemies = True");
+            builder.AppendLine("Glow ESP Enemies = True").AppendLine();
 
             //SoundESP
             builder.AppendLine("[Sound ESP]");
@@ -118,10 +117,10 @@ namespace Smurf.GlobalOffensive
             {
                 builder.AppendLine("[" + weapon + "]");
                 //Aimbot
-                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aimbot Enabled = False");
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
-                builder.AppendLine("Aimbot Smooth = 50");
+                builder.AppendLine("Aimbot Smooth = 22");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
                 builder.AppendLine("Aimbot Bone = 6").AppendLine();
@@ -136,7 +135,7 @@ namespace Smurf.GlobalOffensive
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
-                builder.AppendLine("Trigger Dash = True");
+                builder.AppendLine("Trigger Dash = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -151,7 +150,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Aimbot Enabled = True");
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
-                builder.AppendLine("Aimbot Smooth = 50");
+                builder.AppendLine("Aimbot Smooth = 22");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
                 builder.AppendLine("Aimbot Bone = 6").AppendLine();
@@ -163,7 +162,7 @@ namespace Smurf.GlobalOffensive
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
-                builder.AppendLine("Trigger Dash = True");
+                builder.AppendLine("Trigger Dash = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -178,7 +177,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Aimbot Enabled = True");
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
-                builder.AppendLine("Aimbot Smooth = 50");
+                builder.AppendLine("Aimbot Smooth = 22");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
                 builder.AppendLine("Aimbot Bone = 6").AppendLine();
@@ -190,7 +189,7 @@ namespace Smurf.GlobalOffensive
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
-                builder.AppendLine("Trigger Dash = True");
+                builder.AppendLine("Trigger Dash = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -202,10 +201,10 @@ namespace Smurf.GlobalOffensive
             {
                 builder.AppendLine("[" + weapon + "]");
                 //Aimbot
-                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aimbot Enabled = False");
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
-                builder.AppendLine("Aimbot Smooth = 50");
+                builder.AppendLine("Aimbot Smooth = 22");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
                 builder.AppendLine("Aimbot Bone = 6").AppendLine();
@@ -217,7 +216,7 @@ namespace Smurf.GlobalOffensive
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
-                builder.AppendLine("Trigger Dash = True");
+                builder.AppendLine("Trigger Dash = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -229,10 +228,10 @@ namespace Smurf.GlobalOffensive
             {
                 builder.AppendLine("[" + weapon + "]");
                 //Aimbot
-                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aimbot Enabled = False");
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
-                builder.AppendLine("Aimbot Smooth = 50");
+                builder.AppendLine("Aimbot Smooth = 22");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
                 builder.AppendLine("Aimbot Bone = 6").AppendLine();
@@ -244,7 +243,7 @@ namespace Smurf.GlobalOffensive
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
-                builder.AppendLine("Trigger Dash = True");
+                builder.AppendLine("Trigger Dash = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -256,10 +255,10 @@ namespace Smurf.GlobalOffensive
             {
                 builder.AppendLine("[" + weapon + "]");
                 //Aimbot
-                builder.AppendLine("Aimbot Enabled = True");
+                builder.AppendLine("Aimbot Enabled = False");
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
-                builder.AppendLine("Aimbot Smooth = 50");
+                builder.AppendLine("Aimbot Smooth = 15");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
                 builder.AppendLine("Aimbot Bone = 6").AppendLine();
@@ -271,7 +270,7 @@ namespace Smurf.GlobalOffensive
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
-                builder.AppendLine("Trigger Dash = True");
+                builder.AppendLine("Trigger Dash = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
