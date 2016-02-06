@@ -70,7 +70,6 @@ namespace Smurf.GlobalOffensive.Updaters
 
         public void SetViewAngles(Vector3 viewAngles)
         {
-            viewAngles = viewAngles.NormalizeAngle();
             viewAngles = viewAngles.ClampAngle();
             Smurf.Memory.Write((IntPtr) (Smurf.ClientState + Offsets.ClientState.ViewAngles), viewAngles);
         }

@@ -38,11 +38,12 @@ namespace SimpleExternal
             Process[] process = Process.GetProcessesByName("csgo");
             Smurf.GlobalOffensive.Smurf.Attach(process[0]);
 
-            StartThreads(thread1, thread2, thread3, thread4, thread5, thread6);
+            StartThreads(thread1, thread2, thread3, thread4, thread5/*, thread6*/);
 
             while (true)
             {
                 Smurf.GlobalOffensive.Smurf.Objects.Update();
+                Smurf.GlobalOffensive.Smurf.Aimbot.Update();
                 Smurf.GlobalOffensive.Smurf.TriggerBot.Update();
                 Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
                 Smurf.GlobalOffensive.Smurf.Radar.Update();

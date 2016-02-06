@@ -27,7 +27,6 @@ namespace Smurf.GlobalOffensive.Updaters
         #region Methods
         public void Update()
         {
-
             if (!Smurf.Objects.ShouldUpdate())
                 return;
 
@@ -143,6 +142,7 @@ namespace Smurf.GlobalOffensive.Updaters
                 validTargets = validTargets.Where(p => p.Team == Smurf.LocalPlayer.Team);
 
             validTargets = validTargets.OrderBy(p => (p.Position - Smurf.LocalPlayer.Position).Length());
+
             foreach (Player validTarget in validTargets)
             {
                 var myView = Smurf.LocalPlayer.Position + Smurf.LocalPlayer.VecView;

@@ -41,7 +41,7 @@ namespace Smurf.GlobalOffensive.Updaters
             {
                 _autoPistol = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Auto Pistol");
                 _delay = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Auto Pistol Delay");
-                _autoPistolKey = (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString(Smurf.LocalPlayerWeapon.WeaponName, "Auto Pistol Key"));
+                _autoPistolKey = (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString(Smurf.LocalPlayerWeapon.WeaponName, "Auto Pistol Key"), 16);
             }
             catch (Exception e)
             {
