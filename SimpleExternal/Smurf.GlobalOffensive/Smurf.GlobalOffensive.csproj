@@ -91,6 +91,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleManager.cs" />
     <Compile Include="Data\Enums\ClassIds.cs" />
     <Compile Include="Data\Enums\SignonState.cs" />
     <Compile Include="Data\Enums\PlayerTeam.cs" />

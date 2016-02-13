@@ -24,7 +24,7 @@ namespace Smurf.GlobalOffensive.Updaters
                 return;
 
             //TODO Fix so we only shoot if we are active in the csgo window.
-            if (Smurf.KeyUtils.KeyIsDown(0x12))
+            if (Smurf.KeyUtils.KeyIsDown(_autoPistolKey))
             {
                 if (!(new TimeSpan(DateTime.Now.Ticks - _lastShot).TotalMilliseconds >= _delay))
                     return;

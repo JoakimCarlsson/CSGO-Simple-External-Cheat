@@ -104,8 +104,6 @@ namespace Smurf.GlobalOffensive
             if (Smurf.LocalPlayerWeapon == null)
                 return false;
 
-            if (!Smurf.LocalPlayer.IsAlive)
-                return false;
 
             if (Smurf.Client.State != SignonState.Full)
                 return false;

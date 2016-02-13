@@ -89,6 +89,9 @@ namespace Smurf.GlobalOffensive.Updaters
             if (!_activeTarget.IsAlive)
                 return;
 
+            if (!_activeTarget.SeenBy(Smurf.LocalPlayer))
+                return;
+
             var myView = Smurf.LocalPlayer.Position + Smurf.LocalPlayer.VecView;
             var aimView = _activeTarget.GetBonePos((int)_activeTarget.BaseAddress, _aimbotBone);
 

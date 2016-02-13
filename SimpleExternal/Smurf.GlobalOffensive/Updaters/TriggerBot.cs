@@ -5,6 +5,23 @@ namespace Smurf.GlobalOffensive.Updaters
 {
     public class TriggerBot
     {
+        #region Fields
+
+        public bool AimOntarget;
+        private long _triggerLastTarget;
+        private long _triggerLastShot;
+        private bool _triggerEnabled;
+        private bool _triggerAllies;
+        private bool _triggerEnemies;
+        private bool _spawnProtection;
+        private bool _triggerDash;
+        private int _delayFirstShot;
+        private int _delayShots;
+
+        private WinAPI.VirtualKeyShort _triggerKey;
+
+        #endregion
+
         #region Methods
 
         public void Update()
@@ -20,9 +37,7 @@ namespace Smurf.GlobalOffensive.Updaters
             if (Smurf.KeyUtils.KeyIsDown(_triggerKey))
             {
                 var target = Smurf.LocalPlayer.Target;
-                if (target != null &&
-                    ((_triggerAllies && target.Team == Smurf.LocalPlayer.Team) ||
-                     (_triggerEnemies && target.Team != Smurf.LocalPlayer.Team)))
+                if (target != null &&((_triggerAllies && target.Team == Smurf.LocalPlayer.Team) || (_triggerEnemies && target.Team != Smurf.LocalPlayer.Team)))
                 {
                     if (!AimOntarget)
                     {
@@ -36,11 +51,13 @@ namespace Smurf.GlobalOffensive.Updaters
                             return;
                         if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _delayShots))
                             return;
+
                         _triggerLastShot = DateTime.Now.Ticks;
 
                         if (_spawnProtection)
                             if (target.GunGameImmune)
                                 return;
+
                         if (_triggerDash)
                             if (Smurf.LocalPlayer.Velocity > 1)
                                 return;
@@ -52,7 +69,6 @@ namespace Smurf.GlobalOffensive.Updaters
             else
                 AimOntarget = false;
 
-            #endregion
         }
 
         private void ReadSettings()
@@ -83,22 +99,7 @@ namespace Smurf.GlobalOffensive.Updaters
             Thread.Sleep(10);
             WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTUP, 0, 0, 0, 0);
         }
-
-        #region Fields
-
-        public bool AimOntarget;
-        private long _triggerLastTarget;
-        private long _triggerLastShot;
-        private bool _triggerEnabled;
-        private bool _triggerAllies;
-        private bool _triggerEnemies;
-        private bool _spawnProtection;
-        private bool _triggerDash;
-        private int _delayFirstShot;
-        private int _delayShots;
-
-        private WinAPI.VirtualKeyShort _triggerKey;
-
         #endregion
+
     }
 }
