@@ -21,7 +21,7 @@ namespace SimpleExternal
             Thread thread3 = new Thread(UpdateRcs);
             Thread thread4 = new Thread(UpdateSettings);
             Thread thread5 = new Thread(UpdateKeyUtils);
-            Thread thread6 = new Thread(UpdateAimbot);
+            Thread thread6 = new Thread(UpdateAutoPistol);
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.Title = "Smurf Bot";
@@ -33,7 +33,7 @@ namespace SimpleExternal
             Process[] process = Process.GetProcessesByName("csgo");
             Smurf.GlobalOffensive.Smurf.Attach(process[0]);
 
-            StartThreads(thread1, thread2, thread3, thread4, thread5/*, thread6*/);
+            StartThreads(thread1, thread2, thread3, thread4, thread5, thread6);
 
             while (true)
             {
@@ -42,7 +42,6 @@ namespace SimpleExternal
                 Smurf.GlobalOffensive.Smurf.TriggerBot.Update();
                 Smurf.GlobalOffensive.Smurf.SoundEsp.Update();
                 Smurf.GlobalOffensive.Smurf.Radar.Update();
-                //Smurf.GlobalOffensive.Smurf.Glow.Update();
                 Thread.Sleep(1);
             }
         }
@@ -84,6 +83,7 @@ namespace SimpleExternal
                     Console.WriteLine("Flash: \t\t{0}", me.FlashMaxAlpha);
                     Console.WriteLine("Weapon Group: \t{0}", myWeapon.WeaponGroup);
                     Console.WriteLine("Glow Index: \t{0}", me.GlowIndex);
+                    Console.WriteLine("Zoom Level: \t{0}", myWeapon.ZoomLevel);
                 }
 
                 Thread.Sleep(500);
@@ -119,15 +119,14 @@ namespace SimpleExternal
             {
                 Smurf.GlobalOffensive.Smurf.KeyUtils.Update();
                 Smurf.GlobalOffensive.Smurf.NoFlash.Update();
-                Smurf.GlobalOffensive.Smurf.AutoPistol.Update();
                 Thread.Sleep(10);
             }
         }
-        private static void UpdateAimbot()
+        private static void UpdateAutoPistol()
         {
             while (true)
             {
-                Smurf.GlobalOffensive.Smurf.Aimbot.Update();
+                Smurf.GlobalOffensive.Smurf.AutoPistol.Update();
                 Thread.Sleep(1);
             }
         }

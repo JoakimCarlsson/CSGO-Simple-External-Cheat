@@ -66,7 +66,7 @@
             //public static int CanReload = 0x00003235;
             public static int WeaponTableIndex = 0x00004E70;
             public static int AccuracyPenalty = 0x00004EC0;
-            //public static int ZoomLevel = 0x000032B0;
+            public static int ZoomLevel = 0x00003330;
         }
     }
 }

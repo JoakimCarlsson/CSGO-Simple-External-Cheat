@@ -22,6 +22,7 @@ namespace Smurf.GlobalOffensive.Updaters
         private static bool _aimbotAllies;
         private static bool _aimbotEnabled;
         private static bool _aimbotEnemies;
+        private static bool _aimbotZoomed;
         #endregion
 
         #region Methods
@@ -91,6 +92,14 @@ namespace Smurf.GlobalOffensive.Updaters
 
             if (!_activeTarget.SeenBy(Smurf.LocalPlayer))
                 return;
+
+            if (_aimbotZoomed)
+            {
+                if (Smurf.LocalPlayerWeapon.ZoomLevel <= 0)
+                {
+                    return;
+                }
+            }
 
             var myView = Smurf.LocalPlayer.Position + Smurf.LocalPlayer.VecView;
             var aimView = _activeTarget.GetBonePos((int)_activeTarget.BaseAddress, _aimbotBone);
@@ -169,6 +178,7 @@ namespace Smurf.GlobalOffensive.Updaters
                 _aimbotSmooth = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Smooth");
                 _aimbotEnemies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Aim Enemies");
                 _aimbotAllies = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot Aim Friendly");
+                _aimbotZoomed = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Aimbot When Zoomed");
             }
             catch (Exception e)
             {

@@ -25,7 +25,7 @@ namespace Smurf.GlobalOffensive
 
         public void Update()
         {
-            _reloadConfigKey = (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString("Misc", "Reload Config Key"), 16);
+            _reloadConfigKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Smurf.Settings.GetString("Misc", "Reload Config Key"), 16);
             if (Smurf.KeyUtils.KeyWentDown(_reloadConfigKey)) //Tab Key, don't hard code key, will fix later.
             {
                 Console.WriteLine("Reload Config.");
@@ -93,12 +93,6 @@ namespace Smurf.GlobalOffensive
             builder.AppendLine("Bunny Jump Enabled = True");
             builder.AppendLine("Bunny Jump Key = 0x20").AppendLine();
 
-            //GLOW
-            //builder.AppendLine("[Glow ESP]");
-            //builder.AppendLine("Glow ESP Enabled = True");
-            //builder.AppendLine("Glow ESP Allies = True");
-            //builder.AppendLine("Glow ESP Enemies = True").AppendLine();
-
             //SoundESP
             builder.AppendLine("[Sound ESP]");
             builder.AppendLine("Sound ESP = True");
@@ -119,6 +113,8 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Aimbot Enabled = False");
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
+                builder.AppendLine("Aimbot When Zoomed = False");
+
                 builder.AppendLine("Aimbot Smooth = 22");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
@@ -136,6 +132,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
                 builder.AppendLine("Trigger Dash = False");
+                builder.AppendLine("Trigger When Zoomed = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -150,6 +147,8 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Aimbot Enabled = True");
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
+                builder.AppendLine("Aimbot When Zoomed = False");
+
                 builder.AppendLine("Aimbot Smooth = 22");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
@@ -163,6 +162,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
                 builder.AppendLine("Trigger Dash = False");
+                builder.AppendLine("Trigger When Zoomed = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -177,6 +177,8 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Aimbot Enabled = True");
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
+                builder.AppendLine("Aimbot When Zoomed = False");
+
                 builder.AppendLine("Aimbot Smooth = 22");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
@@ -190,6 +192,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
                 builder.AppendLine("Trigger Dash = False");
+                builder.AppendLine("Trigger When Zoomed = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -204,6 +207,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Aimbot Enabled = False");
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
+                builder.AppendLine("Aimbot When Zoomed = False");
                 builder.AppendLine("Aimbot Smooth = 22");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
@@ -217,6 +221,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
                 builder.AppendLine("Trigger Dash = False");
+                builder.AppendLine("Trigger When Zoomed = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -231,6 +236,8 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Aimbot Enabled = False");
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
+                builder.AppendLine("Aimbot When Zoomed = False");
+
                 builder.AppendLine("Aimbot Smooth = 22");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
@@ -244,6 +251,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
                 builder.AppendLine("Trigger Dash = False");
+                builder.AppendLine("Trigger When Zoomed = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -258,6 +266,8 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Aimbot Enabled = False");
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
+                builder.AppendLine("Aimbot When Zoomed = False");
+
                 builder.AppendLine("Aimbot Smooth = 15");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
@@ -271,6 +281,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
                 builder.AppendLine("Trigger Dash = False");
+                builder.AppendLine("Trigger When Zoomed = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
@@ -360,7 +371,7 @@ namespace Smurf.GlobalOffensive
             try
             {
                 var keyValue = _data[section][key];
-                var button = (WinAPI.VirtualKeyShort) int.Parse(keyValue);
+                var button = (WinAPI.VirtualKeyShort)int.Parse(keyValue);
                 return button;
             }
             catch (Exception e)

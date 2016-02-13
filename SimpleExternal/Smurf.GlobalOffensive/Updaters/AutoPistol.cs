@@ -51,9 +51,9 @@ namespace Smurf.GlobalOffensive.Updaters
 
         public void Shoot()
         {
-            Thread.Sleep(10);
+            Thread.Sleep(8);
             WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTDOWN, 0, 0, 0, 0);
-            Thread.Sleep(10);
+            Thread.Sleep(8);
             WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTUP, 0, 0, 0, 0);
         }
     }

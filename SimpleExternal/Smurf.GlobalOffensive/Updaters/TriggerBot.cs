@@ -15,6 +15,7 @@ namespace Smurf.GlobalOffensive.Updaters
         private bool _triggerEnemies;
         private bool _spawnProtection;
         private bool _triggerDash;
+        private bool _triggerZoomed;
         private int _delayFirstShot;
         private int _delayShots;
 
@@ -62,6 +63,14 @@ namespace Smurf.GlobalOffensive.Updaters
                             if (Smurf.LocalPlayer.Velocity > 1)
                                 return;
 
+                        if (_triggerZoomed)
+                        {
+                            if (Smurf.LocalPlayerWeapon.ZoomLevel <= 0)
+                            {
+                                return;
+                            }
+                        }
+
                         Shoot();
                     }
                 }
@@ -85,6 +94,7 @@ namespace Smurf.GlobalOffensive.Updaters
                 _delayFirstShot = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Delay FirstShot");
                 _delayShots = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Delay Shots");
                 _triggerDash = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger Dash");
+                _triggerZoomed = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Trigger When Zoomed");
             }
             catch (Exception e)
             {

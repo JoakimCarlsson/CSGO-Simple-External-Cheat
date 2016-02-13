@@ -17,7 +17,6 @@ namespace Smurf.GlobalOffensive.Objects
         private bool IsInAir()
         {
             return Flags == 256 || Flags == 262;
-            //262
         }
 
         public Weapon GetCurrentWeapon(IntPtr baseAdress)
