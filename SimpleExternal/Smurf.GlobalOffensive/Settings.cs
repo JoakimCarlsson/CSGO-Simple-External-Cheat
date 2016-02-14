@@ -28,7 +28,6 @@ namespace Smurf.GlobalOffensive
             _reloadConfigKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Smurf.Settings.GetString("Misc", "Reload Config Key"), 16);
             if (Smurf.KeyUtils.KeyWentDown(_reloadConfigKey)) //Tab Key, don't hard code key, will fix later.
             {
-                Console.WriteLine("Reload Config.");
                 _data = Parser.ReadFile("Config.ini");
             }
         }
@@ -309,7 +308,10 @@ namespace Smurf.GlobalOffensive
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
+#if DEBUG
+Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
+#endif
+
             }
             return 0;
         }
@@ -324,7 +326,10 @@ namespace Smurf.GlobalOffensive
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
+#if DEBUG
+Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
+#endif
+
             }
             return "M4A1";
         }
@@ -346,7 +351,10 @@ namespace Smurf.GlobalOffensive
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
+#if DEBUG
+Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
+#endif
+
             }
             return 0;
         }
@@ -361,7 +369,10 @@ namespace Smurf.GlobalOffensive
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
+#if DEBUG
+Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
+#endif
+
             }
             return false;
         }
@@ -376,7 +387,10 @@ namespace Smurf.GlobalOffensive
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
+#if DEBUG
+Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
+#endif
+
             }
             return WinAPI.VirtualKeyShort.ACCEPT;
         }

@@ -182,7 +182,10 @@ namespace Smurf.GlobalOffensive.Updaters
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+#if DEBUG
+Console.WriteLine(e.Message);
+#endif
+
             }
         }
 

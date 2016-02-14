@@ -38,7 +38,7 @@ namespace Smurf.GlobalOffensive.Updaters
             if (Smurf.KeyUtils.KeyIsDown(_triggerKey))
             {
                 var target = Smurf.LocalPlayer.Target;
-                if (target != null &&((_triggerAllies && target.Team == Smurf.LocalPlayer.Team) || (_triggerEnemies && target.Team != Smurf.LocalPlayer.Team)))
+                if (target != null && ((_triggerAllies && target.Team == Smurf.LocalPlayer.Team) || (_triggerEnemies && target.Team != Smurf.LocalPlayer.Team)))
                 {
                     if (!AimOntarget)
                     {
@@ -98,8 +98,9 @@ namespace Smurf.GlobalOffensive.Updaters
             }
             catch (Exception e)
             {
+            #if DEBUG
                 Console.WriteLine(e.Message);
-
+            #endif
             }
         }
 

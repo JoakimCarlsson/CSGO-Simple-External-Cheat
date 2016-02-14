@@ -29,6 +29,7 @@ namespace SimpleExternal
             Console.WriteLine("> Waiting for CSGO to start up...");
             while ((_hWnd = WinAPI.FindWindowByCaption(_hWnd, GameTitle)) == IntPtr.Zero)
                 Thread.Sleep(250);
+            Console.Clear();
 
             Process[] process = Process.GetProcessesByName("csgo");
             Smurf.GlobalOffensive.Smurf.Attach(process[0]);
@@ -56,6 +57,7 @@ namespace SimpleExternal
         }
         private static void PrintInfo()
         {
+#if DEBUG
             while (true)
             {
                 Console.Clear();
@@ -88,6 +90,8 @@ namespace SimpleExternal
 
                 Thread.Sleep(500);
             }
+#endif
+
         }
         private static void UpdateBHop()
         {

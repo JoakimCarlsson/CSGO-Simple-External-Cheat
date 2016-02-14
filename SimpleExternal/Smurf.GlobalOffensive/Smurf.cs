@@ -37,6 +37,7 @@ namespace Smurf.GlobalOffensive
 
         public static void Attach(Process process, bool isInjected = false)
         {
+
             if (_isAttached)
                 return;
 
