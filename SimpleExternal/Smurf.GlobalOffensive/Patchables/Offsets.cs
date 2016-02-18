@@ -4,19 +4,16 @@
     {
         public class Misc
         {
-            public static int EntityList = 0x04A5C9C4;
+            public static int EntityList = 0x04A9D134;
             public static int ViewMatrix = 0x04A4E584;
-            public static int LocalPlayer = 0x00A6E444;
-            public static int ForceAttack = 0x02EC89E8;
-            public static int GlowObject = 0x04B71C6C;
-            public static int GlowIndex = 0x0000A300;
-            public static int Jump = 0x04AF150C;
+            public static int LocalPlayer = 0x00A824CC;
+            public static int Jump = 0x04F31DC8;
         }
 
         public class ClientState
         {
             //ClientState
-            public static int Base = 0x006072C4;
+            public static int Base = 0x006072D4;
             public static int LocalPlayerIndex = 0x00000178;
             //Ingame
             public static int GameState = 0x100;
@@ -33,14 +30,14 @@
             public static int Dormant = 0x000000E9;
             public static int Index = 0x64;
             public static int EntitySize = 0x10;
-            public static int Spotted = 0x935;
+            public static int Spotted = 0x00000939;
             public static int BoneMatrix = 0x00002698;
-            public static int SpottedByMask = 0x00000978;
+            public static int SpottedByMask = 0x0000097C;
         }
 
         public class Player
         {
-            public static int LifeState = 0x25B;
+            public static int LifeState = 0x0000025B;
             public static int Flags = 0x100;
             public static int ActiveWeapon = 0x00002EE8; // m_hActiveWeapon
             public static int VecVelocity = 0x00000110;

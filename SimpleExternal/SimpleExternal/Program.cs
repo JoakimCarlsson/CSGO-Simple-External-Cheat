@@ -84,7 +84,6 @@ namespace SimpleExternal
                     Console.WriteLine("Flags: \t\t{0}", me.Flags);
                     Console.WriteLine("Flash: \t\t{0}", me.FlashMaxAlpha);
                     Console.WriteLine("Weapon Group: \t{0}", myWeapon.WeaponGroup);
-                    Console.WriteLine("Glow Index: \t{0}", me.GlowIndex);
                     Console.WriteLine("Zoom Level: \t{0}", myWeapon.ZoomLevel);
                 }
 

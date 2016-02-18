@@ -46,7 +46,6 @@ namespace Smurf.GlobalOffensive.Updaters
                     _aimbotBone = GetRandomBone();
                 }
 
-
                 if (_activeTarget != null)
                     DoAimbot();
             }
@@ -54,7 +53,7 @@ namespace Smurf.GlobalOffensive.Updaters
             if (Smurf.KeyUtils.KeyWentUp(_aimbotKey))
             {
                 _activeTarget = null;
-                Thread.Sleep(1); //If we don't sleep, the key will go up and on and lock onto another target. 
+                Thread.Sleep(3); //If we don't sleep, the key will go up and on and lock onto another target. 
             }
         }
 
@@ -117,7 +116,7 @@ namespace Smurf.GlobalOffensive.Updaters
             dst = dst.ClampAngle();
 
             //Smooth
-            SmoothAim( dst);
+            SmoothAim(dst);
         }
 
         private static void SmoothAim(Vector3 dst)
@@ -183,7 +182,7 @@ namespace Smurf.GlobalOffensive.Updaters
             catch (Exception e)
             {
 #if DEBUG
-Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message);
 #endif
 
             }
