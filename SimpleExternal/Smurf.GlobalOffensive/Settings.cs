@@ -134,7 +134,6 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger When Zoomed = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
-                builder.AppendLine("Trigger Burst Enabled = False");
                 builder.AppendLine("Trigger Spawn Protected = False");
                 builder.AppendLine("Trigger Delay FirstShot = 35");
                 builder.AppendLine("Trigger Delay Shots = 35").AppendLine();
@@ -309,7 +308,7 @@ namespace Smurf.GlobalOffensive
             catch (Exception e)
             {
 #if DEBUG
-Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
+                Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
 #endif
 
             }
@@ -327,7 +326,7 @@ Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key
             catch (Exception e)
             {
 #if DEBUG
-Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
+                Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
 #endif
 
             }
@@ -352,7 +351,7 @@ Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key
             catch (Exception e)
             {
 #if DEBUG
-Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
+                Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
 #endif
 
             }
@@ -370,7 +369,7 @@ Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key
             catch (Exception e)
             {
 #if DEBUG
-Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
+                Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
 #endif
 
             }
@@ -388,7 +387,7 @@ Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key
             catch (Exception e)
             {
 #if DEBUG
-Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
+                Console.WriteLine("Error: {0},\nSection: {1}\nKey: {2}", e.Message, section, key);
 #endif
 
             }

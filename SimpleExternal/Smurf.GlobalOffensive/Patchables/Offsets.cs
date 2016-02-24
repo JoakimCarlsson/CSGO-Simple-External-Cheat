@@ -4,10 +4,10 @@
     {
         public class Misc
         {
-            public static int EntityList = 0x04A9D134;
+            public static int EntityList = 0x04A98154;
             public static int ViewMatrix = 0x04A4E584;
-            public static int LocalPlayer = 0x00A824CC;
-            public static int Jump = 0x04F31DC8;
+            public static int LocalPlayer = 0x00A7D4CC;
+            public static int Jump = 0x04F2CDC8;
         }
 
         public class ClientState

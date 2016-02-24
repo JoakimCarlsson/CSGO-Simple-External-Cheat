@@ -53,7 +53,7 @@ namespace Smurf.GlobalOffensive.Updaters
             if (Smurf.KeyUtils.KeyWentUp(_aimbotKey))
             {
                 _activeTarget = null;
-                Thread.Sleep(3); //If we don't sleep, the key will go up and on and lock onto another target. 
+                Thread.Sleep(10); //If we don't sleep, the key will go up and on and lock onto another target. 
             }
         }
 
@@ -72,7 +72,7 @@ namespace Smurf.GlobalOffensive.Updaters
             float num1 = (viewAngle.X - dst.X);
             float num2 = (viewAngle.Y - dst.Y);
             bool flag = 180.0 > num1;
-            int num3 = 180.0 > (double)num2 ? 1 : 0;
+            int num3 = 180.0 > num2 ? 1 : 0;
             if (!flag)
                 num1 -= 360f;
             if (num3 == 0)
@@ -140,7 +140,6 @@ namespace Smurf.GlobalOffensive.Updaters
         {
             dst.X -= Smurf.LocalPlayer.VecPunch.X * Smurf.ControlRecoil.MaxPitch;
             dst.Y -= Smurf.LocalPlayer.VecPunch.Y * Smurf.ControlRecoil.MaxYaw;
-            //dst.Z -= Smurf.LocalPlayer.VecPunch.Z * 2f;
             return dst;
         }
 
