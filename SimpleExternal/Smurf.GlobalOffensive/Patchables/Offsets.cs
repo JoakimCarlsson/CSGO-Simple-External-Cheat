@@ -4,16 +4,16 @@
     {
         public class Misc
         {
-            public static int EntityList = 0x04A98154;
+            public static int EntityList = 0x4A98174;
             public static int ViewMatrix = 0x04A4E584;
-            public static int LocalPlayer = 0x00A7D4CC;
-            public static int Jump = 0x04F2CDC8;
+            public static int LocalPlayer = 0xA7D4CC;
+            public static int Jump = 0x4F2CE08;
         }
 
         public class ClientState
         {
             //ClientState
-            public static int Base = 0x006072D4;
+            public static int Base = 0x6082D4;
             public static int LocalPlayerIndex = 0x00000178;
             //Ingame
             public static int GameState = 0x100;
@@ -47,17 +47,17 @@
 
         public class LocalPlayer
         {
-            public static int CrosshairId = 0x0000A940;
+            public static int CrosshairId = 0xA950;
             public static int VecViewOffset = 0x00000104;
             public static int VecPunch = 0x00003018;
-            public static int ShotsFired = 0x0000A2A0;
+            public static int ShotsFired = 0xA2B0;
         }
 
         public class Weapon
         {
             public static int ItemDefinitionIndex = 0x000032B4;
             public static int State = 0x000031E8;
-            public static int Clip1 = 0x000031F4;
+            public static int Clip1 = 0x31F4;
             // public static int NextPrimaryAttack = 0x000031C8;
             public static int WeaponId = 0x000032DC;
             //public static int CanReload = 0x00003235;
