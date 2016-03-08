@@ -97,7 +97,6 @@ namespace Smurf.GlobalOffensive
             builder.AppendLine("Sound ESP = True");
             builder.AppendLine("Sound Range = 10");
             builder.AppendLine("Sound Interval = 1000");
-            builder.AppendLine("Sound Track = 1");
             builder.AppendLine("Sound Volume = 100").AppendLine();
             //Misc
             builder.AppendLine("[Misc]");

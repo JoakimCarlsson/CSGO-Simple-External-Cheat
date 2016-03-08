@@ -10,8 +10,7 @@ namespace Smurf.GlobalOffensive.Updaters
         private float _interval;
         private long _lastBeep;
         private float _range;
-        private int _sound;
-        private float _volume;
+        private int _volume;
         #endregion
 
         #region Methods
@@ -25,7 +24,6 @@ namespace Smurf.GlobalOffensive.Updaters
 
             if (!_enabled)
                 return;
-            Smurf.SoundManager.SetVolume(_volume / 100f);
 
             var span = new TimeSpan(DateTime.Now.Ticks - _lastBeep);
             if (span.TotalMilliseconds > _interval)
@@ -58,7 +56,7 @@ namespace Smurf.GlobalOffensive.Updaters
             if (leastDist == float.MaxValue)
                 return;
 
-            Smurf.SoundManager.Play(_sound - 1);
+            Beep(_volume, 800, 500);
             Thread.Sleep(5);
             _lastBeep = DateTime.Now.Ticks;
         }
@@ -120,7 +118,6 @@ namespace Smurf.GlobalOffensive.Updaters
             _range = Smurf.Settings.GetInt("Sound ESP", "Sound Range");
             _interval = Smurf.Settings.GetInt("Sound ESP", "Sound Interval");
             _volume = Smurf.Settings.GetInt("Sound ESP", "Sound Volume");
-            _sound = Smurf.Settings.GetInt("Sound ESP", "Sound Track");
         }
         #endregion
     }

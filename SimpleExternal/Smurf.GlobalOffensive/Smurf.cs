@@ -28,9 +28,7 @@ namespace Smurf.GlobalOffensive
         public static Radar Radar { get; set; }
         public static NoFlash NoFlash { get; set; }
         public static Aimbot Aimbot { get; set; }
-        public static SoundManager SoundManager { get; set; }
         public static KeyUtils KeyUtils { get; set; }
-        //public static Glow Glow { get; set; }
         public static GameClient Client { get; private set; }
         public static IntPtr ClientBase { get; private set; }
         public static IntPtr EngineBase { get; private set; }
@@ -63,7 +61,6 @@ namespace Smurf.GlobalOffensive
             AutoPistol = new AutoPistol();
             //Glow = new Glow();
             Aimbot = new Aimbot();
-            SoundManager = new SoundManager(2);
 
             var enginePtr = Memory.Read<IntPtr>(EngineBase + Offsets.ClientState.Base);
 
@@ -71,8 +68,6 @@ namespace Smurf.GlobalOffensive
                 throw new Exception("Couldn't find Engine Ptr - are you sure your offsets are up to date?");
 
             Client = new GameClient(enginePtr);
-
-            SoundManager.Add(0, Resources.beep);
             _isAttached = true;
         }
     }
