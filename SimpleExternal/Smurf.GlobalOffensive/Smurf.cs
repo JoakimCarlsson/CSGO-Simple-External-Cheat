@@ -23,7 +23,7 @@ namespace Smurf.GlobalOffensive
         public static Rcs ControlRecoil { get; set; }
         public static TriggerBot TriggerBot { get; set; }
         public static BunnyJump BunnyJump { get; set; }
-        public static SoundESP SoundEsp { get; set; }
+        public static SoundEsp SoundEsp { get; set; }
         public static AutoPistol AutoPistol { get; set; }
         public static Radar Radar { get; set; }
         public static NoFlash NoFlash { get; set; }
@@ -57,7 +57,7 @@ namespace Smurf.GlobalOffensive
             KeyUtils = new KeyUtils();
             BunnyJump = new BunnyJump();
             Settings = new Settings();
-            SoundEsp = new SoundESP();
+            SoundEsp = new SoundEsp();
             Radar = new Radar();
             NoFlash = new NoFlash();
             AutoPistol = new AutoPistol();

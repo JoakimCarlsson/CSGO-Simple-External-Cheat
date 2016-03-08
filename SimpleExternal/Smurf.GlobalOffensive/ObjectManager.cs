@@ -95,8 +95,8 @@ namespace Smurf.GlobalOffensive
 
         public bool ShouldUpdate(bool checkKnife = true, bool checkGrenades = true, bool checkMisc = true)
         {
-            if (WindowTitle != Smurf.GameTitle)
-                return false;
+            //if (WindowTitle != Smurf.GameTitle)
+            //    return false;
 
             if (Smurf.LocalPlayer == null)
                 return false;
