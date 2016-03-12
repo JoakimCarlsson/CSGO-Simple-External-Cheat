@@ -93,8 +93,11 @@ namespace Smurf.GlobalOffensive
             return Players.FirstOrDefault(p => p.Id == id);
         }
 
+
+        //TODO Move out of here, dosen't belong here.
         public bool ShouldUpdate(bool checkKnife = true, bool checkGrenades = true, bool checkMisc = true)
         {
+            //What we do here is if we are not inside the csgo window it will not update.
             //if (WindowTitle != Smurf.GameTitle)
             //    return false;
 
@@ -103,7 +106,6 @@ namespace Smurf.GlobalOffensive
 
             if (Smurf.LocalPlayerWeapon == null)
                 return false;
-
 
             if (Smurf.Client.State != SignonState.Full)
                 return false;

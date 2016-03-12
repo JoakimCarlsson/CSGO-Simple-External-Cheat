@@ -48,7 +48,6 @@ namespace Smurf.GlobalOffensive
             ClientBase = Memory.GetModule("client.dll").BaseAddress;
             EngineBase = Memory.GetModule("engine.dll").BaseAddress;
             ClientState = Memory.Read<int>(EngineBase + Offsets.ClientState.Base);
-
             Objects = new ObjectManager(ClientBase + Offsets.Misc.EntityList);
             ControlRecoil = new Rcs();
             TriggerBot = new TriggerBot();
@@ -59,7 +58,6 @@ namespace Smurf.GlobalOffensive
             Radar = new Radar();
             NoFlash = new NoFlash();
             AutoPistol = new AutoPistol();
-            //Glow = new Glow();
             Aimbot = new Aimbot();
 
             var enginePtr = Memory.Read<IntPtr>(EngineBase + Offsets.ClientState.Base);

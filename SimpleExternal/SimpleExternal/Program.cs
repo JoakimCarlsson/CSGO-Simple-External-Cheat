@@ -24,7 +24,7 @@ namespace SimpleExternal
             Thread thread6 = new Thread(UpdateAutoPistol);
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Title = "Smurf Bot";
+            Console.Title = "Cheat Squad";
 
             Console.WriteLine("> Waiting for CSGO to start up...");
             while ((_hWnd = WinAPI.FindWindowByCaption(_hWnd, GameTitle)) == IntPtr.Zero)
