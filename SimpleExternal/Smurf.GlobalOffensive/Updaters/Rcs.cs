@@ -13,6 +13,7 @@ namespace Smurf.GlobalOffensive.Updaters
         public float MaxYaw, MaxPitch;
         public bool RcsEnabled;
         private int _rcsStart;
+        private float _pixelsX, _pixelsY;
 
         #endregion
 
@@ -52,10 +53,13 @@ namespace Smurf.GlobalOffensive.Updaters
             _newViewAngels = ViewAngels;
 
             var punch = Smurf.LocalPlayer.VecPunch - LastPunch;
+            //Vector3 pixels = punch / (float)(0.22 * 0.28 * 1) * 20;
+            //WinAPI.mouse_event((uint)0, (uint)pixels.Y, (uint)-pixels.X, 0, 0);
             if (punch.X != 0 || punch.Y != 0)
             {
-                _newViewAngels.X -= punch.X*MaxYaw;
-                _newViewAngels.Y -= punch.Y*MaxPitch;
+                _newViewAngels.X -= punch.X * MaxYaw;
+                _newViewAngels.Y -= punch.Y * MaxPitch;
+                //pixels = angles / (m_yaw * ingamesensitivity * windowssensitivity);
                 SetViewAngles(_newViewAngels);
             }
         }

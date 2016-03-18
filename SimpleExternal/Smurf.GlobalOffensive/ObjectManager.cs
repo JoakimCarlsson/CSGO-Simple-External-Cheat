@@ -120,7 +120,9 @@ namespace Smurf.GlobalOffensive
             if (checkGrenades)
                 if (Smurf.LocalPlayerWeapon.ClassName == "CDecoyGrenade" ||
                     Smurf.LocalPlayerWeapon.ClassName == "CHEGrenade" ||
-                    Smurf.LocalPlayerWeapon.ClassName == "CFlashbang" ||
+                    Smurf.LocalPlayerWeapon.ClassName == "CFlashbang" || 
+                    Smurf.LocalPlayerWeapon.ClassName == "CMolotovGrenade" ||
+                    Smurf.LocalPlayerWeapon.ClassName == "CIncendiaryGrenade" ||
                     Smurf.LocalPlayerWeapon.ClassName == "CSmokeGrenade")
                     return false;
 
