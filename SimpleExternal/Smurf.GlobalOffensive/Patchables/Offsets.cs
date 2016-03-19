@@ -4,16 +4,16 @@
     {
         public class Misc
         {
-            public static int EntityList = 0x04A991F4;
+            public static int EntityList = 0x04A99224;
             public static int ViewMatrix = 0x04A4E584;
             public static int LocalPlayer = 0x00A7E4CC;
-            public static int Jump = 0x04F2DE78;
+            public static int Jump = 0x04F2DE94;
         }
 
         public class ClientState
         {
             //ClientState
-            public static int Base = 0x0060F344;
+            public static int Base = 0x0060F334;
             public static int LocalPlayerIndex = 0x00000178;
             //Ingame
             public static int GameState = 0x100;
@@ -47,7 +47,7 @@
 
         public class LocalPlayer
         {
-            public static int CrosshairId = 0x0000A950;
+            public static int CrosshairId = 0x0000A954;
             public static int VecViewOffset = 0x00000104;
             public static int VecPunch = 0x00003018;
             public static int ShotsFired = 0x0000A2B0;
