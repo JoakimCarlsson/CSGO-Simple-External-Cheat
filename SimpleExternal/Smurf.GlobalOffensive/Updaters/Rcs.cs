@@ -9,7 +9,6 @@ namespace Smurf.GlobalOffensive.Updaters
     {
         #region Fields
 
-        private Vector3 _newViewAngels;
         public float MaxYaw, MaxPitch;
         public bool RcsEnabled;
         private int _rcsStart;
@@ -19,7 +18,6 @@ namespace Smurf.GlobalOffensive.Updaters
 
         #region Properties
 
-        public Vector3 ViewAngels { get; set; }
         public Vector3 LastPunch { get; set; }
 
         #endregion
@@ -49,19 +47,10 @@ namespace Smurf.GlobalOffensive.Updaters
                 if (Smurf.LocalPlayer.ShotsFired <= _rcsStart)
                     return;
 
-            ViewAngels = Smurf.Memory.Read<Vector3>((IntPtr) (Smurf.ClientState + Offsets.ClientState.ViewAngles));
-            _newViewAngels = ViewAngels;
-
             var punch = Smurf.LocalPlayer.VecPunch - LastPunch;
-            //Vector3 pixels = punch / (float)(0.22 * 0.28 * 1) * 20;
-            //WinAPI.mouse_event((uint)0, (uint)pixels.Y, (uint)-pixels.X, 0, 0);
-            if (punch.X != 0 || punch.Y != 0)
-            {
-                _newViewAngels.X -= punch.X * MaxYaw;
-                _newViewAngels.Y -= punch.Y * MaxPitch;
-                //pixels = angles / (m_yaw * ingamesensitivity * windowssensitivity);
-                SetViewAngles(_newViewAngels);
-            }
+            Vector3 pixels = punch / (float)(0.22 * 0.28 * 1) * 20;
+            WinAPI.mouse_event((uint)0, (uint)pixels.Y, (uint)-pixels.X, 0, 0);
+
         }
 
         private void ReadSettïngs()
