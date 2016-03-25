@@ -4,14 +4,14 @@
     {
         public class Misc
         {
-            public static int EntityList = 0x4A99224;
-            public static int LocalPlayer = 0xA7E4CC;
-            public static int Jump = 0x4F2DE94;
+            public static int EntityList = 0x4A9B464;
+            public static int LocalPlayer = 0xA804BC;
+            public static int Jump = 0x4F300E8;
         }
 
         public class ClientState
         {
-            public static int Base = 0x60F334; //ClientState
+            public static int Base = 0x610344; //ClientState
             public static int LocalPlayerIndex = 0x178;
             public static int GameState = 0x100; //Ingame
             public static int ViewAngles = 0x4D0C;
