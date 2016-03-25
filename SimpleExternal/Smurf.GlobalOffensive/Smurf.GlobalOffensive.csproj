@@ -108,6 +108,7 @@
     <Compile Include="Updaters\Aimbot.cs" />
     <Compile Include="Updaters\AutoPistol.cs" />
     <Compile Include="Updaters\BunnyJump.cs" />
+    <Compile Include="Updaters\Glow.cs" />
     <Compile Include="Updaters\NoFlash.cs" />
     <Compile Include="Updaters\Radar.cs" />
     <Compile Include="Updaters\Rcs.cs" />

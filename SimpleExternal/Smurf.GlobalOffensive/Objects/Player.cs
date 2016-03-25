@@ -6,6 +6,7 @@ namespace Smurf.GlobalOffensive.Objects
 {
     public class Player : BaseEntity
     {
+
         public Player(IntPtr baseAddress) : base(baseAddress)
         {
         }
