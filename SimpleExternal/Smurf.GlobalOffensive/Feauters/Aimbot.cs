@@ -6,14 +6,13 @@ using Smurf.GlobalOffensive.Math;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Patchables;
 
-namespace Smurf.GlobalOffensive.Updaters
+namespace Smurf.GlobalOffensive.Feauters
 {
     public class Aimbot
     {
         #region Fields
         private static Player _activeTarget;
         private static Vector3 _viewAngels;
-
         private static WinAPI.VirtualKeyShort _aimbotKey;
         private static int _aimbotFov;
         private static int _aimbotBone;

@@ -105,15 +105,15 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Smurf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Updaters\Aimbot.cs" />
-    <Compile Include="Updaters\AutoPistol.cs" />
-    <Compile Include="Updaters\BunnyJump.cs" />
-    <Compile Include="Updaters\Glow.cs" />
-    <Compile Include="Updaters\NoFlash.cs" />
-    <Compile Include="Updaters\Radar.cs" />
-    <Compile Include="Updaters\Rcs.cs" />
-    <Compile Include="Updaters\SoundESP.cs" />
-    <Compile Include="Updaters\TriggerBot.cs" />
+    <Compile Include="Feauters\Aimbot.cs" />
+    <Compile Include="Feauters\AutoPistol.cs" />
+    <Compile Include="Feauters\BunnyJump.cs" />
+    <Compile Include="Feauters\Glow.cs" />
+    <Compile Include="Feauters\NoFlash.cs" />
+    <Compile Include="Feauters\Radar.cs" />
+    <Compile Include="Feauters\Rcs.cs" />
+    <Compile Include="Feauters\SoundESP.cs" />
+    <Compile Include="Feauters\TriggerBot.cs" />
     <Compile Include="WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -131,9 +131,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\beep.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

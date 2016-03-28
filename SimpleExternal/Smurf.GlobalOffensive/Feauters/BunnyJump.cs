@@ -1,7 +1,7 @@
 ﻿using System;
 using Smurf.GlobalOffensive.Patchables;
 
-namespace Smurf.GlobalOffensive.Updaters
+namespace Smurf.GlobalOffensive.Feauters
 {
     public class BunnyJump
     {

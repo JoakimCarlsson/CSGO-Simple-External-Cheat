@@ -3,7 +3,7 @@ using System.Numerics;
 using Smurf.GlobalOffensive.Math;
 using Smurf.GlobalOffensive.Patchables;
 
-namespace Smurf.GlobalOffensive.Updaters
+namespace Smurf.GlobalOffensive.Feauters
 {
     public class Rcs
     {

@@ -2,10 +2,10 @@
 using System.Diagnostics;
 using System.Threading;
 using BlueRain;
+using Smurf.GlobalOffensive.Feauters;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Patchables;
 using Smurf.GlobalOffensive.Properties;
-using Smurf.GlobalOffensive.Updaters;
 
 namespace Smurf.GlobalOffensive
 {

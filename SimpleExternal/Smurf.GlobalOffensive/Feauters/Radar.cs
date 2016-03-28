@@ -1,6 +1,6 @@
 ﻿using Smurf.GlobalOffensive.Patchables;
 
-namespace Smurf.GlobalOffensive.Updaters
+namespace Smurf.GlobalOffensive.Feauters
 {
     public class Radar
     {

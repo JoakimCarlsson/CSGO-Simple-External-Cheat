@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Smurf.GlobalOffensive.Updaters
+namespace Smurf.GlobalOffensive.Feauters
 {
     public class TriggerBot
     {
