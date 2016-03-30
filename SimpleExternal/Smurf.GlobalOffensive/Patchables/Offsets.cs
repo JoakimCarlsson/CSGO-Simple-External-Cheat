@@ -9,7 +9,7 @@
             public static int LocalPlayer = 0xA804CC;
             public static int Jump = 0x4F300E8;
             public static int GlowIndex = 0xA310;
-            public static int GlowObject = 0x4FB0B8C;
+            public static int GlowObject = 0x4FB0B9C;
         }
 
         public class ClientState

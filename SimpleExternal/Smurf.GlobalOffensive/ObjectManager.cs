@@ -10,9 +10,6 @@ using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive
 {
-    /// <summary>
-    ///     Manages entities within the game world.
-    /// </summary>
     public class ObjectManager : NativeObject
     {
 
