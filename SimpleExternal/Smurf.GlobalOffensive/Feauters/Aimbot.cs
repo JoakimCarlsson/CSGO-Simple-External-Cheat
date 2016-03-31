@@ -76,6 +76,9 @@ namespace Smurf.GlobalOffensive.Feauters
             if (!_activeTarget.SeenBy(Smurf.LocalPlayer))
                 return;
 
+            if (Smurf.LocalPlayerWeapon.Clip1 == 0)
+                return;
+
             if (_aimbotZoomed)
             {
                 if (Smurf.LocalPlayerWeapon.ZoomLevel <= 0)
@@ -92,7 +95,6 @@ namespace Smurf.GlobalOffensive.Feauters
             dst = dst.NormalizeAngle();
             dst = dst.ClampAngle();
 
-            //Aimbot RCS
             if (Smurf.ControlRecoil.RcsEnabled)
                 dst = ControlRecoil(dst);
 
@@ -139,11 +141,13 @@ namespace Smurf.GlobalOffensive.Feauters
 
             foreach (Player validTarget in validTargets)
             {
-                var myView = Smurf.LocalPlayer.Position + Smurf.LocalPlayer.VecView;
-                var aimView = validTarget.GetBonePos((int)validTarget.BaseAddress, _aimbotBone);
-                var dst = myView.CalcAngle(aimView);
+                Vector3 myView = Smurf.LocalPlayer.Position + Smurf.LocalPlayer.VecView;
+                Vector3 aimView = validTarget.GetBonePos((int)validTarget.BaseAddress, _aimbotBone);
+                Vector3 dst = myView.CalcAngle(aimView);
 
-                if (MathUtils.Fov(_viewAngels, dst) <= _aimbotFov)
+                float fov = MathUtils.Fov2(_viewAngels, dst);
+                Console.WriteLine(fov);
+                if (fov <= _aimbotFov)
                     return validTarget;
             }
             return null;

@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 
 namespace Smurf.GlobalOffensive.Math
 {
@@ -6,8 +7,8 @@ namespace Smurf.GlobalOffensive.Math
     {
         #region Fields
 
-        public static float _deg2Rad = (float)(System.Math.PI / 180f);
-        private static readonly float _rad2Deg = (float)(180f / System.Math.PI);
+        public static float Deg2Rad = (float)(System.Math.PI / 180f);
+        private static readonly float Rad2Deg = (float)(180f / System.Math.PI);
 
         #endregion
 
@@ -34,17 +35,21 @@ namespace Smurf.GlobalOffensive.Math
         {
             float deltaX = (viewAngle.X - destination.X);
             float deltaY = (viewAngle.Y - destination.Y);
-            bool flag = 180.0 > deltaX;
-            int num3 = 180.0 > deltaY ? 1 : 0;
-            if (!flag)
-                deltaX -= 360f;
-            if (num3 == 0)
-                deltaY -= 360f;
-            if (0.0 > deltaX)
-                deltaX = deltaX - deltaX - deltaX;
-            if (0.0 > deltaY)
-                deltaY = deltaY - deltaY - deltaY;
-            return (float)(deltaX + (double)deltaY);
+            //if (deltaX > 180)
+            //    deltaX -= 180;
+            //if (deltaY > 180)
+            //    deltaY -= 180;
+            //if (deltaX < 0.0)
+            //    deltaX -= deltaX * 2;
+            //if (deltaY < 0.0)
+            //    deltaY -= deltaY * 2;
+            float fov = deltaX + deltaY;
+            Console.WriteLine(fov);
+            return fov;
+        }
+        public static float Fov2(Vector3 viewangel, Vector3 dst)
+        {
+            return (float)System.Math.Sqrt(System.Math.Pow(dst.X - viewangel.X, 2) + System.Math.Pow(dst.Y - viewangel.Y, 2));
         }
         public static Vector3 SmoothAngle(this Vector3 src, Vector3 dest, float smoothAmount)
         {
@@ -52,7 +57,7 @@ namespace Smurf.GlobalOffensive.Math
         }
         public static float RadiansToDegrees(float rad)
         {
-            return rad * _rad2Deg;
+            return rad * Rad2Deg;
         }
 
         public static double DegreesToRadians(double degrees)
