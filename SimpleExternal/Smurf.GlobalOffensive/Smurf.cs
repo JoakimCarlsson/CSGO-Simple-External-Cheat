@@ -4,7 +4,6 @@ using System.Threading;
 using BlueRain;
 using Smurf.GlobalOffensive.Feauters;
 using Smurf.GlobalOffensive.Objects;
-using Smurf.GlobalOffensive.Patchables;
 using Smurf.GlobalOffensive.Properties;
 
 namespace Smurf.GlobalOffensive

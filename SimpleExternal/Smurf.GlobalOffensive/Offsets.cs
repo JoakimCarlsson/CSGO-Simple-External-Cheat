@@ -1,4 +1,4 @@
-﻿namespace Smurf.GlobalOffensive.Patchables
+﻿namespace Smurf.GlobalOffensive
 {
     internal class Offsets
     {

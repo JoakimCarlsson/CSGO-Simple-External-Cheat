@@ -1,6 +1,4 @@
-﻿using Smurf.GlobalOffensive.Patchables;
-
-namespace Smurf.GlobalOffensive.Feauters
+﻿namespace Smurf.GlobalOffensive.Feauters
 {
     public class NoFlash
     {

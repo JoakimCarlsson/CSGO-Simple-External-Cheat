@@ -79,6 +79,25 @@ namespace Smurf.GlobalOffensive.Math
                 ret.Y += 180.0f;
             return ret;
         }
+
+        public static Vector3 CalcAngle(Vector3 src, Vector3 dst, Vector3 angles)
+        {
+
+            Vector3 delta;
+            delta.X = (src.X - dst.X);
+            delta.Y = (src.Y - dst.Y);
+            delta.Z = (src.Z - dst.Z);
+
+            double hyp = System.Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y);
+            angles.X = (float)(System.Math.Atan(delta.Z / hyp) * 57.295779513082f);
+            angles.Y = (float)(System.Math.Atan(delta.Y / delta.X) * 57.295779513082f);
+
+
+            angles.Z = 0.0f;
+            if (delta.X >= 0.0) { angles.Y += 180.0f; }
+            return angles;
+        }
+
         public static Vector3 NormalizeAngle(this Vector3 angle)
         {
             //This is probably unnecessary, but its the way the engine does it so fuck it

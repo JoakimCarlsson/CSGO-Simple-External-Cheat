@@ -102,7 +102,7 @@
     <Compile Include="Objects\NativeObject.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\Weapon.cs" />
-    <Compile Include="Patchables\Offsets.cs" />
+    <Compile Include="Offsets.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -1,5 +1,4 @@
 ﻿using System;
-using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Feauters
 {

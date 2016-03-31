@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Feauters
 {

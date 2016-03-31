@@ -4,7 +4,6 @@ using System.Numerics;
 using System.Threading;
 using Smurf.GlobalOffensive.Math;
 using Smurf.GlobalOffensive.Objects;
-using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
@@ -52,7 +51,7 @@ namespace Smurf.GlobalOffensive.Feauters
             if (Smurf.KeyUtils.KeyWentUp(_aimbotKey))
             {
                 _activeTarget = null;
-                Thread.Sleep(10); //If we don't sleep, the key will go up and on and lock onto another target. 
+                Thread.Sleep(10);
             }
         }
 
@@ -65,8 +64,6 @@ namespace Smurf.GlobalOffensive.Feauters
 
             return tmpBone[randomIndex];
         }
-
-
 
         private static void DoAimbot()
         {
@@ -89,7 +86,6 @@ namespace Smurf.GlobalOffensive.Feauters
 
             var myView = Smurf.LocalPlayer.Position + Smurf.LocalPlayer.VecView;
             var aimView = _activeTarget.GetBonePos((int)_activeTarget.BaseAddress, _aimbotBone);
-
             var dst = myView.CalcAngle(aimView);
 
             dst = dst.NormalizeAngle();
@@ -144,9 +140,11 @@ namespace Smurf.GlobalOffensive.Feauters
                 Vector3 myView = Smurf.LocalPlayer.Position + Smurf.LocalPlayer.VecView;
                 Vector3 aimView = validTarget.GetBonePos((int)validTarget.BaseAddress, _aimbotBone);
                 Vector3 dst = myView.CalcAngle(aimView);
+                dst = dst.NormalizeAngle();
 
                 float fov = MathUtils.Fov2(_viewAngels, dst);
                 Console.WriteLine(fov);
+
                 if (fov <= _aimbotFov)
                     return validTarget;
             }

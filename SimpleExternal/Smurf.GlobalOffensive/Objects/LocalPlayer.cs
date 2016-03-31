@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Numerics;
-using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Objects
 {

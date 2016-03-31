@@ -2,7 +2,6 @@
 using System.Numerics;
 using System.Text;
 using Smurf.GlobalOffensive.Enums;
-using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Objects
 {
