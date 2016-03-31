@@ -88,7 +88,6 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleManager.cs" />
     <Compile Include="Enums\ClassIds.cs" />
     <Compile Include="Enums\SignonState.cs" />
     <Compile Include="Enums\PlayerTeam.cs" />
