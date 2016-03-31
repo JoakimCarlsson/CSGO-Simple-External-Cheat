@@ -1,4 +1,4 @@
-﻿namespace Smurf.GlobalOffensive.Data.Enums
+﻿namespace Smurf.GlobalOffensive.Enums
 {
     public enum SignonState
     {

@@ -22,7 +22,7 @@ namespace Smurf.GlobalOffensive
             Thread thread6 = new Thread(UpdateAutoPistol);
 
             Console.ForegroundColor = ConsoleColor.White;
-            //Console.Title = "Cheat Squad";
+            Console.Title = "Cheat Squad";
 
             Console.WriteLine("> Waiting for CSGO to start up...");
             while ((_hWnd = WinAPI.FindWindowByCaption(_hWnd, GameTitle)) == IntPtr.Zero)
@@ -50,7 +50,6 @@ namespace Smurf.GlobalOffensive
         {
             foreach (var thread in threads)
             {
-                //thread.IsBackground = true;
                 thread.Priority = ThreadPriority.Highest;
                 thread.Start();
             }

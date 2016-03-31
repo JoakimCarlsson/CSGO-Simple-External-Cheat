@@ -30,6 +30,22 @@ namespace Smurf.GlobalOffensive.Math
             angles.Z = 0;
             return angles;
         }
+        public static float Fov(Vector3 viewAngle, Vector3 destination)
+        {
+            float deltaX = (viewAngle.X - destination.X);
+            float deltaY = (viewAngle.Y - destination.Y);
+            bool flag = 180.0 > deltaX;
+            int num3 = 180.0 > deltaY ? 1 : 0;
+            if (!flag)
+                deltaX -= 360f;
+            if (num3 == 0)
+                deltaY -= 360f;
+            if (0.0 > deltaX)
+                deltaX = deltaX - deltaX - deltaX;
+            if (0.0 > deltaY)
+                deltaY = deltaY - deltaY - deltaY;
+            return (float)(deltaX + (double)deltaY);
+        }
         public static Vector3 SmoothAngle(this Vector3 src, Vector3 dest, float smoothAmount)
         {
             return src + (dest - src) * smoothAmount;

@@ -66,22 +66,7 @@ namespace Smurf.GlobalOffensive.Feauters
             return tmpBone[randomIndex];
         }
 
-        public float AngleDifference(Vector3 viewAngle, Vector3 dst)
-        {
-            float num1 = (viewAngle.X - dst.X);
-            float num2 = (viewAngle.Y - dst.Y);
-            bool flag = 180.0 > num1;
-            int num3 = 180.0 > num2 ? 1 : 0;
-            if (!flag)
-                num1 -= 360f;
-            if (num3 == 0)
-                num2 -= 360f;
-            if (0.0 > num1)
-                num1 = num1 - num1 - num1;
-            if (0.0 > num2)
-                num2 = num2 - num2 - num2;
-            return (float)(num1 + (double)num2);
-        }
+
 
         private static void DoAimbot()
         {
@@ -158,7 +143,7 @@ namespace Smurf.GlobalOffensive.Feauters
                 var aimView = validTarget.GetBonePos((int)validTarget.BaseAddress, _aimbotBone);
                 var dst = myView.CalcAngle(aimView);
 
-                if (AngleDifference(_viewAngels, dst) <= _aimbotFov)
+                if (MathUtils.Fov(_viewAngels, dst) <= _aimbotFov)
                     return validTarget;
             }
             return null;

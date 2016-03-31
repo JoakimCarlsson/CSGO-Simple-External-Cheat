@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 using System.Text;
-using Smurf.GlobalOffensive.Data.Enums;
+using Smurf.GlobalOffensive.Enums;
 using Smurf.GlobalOffensive.Patchables;
 
 namespace Smurf.GlobalOffensive.Objects

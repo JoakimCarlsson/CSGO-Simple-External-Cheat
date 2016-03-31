@@ -1,5 +1,5 @@
 ﻿using System;
-using Smurf.GlobalOffensive.Data.Enums;
+using Smurf.GlobalOffensive.Enums;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Patchables;
 
