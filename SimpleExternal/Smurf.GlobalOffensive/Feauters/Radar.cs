@@ -6,7 +6,7 @@
 
         public void Update()
         {
-            if (!Smurf.Objects.ShouldUpdate())
+            if (!Core.Objects.ShouldUpdate())
                 return;
 
 
@@ -15,21 +15,21 @@
             if (!_radar)
                 return;
 
-            foreach (var player in Smurf.Objects.Players)
+            foreach (var player in Core.Objects.Players)
             {
-                if (player.Team == Smurf.LocalPlayer.Team)
+                if (player.Team == Core.LocalPlayer.Team)
                     continue;
                 if (!player.IsAlive)
                     continue;
 
                 if (!player.IsDormant && !player.IsSpotted)
-                    Smurf.Memory.Write(player.BaseAddress + Offsets.BaseEntity.Spotted, 1);
+                    Core.Memory.Write(player.BaseAddress + Offsets.BaseEntity.Spotted, 1);
             }
         }
 
         private void ReadSettings()
         {
-            _radar = Smurf.Settings.GetBool("Misc", "Radar");
+            _radar = Core.Settings.GetBool("Misc", "Radar");
         }
     }
 }

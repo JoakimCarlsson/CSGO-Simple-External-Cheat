@@ -10,7 +10,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
         public void Update()
         {
-            if (!Smurf.Objects.ShouldUpdate(false, false, false))
+            if (!Core.Objects.ShouldUpdate(false, false, false))
                 return;
 
             ReadSettings();
@@ -23,34 +23,34 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void DoGlow()
         {
-            GlowPointer = Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.GlowObject);
+            GlowPointer = Core.Memory.Read<IntPtr>(Core.ClientBase + Offsets.Misc.GlowObject);
 
             #region Player Glow
 
-            foreach (var player in Smurf.Objects.Players.Where(player => !player.IsDormant).Where(player => player.IsAlive))
+            foreach (var player in Core.Objects.Players.Where(player => !player.IsDormant).Where(player => player.IsAlive))
             {
                 if (_glowEnemies)
                 {
-                    if (player.Team != Smurf.LocalPlayer.Team)
+                    if (player.Team != Core.LocalPlayer.Team)
                     {
-                        Smurf.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x4, 0.7f); //red
-                        Smurf.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x8, 0.1f); //green
-                        Smurf.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0xC, 0.0f); //blue
-                        Smurf.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x10, 0.8f);
-                        Smurf.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x24, true);
-                        Smurf.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x25, false);
+                        Core.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x4, 0.7f); //red
+                        Core.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x8, 0.1f); //green
+                        Core.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0xC, 0.0f); //blue
+                        Core.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x10, 0.8f);
+                        Core.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x24, true);
+                        Core.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x25, false);
                     }
                 }
                 if (_glowFriendly)
                 {
-                    if (player.Team == Smurf.LocalPlayer.Team)
+                    if (player.Team == Core.LocalPlayer.Team)
                     {
-                        Smurf.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x4, 0.0f); //red
-                        Smurf.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x8, 0.3f); //green
-                        Smurf.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0xC, 0.5f); //blue
-                        Smurf.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x10, 0.8f);
-                        Smurf.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x24, true);
-                        Smurf.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x25, false);
+                        Core.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x4, 0.0f); //red
+                        Core.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x8, 0.3f); //green
+                        Core.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0xC, 0.5f); //blue
+                        Core.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x10, 0.8f);
+                        Core.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x24, true);
+                        Core.Memory.Write(GlowPointer + player.GlowIndex * 0x38 + 0x25, false);
                     }
                 }
             }
@@ -62,9 +62,9 @@ namespace Smurf.GlobalOffensive.Feauters
         {
             try
             {
-                _glowActive = Smurf.Settings.GetBool("Glow ESP", "Glow ESP Enabled");
-                _glowFriendly = Smurf.Settings.GetBool("Glow ESP", "Glow ESP Allies");
-                _glowEnemies = Smurf.Settings.GetBool("Glow ESP", "Glow ESP Enemies");
+                _glowActive = Core.Settings.GetBool("Glow ESP", "Glow ESP Enabled");
+                _glowFriendly = Core.Settings.GetBool("Glow ESP", "Glow ESP Allies");
+                _glowEnemies = Core.Settings.GetBool("Glow ESP", "Glow ESP Enemies");
             }
             catch (Exception e)
             {

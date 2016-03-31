@@ -47,13 +47,13 @@ namespace Smurf.GlobalOffensive.Objects
                 if (CrosshairId <= 0)
                     return null;
 
-                return Smurf.Objects.GetPlayerById(id);
+                return Core.Objects.GetPlayerById(id);
             }
         }
 
         private int GetVelocity()
         {
-            var vector2 = new Vector2(Smurf.LocalPlayer.VecVelocity.X, Smurf.LocalPlayer.VecVelocity.Y);
+            var vector2 = new Vector2(Core.LocalPlayer.VecVelocity.X, Core.LocalPlayer.VecVelocity.Y);
             var length = vector2.Length();
             var velocity = length;
 

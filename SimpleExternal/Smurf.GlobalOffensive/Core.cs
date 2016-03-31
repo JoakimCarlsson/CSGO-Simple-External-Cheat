@@ -8,7 +8,7 @@ using Smurf.GlobalOffensive.Properties;
 
 namespace Smurf.GlobalOffensive
 {
-    public static class Smurf
+    public static class Core
     {
         private static bool _isAttached;
         public static int ClientState;

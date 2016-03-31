@@ -25,8 +25,8 @@ namespace Smurf.GlobalOffensive
 
         public void Update()
         {
-            _reloadConfigKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Smurf.Settings.GetString("Misc", "Reload Config Key"), 16);
-            if (Smurf.KeyUtils.KeyWentDown(_reloadConfigKey)) //Tab Key, don't hard code key, will fix later.
+            _reloadConfigKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Core.Settings.GetString("Misc", "Reload Config Key"), 16);
+            if (Core.KeyUtils.KeyWentDown(_reloadConfigKey)) //Tab Key, don't hard code key, will fix later.
             {
                 _data = Parser.ReadFile("Config.ini");
             }

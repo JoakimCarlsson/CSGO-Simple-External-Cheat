@@ -42,7 +42,7 @@ namespace Smurf.GlobalOffensive
             if (timeStamp - _lastUpdate < TimeSpan.FromMilliseconds(1000/_ticksPerSecond))
                 return;
 
-            if (!Smurf.Client.InGame)
+            if (!Core.Client.InGame)
             {
                 _lastUpdate = timeStamp;
                 return;
@@ -52,12 +52,12 @@ namespace Smurf.GlobalOffensive
             //_weapons.Clear();
             //_entities.Clear();
 
-            var localPlayerPtr = Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.LocalPlayer);
+            var localPlayerPtr = Core.Memory.Read<IntPtr>(Core.ClientBase + Offsets.Misc.LocalPlayer);
 
             LocalPlayer = new LocalPlayer(localPlayerPtr);
             LocalPlayerWeapon = LocalPlayer.GetCurrentWeapon(localPlayerPtr);
 
-            var capacity = Smurf.Memory.Read<int>(Smurf.ClientBase + Offsets.Misc.EntityList + 0x4);
+            var capacity = Core.Memory.Read<int>(Core.ClientBase + Offsets.Misc.EntityList + 0x4);
             for (var i = 0; i < capacity; i++)
             {
                 var entity = new BaseEntity(GetEntityPtr(i));
@@ -77,7 +77,7 @@ namespace Smurf.GlobalOffensive
 
         private IntPtr GetEntityPtr(int index)
         {
-            return Smurf.Memory.Read<IntPtr>(BaseAddress + index*Offsets.BaseEntity.EntitySize);
+            return Core.Memory.Read<IntPtr>(BaseAddress + index*Offsets.BaseEntity.EntitySize);
         }
 
         public BaseEntity GetPlayerById(int id)
@@ -96,33 +96,33 @@ namespace Smurf.GlobalOffensive
             //if (WindowTitle != Smurf.GameTitle)
             //    return false;
 
-            if (Smurf.LocalPlayer == null)
+            if (Core.LocalPlayer == null)
                 return false;
 
-            if (Smurf.LocalPlayerWeapon == null)
+            if (Core.LocalPlayerWeapon == null)
                 return false;
 
-            if (Smurf.Client.State != SignonState.Full)
+            if (Core.Client.State != SignonState.Full)
                 return false;
 
             if (checkMisc)
-                if (Smurf.LocalPlayerWeapon.ClassName == "none" ||
-                    Smurf.LocalPlayerWeapon.ClassName == "BaseEntity" ||
-                    Smurf.LocalPlayerWeapon.ClassName == "CC4" ||
-                    Smurf.LocalPlayerWeapon.ClassName == "CBreakableProp")
+                if (Core.LocalPlayerWeapon.ClassName == "none" ||
+                    Core.LocalPlayerWeapon.ClassName == "BaseEntity" ||
+                    Core.LocalPlayerWeapon.ClassName == "CC4" ||
+                    Core.LocalPlayerWeapon.ClassName == "CBreakableProp")
                     return false;
 
             if (checkGrenades)
-                if (Smurf.LocalPlayerWeapon.ClassName == "CDecoyGrenade" ||
-                    Smurf.LocalPlayerWeapon.ClassName == "CHEGrenade" ||
-                    Smurf.LocalPlayerWeapon.ClassName == "CFlashbang" || 
-                    Smurf.LocalPlayerWeapon.ClassName == "CMolotovGrenade" ||
-                    Smurf.LocalPlayerWeapon.ClassName == "CIncendiaryGrenade" ||
-                    Smurf.LocalPlayerWeapon.ClassName == "CSmokeGrenade")
+                if (Core.LocalPlayerWeapon.ClassName == "CDecoyGrenade" ||
+                    Core.LocalPlayerWeapon.ClassName == "CHEGrenade" ||
+                    Core.LocalPlayerWeapon.ClassName == "CFlashbang" || 
+                    Core.LocalPlayerWeapon.ClassName == "CMolotovGrenade" ||
+                    Core.LocalPlayerWeapon.ClassName == "CIncendiaryGrenade" ||
+                    Core.LocalPlayerWeapon.ClassName == "CSmokeGrenade")
                     return false;
 
             if (checkKnife)
-                if (Smurf.LocalPlayerWeapon.ClassName == "CKnife")
+                if (Core.LocalPlayerWeapon.ClassName == "CKnife")
                     return false;
 
             return true;

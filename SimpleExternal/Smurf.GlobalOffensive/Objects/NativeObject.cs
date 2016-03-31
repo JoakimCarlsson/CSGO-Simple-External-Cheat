@@ -50,7 +50,7 @@ namespace Smurf.GlobalOffensive.Objects
         {
             try
             {
-                return IsValid ? Smurf.Memory.Read<T>(BaseAddress + offset) : default(T);
+                return IsValid ? Core.Memory.Read<T>(BaseAddress + offset) : default(T);
             }
             catch (Exception e)
             {
