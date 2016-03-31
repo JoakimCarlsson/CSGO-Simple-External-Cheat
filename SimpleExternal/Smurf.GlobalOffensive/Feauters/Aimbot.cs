@@ -98,7 +98,14 @@ namespace Smurf.GlobalOffensive.Feauters
             dst = dst.ClampAngle();
 
             //Smooth
-            SmoothAim(dst);
+            if (_aimbotSmooth > 0)
+            {
+                 SmoothAim(dst);
+            }
+            else
+            {
+                Smurf.ControlRecoil.SetViewAngles(dst);
+            }
         }
 
         private static void SmoothAim(Vector3 dst)
