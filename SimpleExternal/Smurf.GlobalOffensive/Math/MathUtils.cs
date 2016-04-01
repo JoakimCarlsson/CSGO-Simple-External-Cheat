@@ -31,6 +31,13 @@ namespace Smurf.GlobalOffensive.Math
             angles.Z = 0;
             return angles;
         }
+        public static float Fov(Vector3 viewAngle, Vector3 TargetAngles, float distance)
+        {
+            float pitch = (float) (System.Math.Sin(DegreesToRadians(viewAngle.X - TargetAngles.X)) * distance);
+            float yaw = (float) (System.Math.Sin(DegreesToRadians(viewAngle.Y - TargetAngles.Y)) * distance);
+
+            return (float) System.Math.Sqrt(System.Math.Pow(pitch, 2.0) + System.Math.Pow(yaw, 2.0));
+        }
         public static float Fov(Vector3 viewAngle, Vector3 destination)
         {
             float deltaX = (viewAngle.X - destination.X);
@@ -47,14 +54,17 @@ namespace Smurf.GlobalOffensive.Math
             Console.WriteLine(fov);
             return fov;
         }
+
         public static float Fov2(Vector3 viewangel, Vector3 dst)
         {
             return (float)System.Math.Sqrt(System.Math.Pow(dst.X - viewangel.X, 2) + System.Math.Pow(dst.Y - viewangel.Y, 2));
         }
+
         public static Vector3 SmoothAngle(this Vector3 src, Vector3 dest, float smoothAmount)
         {
             return src + (dest - src) * smoothAmount;
         }
+
         public static float RadiansToDegrees(float rad)
         {
             return rad * Rad2Deg;
@@ -65,7 +75,6 @@ namespace Smurf.GlobalOffensive.Math
             var radians = System.Math.PI / 180 * degrees;
             return radians;
         }
-
         public static Vector3 CalcAngle(this Vector3 src, Vector3 dst)
         {
             var ret = new Vector3();
