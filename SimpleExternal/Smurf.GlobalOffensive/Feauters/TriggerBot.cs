@@ -104,7 +104,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
                 for (int i = 0; i < 81; i++)
                 {
-                    Vector3 aimView = validTarget.GetBonePos((int)validTarget.BaseAddress, i);
+                    Vector3 aimView = validTarget.GetBonePos(validTarget, i);
                     Vector3 dst = myView.CalcAngle(aimView);
                     dst = dst.NormalizeAngle();
                     var fov = MathUtils.MathUtils.Fov(ViewAngels, dst, Vector3.Distance(Core.LocalPlayer.Position, validTarget.Position));
@@ -133,7 +133,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void GetValidTargets()
         {
-            _validTargets = Core.Objects.Players.Where(p => p.IsAlive && !p.IsDormant && p.Id != Core.LocalPlayer.Id /*&& p.SeenBy(Core.LocalPlayer)*/);
+            _validTargets = Core.Objects.Players.Where(p => p.IsAlive && !p.IsDormant && p.Id != Core.LocalPlayer.Id && p.SeenBy(Core.LocalPlayer));
             if (_triggerEnemies)
                 _validTargets = _validTargets.Where(p => p.Team != Core.LocalPlayer.Team);
             if (_triggerAllies)

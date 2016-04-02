@@ -81,7 +81,7 @@ namespace Smurf.GlobalOffensive.Feauters
                     return;
 
             var myView = Core.LocalPlayer.Position + Core.LocalPlayer.VecView;
-            var aimView = _activeTarget.GetBonePos((int)_activeTarget.BaseAddress, _aimbotBone);
+            var aimView = _activeTarget.GetBonePos(_activeTarget, _aimbotBone);
             var dst = myView.CalcAngle(aimView);
 
             dst = dst.NormalizeAngle();
@@ -136,7 +136,7 @@ namespace Smurf.GlobalOffensive.Feauters
             foreach (Player validTarget in validTargets)
             {
                 Vector3 myView = Core.LocalPlayer.Position + Core.LocalPlayer.VecView;
-                Vector3 aimView = validTarget.GetBonePos((int)validTarget.BaseAddress, _aimbotBone);
+                Vector3 aimView = validTarget.GetBonePos(validTarget, _aimbotBone);
                 Vector3 dst = myView.CalcAngle(aimView);
                 dst = dst.NormalizeAngle();
 

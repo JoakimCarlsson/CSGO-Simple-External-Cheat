@@ -29,9 +29,9 @@ namespace Smurf.GlobalOffensive.Objects
             return new Weapon(Core.Memory.Read<IntPtr>(Core.ClientBase + Offsets.Misc.EntityList + (wepptr1 - 1)*0x10));
         }
 
-        public Vector3 GetBonePos(int baseAdress, int bone)
+        public Vector3 GetBonePos(Player player, int bone)
         {
-            int matrix = Core.Memory.Read<int>((IntPtr) (baseAdress + Offsets.BaseEntity.BoneMatrix));
+            int matrix = Core.Memory.Read<int>(player.BaseAddress + Offsets.BaseEntity.BoneMatrix);
             Vector3 bonePos = new Vector3
             {
                 X = Core.Memory.Read<float>((IntPtr) (matrix + 0x30*bone + 0xC)),
