@@ -88,6 +88,19 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BSP\BSP.cs" />
+    <Compile Include="BSP\Enums\ContentsFlag.cs" />
+    <Compile Include="BSP\Enums\LumpType.cs" />
+    <Compile Include="BSP\Enums\SurfFlag.cs" />
+    <Compile Include="BSP\Structs\Brush.cs" />
+    <Compile Include="BSP\Structs\Brushside.cs" />
+    <Compile Include="BSP\Structs\Face.cs" />
+    <Compile Include="BSP\Structs\Header.cs" />
+    <Compile Include="BSP\Structs\Leaf.cs" />
+    <Compile Include="BSP\Structs\Lump.cs" />
+    <Compile Include="BSP\Structs\Node.cs" />
+    <Compile Include="BSP\Structs\Plane.cs" />
+    <Compile Include="BSP\UtilityReader.cs" />
     <Compile Include="Enums\ClassIds.cs" />
     <Compile Include="Enums\SignonState.cs" />
     <Compile Include="Enums\PlayerTeam.cs" />

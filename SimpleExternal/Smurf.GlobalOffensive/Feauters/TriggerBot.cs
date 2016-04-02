@@ -101,6 +101,7 @@ namespace Smurf.GlobalOffensive.Feauters
             foreach (Player validTarget in _validTargets)
             {
                 Vector3 myView = Core.LocalPlayer.Position + Core.LocalPlayer.VecView;
+
                 for (int i = 0; i < 81; i++)
                 {
                     Vector3 aimView = validTarget.GetBonePos((int)validTarget.BaseAddress, i);
@@ -123,7 +124,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
                             _triggerLastShot = DateTime.Now.Ticks;
 
-                            Shoot();
+                            //Shoot();
                         }
                     }
                 }
@@ -132,7 +133,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void GetValidTargets()
         {
-            _validTargets = Core.Objects.Players.Where(p => p.IsAlive && !p.IsDormant && p.Id != Core.LocalPlayer.Id && p.SeenBy(Core.LocalPlayer));
+            _validTargets = Core.Objects.Players.Where(p => p.IsAlive && !p.IsDormant && p.Id != Core.LocalPlayer.Id /*&& p.SeenBy(Core.LocalPlayer)*/);
             if (_triggerEnemies)
                 _validTargets = _validTargets.Where(p => p.Team != Core.LocalPlayer.Team);
             if (_triggerAllies)
