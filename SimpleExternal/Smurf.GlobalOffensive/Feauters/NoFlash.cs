@@ -1,4 +1,6 @@
-﻿namespace Smurf.GlobalOffensive.Feauters
+﻿using Smurf.GlobalOffensive.Utils;
+
+namespace Smurf.GlobalOffensive.Feauters
 {
     public class NoFlash
     {
@@ -6,7 +8,7 @@
 
         public void Update()
         {
-            if (!Core.Objects.ShouldUpdate(false, false, false))
+            if (!MiscUtils.ShouldUpdate(false, false, false))
                 return;
 
             ReadSettings();

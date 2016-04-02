@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Numerics;
-using Smurf.GlobalOffensive.MathUtils;
+using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
@@ -27,7 +27,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
         public void Update()
         {
-            if (!Core.Objects.ShouldUpdate())
+            if (!MiscUtils.ShouldUpdate())
                 return;
 
 

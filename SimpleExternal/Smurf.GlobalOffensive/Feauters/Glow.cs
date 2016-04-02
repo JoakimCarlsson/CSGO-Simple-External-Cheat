@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
@@ -10,7 +11,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
         public void Update()
         {
-            if (!Core.Objects.ShouldUpdate(false, false, false))
+            if (!MiscUtils.ShouldUpdate(false, false, false))
                 return;
 
             ReadSettings();

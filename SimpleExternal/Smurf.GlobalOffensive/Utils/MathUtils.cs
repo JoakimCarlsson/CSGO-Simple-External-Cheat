@@ -1,7 +1,7 @@
-﻿using System.Numerics;
-using System;
+﻿using System;
+using System.Numerics;
 
-namespace Smurf.GlobalOffensive.MathUtils
+namespace Smurf.GlobalOffensive.Utils
 {
     internal static class MathUtils
     {

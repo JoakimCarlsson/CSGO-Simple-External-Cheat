@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
@@ -17,7 +18,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
         public void Update()
         {
-            if (!Core.Objects.ShouldUpdate(false, false, false))
+            if (!MiscUtils.ShouldUpdate(false, false, false))
                 return;
 
             ReadSettings();

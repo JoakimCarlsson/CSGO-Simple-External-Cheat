@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Numerics;
 using System.Threading;
-using Smurf.GlobalOffensive.MathUtils;
 using Smurf.GlobalOffensive.Objects;
+using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
@@ -26,7 +26,7 @@ namespace Smurf.GlobalOffensive.Feauters
         #region Methods
         public void Update()
         {
-            if (!Core.Objects.ShouldUpdate())
+            if (!MiscUtils.ShouldUpdate())
                 return;
 
             ReadSettings();
@@ -140,7 +140,7 @@ namespace Smurf.GlobalOffensive.Feauters
                 Vector3 dst = myView.CalcAngle(aimView);
                 dst = dst.NormalizeAngle();
 
-                float fov = MathUtils.MathUtils.Fov(_viewAngels, dst);
+                float fov = MathUtils.Fov(_viewAngels, dst);
                 Console.WriteLine(fov);
 
                 if (fov <= _aimbotFov)
