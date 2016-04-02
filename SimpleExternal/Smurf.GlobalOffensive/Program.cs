@@ -37,7 +37,6 @@ namespace Smurf.GlobalOffensive
             while (true)
             {
                 Core.Objects.Update();
-                Core.Aimbot.Update();
                 Core.TriggerBot.Update();
                 Core.SoundEsp.Update();
                 Core.Radar.Update();

@@ -120,7 +120,6 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Core.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Feauters\Aimbot.cs" />
     <Compile Include="Feauters\AutoPistol.cs" />
     <Compile Include="Feauters\BunnyJump.cs" />
     <Compile Include="Feauters\Glow.cs" />
