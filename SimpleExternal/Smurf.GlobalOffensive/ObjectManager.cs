@@ -131,18 +131,14 @@ namespace Smurf.GlobalOffensive
         {
             const int nChars = 256;
             var builder = new StringBuilder(nChars);
-            var handle = GetForegroundWindow();
+            var handle = WinAPI.GetForegroundWindow();
 
-            if (GetWindowText(handle, builder, nChars) > 0)
+            if (WinAPI.GetWindowText(handle, builder, nChars) > 0)
                 return builder.ToString();
 
             return null;
         }
 
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetForegroundWindow();
 
-        [DllImport("user32.dll")]
-        private static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
     }
 }
