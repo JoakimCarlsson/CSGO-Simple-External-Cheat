@@ -69,7 +69,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void InCrossTriggerBot()
         {
-                var target = Core.LocalPlayer.Target;
+                BaseEntity target = Core.LocalPlayer.Target;
                 if (target != null && ((_triggerAllies && target.Team == Core.LocalPlayer.Team) || (_triggerEnemies && target.Team != Core.LocalPlayer.Team)))
                 {
                     if (!AimOntarget)
@@ -93,8 +93,6 @@ namespace Smurf.GlobalOffensive.Feauters
                         Shoot();
                     }
                 }
-
-
         }
 
         private void FaceItTriggerBot()

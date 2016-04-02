@@ -80,7 +80,7 @@ namespace Smurf.GlobalOffensive
             return Core.Memory.Read<IntPtr>(BaseAddress + index*Offsets.BaseEntity.EntitySize);
         }
 
-        public BaseEntity GetPlayerById(int id)
+        public Player GetPlayerById(int id)
         {
             //   if (_players.Count < id)
             //       return null;

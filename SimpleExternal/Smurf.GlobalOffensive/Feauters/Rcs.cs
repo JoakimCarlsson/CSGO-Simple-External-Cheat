@@ -30,8 +30,7 @@ namespace Smurf.GlobalOffensive.Feauters
             if (!Core.Objects.ShouldUpdate())
                 return;
 
-            if (Core.LocalPlayerWeapon.Clip1 == 0)
-                return;
+
 
             ReadSettïngs();
 
@@ -47,6 +46,9 @@ namespace Smurf.GlobalOffensive.Feauters
             if (!Core.TriggerBot.AimOntarget)
                 if (Core.LocalPlayer.ShotsFired <= _rcsStart)
                     return;
+
+            if (Core.LocalPlayerWeapon.Clip1 == 0)
+                return;
 
             ViewAngels = Core.Memory.Read<Vector3>((IntPtr) (Core.ClientState + Offsets.ClientState.ViewAngles));
             _newViewAngels = ViewAngels;

@@ -34,7 +34,7 @@ namespace Smurf.GlobalOffensive.Objects
         /// <summary>
         ///     Gets the target the local player is currently aiming at, or null if none.
         /// </summary>
-        public BaseEntity Target
+        public Player Target
         {
             get
             {
