@@ -31,23 +31,14 @@ namespace Smurf.GlobalOffensive.Math
             angles.Z = 0;
             return angles;
         }
-        public static float Fov(Vector3 viewAngle, Vector3 destination)
+        public static double Fov(Vector3 viewAngle, Vector3 dst, float distance)
         {
-            float deltaX = (viewAngle.X - destination.X);
-            float deltaY = (viewAngle.Y - destination.Y);
-            //if (deltaX > 180)
-            //    deltaX -= 180;
-            //if (deltaY > 180)
-            //    deltaY -= 180;
-            //if (deltaX < 0.0)
-            //    deltaX -= deltaX * 2;
-            //if (deltaY < 0.0)
-            //    deltaY -= deltaY * 2;
-            float fov = deltaX + deltaY;
-            Console.WriteLine(fov);
-            return fov;
+            float pitch = (float)(System.Math.Sin(DegreesToRadians(viewAngle.X - dst.X)) * distance);
+            float yaw = (float)(System.Math.Sin(DegreesToRadians(viewAngle.Y - dst.Y)) * distance);
+
+            return (float)System.Math.Sqrt(System.Math.Pow(pitch, 2) + System.Math.Pow(yaw, 2));
         }
-        public static float Fov2(Vector3 viewangel, Vector3 dst)
+        public static float Fov(Vector3 viewangel, Vector3 dst)
         {
             return (float)System.Math.Sqrt(System.Math.Pow(dst.X - viewangel.X, 2) + System.Math.Pow(dst.Y - viewangel.Y, 2));
         }

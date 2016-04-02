@@ -64,26 +64,26 @@ namespace Smurf.GlobalOffensive.Feauters
             foreach (Player validTarget in _validTargets)
             {
                 Vector3 myView = Core.LocalPlayer.Position + Core.LocalPlayer.VecView;
-                for (int i = 0; i < 81; i++)
-                {
-                    Vector3 aimView = validTarget.GetBonePos((int)validTarget.BaseAddress, i);
+                //for (int i = 0; i < 81; i++)
+                //{
+                    Vector3 aimView = validTarget.GetBonePos((int)validTarget.BaseAddress, 6);
                     Vector3 dst = myView.CalcAngle(aimView);
                     dst = dst.NormalizeAngle();
-                    float fov = MathUtils.Fov2(ViewAngels, dst);
+                    var fov = MathUtils.Fov(ViewAngels, dst, Vector3.Distance(Core.LocalPlayer.Position, validTarget.Position));
                     Console.WriteLine(fov);
                     if (fov <= 0.3)
                     {
                         AimOntarget = true;
-                        Shoot();
-                        _triggerLastTarget = DateTime.Now.Ticks;
+                    Shoot();
+                    _triggerLastTarget = DateTime.Now.Ticks;
                     }
-                }
+                //}
             }
         }
 
         private void GetValidTargets()
         {
-            _validTargets = Core.Objects.Players.Where(p => p.IsAlive && !p.IsDormant && p.Id != Core.LocalPlayer.Id && p.SeenBy(Core.LocalPlayer));
+            _validTargets = Core.Objects.Players.Where(p => p.IsAlive && !p.IsDormant && p.Id != Core.LocalPlayer.Id /*&& p.SeenBy(Core.LocalPlayer)*/);
             if (_triggerEnemies)
                 _validTargets = _validTargets.Where(p => p.Team != Core.LocalPlayer.Team);
             if (_triggerAllies)

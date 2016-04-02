@@ -149,7 +149,7 @@ namespace Smurf.GlobalOffensive.Feauters
                 Vector3 dst = myView.CalcAngle(aimView);
                 dst = dst.NormalizeAngle();
 
-                float fov = MathUtils.Fov2(_viewAngels, dst);
+                float fov = MathUtils.Fov(_viewAngels, dst);
                 Console.WriteLine(fov);
 
                 if (fov <= _aimbotFov)

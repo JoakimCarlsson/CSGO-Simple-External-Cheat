@@ -5,11 +5,11 @@
         public class Misc
         {
             public static int ViewMatrix = 0x4A8CFF4;
-            public static int EntityList = 0x4A9B464;
+            public static int EntityList = 0x4A9B4E4;
             public static int LocalPlayer = 0xA804CC;
-            public static int Jump = 0x4F300E8;
+            public static int Jump = 0x4F30168;
             public static int GlowIndex = 0xA310;
-            public static int GlowObject = 0x4FB0B9C;
+            public static int GlowObject = 0x4FB0C2C;
         }
 
         public class ClientState
