@@ -93,7 +93,7 @@
     <Compile Include="Enums\PlayerTeam.cs" />
     <Compile Include="GameClient.cs" />
     <Compile Include="KeyUtils.cs" />
-    <Compile Include="Math\MathUtils.cs" />
+    <Compile Include="MathUtils\MathUtils.cs" />
     <Compile Include="MonotonicTimer.cs" />
     <Compile Include="ObjectManager.cs" />
     <Compile Include="Objects\BaseEntity.cs" />

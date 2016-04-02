@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Numerics;
 using System.Threading;
-using Smurf.GlobalOffensive.Math;
+using Smurf.GlobalOffensive.MathUtils;
 using Smurf.GlobalOffensive.Objects;
 
 namespace Smurf.GlobalOffensive.Feauters
@@ -77,12 +77,8 @@ namespace Smurf.GlobalOffensive.Feauters
                 return;
 
             if (_aimbotZoomed)
-            {
                 if (Core.LocalPlayerWeapon.ZoomLevel <= 0)
-                {
                     return;
-                }
-            }
 
             var myView = Core.LocalPlayer.Position + Core.LocalPlayer.VecView;
             var aimView = _activeTarget.GetBonePos((int)_activeTarget.BaseAddress, _aimbotBone);
@@ -97,15 +93,10 @@ namespace Smurf.GlobalOffensive.Feauters
             dst = dst.NormalizeAngle();
             dst = dst.ClampAngle();
 
-            //Smooth
             if (_aimbotSmooth > 0)
-            {
                  SmoothAim(dst);
-            }
             else
-            {
                 Core.ControlRecoil.SetViewAngles(dst);
-            }
         }
 
         private static void SmoothAim(Vector3 dst)
@@ -149,7 +140,7 @@ namespace Smurf.GlobalOffensive.Feauters
                 Vector3 dst = myView.CalcAngle(aimView);
                 dst = dst.NormalizeAngle();
 
-                float fov = MathUtils.Fov(_viewAngels, dst);
+                float fov = MathUtils.MathUtils.Fov(_viewAngels, dst);
                 Console.WriteLine(fov);
 
                 if (fov <= _aimbotFov)

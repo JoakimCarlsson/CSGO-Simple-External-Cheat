@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Numerics;
-using Smurf.GlobalOffensive.Math;
+using Smurf.GlobalOffensive.MathUtils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
