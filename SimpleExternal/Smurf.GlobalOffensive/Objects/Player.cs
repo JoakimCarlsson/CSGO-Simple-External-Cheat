@@ -24,19 +24,19 @@ namespace Smurf.GlobalOffensive.Objects
             if (!IsValid)
                 return null;
 
-            int wepptr = Smurf.Memory.Read<int>(baseAdress + Offsets.Player.ActiveWeapon);
+            int wepptr = Core.Memory.Read<int>(baseAdress + Offsets.Player.ActiveWeapon);
             int wepptr1 = wepptr & 0xfff;
-            return new Weapon(Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.EntityList + (wepptr1 - 1)*0x10));
+            return new Weapon(Core.Memory.Read<IntPtr>(Core.ClientBase + Offsets.Misc.EntityList + (wepptr1 - 1)*0x10));
         }
 
-        public Vector3 GetBonePos(int baseAdress, int bone)
+        public Vector3 GetBonePos(Player player, int bone)
         {
-            int matrix = Smurf.Memory.Read<int>((IntPtr) (baseAdress + Offsets.BaseEntity.BoneMatrix));
+            int matrix = Core.Memory.Read<int>(player.BaseAddress + Offsets.BaseEntity.BoneMatrix);
             Vector3 bonePos = new Vector3
             {
-                X = Smurf.Memory.Read<float>((IntPtr) (matrix + 0x30*bone + 0xC)),
-                Y = Smurf.Memory.Read<float>((IntPtr) (matrix + 0x30*bone + 0x1C)),
-                Z = Smurf.Memory.Read<float>((IntPtr) (matrix + 0x30*bone + 0x2C))
+                X = Core.Memory.Read<float>((IntPtr) (matrix + 0x30*bone + 0xC)),
+                Y = Core.Memory.Read<float>((IntPtr) (matrix + 0x30*bone + 0x1C)),
+                Z = Core.Memory.Read<float>((IntPtr) (matrix + 0x30*bone + 0x2C))
             };
             return bonePos;
         }

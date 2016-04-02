@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Numerics;
 
-namespace Smurf.GlobalOffensive.Math
+namespace Smurf.GlobalOffensive.Utils
 {
     internal static class MathUtils
     {
         #region Fields
 
-        public static float Deg2Rad = (float)(System.Math.PI / 180f);
-        private static readonly float Rad2Deg = (float)(180f / System.Math.PI);
+        public static float Deg2Rad = (float)(Math.PI / 180f);
+        private static readonly float Rad2Deg = (float)(180f / Math.PI);
 
         #endregion
 
@@ -31,33 +31,16 @@ namespace Smurf.GlobalOffensive.Math
             angles.Z = 0;
             return angles;
         }
-        public static float Fov(Vector3 viewAngle, Vector3 TargetAngles, float distance)
+        public static double Fov(Vector3 viewAngle, Vector3 dst, float distance)
         {
-            float pitch = (float) (System.Math.Sin(DegreesToRadians(viewAngle.X - TargetAngles.X)) * distance);
-            float yaw = (float) (System.Math.Sin(DegreesToRadians(viewAngle.Y - TargetAngles.Y)) * distance);
+            float pitch = (float)(Math.Sin(DegreesToRadians(viewAngle.X - dst.X)) * distance);
+            float yaw = (float)(Math.Sin(DegreesToRadians(viewAngle.Y - dst.Y)) * distance);
 
-            return (float) System.Math.Sqrt(System.Math.Pow(pitch, 2.0) + System.Math.Pow(yaw, 2.0));
+            return (float)Math.Sqrt(Math.Pow(pitch, 2) + Math.Pow(yaw, 2));
         }
-        public static float Fov(Vector3 viewAngle, Vector3 destination)
+        public static float Fov(Vector3 viewangel, Vector3 dst)
         {
-            float deltaX = (viewAngle.X - destination.X);
-            float deltaY = (viewAngle.Y - destination.Y);
-            //if (deltaX > 180)
-            //    deltaX -= 180;
-            //if (deltaY > 180)
-            //    deltaY -= 180;
-            //if (deltaX < 0.0)
-            //    deltaX -= deltaX * 2;
-            //if (deltaY < 0.0)
-            //    deltaY -= deltaY * 2;
-            float fov = deltaX + deltaY;
-            Console.WriteLine(fov);
-            return fov;
-        }
-
-        public static float Fov2(Vector3 viewangel, Vector3 dst)
-        {
-            return (float)System.Math.Sqrt(System.Math.Pow(dst.X - viewangel.X, 2) + System.Math.Pow(dst.Y - viewangel.Y, 2));
+            return (float)Math.Sqrt(Math.Pow(dst.X - viewangel.X, 2) + Math.Pow(dst.Y - viewangel.Y, 2));
         }
 
         public static Vector3 SmoothAngle(this Vector3 src, Vector3 dest, float smoothAmount)
@@ -72,17 +55,17 @@ namespace Smurf.GlobalOffensive.Math
 
         public static double DegreesToRadians(double degrees)
         {
-            var radians = System.Math.PI / 180 * degrees;
+            var radians = Math.PI / 180 * degrees;
             return radians;
         }
         public static Vector3 CalcAngle(this Vector3 src, Vector3 dst)
         {
             var ret = new Vector3();
             var vDelta = src - dst;
-            var fHyp = (float)System.Math.Sqrt(vDelta.X * vDelta.X + vDelta.Y * vDelta.Y);
+            var fHyp = (float)Math.Sqrt(vDelta.X * vDelta.X + vDelta.Y * vDelta.Y);
 
-            ret.X = RadiansToDegrees((float)System.Math.Atan(vDelta.Z / fHyp));
-            ret.Y = RadiansToDegrees((float)System.Math.Atan(vDelta.Y / vDelta.X));
+            ret.X = RadiansToDegrees((float)Math.Atan(vDelta.Z / fHyp));
+            ret.Y = RadiansToDegrees((float)Math.Atan(vDelta.Y / vDelta.X));
 
             if (vDelta.X >= 0.0f)
                 ret.Y += 180.0f;
@@ -97,9 +80,9 @@ namespace Smurf.GlobalOffensive.Math
             delta.Y = (src.Y - dst.Y);
             delta.Z = (src.Z - dst.Z);
 
-            double hyp = System.Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y);
-            angles.X = (float)(System.Math.Atan(delta.Z / hyp) * 57.295779513082f);
-            angles.Y = (float)(System.Math.Atan(delta.Y / delta.X) * 57.295779513082f);
+            double hyp = Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y);
+            angles.X = (float)(Math.Atan(delta.Z / hyp) * 57.295779513082f);
+            angles.Y = (float)(Math.Atan(delta.Y / delta.X) * 57.295779513082f);
 
 
             angles.Z = 0.0f;

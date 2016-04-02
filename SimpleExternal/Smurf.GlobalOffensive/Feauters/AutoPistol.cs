@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
@@ -12,9 +13,9 @@ namespace Smurf.GlobalOffensive.Feauters
 
         public void Update()
         {
-            if (!Smurf.Objects.ShouldUpdate())
+            if (!MiscUtils.ShouldUpdate())
                 return;
-            if (Smurf.LocalPlayerWeapon.WeaponGroup != "Pistol")
+            if (Core.LocalPlayerWeapon.WeaponGroup != "Pistol")
                 return;
 
             ReadSettigns();
@@ -23,7 +24,7 @@ namespace Smurf.GlobalOffensive.Feauters
                 return;
 
             //TODO Fix so we only shoot if we are active in the csgo window.
-            if (Smurf.KeyUtils.KeyIsDown(_autoPistolKey))
+            if (Core.KeyUtils.KeyIsDown(_autoPistolKey))
             {
                 if (!(new TimeSpan(DateTime.Now.Ticks - _lastShot).TotalMilliseconds >= _delay))
                     return;
@@ -38,9 +39,9 @@ namespace Smurf.GlobalOffensive.Feauters
         {
             try
             {
-                _autoPistol = Smurf.Settings.GetBool(Smurf.LocalPlayerWeapon.WeaponName, "Auto Pistol");
-                _delay = Smurf.Settings.GetInt(Smurf.LocalPlayerWeapon.WeaponName, "Auto Pistol Delay");
-                _autoPistolKey = (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString(Smurf.LocalPlayerWeapon.WeaponName, "Auto Pistol Key"), 16);
+                _autoPistol = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Auto Pistol");
+                _delay = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Auto Pistol Delay");
+                _autoPistolKey = (WinAPI.VirtualKeyShort) Convert.ToInt32(Core.Settings.GetString(Core.LocalPlayerWeapon.WeaponName, "Auto Pistol Key"), 16);
             }
             catch (Exception e)
             {

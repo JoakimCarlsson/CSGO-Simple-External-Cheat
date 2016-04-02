@@ -45,11 +45,11 @@ namespace Smurf.GlobalOffensive.Objects
         public bool IsDormant => ReadField<int>(Offsets.BaseEntity.Dormant) == 1;
         public bool IsSpotted => ReadField<int>(Offsets.BaseEntity.Spotted) == 1;
         public bool IsAlive => ReadField<byte>(Offsets.Player.LifeState) == 0;
-        public bool IsFriendly => Team == Smurf.LocalPlayer.Team;
+        public bool IsFriendly => Team == Core.LocalPlayer.Team;
         public int GlowIndex => ReadField<int>(Offsets.Misc.GlowIndex);
         public PlayerTeam Team => (PlayerTeam) ReadField<int>(Offsets.BaseEntity.Team);
-        public float Distance => Vector3.Distance(Smurf.LocalPlayer.Position, Position);
-        public float DistanceMeters => Vector3.Distance(Smurf.LocalPlayer.Position, Position)*0.01905f;
+        public float Distance => Vector3.Distance(Core.LocalPlayer.Position, Position);
+        public float DistanceMeters => Vector3.Distance(Core.LocalPlayer.Position, Position)*0.01905f;
         public int ShotsFired => ReadField<int>(Offsets.LocalPlayer.ShotsFired);
         private int VirtualTable => ReadField<int>(0x08);
         public bool GunGameImmune => ReadField<bool>(Offsets.Player.GunGameImmune);
@@ -122,7 +122,7 @@ namespace Smurf.GlobalOffensive.Objects
             try
             {
                 var clientClass = GetClientClass();
-                return clientClass != 0 ? Smurf.Memory.Read<uint>((IntPtr) ((long) clientClass + 20)) : clientClass;
+                return clientClass != 0 ? Core.Memory.Read<uint>((IntPtr) ((long) clientClass + 20)) : clientClass;
             }
             catch
             {
@@ -136,8 +136,8 @@ namespace Smurf.GlobalOffensive.Objects
             {
                 if (VirtualTable == 0)
                     return 0;
-                var function = Smurf.Memory.Read<uint>((IntPtr) (VirtualTable + 2*0x04));
-                return function != 0xFFFFFFFF ? Smurf.Memory.Read<uint>((IntPtr) (function + 0x01)) : 0;
+                var function = Core.Memory.Read<uint>((IntPtr) (VirtualTable + 2*0x04));
+                return function != 0xFFFFFFFF ? Core.Memory.Read<uint>((IntPtr) (function + 0x01)) : 0;
             }
             catch
             {
@@ -152,8 +152,8 @@ namespace Smurf.GlobalOffensive.Objects
                 var clientClass = GetClientClass();
                 if (clientClass != 0)
                 {
-                    var ptr = Smurf.Memory.Read<int>((IntPtr) (clientClass + 8));
-                    var name = Smurf.Memory.ReadString((IntPtr) ptr, Encoding.ASCII, 32);
+                    var ptr = Core.Memory.Read<int>((IntPtr) (clientClass + 8));
+                    var name = Core.Memory.ReadString((IntPtr) ptr, Encoding.ASCII, 32);
                     return name;
                 }
                 return "none";

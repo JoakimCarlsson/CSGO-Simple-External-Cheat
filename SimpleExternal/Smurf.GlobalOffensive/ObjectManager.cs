@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using Smurf.GlobalOffensive.Enums;
 using Smurf.GlobalOffensive.Objects;
@@ -32,7 +31,7 @@ namespace Smurf.GlobalOffensive
 
         public void Update()
         {
-            WindowTitle = GetActiveWindowTitle();
+            WindowTitle = Utils.MiscUtils.GetActiveWindowTitle();
             if (!IsValid)
                 throw new InvalidOperationException(
                     "Can not update the ObjectManager when it's not properly initialized! Are you sure BaseAddress is valid?");
@@ -42,7 +41,7 @@ namespace Smurf.GlobalOffensive
             if (timeStamp - _lastUpdate < TimeSpan.FromMilliseconds(1000/_ticksPerSecond))
                 return;
 
-            if (!Smurf.Client.InGame)
+            if (!Core.Client.InGame)
             {
                 _lastUpdate = timeStamp;
                 return;
@@ -52,12 +51,12 @@ namespace Smurf.GlobalOffensive
             //_weapons.Clear();
             //_entities.Clear();
 
-            var localPlayerPtr = Smurf.Memory.Read<IntPtr>(Smurf.ClientBase + Offsets.Misc.LocalPlayer);
+            var localPlayerPtr = Core.Memory.Read<IntPtr>(Core.ClientBase + Offsets.Misc.LocalPlayer);
 
             LocalPlayer = new LocalPlayer(localPlayerPtr);
             LocalPlayerWeapon = LocalPlayer.GetCurrentWeapon(localPlayerPtr);
 
-            var capacity = Smurf.Memory.Read<int>(Smurf.ClientBase + Offsets.Misc.EntityList + 0x4);
+            var capacity = Core.Memory.Read<int>(Core.ClientBase + Offsets.Misc.EntityList + 0x4);
             for (var i = 0; i < capacity; i++)
             {
                 var entity = new BaseEntity(GetEntityPtr(i));
@@ -77,10 +76,10 @@ namespace Smurf.GlobalOffensive
 
         private IntPtr GetEntityPtr(int index)
         {
-            return Smurf.Memory.Read<IntPtr>(BaseAddress + index*Offsets.BaseEntity.EntitySize);
+            return Core.Memory.Read<IntPtr>(BaseAddress + index*Offsets.BaseEntity.EntitySize);
         }
 
-        public BaseEntity GetPlayerById(int id)
+        public Player GetPlayerById(int id)
         {
             //   if (_players.Count < id)
             //       return null;
@@ -88,61 +87,5 @@ namespace Smurf.GlobalOffensive
             return Players.FirstOrDefault(p => p.Id == id);
         }
 
-
-        //TODO Move out of here, dosen't belong here.
-        public bool ShouldUpdate(bool checkKnife = true, bool checkGrenades = true, bool checkMisc = true)
-        {
-            //What we do here is if we are not inside the csgo window it will not update.
-            //if (WindowTitle != Smurf.GameTitle)
-            //    return false;
-
-            if (Smurf.LocalPlayer == null)
-                return false;
-
-            if (Smurf.LocalPlayerWeapon == null)
-                return false;
-
-            if (Smurf.Client.State != SignonState.Full)
-                return false;
-
-            if (checkMisc)
-                if (Smurf.LocalPlayerWeapon.ClassName == "none" ||
-                    Smurf.LocalPlayerWeapon.ClassName == "BaseEntity" ||
-                    Smurf.LocalPlayerWeapon.ClassName == "CC4" ||
-                    Smurf.LocalPlayerWeapon.ClassName == "CBreakableProp")
-                    return false;
-
-            if (checkGrenades)
-                if (Smurf.LocalPlayerWeapon.ClassName == "CDecoyGrenade" ||
-                    Smurf.LocalPlayerWeapon.ClassName == "CHEGrenade" ||
-                    Smurf.LocalPlayerWeapon.ClassName == "CFlashbang" || 
-                    Smurf.LocalPlayerWeapon.ClassName == "CMolotovGrenade" ||
-                    Smurf.LocalPlayerWeapon.ClassName == "CIncendiaryGrenade" ||
-                    Smurf.LocalPlayerWeapon.ClassName == "CSmokeGrenade")
-                    return false;
-
-            if (checkKnife)
-                if (Smurf.LocalPlayerWeapon.ClassName == "CKnife")
-                    return false;
-
-            return true;
-        }
-        private static string GetActiveWindowTitle()
-        {
-            const int nChars = 256;
-            var builder = new StringBuilder(nChars);
-            var handle = GetForegroundWindow();
-
-            if (GetWindowText(handle, builder, nChars) > 0)
-                return builder.ToString();
-
-            return null;
-        }
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetForegroundWindow();
-
-        [DllImport("user32.dll")]
-        private static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
     }
 }

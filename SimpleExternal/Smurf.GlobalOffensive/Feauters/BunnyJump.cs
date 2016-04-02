@@ -1,4 +1,5 @@
 ﻿using System;
+using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
@@ -8,7 +9,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
         public void Update()
         {
-            if (!Smurf.Objects.ShouldUpdate(false, false, false))
+            if (!MiscUtils.ShouldUpdate(false, false, false))
                 return;
 
             ReadSettings();
@@ -16,7 +17,7 @@ namespace Smurf.GlobalOffensive.Feauters
             if (!_bunnyJumpEnabled)
                 return;
 
-            if (Smurf.LocalPlayer.Velocity <= 100)
+            if (Core.LocalPlayer.Velocity <= 100)
                 return;
 
             BHop();
@@ -24,15 +25,15 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void BHop()
         {
-            if (Smurf.KeyUtils.KeyIsDown(_bunnyJumpKey))
-                Smurf.Memory.Write(Smurf.ClientBase + Offsets.Misc.Jump, Smurf.LocalPlayer.InAir ? 4 : 5);
+            if (Core.KeyUtils.KeyIsDown(_bunnyJumpKey))
+                Core.Memory.Write(Core.ClientBase + Offsets.Misc.Jump, Core.LocalPlayer.InAir ? 4 : 5);
         }
 
         private void ReadSettings()
         {
-            _bunnyJumpEnabled = Smurf.Settings.GetBool("Bunny Jump", "Bunny Jump Enabled");
+            _bunnyJumpEnabled = Core.Settings.GetBool("Bunny Jump", "Bunny Jump Enabled");
             _bunnyJumpKey =
-                (WinAPI.VirtualKeyShort) Convert.ToInt32(Smurf.Settings.GetString("Bunny Jump", "Bunny Jump Key"), 16);
+                (WinAPI.VirtualKeyShort) Convert.ToInt32(Core.Settings.GetString("Bunny Jump", "Bunny Jump Key"), 16);
         }
 
         #endregion

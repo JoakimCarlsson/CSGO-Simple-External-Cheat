@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
@@ -17,7 +18,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
         public void Update()
         {
-            if (!Smurf.Objects.ShouldUpdate(false, false, false))
+            if (!MiscUtils.ShouldUpdate(false, false, false))
                 return;
 
             ReadSettings();
@@ -35,13 +36,13 @@ namespace Smurf.GlobalOffensive.Feauters
 
             var leastDist = float.MaxValue;
 
-            foreach (var player in Smurf.Objects.Players)
+            foreach (var player in Core.Objects.Players)
             {
-                if (player.Id == Smurf.LocalPlayer.Id)
+                if (player.Id == Core.LocalPlayer.Id)
                     continue;
                 if (!player.IsAlive)
                     continue;
-                if (player.Team == Smurf.LocalPlayer.Team)
+                if (player.Team == Core.LocalPlayer.Team)
                     continue;
                 if (player.IsDormant)
                     continue;
@@ -114,10 +115,10 @@ namespace Smurf.GlobalOffensive.Feauters
         }
         private void ReadSettings()
         {
-            _enabled = Smurf.Settings.GetBool("Sound ESP", "Sound ESP");
-            _range = Smurf.Settings.GetInt("Sound ESP", "Sound Range");
-            _interval = Smurf.Settings.GetInt("Sound ESP", "Sound Interval");
-            _volume = Smurf.Settings.GetInt("Sound ESP", "Sound Volume");
+            _enabled = Core.Settings.GetBool("Sound ESP", "Sound ESP");
+            _range = Core.Settings.GetInt("Sound ESP", "Sound Range");
+            _interval = Core.Settings.GetInt("Sound ESP", "Sound Interval");
+            _volume = Core.Settings.GetInt("Sound ESP", "Sound Volume");
         }
         #endregion
     }

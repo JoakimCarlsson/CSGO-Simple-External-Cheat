@@ -1,4 +1,6 @@
-﻿namespace Smurf.GlobalOffensive.Feauters
+﻿using Smurf.GlobalOffensive.Utils;
+
+namespace Smurf.GlobalOffensive.Feauters
 {
     public class NoFlash
     {
@@ -6,7 +8,7 @@
 
         public void Update()
         {
-            if (!Smurf.Objects.ShouldUpdate(false, false, false))
+            if (!MiscUtils.ShouldUpdate(false, false, false))
                 return;
 
             ReadSettings();
@@ -14,13 +16,13 @@
             if (!_noFlashActive)
                 return;
 
-            if (Smurf.LocalPlayer.FlashMaxAlpha > 1)
-                Smurf.Memory.Write(Smurf.LocalPlayer.BaseAddress + Offsets.Player.FlashMaxAlpha, 0);
+            if (Core.LocalPlayer.FlashMaxAlpha > 1)
+                Core.Memory.Write(Core.LocalPlayer.BaseAddress + Offsets.Player.FlashMaxAlpha, 0);
         }
 
         private void ReadSettings()
         {
-            _noFlashActive = Smurf.Settings.GetBool("Misc", "No Flash");
+            _noFlashActive = Core.Settings.GetBool("Misc", "No Flash");
         }
     }
 }

@@ -30,18 +30,18 @@ namespace Smurf.GlobalOffensive
             Console.Clear();
 
             Process[] process = Process.GetProcessesByName("csgo");
-            Smurf.Attach(process[0]);
+            Core.Attach(process[0]);
 
             StartThreads(thread1, thread2, thread3, thread4, thread5, thread6);
 
             while (true)
             {
-                Smurf.Objects.Update();
-                Smurf.Aimbot.Update();
-                Smurf.TriggerBot.Update();
-                Smurf.SoundEsp.Update();
-                Smurf.Radar.Update();
-                Smurf.Glow.Update();
+                Core.Objects.Update();
+                Core.Aimbot.Update();
+                Core.TriggerBot.Update();
+                Core.SoundEsp.Update();
+                Core.Radar.Update();
+                Core.Glow.Update();
                 Thread.Sleep(1);
             }
         }
@@ -60,12 +60,12 @@ namespace Smurf.GlobalOffensive
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("State: {0}\n\n", Smurf.Client.State);
+                Console.WriteLine("State: {0}\n\n", Core.Client.State);
 
-                if (Smurf.Client.InGame && Smurf.LocalPlayer != null && Smurf.LocalPlayerWeapon != null && Smurf.LocalPlayer.IsValid && Smurf.LocalPlayer.IsAlive)
+                if (Core.Client.InGame && Core.LocalPlayer != null && Core.LocalPlayerWeapon != null && Core.LocalPlayer.IsValid && Core.LocalPlayer.IsAlive)
                 {
-                    var me = Smurf.LocalPlayer;
-                    var myWeapon = Smurf.LocalPlayerWeapon;
+                    var me = Core.LocalPlayer;
+                    var myWeapon = Core.LocalPlayerWeapon;
 
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("ID:\t\t{0}", me.Id);
@@ -73,7 +73,7 @@ namespace Smurf.GlobalOffensive
                     Console.WriteLine("Armor:\t\t{0}", me.Armor);
                     Console.WriteLine("Position:\t{0}", me.Position);
                     Console.WriteLine("Team:\t\t{0}", me.Team);
-                    Console.WriteLine("Player Count:\t{0}", Smurf.Objects.Players.Count);
+                    Console.WriteLine("Player Count:\t{0}", Core.Objects.Players.Count);
                     Console.WriteLine("Velocity: \t{0}", me.Velocity);
                     Console.WriteLine("Shots Fired: \t{0}", me.ShotsFired);
                     Console.WriteLine("VecPunch: \t{0}", me.VecPunch);
@@ -95,7 +95,7 @@ namespace Smurf.GlobalOffensive
         {
             while (true)
             {
-                Smurf.BunnyJump.Update();
+                Core.BunnyJump.Update();
                 Thread.Sleep(5);
             }
         }
@@ -103,7 +103,7 @@ namespace Smurf.GlobalOffensive
         {
             while (true)
             {
-                Smurf.ControlRecoil.Update();
+                Core.ControlRecoil.Update();
                 Thread.Sleep(5);
             }
         }
@@ -111,7 +111,7 @@ namespace Smurf.GlobalOffensive
         {
             while (true)
             {
-                Smurf.Settings.Update();
+                Core.Settings.Update();
                 Thread.Sleep(10);
             }
         }
@@ -119,8 +119,8 @@ namespace Smurf.GlobalOffensive
         {
             while (true)
             {
-                Smurf.KeyUtils.Update();
-                Smurf.NoFlash.Update();
+                Core.KeyUtils.Update();
+                Core.NoFlash.Update();
                 Thread.Sleep(10);
             }
         }
@@ -128,7 +128,7 @@ namespace Smurf.GlobalOffensive
         {
             while (true)
             {
-                Smurf.AutoPistol.Update();
+                Core.AutoPistol.Update();
                 Thread.Sleep(1);
             }
         }
