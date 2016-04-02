@@ -51,7 +51,7 @@ namespace Smurf.GlobalOffensive.Feauters
                         return;
 
                 if (_triggerDash)
-                    if (Core.LocalPlayer.Velocity != 0)
+                    if (Core.LocalPlayer.Velocity > 0)
                         return;
 
                 if (_inCrossTrigger)
@@ -63,12 +63,12 @@ namespace Smurf.GlobalOffensive.Feauters
                     FaceItTriggerBot();
                 }
             }
+            else
+                AimOntarget = false;
         }
 
         private void InCrossTriggerBot()
         {
-            if (Core.KeyUtils.KeyIsDown(_triggerKey))
-            {
                 var target = Core.LocalPlayer.Target;
                 if (target != null && ((_triggerAllies && target.Team == Core.LocalPlayer.Team) || (_triggerEnemies && target.Team != Core.LocalPlayer.Team)))
                 {
@@ -79,8 +79,7 @@ namespace Smurf.GlobalOffensive.Feauters
                     }
                     else
                     {
-                        if (
-                            !(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _delayFirstShot))
+                        if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _delayFirstShot))
                             return;
                         if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _delayShots))
                             return;
@@ -91,35 +90,16 @@ namespace Smurf.GlobalOffensive.Feauters
                             if (target.GunGameImmune)
                                 return;
 
-                        if (_triggerDash)
-                            if (Core.LocalPlayer.Velocity > 1)
-                                return;
-
-                        if (_triggerZoomed)
-                        {
-                            if (Core.LocalPlayerWeapon.ZoomLevel <= 0)
-                            {
-                                return;
-                            }
-                        }
-
                         Shoot();
                     }
                 }
-            }
-            else
-                AimOntarget = false;
+
 
         }
 
         private void FaceItTriggerBot()
         {
             GetValidTargets();
-            Trigger();
-        }
-
-        private void Trigger()
-        {
             foreach (Player validTarget in _validTargets)
             {
                 Vector3 myView = Core.LocalPlayer.Position + Core.LocalPlayer.VecView;
@@ -131,8 +111,22 @@ namespace Smurf.GlobalOffensive.Feauters
                     var fov = MathUtils.MathUtils.Fov(ViewAngels, dst, Vector3.Distance(Core.LocalPlayer.Position, validTarget.Position));
                     if (fov <= 4)
                     {
-                        Shoot();
-                        _triggerLastTarget = DateTime.Now.Ticks;
+                        if (!AimOntarget)
+                        {
+                            AimOntarget = true;
+                            _triggerLastTarget = DateTime.Now.Ticks;
+                        }
+                        else
+                        {
+                            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _delayFirstShot))
+                                return;
+                            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _delayShots))
+                                return;
+
+                            _triggerLastShot = DateTime.Now.Ticks;
+
+                            Shoot();
+                        }
                     }
                 }
             }
