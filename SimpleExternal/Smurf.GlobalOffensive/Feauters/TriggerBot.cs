@@ -124,7 +124,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
                             _triggerLastShot = DateTime.Now.Ticks;
 
-                            //Shoot();
+                            Shoot();
                         }
                     }
                 }
