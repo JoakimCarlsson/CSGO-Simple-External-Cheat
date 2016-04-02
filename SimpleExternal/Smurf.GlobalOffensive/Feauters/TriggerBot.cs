@@ -21,6 +21,7 @@ namespace Smurf.GlobalOffensive.Feauters
         private bool _spawnProtection;
         private bool _triggerDash;
         private bool _triggerZoomed;
+        private bool _inCrossTrigger;
         private int _delayFirstShot;
         private int _delayShots;
         public Vector3 ViewAngels;
@@ -53,10 +54,68 @@ namespace Smurf.GlobalOffensive.Feauters
                     if (Core.LocalPlayer.Velocity != 0)
                         return;
 
-                GetValidTargets();
-
-                Trigger();
+                if (_inCrossTrigger)
+                {
+                    InCrossTriggerBot();
+                }
+                else
+                {
+                    FaceItTriggerBot();
+                }
             }
+        }
+
+        private void InCrossTriggerBot()
+        {
+            if (Core.KeyUtils.KeyIsDown(_triggerKey))
+            {
+                var target = Core.LocalPlayer.Target;
+                if (target != null && ((_triggerAllies && target.Team == Core.LocalPlayer.Team) || (_triggerEnemies && target.Team != Core.LocalPlayer.Team)))
+                {
+                    if (!AimOntarget)
+                    {
+                        AimOntarget = true;
+                        _triggerLastTarget = DateTime.Now.Ticks;
+                    }
+                    else
+                    {
+                        if (
+                            !(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _delayFirstShot))
+                            return;
+                        if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _delayShots))
+                            return;
+
+                        _triggerLastShot = DateTime.Now.Ticks;
+
+                        if (_spawnProtection)
+                            if (target.GunGameImmune)
+                                return;
+
+                        if (_triggerDash)
+                            if (Core.LocalPlayer.Velocity > 1)
+                                return;
+
+                        if (_triggerZoomed)
+                        {
+                            if (Core.LocalPlayerWeapon.ZoomLevel <= 0)
+                            {
+                                return;
+                            }
+                        }
+
+                        Shoot();
+                    }
+                }
+            }
+            else
+                AimOntarget = false;
+
+        }
+
+        private void FaceItTriggerBot()
+        {
+            GetValidTargets();
+            Trigger();
         }
 
         private void Trigger()
@@ -64,26 +123,26 @@ namespace Smurf.GlobalOffensive.Feauters
             foreach (Player validTarget in _validTargets)
             {
                 Vector3 myView = Core.LocalPlayer.Position + Core.LocalPlayer.VecView;
-                //for (int i = 0; i < 81; i++)
-                //{
-                    Vector3 aimView = validTarget.GetBonePos((int)validTarget.BaseAddress, 6);
+                for (int i = 0; i < 81; i++)
+                {
+                    Vector3 aimView = validTarget.GetBonePos((int)validTarget.BaseAddress, i);
                     Vector3 dst = myView.CalcAngle(aimView);
                     dst = dst.NormalizeAngle();
                     var fov = MathUtils.Fov(ViewAngels, dst, Vector3.Distance(Core.LocalPlayer.Position, validTarget.Position));
                     Console.WriteLine(fov);
-                    if (fov <= 0.3)
+                    if (fov <= 4)
                     {
                         AimOntarget = true;
-                    Shoot();
-                    _triggerLastTarget = DateTime.Now.Ticks;
+                        Shoot();
+                        _triggerLastTarget = DateTime.Now.Ticks;
                     }
-                //}
+                }
             }
         }
 
         private void GetValidTargets()
         {
-            _validTargets = Core.Objects.Players.Where(p => p.IsAlive && !p.IsDormant && p.Id != Core.LocalPlayer.Id /*&& p.SeenBy(Core.LocalPlayer)*/);
+            _validTargets = Core.Objects.Players.Where(p => p.IsAlive && !p.IsDormant && p.Id != Core.LocalPlayer.Id && p.SeenBy(Core.LocalPlayer));
             if (_triggerEnemies)
                 _validTargets = _validTargets.Where(p => p.Team != Core.LocalPlayer.Team);
             if (_triggerAllies)
@@ -105,6 +164,7 @@ namespace Smurf.GlobalOffensive.Feauters
                 _delayShots = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Trigger Delay Shots");
                 _triggerDash = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Trigger Dash");
                 _triggerZoomed = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Trigger When Zoomed");
+                _inCrossTrigger = Core.Settings.GetBool("Misc", "InCross Trigger Bot");
             }
             catch (Exception e)
             {
@@ -121,6 +181,6 @@ namespace Smurf.GlobalOffensive.Feauters
             WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTUP, 0, 0, 0, 0);
         }
         #endregion
-
     }
+
 }

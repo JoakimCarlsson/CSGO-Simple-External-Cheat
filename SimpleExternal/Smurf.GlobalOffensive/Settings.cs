@@ -105,9 +105,11 @@ namespace Smurf.GlobalOffensive
             builder.AppendLine("Sound Range = 10");
             builder.AppendLine("Sound Interval = 1000");
             builder.AppendLine("Sound Volume = 100").AppendLine();
+
             //Misc
             builder.AppendLine("[Misc]");
             builder.AppendLine("Radar = True");
+            builder.AppendLine("InCross Trigger Bot = True");
             builder.AppendLine("No Flash = False");
             builder.AppendLine("Reload Config Key = 0x35").AppendLine();
 
@@ -119,7 +121,6 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
                 builder.AppendLine("Aimbot When Zoomed = False");
-
                 builder.AppendLine("Aimbot Smooth = 22");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
@@ -152,7 +153,6 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
                 builder.AppendLine("Aimbot When Zoomed = False");
-
                 builder.AppendLine("Aimbot Smooth = 22");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
@@ -182,7 +182,6 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
                 builder.AppendLine("Aimbot When Zoomed = False");
-
                 builder.AppendLine("Aimbot Smooth = 22");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
@@ -241,7 +240,6 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
                 builder.AppendLine("Aimbot When Zoomed = False");
-
                 builder.AppendLine("Aimbot Smooth = 22");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
@@ -271,7 +269,6 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Aimbot Key = 0x01");
                 builder.AppendLine("Aimbot Fov = 3");
                 builder.AppendLine("Aimbot When Zoomed = False");
-
                 builder.AppendLine("Aimbot Smooth = 15");
                 builder.AppendLine("Aimbot Aim Friendly = False");
                 builder.AppendLine("Aimbot Aim Enemies = True");
