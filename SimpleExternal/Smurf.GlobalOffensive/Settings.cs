@@ -135,8 +135,10 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Spawn Protected = False");
-                builder.AppendLine("Trigger Delay FirstShot = 35");
-                builder.AppendLine("Trigger Delay Shots = 35").AppendLine();
+                builder.AppendLine("Trigger Delay FirstShot Max = 35");
+                builder.AppendLine("Trigger Delay FirstShot Min = 35");
+                builder.AppendLine("Trigger Delay Shots Max = 35");
+                builder.AppendLine("Trigger Delay Shots Min = 35").AppendLine();
             }
             foreach (var weapon in rifleList)
             {
@@ -157,8 +159,10 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
                 builder.AppendLine("Trigger Spawn Protected = False");
-                builder.AppendLine("Trigger Delay FirstShot = 35");
-                builder.AppendLine("Trigger Delay Shots = 35").AppendLine();
+                builder.AppendLine("Trigger Delay FirstShot Max = 35");
+                builder.AppendLine("Trigger Delay FirstShot Min = 35");
+                builder.AppendLine("Trigger Delay Shots Max = 35");
+                builder.AppendLine("Trigger Delay Shots Min = 35").AppendLine();
             }
             foreach (var weapon in smgList)
             {
@@ -179,8 +183,10 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
                 builder.AppendLine("Trigger Spawn Protected = False");
-                builder.AppendLine("Trigger Delay FirstShot = 35");
-                builder.AppendLine("Trigger Delay Shots = 35").AppendLine();
+                builder.AppendLine("Trigger Delay FirstShot Max = 35");
+                builder.AppendLine("Trigger Delay FirstShot Min = 35");
+                builder.AppendLine("Trigger Delay Shots Max = 35");
+                builder.AppendLine("Trigger Delay Shots Min = 35").AppendLine();
             }
             foreach (var weapon in snipersList)
             {
@@ -201,8 +207,10 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
                 builder.AppendLine("Trigger Spawn Protected = False");
-                builder.AppendLine("Trigger Delay FirstShot = 35");
-                builder.AppendLine("Trigger Delay Shots = 35").AppendLine();
+                builder.AppendLine("Trigger Delay FirstShot Max = 35");
+                builder.AppendLine("Trigger Delay FirstShot Min = 35");
+                builder.AppendLine("Trigger Delay Shots Max = 35");
+                builder.AppendLine("Trigger Delay Shots Min = 35").AppendLine();
             }
             foreach (var weapon in machineGunList)
             {
@@ -223,8 +231,10 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
                 builder.AppendLine("Trigger Spawn Protected = False");
-                builder.AppendLine("Trigger Delay FirstShot = 35");
-                builder.AppendLine("Trigger Delay Shots = 35").AppendLine();
+                builder.AppendLine("Trigger Delay FirstShot Max = 35");
+                builder.AppendLine("Trigger Delay FirstShot Min = 35");
+                builder.AppendLine("Trigger Delay Shots Max = 35");
+                builder.AppendLine("Trigger Delay Shots Min = 35").AppendLine();
             }
             foreach (var weapon in heavyList)
             {
@@ -245,8 +255,10 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
                 builder.AppendLine("Trigger Spawn Protected = False");
-                builder.AppendLine("Trigger Delay FirstShot = 35");
-                builder.AppendLine("Trigger Delay Shots = 35").AppendLine();
+                builder.AppendLine("Trigger Delay FirstShot Max = 35");
+                builder.AppendLine("Trigger Delay FirstShot Min = 35");
+                builder.AppendLine("Trigger Delay Shots Max = 35");
+                builder.AppendLine("Trigger Delay Shots Min = 35").AppendLine();
             }
 
 
