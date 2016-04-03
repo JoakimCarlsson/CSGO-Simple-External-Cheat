@@ -158,13 +158,8 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void RandomizeDelay()
         {
-            if (Core.KeyUtils.KeyIsDown(_triggerKey))
-            {
-                _triggerDelayFirstRandomize = new Random().Next(_triggerDelayFirstShotMin, _triggerDelayFirstShotMax) + 1;
-                _triggerDelayShotsRandomize = new Random().Next(_triggerDelayShotsMin, _triggerDelayShotsMax) + 1;
-                Console.WriteLine("Delay First Shot: {0}", _triggerDelayFirstRandomize);
-                Console.WriteLine("Delay Shots: {0}", _triggerDelayShotsRandomize);
-            }
+            _triggerDelayFirstRandomize = new Random().Next(_triggerDelayFirstShotMin, _triggerDelayFirstShotMax) + 1;
+            _triggerDelayShotsRandomize = new Random().Next(_triggerDelayShotsMin, _triggerDelayShotsMax) + 1;
         }
 
         private void ReadSettings()
