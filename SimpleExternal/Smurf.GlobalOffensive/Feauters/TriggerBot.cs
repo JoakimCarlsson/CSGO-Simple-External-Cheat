@@ -69,30 +69,28 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void InCrossTriggerBot()
         {
-                BaseEntity target = Core.LocalPlayer.Target;
-                if (target != null && ((_triggerAllies && target.Team == Core.LocalPlayer.Team) || (_triggerEnemies && target.Team != Core.LocalPlayer.Team)))
+            BaseEntity target = Core.LocalPlayer.Target;
+            if (target != null && ((_triggerAllies && target.Team == Core.LocalPlayer.Team) || (_triggerEnemies && target.Team != Core.LocalPlayer.Team)))
+            {
+                if (!AimOntarget)
                 {
-                    if (!AimOntarget)
-                    {
-                        AimOntarget = true;
-                        _triggerLastTarget = DateTime.Now.Ticks;
-                    }
-                    else
-                    {
-                        if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _delayFirstShot))
-                            return;
-                        if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _delayShots))
-                            return;
-
-                        _triggerLastShot = DateTime.Now.Ticks;
-
-                        if (_spawnProtection)
-                            if (target.GunGameImmune)
-                                return;
-
-                        Shoot();
-                    }
+                    AimOntarget = true;
+                    _triggerLastTarget = DateTime.Now.Ticks;
                 }
+                else
+                {
+                    if (!CheckDelay())
+                        return;
+
+                    _triggerLastShot = DateTime.Now.Ticks;
+
+                    if (_spawnProtection)
+                        if (target.GunGameImmune)
+                            return;
+
+                    Shoot();
+                }
+            }
         }
 
         private void FaceItTriggerBot()
@@ -117,9 +115,7 @@ namespace Smurf.GlobalOffensive.Feauters
                         }
                         else
                         {
-                            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _delayFirstShot))
-                                return;
-                            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _delayShots))
+                            if (!CheckDelay())
                                 return;
 
                             _triggerLastShot = DateTime.Now.Ticks;
@@ -129,6 +125,17 @@ namespace Smurf.GlobalOffensive.Feauters
                     }
                 }
             }
+        }
+
+        private bool CheckDelay()
+        {
+            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _delayFirstShot))
+                return false;
+            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _delayShots))
+                return false;
+
+            return true;
+
         }
 
         private void GetValidTargets()
