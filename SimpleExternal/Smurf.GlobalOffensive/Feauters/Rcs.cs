@@ -48,11 +48,10 @@ namespace Smurf.GlobalOffensive.Feauters
             if (Core.LocalPlayerWeapon.Clip1 == 0)
                 return;
 
-
             ViewAngels = Core.Memory.Read<Vector3>((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles));
             _newViewAngels = ViewAngels;
 
-            var punch = Core.LocalPlayer.VecPunch - LastPunch;
+            Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
             if (punch.X != 0 || punch.Y != 0)
             {
                 _newViewAngels.X -= punch.X * RandomYaw;
@@ -65,7 +64,6 @@ namespace Smurf.GlobalOffensive.Feauters
         {
             if (Core.LocalPlayer.ShotsFired == 1)
             {
-
                 float tempMinYaw = MinYaw * 10;
                 float tempMinPitch = MinPitch * 10;
                 float tempMaxYaw = MaxYaw * 10;
@@ -76,9 +74,6 @@ namespace Smurf.GlobalOffensive.Feauters
 
                 RandomYaw = tempRandomYaw / 10;
                 RandomPitch = tempRandomPitch / 10;
-
-                Console.WriteLine("Random Yaw: {0}", RandomYaw);
-                Console.WriteLine("Random Pitch: {0}", RandomPitch);
             }
 
         }
