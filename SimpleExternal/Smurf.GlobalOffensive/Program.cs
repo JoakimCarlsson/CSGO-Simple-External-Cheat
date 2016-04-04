@@ -27,6 +27,7 @@ namespace Smurf.GlobalOffensive
             Console.WriteLine("> Waiting for CSGO to start up...");
             while ((_hWnd = WinAPI.FindWindowByCaption(_hWnd, GameTitle)) == IntPtr.Zero)
                 Thread.Sleep(250);
+
             Console.Clear();
 
             Process[] process = Process.GetProcessesByName("csgo");
@@ -41,6 +42,7 @@ namespace Smurf.GlobalOffensive
                 Core.SoundEsp.Update();
                 Core.Radar.Update();
                 Core.Glow.Update();
+                Core.AimAssist.Update();
                 Thread.Sleep(1);
             }
         }
@@ -83,6 +85,8 @@ namespace Smurf.GlobalOffensive
                     Console.WriteLine("Flash: \t\t{0}", me.FlashMaxAlpha);
                     Console.WriteLine("Weapon Group: \t{0}", myWeapon.WeaponGroup);
                     Console.WriteLine("Zoom Level: \t{0}", myWeapon.ZoomLevel);
+                    Console.WriteLine("Recoil Control Yaw: \t{0}", Core.ControlRecoil.RandomYaw);
+                    Console.WriteLine("Recoil Control Pitch: \t{0}", Core.ControlRecoil.RandomPitch);
                 }
 
                 Thread.Sleep(500);

@@ -417,9 +417,7 @@ namespace Smurf.GlobalOffensive.BSP
 
                 if (pLeaf.area != -1)
                 {
-                    if (
-                        (pLeaf.contents & ContentsFlag.ContentsSolid) == ContentsFlag.ContentsSolid ||
-                        (pLeaf.contents & ContentsFlag.ContentsDetail) == ContentsFlag.ContentsDetail)
+                    if ( (pLeaf.contents & ContentsFlag.ContentsSolid) == ContentsFlag.ContentsSolid || (pLeaf.contents & ContentsFlag.ContentsDetail) == ContentsFlag.ContentsDetail)
                     {
                         break;
                     }

@@ -6,12 +6,22 @@ namespace Smurf.GlobalOffensive.Feauters
 {
     public class Rcs
     {
+        #region Constructor
+        public Rcs()
+        {
+            _sensitivity = Core.Memory.Read<float>(Core.ClientBase + Offsets.Misc.Sensitivity);
+        }
+        #endregion
+
         #region Fields
 
         private Vector3 _newViewAngels;
         public float MaxYaw, MaxPitch, MinYaw, MinPitch, RandomYaw, RandomPitch;
         public bool RcsEnabled;
         private int _rcsStart;
+        private Vector3 pixels;
+        private float _sensitivity;
+
         #endregion
 
         #region Properties
@@ -22,7 +32,13 @@ namespace Smurf.GlobalOffensive.Feauters
         #endregion
 
         #region Methods
-
+        //QAngle rcsangle = *(QAngle*)((DWORD)cl::entlist->GetClientEntity(cl::engine->GetLocalPlayer()) + 0x13E8);
+        //float min = (1.70 + (static_cast<float>(rand()) / (static_cast<float>(0x7FFF / (1.90 - 1.70)))) / 0.25);
+        //float max = (1.60 + (static_cast<float>(rand()) / (static_cast<float>(0x7FFF / (2.00 - 1.80)))) / 0.25);
+        //float multiplier = (min + static_cast<float>(rand()) / (static_cast<float>(0x7FFF / (max - min))));
+        //theirhead -= rcsangle* multiplier;
+        //        theirhead.x = myview.x - delta.x / (cl::globals->frametime* (smooth* 325));
+        //theirhead.y = myview.y - delta.y / (cl::globals->frametime* (smooth* 325));
         public void Update()
         {
             if (!MiscUtils.ShouldUpdate())
@@ -37,7 +53,7 @@ namespace Smurf.GlobalOffensive.Feauters
             LastPunch = Core.LocalPlayer.VecPunch;
         }
 
-        public void ControlRecoil(bool aimbot = false)
+        public void ControlRecoil()
         {
             RandomizeRecoilControl();
 
@@ -48,33 +64,45 @@ namespace Smurf.GlobalOffensive.Feauters
             if (Core.LocalPlayerWeapon.Clip1 == 0)
                 return;
 
+            //if (false)
+            //{
             ViewAngels = Core.Memory.Read<Vector3>((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles));
             _newViewAngels = ViewAngels;
-
             Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
             if (punch.X != 0 || punch.Y != 0)
             {
                 _newViewAngels.X -= punch.X * RandomYaw;
                 _newViewAngels.Y -= punch.Y * RandomPitch;
+                _newViewAngels = _newViewAngels.NormalizeAngle();
                 SetViewAngles(_newViewAngels);
             }
+            //}
+            //else
+            //{
+            //Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
+            //pixels.X = punch.X / (float)(0.22 * _sensitivity * 1) * RandomYaw;
+            //pixels.Y = punch.Y / (float)(0.22 * _sensitivity * 1) * RandomPitch;
+
+            //WinAPI.mouse_event((uint)0, (uint)pixels.Y, (uint)-pixels.X, 0, 0);
+            //}
+
         }
 
         private void RandomizeRecoilControl()
         {
-            if (Core.LocalPlayer.ShotsFired == 1)
-            {
-                float tempMinYaw = MinYaw * 10;
-                float tempMinPitch = MinPitch * 10;
-                float tempMaxYaw = MaxYaw * 10;
-                float tempMaxPitch = MaxPitch * 10;
+            //if (Core.LocalPlayer.ShotsFired == 1)
+            //{
+            float tempMinYaw = MinYaw * 10;
+            float tempMinPitch = MinPitch * 10;
+            float tempMaxYaw = MaxYaw * 10;
+            float tempMaxPitch = MaxPitch * 10;
 
-                float tempRandomYaw = new Random().Next((int)tempMinYaw, (int)tempMaxYaw) + 1;
-                float tempRandomPitch = new Random().Next((int)tempMinPitch, (int)tempMaxPitch) + 1;
+            float tempRandomYaw = new Random().Next((int)tempMinYaw, (int)tempMaxYaw) + 1;
+            float tempRandomPitch = new Random().Next((int)tempMinPitch, (int)tempMaxPitch) + 1;
 
-                RandomYaw = tempRandomYaw / 10;
-                RandomPitch = tempRandomPitch / 10;
-            }
+            RandomYaw = tempRandomYaw / 10;
+            RandomPitch = tempRandomPitch / 10;
+            //}
 
         }
 
@@ -91,6 +119,7 @@ namespace Smurf.GlobalOffensive.Feauters
         public void SetViewAngles(Vector3 viewAngles)
         {
             viewAngles = viewAngles.ClampAngle();
+            viewAngles = viewAngles.NormalizeAngle();
             Core.Memory.Write((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles), viewAngles);
         }
 

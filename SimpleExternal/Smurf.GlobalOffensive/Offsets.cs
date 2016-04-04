@@ -2,6 +2,7 @@
 {
     internal class Offsets
     {
+
         public class Misc
         {
             public static int ViewMatrix = 0x4A8CFF4;
@@ -10,6 +11,7 @@
             public static int Jump = 0x4F30168;
             public static int GlowIndex = 0xA310;
             public static int GlowObject = 0x4FB0C2C;
+            public static int Sensitivity = 0xA85CD4;
         }
 
         public class ClientState

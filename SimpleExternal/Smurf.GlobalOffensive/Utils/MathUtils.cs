@@ -13,6 +13,22 @@ namespace Smurf.GlobalOffensive.Utils
         #endregion
 
         #region Methods
+        private static void SmoothAim(Vector3 _viewAngels, Vector3 dst, float smoothAmount)
+        {
+            var smoothAngle = dst - _viewAngels;
+
+            smoothAngle = smoothAngle.NormalizeAngle();
+            smoothAngle = smoothAngle.ClampAngle();
+
+            smoothAngle /= smoothAmount;
+            smoothAngle += _viewAngels;
+
+            smoothAngle = smoothAngle.NormalizeAngle();
+            smoothAngle = smoothAngle.ClampAngle();
+
+            if (smoothAngle != Vector3.Zero)
+                Core.ControlRecoil.SetViewAngles(smoothAngle);
+        }
 
         public static Vector3 ClampAngle(this Vector3 angles)
         {
@@ -31,7 +47,7 @@ namespace Smurf.GlobalOffensive.Utils
             angles.Z = 0;
             return angles;
         }
-        public static double Fov(Vector3 viewAngle, Vector3 dst, float distance)
+        public static float Fov(Vector3 viewAngle, Vector3 dst, float distance)
         {
             float pitch = (float)(Math.Sin(DegreesToRadians(viewAngle.X - dst.X)) * distance);
             float yaw = (float)(Math.Sin(DegreesToRadians(viewAngle.Y - dst.Y)) * distance);
