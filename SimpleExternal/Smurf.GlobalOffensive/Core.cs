@@ -32,8 +32,6 @@ namespace Smurf.GlobalOffensive
         public static GameClient Client { get; private set; }
         public static IntPtr ClientBase { get; private set; }
         public static IntPtr EngineBase { get; private set; }
-        //public static Bsp Bsp;
-        //private static string serverMap = "de_dust2";
 
         public static void Attach(Process process, bool isInjected = false)
         {
@@ -70,33 +68,6 @@ namespace Smurf.GlobalOffensive
 
             Client = new GameClient(enginePtr);
             _isAttached = true;
-            //LoadMap();
         }
-
-        //public static void LoadMap()
-        //{
-        //    string mapPath = @"C:\Games\steamapps\common\Counter-Strike Global Offensive\csgo\maps\"+serverMap+".bsp";
-        //    if (File.Exists(mapPath))
-        //    {
-        //        Console.WriteLine("[BSP] Loading BSP...");
-        //        Bsp = new Bsp(mapPath);
-        //        Console.WriteLine("[BSP] Loaded, version {0}, map revision {1}\n[{7} brushes]\n[{8} brushsides]\n[{2} faces]\n[{3} originalFaces]\n[{4} surfedges]\n[{5} edges]\n[{6} vertices]\n[{9} nodes]\n[{10} leafs]",
-        //            Bsp.Header.version.ToString(),
-        //            Bsp.Header.mapRevision.ToString(),
-        //            Bsp.Faces.Length.ToString(),
-        //            Bsp.OriginalFaces.Length.ToString(),
-        //            Bsp.Surfedges.Length.ToString(),
-        //            Bsp.Edges.Count.ToString(),
-        //            Bsp.Vertices.Length.ToString(),
-        //            Bsp.Brushes.Length.ToString(),
-        //            Bsp.Brushsides.Length.ToString(),
-        //            Bsp.Nodes.Length.ToString(),
-        //            Bsp.Leafs.Length.ToString());
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("[BSP] BSP \"{0}\" not found at \"{1}\"!", serverMap, mapPath);
-        //    }
-        //}
     }
 }

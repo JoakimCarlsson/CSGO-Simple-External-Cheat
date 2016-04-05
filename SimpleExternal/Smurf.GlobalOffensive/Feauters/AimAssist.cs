@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
     //Todo
-    //1. Get a target, and check the bones that are visible.
+    //1. Get a target, and check the bones that are visible. For this we need BSP parsing. Might add that some day...
     //2. Humanized smooth aim to the target. Faster and faster until get come into a certin distance of the target than we randonize it.
     //3. Berizer curve or something simular to that to make it so the line won't be a perfect line.
     //4. Generate a random point somewhere around the target we'll initial aim at and than aim at target again. 
