@@ -45,39 +45,6 @@ namespace Smurf.GlobalOffensive.Feauters
             viewAngles = viewAngles.NormalizeAngle();
             Core.Memory.Write((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles), viewAngles);
         }
-
-        private Player GetTarget()
-        {
-            IEnumerable<Player> validTargets = Core.Objects.Players.Where(p => p.IsAlive && !p.IsDormant && p.Id != Core.LocalPlayer.Id);
-
-            if (_isVisible)
-                validTargets = validTargets.Where(p => p.SeenBy(Core.LocalPlayer));
-            if (_targetEnemies)
-                validTargets = validTargets.Where(p => p.Team != Core.LocalPlayer.Team);
-            if (_targetAllies)
-                validTargets = validTargets.Where(p => p.Team == Core.LocalPlayer.Team);
-
-            switch (_aimMode)
-            {
-                case 1:
-                    validTargets = validTargets.OrderBy(p => Vector3.Distance(p.Position, Core.LocalPlayer.Position));
-                    break;
-                case 2:
-                    // we need to use w2s to see whos closest to our xhair.
-                    break;
-            }
-
-            foreach (Player player in validTargets)
-            {
-                Vector3 dst = AngelToTarget(player);
-                float fov = MathUtils.Fov(_viewAngels, dst, Vector3.Distance(Core.LocalPlayer.Position, player.Position) / 10);
-                Console.WriteLine(fov);
-
-                if (fov <= _fov)
-                    return player;
-            }
-            return null;
-        }
         #endregion
     }
 }
