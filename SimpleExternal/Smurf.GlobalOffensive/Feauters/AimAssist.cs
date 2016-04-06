@@ -48,10 +48,17 @@ namespace Smurf.GlobalOffensive.Feauters
         private bool _aimSpotted = true;
         private bool _aimEnemies = true;
         private bool _aimAllies = false;
-        private int _aimFov = 6;
+        private int _aimFov = 25;
         private int _perferdAimbone = 5;
-        private WinAPI.VirtualKeyShort _aimKey = (WinAPI.VirtualKeyShort) 0x02;
-        private Vector3 _viewAngels;
+        private int _aimSmooth = 100;
+        public int AimState = 0;
+        public Vector3 AimAt;
+        private WinAPI.VirtualKeyShort _aimKey = (WinAPI.VirtualKeyShort)0x06;
+        public Vector3 ViewAngels;
+        private bool _gotRandomPoint;
+        private float _tempX;
+        private float _tempY;
+        private float _tempZ;
 
         #endregion
 
@@ -64,7 +71,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
             if (Core.KeyUtils.KeyIsDown(_aimKey))
             {
-                _viewAngels = Core.Memory.Read<Vector3>((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles));
+                ViewAngels = Core.Memory.Read<Vector3>((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles));
 
                 if (_target == null)
                     GetTarget();
@@ -74,6 +81,8 @@ namespace Smurf.GlobalOffensive.Feauters
             if (Core.KeyUtils.KeyWentUp(_aimKey))
             {
                 _target = null;
+                AimState = 0;
+                _gotRandomPoint = false;
                 Thread.Sleep(20); //If we do not sleep here we'll lock onto another target for a brief moment and it looks weird.
             }
 
@@ -84,16 +93,62 @@ namespace Smurf.GlobalOffensive.Feauters
             if (!_target.IsAlive)
                 return; //If we kill our target we return, else we'll lock onto a random point in the air.
 
-            //todo. get a random point around the targets. 
-            //Must be give a new random point if we get a new target. 
-            //'Smart' smooth to the target, fast until we come close than slow down / make it random.
-            //Make the durve to the target be random, maybe beizer curves.
+            switch (AimState)
+            {
+                case 0:
+                    AimAt = GetAimPoint(true);
+                    if (AimAt.ToString("0.0") == ViewAngels.ToString("0.0"))
+                        AimState = 1; //We did reach the random point.
+                    break;
 
-            //Vector3 target = AngleToTarget(_target, _perferdAimbone);
-            //SetViewAngles(target);
-            //PrintTargetInfo(); //Useless but good for debugging. (maybe)
-            Vector3 dst = AngleToTarget(_target, _perferdAimbone);
-            SetViewAngles(dst);
+                case 1: //Go from the random point to the real point.
+                    AimAt = GetAimPoint();
+                    break;
+            }
+            Vector3 smoothAngle = SmoothAngels(_aimSmooth);
+
+            if (smoothAngle != Vector3.Zero)
+                SetViewAngles(smoothAngle);
+        }
+
+        private Vector3 SmoothAngels(int smoothAmount)
+        {
+            var smoothAngle = AimAt - ViewAngels;
+            smoothAngle = smoothAngle.NormalizeAngle();
+            smoothAngle = smoothAngle.ClampAngle();
+            smoothAngle /= smoothAmount;
+            smoothAngle += ViewAngels;
+            smoothAngle = smoothAngle.NormalizeAngle();
+            smoothAngle = smoothAngle.ClampAngle();
+            return smoothAngle;
+        }
+
+        private Vector3 GetAimPoint(bool randomPoint = false)
+        {
+            Vector3 myView = Core.LocalPlayer.Position + Core.LocalPlayer.VecView;
+            Vector3 aimView = _target.GetBonePos(_target, _perferdAimbone);
+
+            if (!_gotRandomPoint)
+            {
+                if (randomPoint)
+                {
+                    _tempX = new Random().Next(-20, 20);
+                    _tempY = new Random().Next(-20, 20);
+                    _tempZ = new Random().Next(-20, 20);
+                }
+                _gotRandomPoint = true;
+            }
+
+            if (AimState == 0)
+            {
+                aimView.X += _tempX;
+                aimView.Y += _tempY;
+                aimView.Z += _tempZ;
+            }
+
+            Vector3 dst = myView.CalcAngle(aimView);
+            dst = dst.NormalizeAngle();
+            return dst;
         }
 
         private void PrintTargetInfo()
@@ -114,12 +169,9 @@ namespace Smurf.GlobalOffensive.Feauters
 
             foreach (Player player in tempTargets)
             {
-                Vector3 myView = Core.LocalPlayer.Position + Core.LocalPlayer.VecView;
-                Vector3 aimView = player.GetBonePos(player, _perferdAimbone);
-                Vector3 dst = myView.CalcAngle(aimView);
-
-                dst = dst.NormalizeAngle();
-                var fov = MathUtils.Fov(_viewAngels, dst, Vector3.Distance(Core.LocalPlayer.Position, player.Position) / 10);
+                Vector3 dst = AngleToTarget(player, _perferdAimbone);
+                var fov = MathUtils.Fov(ViewAngels, dst, Vector3.Distance(Core.LocalPlayer.Position, player.Position) / 10);
+                Console.WriteLine(fov);
                 if (fov <= _aimFov)
                 {
                     _target = player;
