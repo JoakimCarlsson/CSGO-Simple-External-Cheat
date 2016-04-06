@@ -15,11 +15,12 @@ namespace Smurf.GlobalOffensive
         private static void Main()
         {
             Thread thread1 = new Thread(PrintInfo);
-            Thread thread2 = new Thread(UpdateBHop);
+            Thread thread2 = new Thread(UpdateBhop);
             Thread thread3 = new Thread(UpdateRcs);
             Thread thread4 = new Thread(UpdateSettings);
             Thread thread5 = new Thread(UpdateKeyUtils);
             Thread thread6 = new Thread(UpdateAutoPistol);
+            Thread thread7 = new Thread(UpdateAimbot);
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.Title = "Cheat Squad";
@@ -33,7 +34,7 @@ namespace Smurf.GlobalOffensive
             Process[] process = Process.GetProcessesByName("csgo");
             Core.Attach(process[0]);
 
-            StartThreads(thread1, thread2, thread3, thread4, thread5, thread6);
+            StartThreads(thread1, thread2, thread3, thread4, thread5, thread6, thread7);
 
             while (true)
             {
@@ -42,11 +43,19 @@ namespace Smurf.GlobalOffensive
                 Core.SoundEsp.Update();
                 Core.Radar.Update();
                 Core.Glow.Update();
-                Core.AimAssist.Update();
+                //Core.AimAssist.Update();
                 Thread.Sleep(1);
             }
         }
+        private static void UpdateAimbot()
+        {
+            while (true)
+            {
+                Core.AimAssist.Update();
+                Thread.Sleep(1);
+            }
 
+        }
         private static void StartThreads(params Thread[] threads)
         {
             foreach (var thread in threads)
@@ -96,7 +105,7 @@ namespace Smurf.GlobalOffensive
 #endif
 
         }
-        private static void UpdateBHop()
+        private static void UpdateBhop()
         {
             while (true)
             {

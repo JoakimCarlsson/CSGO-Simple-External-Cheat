@@ -92,6 +92,8 @@ namespace Smurf.GlobalOffensive.Feauters
             //Vector3 target = AngleToTarget(_target, _perferdAimbone);
             //SetViewAngles(target);
             //PrintTargetInfo(); //Useless but good for debugging. (maybe)
+            Vector3 dst = AngleToTarget(_target, _perferdAimbone);
+            SetViewAngles(dst);
         }
 
         private void PrintTargetInfo()
