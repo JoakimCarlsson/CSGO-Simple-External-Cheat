@@ -22,8 +22,8 @@ namespace Smurf.GlobalOffensive.Feauters
         private bool _triggerDash;
         private bool _triggerZoomed;
         private bool _inCrossTrigger;
-        private int _triggerDelayFirstRandomize;
-        private int _triggerDelayShotsRandomize;
+        public int _triggerDelayFirstRandomize;
+        public int _triggerDelayShotsRandomize;
         private int _triggerDelayFirstShotMax;
         private int _triggerDelayFirstShotMin;
         private int _triggerDelayShotsMax;

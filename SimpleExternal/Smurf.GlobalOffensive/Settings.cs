@@ -34,20 +34,20 @@ namespace Smurf.GlobalOffensive
 
         private void CreateConfigFile()
         {
-            var snipersList = new List<string>
+            List<string> snipersList = new List<string>
             {
                 "AWP",
                 "SSG08",
                 "SCAR20",
                 "G3SG1"
             };
-            var machineGunList = new List<string>
+            List<string> machineGunList = new List<string>
             {
                 "M249",
                 "Negev"
             };
 
-            var heavyList = new List<string>
+            List<string> heavyList = new List<string>
             {
                 "NOVA",
                 "XM1014",
@@ -55,7 +55,7 @@ namespace Smurf.GlobalOffensive
                 "Mag7"
             };
 
-            var smgList = new List<string>
+            List<string> smgList = new List<string>
             {
                 "MAC10",
                 "MP9",
@@ -65,7 +65,7 @@ namespace Smurf.GlobalOffensive
                 "P90"
             };
 
-            var pistolList = new List<string>
+            List<string> pistolList = new List<string>
             {
                 "DEagle",
                 "Elite",
@@ -77,7 +77,7 @@ namespace Smurf.GlobalOffensive
                 "Tec9"
             };
 
-            var rifleList = new List<string>
+            List<string> rifleList = new List<string>
             {
                 "GalilAR",
                 "AK47",
@@ -109,7 +109,7 @@ namespace Smurf.GlobalOffensive
             //Misc
             builder.AppendLine("[Misc]");
             builder.AppendLine("Radar = True");
-            builder.AppendLine("InCross Trigger Bot = True");
+            builder.AppendLine("InCross Trigger Bot = False");
             builder.AppendLine("No Flash = False");
             builder.AppendLine("Reload Config Key = 0x35").AppendLine();
 
@@ -135,9 +135,9 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Spawn Protected = False");
-                builder.AppendLine("Trigger Delay FirstShot Max = 35");
-                builder.AppendLine("Trigger Delay FirstShot Min = 35");
-                builder.AppendLine("Trigger Delay Shots Max = 35");
+                builder.AppendLine("Trigger Delay FirstShot Max = 128");
+                builder.AppendLine("Trigger Delay FirstShot Min = 98");
+                builder.AppendLine("Trigger Delay Shots Max = 68");
                 builder.AppendLine("Trigger Delay Shots Min = 35").AppendLine();
             }
             foreach (var weapon in rifleList)
@@ -151,7 +151,7 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Rcs Force Max Pitch = 2");
                 builder.AppendLine("Rcs Force Min Pitch = 2").AppendLine();
                 //Trigger
-                builder.AppendLine("Trigger Enabled = True");
+                builder.AppendLine("Trigger Enabled = False");
                 builder.AppendLine("Trigger Key = 0x12");
                 builder.AppendLine("Trigger Dash = False");
                 builder.AppendLine("Trigger When Zoomed = False");
@@ -207,9 +207,9 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Allies = False");
                 builder.AppendLine("Trigger Burst Enabled = False");
                 builder.AppendLine("Trigger Spawn Protected = False");
-                builder.AppendLine("Trigger Delay FirstShot Max = 35");
-                builder.AppendLine("Trigger Delay FirstShot Min = 35");
-                builder.AppendLine("Trigger Delay Shots Max = 35");
+                builder.AppendLine("Trigger Delay FirstShot Max = 128");
+                builder.AppendLine("Trigger Delay FirstShot Min = 98");
+                builder.AppendLine("Trigger Delay Shots Max = 68");
                 builder.AppendLine("Trigger Delay Shots Min = 35").AppendLine();
             }
             foreach (var weapon in machineGunList)
