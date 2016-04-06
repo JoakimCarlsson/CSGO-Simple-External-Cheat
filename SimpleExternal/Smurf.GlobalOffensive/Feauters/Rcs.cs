@@ -7,20 +7,21 @@ namespace Smurf.GlobalOffensive.Feauters
     public class Rcs
     {
         #region Constructor
-        public Rcs()
-        {
-            _sensitivity = Core.Memory.Read<float>(Core.ClientBase + Offsets.Misc.Sensitivity);
-        }
+        //public Rcs()
+        //{
+        //    _sensitivity = Core.Memory.Read<float>(Core.ClientBase + Offsets.Misc.Sensitivity);
+        //}
         #endregion
 
         #region Fields
 
         private Vector3 _newViewAngels;
-        public float MaxYaw, MaxPitch, MinYaw, MinPitch, RandomYaw, RandomPitch;
-        public bool RcsEnabled;
+        private float _maxYaw, _maxPitch, _minYaw, _minPitch;
+        public float RandomYaw, RandomPitch;
+        private bool _rcsEnabled;
         private int _rcsStart;
-        private Vector3 pixels;
-        private float _sensitivity;
+        //private Vector3 pixels;
+        //private float _sensitivity;
 
         #endregion
 
@@ -46,7 +47,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
             ReadSettïngs();
 
-            if (!RcsEnabled)
+            if (!_rcsEnabled)
                 return;
 
             ControlRecoil();
@@ -92,10 +93,10 @@ namespace Smurf.GlobalOffensive.Feauters
         {
             //if (Core.LocalPlayer.ShotsFired == 1)
             //{
-            float tempMinYaw = MinYaw * 10;
-            float tempMinPitch = MinPitch * 10;
-            float tempMaxYaw = MaxYaw * 10;
-            float tempMaxPitch = MaxPitch * 10;
+            float tempMinYaw = _minYaw * 10;
+            float tempMinPitch = _minPitch * 10;
+            float tempMaxYaw = _maxYaw * 10;
+            float tempMaxPitch = _maxPitch * 10;
 
             float tempRandomYaw = new Random().Next((int)tempMinYaw, (int)tempMaxYaw) + 1;
             float tempRandomPitch = new Random().Next((int)tempMinPitch, (int)tempMaxPitch) + 1;
@@ -108,11 +109,11 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void ReadSettïngs()
         {
-            RcsEnabled = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Rcs Enabled");
-            MaxYaw = Core.Settings.GetFloat(Core.LocalPlayerWeapon.WeaponName, "Rcs Force Max Yaw");
-            MaxPitch = Core.Settings.GetFloat(Core.LocalPlayerWeapon.WeaponName, "Rcs Force Max Pitch");
-            MinYaw = Core.Settings.GetFloat(Core.LocalPlayerWeapon.WeaponName, "Rcs Force Min Yaw");
-            MinPitch = Core.Settings.GetFloat(Core.LocalPlayerWeapon.WeaponName, "Rcs Force Min Pitch");
+            _rcsEnabled = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Rcs Enabled");
+            _maxYaw = Core.Settings.GetFloat(Core.LocalPlayerWeapon.WeaponName, "Rcs Force Max Yaw");
+            _maxPitch = Core.Settings.GetFloat(Core.LocalPlayerWeapon.WeaponName, "Rcs Force Max Pitch");
+            _minYaw = Core.Settings.GetFloat(Core.LocalPlayerWeapon.WeaponName, "Rcs Force Min Yaw");
+            _minPitch = Core.Settings.GetFloat(Core.LocalPlayerWeapon.WeaponName, "Rcs Force Min Pitch");
             _rcsStart = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Rcs Start");
         }
 

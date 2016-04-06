@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Configuration;
 using System.Numerics;
 using System.Threading;
+using System.Windows.Forms.VisualStyles;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Utils;
 
@@ -13,34 +15,6 @@ namespace Smurf.GlobalOffensive.Feauters
     //3. Berizer curve or something simular to that to make it so the line won't be a perfect line.
     //4. Generate a random point somewhere around the target we'll initial aim at and than aim at target again. 
     //5. Maybe make RCS a bit more randomized.
-
-    //Vector PRotator::Randomize(Vector vAngles)
-    //{
-    //    if (abs(curX - destX) < .05f)
-    //    {
-    //        destX = rand() % (int)(gCvars.aim_human_scale * 10) + 1;
-    //        destX /= 500;
-    //        int positive = rand() % 2 + 1;
-    //        if (positive == 2)
-    //            destX = -destX;
-    //    }
-    //    if (abs(curY - destY) < .05f)
-    //    {
-    //        destY = rand() % (int)(gCvars.aim_human_scale * 10) + 1;
-    //        destY /= 500;
-    //        int positive = rand() % 2 + 1;
-    //        if (positive == 2)
-    //            destY = -destY;
-    //    }
-    //    int speed = 20 - int(gCvars.aim_human_speed);
-    //    curX += (destX - curX) / ((15 * speed) + 10);
-    //    curY += (destY - curY) / ((15 * speed) + 10);
-    //    vAngles.x += curX;
-    //    vAngles.y += curY;
-    //    lastX = curX;
-    //    lastY = curY;
-    //    return vAngles;
-    //}
     public class AimAssist
     {
         #region Fields
@@ -48,17 +22,18 @@ namespace Smurf.GlobalOffensive.Feauters
         private bool _aimSpotted = true;
         private bool _aimEnemies = true;
         private bool _aimAllies = false;
-        private int _aimFov = 25;
-        private int _perferdAimbone = 5;
-        private int _aimSmooth = 100;
-        public int AimState = 0;
-        public Vector3 AimAt;
-        private WinAPI.VirtualKeyShort _aimKey = (WinAPI.VirtualKeyShort)0x06;
-        public Vector3 ViewAngels;
+        private bool _humanize = true;
         private bool _gotRandomPoint;
         private float _tempX;
         private float _tempY;
         private float _tempZ;
+        public Vector3 AimAt;
+        private int _aimFov = 25;
+        private int _perferdAimbone = 5;
+        private int _aimSmooth = 100;
+        public int AimState;
+        private WinAPI.VirtualKeyShort _aimKey = (WinAPI.VirtualKeyShort)0x06;
+        public Vector3 ViewAngels;
 
         #endregion
 
@@ -92,6 +67,8 @@ namespace Smurf.GlobalOffensive.Feauters
         {
             if (!_target.IsAlive)
                 return; //If we kill our target we return, else we'll lock onto a random point in the air.
+            if (Core.LocalPlayerWeapon.Clip1 == 0)
+                return;
 
             switch (AimState)
             {
@@ -105,19 +82,25 @@ namespace Smurf.GlobalOffensive.Feauters
                     AimAt = GetAimPoint();
                     break;
             }
-            Vector3 smoothAngle = SmoothAngels(_aimSmooth);
-
+            Vector3 dst = ControlRecoil(AimAt);
+            Vector3 smoothAngle = SmoothAngels(ViewAngels, dst, _aimSmooth);
             if (smoothAngle != Vector3.Zero)
                 SetViewAngles(smoothAngle);
         }
-
-        private Vector3 SmoothAngels(int smoothAmount)
+        private static Vector3 ControlRecoil(Vector3 dst)
         {
-            var smoothAngle = AimAt - ViewAngels;
+            dst.X -= Core.LocalPlayer.VecPunch.X * Core.ControlRecoil.RandomPitch;
+            dst.Y -= Core.LocalPlayer.VecPunch.Y * Core.ControlRecoil.RandomYaw;
+            return dst;
+        }
+
+        private Vector3 SmoothAngels(Vector3 viewAngels, Vector3 dst, int smoothAmount)
+        {
+            var smoothAngle = dst - viewAngels;
             smoothAngle = smoothAngle.NormalizeAngle();
             smoothAngle = smoothAngle.ClampAngle();
             smoothAngle /= smoothAmount;
-            smoothAngle += ViewAngels;
+            smoothAngle += viewAngels;
             smoothAngle = smoothAngle.NormalizeAngle();
             smoothAngle = smoothAngle.ClampAngle();
             return smoothAngle;
@@ -149,12 +132,6 @@ namespace Smurf.GlobalOffensive.Feauters
             Vector3 dst = myView.CalcAngle(aimView);
             dst = dst.NormalizeAngle();
             return dst;
-        }
-
-        private void PrintTargetInfo()
-        {
-            Console.WriteLine("Target Id: \t{0}", _target.Id);
-            Console.WriteLine("Target Health: \t{0}", _target.Health);
         }
 
         private void GetTarget()
