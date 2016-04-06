@@ -128,6 +128,12 @@ namespace Smurf.GlobalOffensive.Feauters
                 aimView.Y += _tempY;
                 aimView.Z += _tempZ;
             }
+            if (AimState == 1)
+            {
+                aimView.X += _tempX/5;
+                aimView.Y += _tempY/5;
+                aimView.Z += _tempZ/5;
+            }
 
             Vector3 dst = myView.CalcAngle(aimView);
             dst = dst.NormalizeAngle();
