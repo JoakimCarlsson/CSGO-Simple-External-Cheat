@@ -9,10 +9,12 @@ namespace Smurf.GlobalOffensive
 {
     public class Settings
     {
+        #region Fields
         private static readonly FileIniDataParser Parser = new FileIniDataParser();
         private IniData _data;
         private WinAPI.VirtualKeyShort _reloadConfigKey;
-
+        #endregion
+        #region Constructor
         public Settings()
         {
             if (!File.Exists("Config.ini"))
@@ -21,8 +23,8 @@ namespace Smurf.GlobalOffensive
             }
             _data = Parser.ReadFile("Config.ini");
         }
-
-
+        #endregion
+        #region Methods
         public void Update()
         {
             _reloadConfigKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Core.Settings.GetString("Misc", "Reload Config Key"), 16);
@@ -108,6 +110,7 @@ namespace Smurf.GlobalOffensive
 
             //Misc
             builder.AppendLine("[Misc]");
+            builder.AppendLine("WPM = False");
             builder.AppendLine("Radar = True");
             builder.AppendLine("InCross Trigger Bot = False");
             builder.AppendLine("No Flash = False");
@@ -366,5 +369,6 @@ namespace Smurf.GlobalOffensive
             }
             return WinAPI.VirtualKeyShort.ACCEPT;
         }
+        #endregion
     }
 }

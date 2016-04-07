@@ -7,10 +7,10 @@ namespace Smurf.GlobalOffensive.Feauters
     public class Rcs
     {
         #region Constructor
-        //public Rcs()
-        //{
-        //    _sensitivity = Core.Memory.Read<float>(Core.ClientBase + Offsets.Misc.Sensitivity);
-        //}
+        public Rcs()
+        {
+            _sensitivity = Core.Memory.Read<float>(Core.ClientBase + Offsets.Misc.Sensitivity);
+        }
         #endregion
 
         #region Fields
@@ -20,15 +20,16 @@ namespace Smurf.GlobalOffensive.Feauters
         public float RandomYaw, RandomPitch;
         private bool _rcsEnabled;
         private int _rcsStart;
-        //private Vector3 pixels;
-        //private float _sensitivity;
+        private readonly float _sensitivity;
+        private Vector3 pixels;
+        private bool _mouseMovement = true;
 
         #endregion
 
         #region Properties
 
-        public Vector3 ViewAngels { get; set; }
-        public Vector3 LastPunch { get; set; }
+        private Vector3 ViewAngels { get; set; }
+        private Vector3 LastPunch { get; set; }
 
         #endregion
 
@@ -65,27 +66,26 @@ namespace Smurf.GlobalOffensive.Feauters
             if (Core.LocalPlayerWeapon.Clip1 == 0)
                 return;
 
-            //if (false)
-            //{
-            ViewAngels = Core.Memory.Read<Vector3>((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles));
-            _newViewAngels = ViewAngels;
-            Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
-            if (punch.X != 0 || punch.Y != 0)
+            if (!_mouseMovement)
             {
-                _newViewAngels.X -= punch.X * RandomYaw;
-                _newViewAngels.Y -= punch.Y * RandomPitch;
-                _newViewAngels = _newViewAngels.NormalizeAngle();
-                SetViewAngles(_newViewAngels);
+                ViewAngels = Core.Memory.Read<Vector3>((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles));
+                _newViewAngels = ViewAngels;
+                Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
+                if (punch.X != 0 || punch.Y != 0)
+                {
+                    _newViewAngels.X -= punch.X * RandomYaw;
+                    _newViewAngels.Y -= punch.Y * RandomPitch;
+                    _newViewAngels = _newViewAngels.NormalizeAngle();
+                    SetViewAngles(_newViewAngels);
+                }
             }
-            //}
-            //else
-            //{
-            //Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
-            //pixels.X = punch.X / (float)(0.22 * _sensitivity * 1) * RandomYaw;
-            //pixels.Y = punch.Y / (float)(0.22 * _sensitivity * 1) * RandomPitch;
-
-            //WinAPI.mouse_event((uint)0, (uint)pixels.Y, (uint)-pixels.X, 0, 0);
-            //}
+            else
+            {
+                Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
+                pixels.X = punch.X / (float)(0.22 * _sensitivity * 1) * RandomYaw * 10;
+                pixels.Y = punch.Y / (float)(0.22 * _sensitivity * 1) * RandomPitch * 10;
+                WinAPI.mouse_event((uint)0, (uint)pixels.Y, (uint)-pixels.X, 0, 0);
+            }
 
         }
 
