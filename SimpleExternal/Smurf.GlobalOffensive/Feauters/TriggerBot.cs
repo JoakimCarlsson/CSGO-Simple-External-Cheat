@@ -142,7 +142,6 @@ namespace Smurf.GlobalOffensive.Feauters
                 return false;
 
             return true;
-
         }
 
         private void GetValidTargets()

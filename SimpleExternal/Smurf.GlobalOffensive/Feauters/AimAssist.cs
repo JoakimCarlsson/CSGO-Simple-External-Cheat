@@ -34,6 +34,26 @@ namespace Smurf.GlobalOffensive.Feauters
 
         public void Update()
         {
+            if (Core.KeyUtils.KeyIsDown(_aimKey))
+            {
+                if (_humanize)
+                {
+                    HumanAimbot();
+                }
+                else
+                {
+                    Aimbot();
+                }
+            }
+        }
+
+        private void Aimbot()
+        {
+            
+        }
+
+        private void HumanAimbot()
+        {
 
         }
 
