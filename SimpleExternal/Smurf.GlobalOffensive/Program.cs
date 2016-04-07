@@ -86,6 +86,8 @@ namespace Smurf.GlobalOffensive
                     Console.WriteLine("Zoom Level: \t{0}", myWeapon.ZoomLevel);
                     Console.WriteLine("Random Yaw: \t{0}", Core.ControlRecoil.RandomYaw);
                     Console.WriteLine("Random Pitch: \t{0}", Core.ControlRecoil.RandomPitch);
+                    Console.WriteLine("Random First Shot: \t{0}",Core.TriggerBot._triggerDelayFirstRandomize);
+                    Console.WriteLine("Random Delay Shot: \t{0}", Core.TriggerBot._triggerDelayShotsRandomize);
                 }
 
                 Thread.Sleep(500);

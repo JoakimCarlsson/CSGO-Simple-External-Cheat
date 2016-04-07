@@ -18,15 +18,20 @@ namespace Smurf.GlobalOffensive.Feauters
         private bool _triggerEnabled;
         private bool _triggerAllies;
         private bool _triggerEnemies;
-        private bool _spawnProtection;
+        private bool _triggerSpawnProtection;
         private bool _triggerDash;
         private bool _triggerZoomed;
         private bool _inCrossTrigger;
-        private int _delayFirstShot;
-        private int _delayShots;
+        public int _triggerDelayFirstRandomize;
+        public int _triggerDelayShotsRandomize;
+        private int _triggerDelayFirstShotMax;
+        private int _triggerDelayFirstShotMin;
+        private int _triggerDelayShotsMax;
+        private int _triggerDelayShotsMin;
         public Vector3 ViewAngels;
         private WinAPI.VirtualKeyShort _triggerKey;
         private IEnumerable<Player> _validTargets;
+        private bool randomized;
 
         #endregion
 
@@ -42,6 +47,8 @@ namespace Smurf.GlobalOffensive.Feauters
             if (!_triggerEnabled)
                 return;
 
+            RandomizeDelay();
+
             if (Core.KeyUtils.KeyIsDown(_triggerKey))
             {
                 ViewAngels = Core.Memory.Read<Vector3>((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles));
@@ -53,6 +60,7 @@ namespace Smurf.GlobalOffensive.Feauters
                 if (_triggerDash)
                     if (Core.LocalPlayer.Velocity > 0)
                         return;
+
 
                 if (_inCrossTrigger)
                 {
@@ -69,30 +77,28 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void InCrossTriggerBot()
         {
-                BaseEntity target = Core.LocalPlayer.Target;
-                if (target != null && ((_triggerAllies && target.Team == Core.LocalPlayer.Team) || (_triggerEnemies && target.Team != Core.LocalPlayer.Team)))
+            BaseEntity target = Core.LocalPlayer.Target;
+            if (target != null && ((_triggerAllies && target.Team == Core.LocalPlayer.Team) || (_triggerEnemies && target.Team != Core.LocalPlayer.Team)))
+            {
+                if (!AimOntarget)
                 {
-                    if (!AimOntarget)
-                    {
-                        AimOntarget = true;
-                        _triggerLastTarget = DateTime.Now.Ticks;
-                    }
-                    else
-                    {
-                        if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _delayFirstShot))
-                            return;
-                        if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _delayShots))
-                            return;
-
-                        _triggerLastShot = DateTime.Now.Ticks;
-
-                        if (_spawnProtection)
-                            if (target.GunGameImmune)
-                                return;
-
-                        Shoot();
-                    }
+                    AimOntarget = true;
+                    _triggerLastTarget = DateTime.Now.Ticks;
                 }
+                else
+                {
+                    if (!CheckDelay())
+                        return;
+
+                    _triggerLastShot = DateTime.Now.Ticks;
+
+                    if (!_triggerSpawnProtection)
+                        if (target.GunGameImmune)
+                            return;
+
+                    Shoot();
+                }
+            }
         }
 
         private void FaceItTriggerBot()
@@ -117,9 +123,7 @@ namespace Smurf.GlobalOffensive.Feauters
                         }
                         else
                         {
-                            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _delayFirstShot))
-                                return;
-                            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _delayShots))
+                            if (!CheckDelay())
                                 return;
 
                             _triggerLastShot = DateTime.Now.Ticks;
@@ -131,6 +135,16 @@ namespace Smurf.GlobalOffensive.Feauters
             }
         }
 
+        private bool CheckDelay()
+        {
+            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _triggerDelayFirstRandomize))
+                return false;
+            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _triggerDelayShotsRandomize))
+                return false;
+
+            return true;
+        }
+
         private void GetValidTargets()
         {
             _validTargets = Core.Objects.Players.Where(p => p.IsAlive && !p.IsDormant && p.Id != Core.LocalPlayer.Id && p.SeenBy(Core.LocalPlayer));
@@ -138,8 +152,14 @@ namespace Smurf.GlobalOffensive.Feauters
                 _validTargets = _validTargets.Where(p => p.Team != Core.LocalPlayer.Team);
             if (_triggerAllies)
                 _validTargets = _validTargets.Where(p => p.Team == Core.LocalPlayer.Team);
-            if (_spawnProtection)
+            if (!_triggerSpawnProtection)
                 _validTargets = _validTargets.Where(p => !p.GunGameImmune);
+        }
+
+        private void RandomizeDelay()
+        {
+            _triggerDelayFirstRandomize = new Random().Next(_triggerDelayFirstShotMin, _triggerDelayFirstShotMax) + 1;
+            _triggerDelayShotsRandomize = new Random().Next(_triggerDelayShotsMin, _triggerDelayShotsMax) + 1;
         }
 
         private void ReadSettings()
@@ -150,9 +170,11 @@ namespace Smurf.GlobalOffensive.Feauters
                 _triggerKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Core.Settings.GetString(Core.LocalPlayerWeapon.WeaponName, "Trigger Key"), 16);
                 _triggerEnemies = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Trigger Enemies");
                 _triggerAllies = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Trigger Allies");
-                _spawnProtection = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Trigger Spawn Protected");
-                _delayFirstShot = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Trigger Delay FirstShot");
-                _delayShots = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Trigger Delay Shots");
+                _triggerSpawnProtection = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Trigger Spawn Protected");
+                _triggerDelayFirstShotMax = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Trigger Delay FirstShot Max");
+                _triggerDelayFirstShotMin = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Trigger Delay FirstShot Min");
+                _triggerDelayShotsMax = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Trigger Delay Shots Max");
+                _triggerDelayShotsMin = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Trigger Delay Shots Min");
                 _triggerDash = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Trigger Dash");
                 _triggerZoomed = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Trigger When Zoomed");
                 _inCrossTrigger = Core.Settings.GetBool("Misc", "InCross Trigger Bot");
