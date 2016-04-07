@@ -87,8 +87,7 @@ namespace Smurf.GlobalOffensive.Feauters
             dst = dst.NormalizeAngle();
             dst = dst.ClampAngle();
 
-            if (Core.ControlRecoil.RcsEnabled)
-                dst = ControlRecoil(dst);
+            dst = ControlRecoil(dst);
 
             dst = dst.NormalizeAngle();
             dst = dst.ClampAngle();
@@ -118,8 +117,8 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private static Vector3 ControlRecoil(Vector3 dst)
         {
-            dst.X -= Core.LocalPlayer.VecPunch.X * Core.ControlRecoil.MaxPitch;
-            dst.Y -= Core.LocalPlayer.VecPunch.Y * Core.ControlRecoil.MaxYaw;
+            dst.X -= Core.LocalPlayer.VecPunch.X * Core.ControlRecoil.RandomPitch;
+            dst.Y -= Core.LocalPlayer.VecPunch.Y * Core.ControlRecoil.RandomYaw;
             return dst;
         }
 

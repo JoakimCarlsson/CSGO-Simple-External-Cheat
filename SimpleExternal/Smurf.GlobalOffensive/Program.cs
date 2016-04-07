@@ -84,6 +84,8 @@ namespace Smurf.GlobalOffensive
                     Console.WriteLine("Flash: \t\t{0}", me.FlashMaxAlpha);
                     Console.WriteLine("Weapon Group: \t{0}", myWeapon.WeaponGroup);
                     Console.WriteLine("Zoom Level: \t{0}", myWeapon.ZoomLevel);
+                    Console.WriteLine("Random Yaw: \t{0}", Core.ControlRecoil.RandomYaw);
+                    Console.WriteLine("Random Pitch: \t{0}", Core.ControlRecoil.RandomPitch);
                 }
 
                 Thread.Sleep(500);

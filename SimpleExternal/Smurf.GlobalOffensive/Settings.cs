@@ -109,6 +109,7 @@ namespace Smurf.GlobalOffensive
             //Misc
             builder.AppendLine("[Misc]");
             builder.AppendLine("Radar = True");
+            builder.AppendLine("Mouse Movement = False");
             builder.AppendLine("InCross Trigger Bot = True");
             builder.AppendLine("No Flash = False");
             builder.AppendLine("Reload Config Key = 0x35").AppendLine();
@@ -132,8 +133,10 @@ namespace Smurf.GlobalOffensive
                 //RCS
                 builder.AppendLine("Rcs Enabled = False");
                 builder.AppendLine("Rcs Start = 1");
-                builder.AppendLine("Rcs Force Yaw = 2");
-                builder.AppendLine("Rcs Force Pitch = 2").AppendLine();
+                builder.AppendLine("Rcs Force Max Yaw = 2");
+                builder.AppendLine("Rcs Force Min Yaw = 2");
+                builder.AppendLine("Rcs Force Max Pitch = 2");
+                builder.AppendLine("Rcs Force Min Pitch = 2").AppendLine();
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
@@ -160,8 +163,10 @@ namespace Smurf.GlobalOffensive
                 //RCS
                 builder.AppendLine("Rcs Enabled = True");
                 builder.AppendLine("Rcs Start = 1");
-                builder.AppendLine("Rcs Force Yaw = 2");
-                builder.AppendLine("Rcs Force Pitch = 2").AppendLine();
+                builder.AppendLine("Rcs Force Max Yaw = 2");
+                builder.AppendLine("Rcs Force Min Yaw = 2");
+                builder.AppendLine("Rcs Force Max Pitch = 2");
+                builder.AppendLine("Rcs Force Min Pitch = 2").AppendLine();
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
@@ -189,8 +194,10 @@ namespace Smurf.GlobalOffensive
                 //RCS
                 builder.AppendLine("Rcs Enabled = True");
                 builder.AppendLine("Rcs Start = 1");
-                builder.AppendLine("Rcs Force Yaw = 2");
-                builder.AppendLine("Rcs Force Pitch = 2").AppendLine();
+                builder.AppendLine("Rcs Force Max Yaw = 2");
+                builder.AppendLine("Rcs Force Min Yaw = 2");
+                builder.AppendLine("Rcs Force Max Pitch = 2");
+                builder.AppendLine("Rcs Force Min Pitch = 2").AppendLine();
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
@@ -218,8 +225,10 @@ namespace Smurf.GlobalOffensive
                 //RCS
                 builder.AppendLine("Rcs Enabled = False");
                 builder.AppendLine("Rcs Start = 1");
-                builder.AppendLine("Rcs Force Yaw = 2");
-                builder.AppendLine("Rcs Force Pitch = 2").AppendLine();
+                builder.AppendLine("Rcs Force Max Yaw = 2");
+                builder.AppendLine("Rcs Force Min Yaw = 2");
+                builder.AppendLine("Rcs Force Max Pitch = 2");
+                builder.AppendLine("Rcs Force Min Pitch = 2").AppendLine();
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
@@ -247,8 +256,10 @@ namespace Smurf.GlobalOffensive
                 //RCS
                 builder.AppendLine("Rcs Enabled = False");
                 builder.AppendLine("Rcs Start = 1");
-                builder.AppendLine("Rcs Force Yaw = 2");
-                builder.AppendLine("Rcs Force Pitch = 2").AppendLine();
+                builder.AppendLine("Rcs Force Max Yaw = 2");
+                builder.AppendLine("Rcs Force Min Yaw = 2");
+                builder.AppendLine("Rcs Force Max Pitch = 2");
+                builder.AppendLine("Rcs Force Min Pitch = 2").AppendLine();
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
@@ -276,8 +287,10 @@ namespace Smurf.GlobalOffensive
                 //RCS
                 builder.AppendLine("Rcs Enabled = False");
                 builder.AppendLine("Rcs Start = 1");
-                builder.AppendLine("Rcs Force Yaw = 2");
-                builder.AppendLine("Rcs Force Pitch = 2").AppendLine();
+                builder.AppendLine("Rcs Force Max Yaw = 2");
+                builder.AppendLine("Rcs Force Min Yaw = 2");
+                builder.AppendLine("Rcs Force Max Pitch = 2");
+                builder.AppendLine("Rcs Force Min Pitch = 2").AppendLine();
                 //Trigger
                 builder.AppendLine("Trigger Enabled = True");
                 builder.AppendLine("Trigger Key = 0x12");
