@@ -1,8 +1,7 @@
 ﻿using System;
+using System.Numerics;
 using System.Text;
-using ExternalUtilsCSharp.MathObjects;
 using Smurf.GlobalOffensive.Enums;
-using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Objects
 {
@@ -50,7 +49,7 @@ namespace Smurf.GlobalOffensive.Objects
         public int GlowIndex => ReadField<int>(Offsets.Misc.GlowIndex);
         public PlayerTeam Team => (PlayerTeam) ReadField<int>(Offsets.BaseEntity.Team);
         //public float Distance => Vector3.(Core.LocalPlayer.Position, Position);
-        public float DistanceMeters => Vector3.DistanceTo(Core.LocalPlayer.Position, Position)*0.01905f;
+        public float DistanceMeters => Vector3.Distance(Core.LocalPlayer.Position, Position)*0.01905f;
         public int ShotsFired => ReadField<int>(Offsets.LocalPlayer.ShotsFired);
         private int VirtualTable => ReadField<int>(0x08);
         public bool GunGameImmune => ReadField<bool>(Offsets.Player.GunGameImmune);

@@ -77,6 +77,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.0.0\lib\portable-net45+win8+wpa81\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\ClassIds.cs" />
@@ -111,10 +116,7 @@
     <Compile Include="Feauters\Rcs.cs" />
     <Compile Include="Feauters\SoundESP.cs" />
     <Compile Include="Feauters\TriggerBot.cs" />
-    <Compile Include="Utils\Matrix.cs" />
     <Compile Include="Utils\MiscUtils.cs" />
-    <Compile Include="Utils\Vector2.cs" />
-    <Compile Include="Utils\Vector3.cs" />
     <Compile Include="WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>

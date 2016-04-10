@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
