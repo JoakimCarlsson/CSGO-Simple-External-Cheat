@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Numerics;
+using ExternalUtilsCSharp.MathObjects;
+using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Objects
 {

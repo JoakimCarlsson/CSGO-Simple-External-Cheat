@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Numerics;
+using ExternalUtilsCSharp.MathObjects;
+using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Objects
 {
@@ -22,7 +23,7 @@ namespace Smurf.GlobalOffensive.Objects
         /// <value>
         ///     The view matrix.
         /// </value>
-        public Matrix4x4 ViewMatrix => ReadField<Matrix4x4>(Offsets.Misc.ViewMatrix);
+        //public Matrix4x4 ViewMatrix => ReadField<Matrix4x4>(Offsets.Misc.ViewMatrix);
 
         /// <summary>
         ///     Gets the player ID for the player currently under the player's crosshair, and 0 if none.

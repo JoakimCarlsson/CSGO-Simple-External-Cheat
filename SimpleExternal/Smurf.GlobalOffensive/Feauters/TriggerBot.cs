@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Threading;
+using ExternalUtilsCSharp.MathObjects;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Utils;
 
@@ -112,7 +112,7 @@ namespace Smurf.GlobalOffensive.Feauters
                     Vector3 aimView = validTarget.GetBonePos(validTarget, i);
                     Vector3 dst = myView.CalcAngle(aimView);
                     dst = dst.NormalizeAngle();
-                    var fov = MathUtils.Fov(ViewAngels, dst, Vector3.Distance(Core.LocalPlayer.Position, validTarget.Position));
+                    var fov = MathUtils.Fov(ViewAngels, dst, Vector3.DistanceTo(Core.LocalPlayer.Position, validTarget.Position));
                     if (fov <= 4)
                     {
                         if (!AimOntarget)

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Numerics;
+using ExternalUtilsCSharp.MathObjects;
 using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
@@ -21,7 +21,7 @@ namespace Smurf.GlobalOffensive.Feauters
         private bool _rcsEnabled;
         private int _rcsStart;
         private readonly float _sensitivity;
-        private Vector3 pixels;
+        private Vector3 _pixels;
         private bool _mouseMovement = true;
 
         #endregion
@@ -82,9 +82,9 @@ namespace Smurf.GlobalOffensive.Feauters
             else
             {
                 Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
-                pixels.X = punch.X / (float)(0.22 * _sensitivity * 1) * RandomYaw * 10;
-                pixels.Y = punch.Y / (float)(0.22 * _sensitivity * 1) * RandomPitch * 10;
-                WinAPI.mouse_event((uint)0, (uint)pixels.Y, (uint)-pixels.X, 0, 0);
+                _pixels.X = punch.X / (float)(0.22 * _sensitivity * 1) * RandomYaw * 10;
+                _pixels.Y = punch.Y / (float)(0.22 * _sensitivity * 1) * RandomPitch * 10;
+                WinAPI.mouse_event((uint)0, (uint)_pixels.Y, (uint)-_pixels.X, 0, 0);
             }
 
         }

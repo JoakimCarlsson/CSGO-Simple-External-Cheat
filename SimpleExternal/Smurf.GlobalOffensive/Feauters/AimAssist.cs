@@ -1,24 +1,17 @@
 ﻿using System;
 using System.Linq;
-using System.Net.Configuration;
-using System.Numerics;
 using System.Threading;
-using System.Windows.Forms.VisualStyles;
+using ExternalUtilsCSharp.MathObjects;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
-    //Todo
-    //1. Get a target, and check the bones that are visible. For this we need BSP parsing. Might add that some day...
-    //2. Humanized smooth aim to the target. Faster and faster until get come into a certin distance of the target than we randonize it.
-    //3. Berizer curve or something simular to that to make it so the line won't be a perfect line.
-    //4. Generate a random point somewhere around the target we'll initial aim at and than aim at target again. 
-    //5. Maybe make RCS a bit more randomized.
     public class AimAssist
     {
         #region Fields
         private Player _target;
+        private bool _sticky = false;
         private bool _aimSpotted = true;
         private bool _aimEnemies = true;
         private bool _aimAllies = false;
@@ -38,7 +31,7 @@ namespace Smurf.GlobalOffensive.Feauters
             {
                 if (_humanize)
                 {
-                    HumanAimbot();
+                    HumanizedAimbot();
                 }
                 else
                 {
@@ -52,7 +45,7 @@ namespace Smurf.GlobalOffensive.Feauters
             
         }
 
-        private void HumanAimbot()
+        private void HumanizedAimbot()
         {
 
         }
@@ -70,7 +63,7 @@ namespace Smurf.GlobalOffensive.Feauters
             foreach (Player player in tempTargets)
             {
                 Vector3 dst = AngleToTarget(player, _perferdAimbone);
-                var fov = MathUtils.Fov(ViewAngels, dst, Vector3.Distance(Core.LocalPlayer.Position, player.Position) / 10);
+                var fov = MathUtils.Fov(ViewAngels, dst, Vector3.DistanceTo(Core.LocalPlayer.Position, player.Position) / 10);
                 Console.WriteLine(fov);
                 if (fov <= _aimFov)
                 {

@@ -87,8 +87,6 @@ namespace Smurf.GlobalOffensive
                     Console.WriteLine("Recoil Control Pitch: \t{0}", Core.ControlRecoil.RandomPitch);
                     Console.WriteLine("Trigger Delay First: \t{0}", Core.TriggerBot._triggerDelayFirstRandomize);
                     Console.WriteLine("Trigger Delay Shots1: \t{0}", Core.TriggerBot._triggerDelayShotsRandomize);
-                    Console.WriteLine("Aim State: {0}\t", Core.AimAssist.AimState);
-                    Console.WriteLine("Vector 1: {0}\t", Core.AimAssist.AimAt);
                     Console.WriteLine("Vector 2: {0}\t", Core.AimAssist.ViewAngels);
                 }
 
