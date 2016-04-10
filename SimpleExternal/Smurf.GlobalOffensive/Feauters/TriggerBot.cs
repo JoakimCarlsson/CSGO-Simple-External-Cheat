@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using ExternalUtilsCSharp.MathObjects;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Utils;
 

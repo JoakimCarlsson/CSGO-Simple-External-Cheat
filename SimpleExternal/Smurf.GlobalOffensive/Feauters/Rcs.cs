@@ -1,5 +1,4 @@
 ﻿using System;
-using ExternalUtilsCSharp.MathObjects;
 using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters

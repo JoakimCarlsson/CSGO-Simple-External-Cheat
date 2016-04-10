@@ -95,7 +95,7 @@ namespace Smurf.GlobalOffensive.Utils
 
         public override string ToString()
         {
-            return $"[X={X}, Y={Y}, Z={Z}]";
+            return $"X={X}, Y={Y}, Z={Z}";
         }
         #endregion
 
