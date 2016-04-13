@@ -65,8 +65,8 @@ namespace Smurf.GlobalOffensive
                 {
                     var me = Core.LocalPlayer;
                     var myWeapon = Core.LocalPlayerWeapon;
-
                     Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("Players: \t{0}", Core.Objects.Players.Count);
                     Console.WriteLine("ID:\t\t{0}", me.Id);
                     Console.WriteLine("Health:\t\t{0}", me.Health);
                     Console.WriteLine("Armor:\t\t{0}", me.Armor);
@@ -87,7 +87,6 @@ namespace Smurf.GlobalOffensive
                     Console.WriteLine("Recoil Control Pitch: \t{0}", Core.ControlRecoil.RandomPitch);
                     Console.WriteLine("Trigger Delay First: \t{0}", Core.TriggerBot._triggerDelayFirstRandomize);
                     Console.WriteLine("Trigger Delay Shots1: \t{0}", Core.TriggerBot._triggerDelayShotsRandomize);
-                    Console.WriteLine("Vector 2: {0}\t", Core.AimAssist.ViewAngels);
                 }
 
                 Thread.Sleep(500);

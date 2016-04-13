@@ -11,8 +11,6 @@ namespace Smurf.GlobalOffensive
     {
 
         private readonly List<Player> _players = new List<Player>();
-        //private readonly List<BaseEntity> _entities = new List<BaseEntity>();
-        //private readonly List<Weapon> _weapons = new List<Weapon>();
 
         private readonly int _ticksPerSecond;
         private TimeSpan _lastUpdate = TimeSpan.Zero;
@@ -23,8 +21,6 @@ namespace Smurf.GlobalOffensive
         }
 
         public IReadOnlyList<Player> Players => _players;
-        //public IReadOnlyList<Weapon> Weapons => _weapons;
-        //public IReadOnlyList<BaseEntity> Entities => _entities;
         internal LocalPlayer LocalPlayer { get; private set; }
         internal Weapon LocalPlayerWeapon { get; private set; }
         public string WindowTitle { get; set; }
@@ -48,8 +44,6 @@ namespace Smurf.GlobalOffensive
             }
 
             _players.Clear();
-            //_weapons.Clear();
-            //_entities.Clear();
 
             var localPlayerPtr = Core.Memory.Read<IntPtr>(Core.ClientBase + Offsets.Misc.LocalPlayer);
 
@@ -57,7 +51,7 @@ namespace Smurf.GlobalOffensive
             LocalPlayerWeapon = LocalPlayer.GetCurrentWeapon(localPlayerPtr);
 
             var capacity = Core.Memory.Read<int>(Core.ClientBase + Offsets.Misc.EntityList + 0x4);
-            for (var i = 0; i < capacity; i++)
+            for (var i = 0; i < 64; i++) //All we really care about are the players, and they should be in the first 64 entries.
             {
                 var entity = new BaseEntity(GetEntityPtr(i));
 
@@ -66,10 +60,6 @@ namespace Smurf.GlobalOffensive
 
                 if (entity.IsPlayer())
                     _players.Add(new Player(GetEntityPtr(i)));
-                //else if (entity.IsWeapon())
-                //    _weapons.Add(new Weapon(GetEntityPtr(i)));
-                //else
-                //    _entities.Add(new BaseEntity(GetEntityPtr(i)));
             }
             _lastUpdate = timeStamp;
         }
@@ -81,9 +71,6 @@ namespace Smurf.GlobalOffensive
 
         public Player GetPlayerById(int id)
         {
-            //   if (_players.Count < id)
-            //       return null;
-
             return Players.FirstOrDefault(p => p.Id == id);
         }
 
