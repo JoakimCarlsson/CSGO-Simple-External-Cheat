@@ -64,7 +64,7 @@ namespace Smurf.GlobalOffensive
             _lastUpdate = timeStamp;
         }
 
-        private IntPtr GetEntityPtr(int index)
+        public IntPtr GetEntityPtr(int index)
         {
             return Core.Memory.Read<IntPtr>(BaseAddress + index*Offsets.BaseEntity.EntitySize);
         }

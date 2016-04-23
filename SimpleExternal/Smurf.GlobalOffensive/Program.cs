@@ -20,6 +20,7 @@ namespace Smurf.GlobalOffensive
             Thread thread4 = new Thread(UpdateSettings);
             Thread thread5 = new Thread(UpdateKeyUtils);
             Thread thread6 = new Thread(UpdateAutoPistol);
+            Thread thread7 = new Thread(UpdateAimAssist);
 
             Console.ForegroundColor = ConsoleColor.White;
 
@@ -32,7 +33,7 @@ namespace Smurf.GlobalOffensive
             Process[] process = Process.GetProcessesByName("csgo");
             Core.Attach(process[0]);
 
-            StartThreads(thread1, thread2, thread3, thread4, thread5, thread6);
+            StartThreads(thread1, thread2, thread3, thread4, thread5, thread6, thread7);
 
             while (true)
             {
@@ -41,10 +42,20 @@ namespace Smurf.GlobalOffensive
                 Core.SoundEsp.Update();
                 Core.Radar.Update();
                 Core.Glow.Update();
+                //Core.AimAssist.Update();
+                Thread.Sleep(1);
+            }
+        }
+
+        private static void UpdateAimAssist()
+        {
+            while (true)
+            {
                 Core.AimAssist.Update();
                 Thread.Sleep(1);
             }
         }
+
         private static void StartThreads(params Thread[] threads)
         {
             foreach (var thread in threads)
@@ -107,7 +118,7 @@ namespace Smurf.GlobalOffensive
             while (true)
             {
                 Core.ControlRecoil.Update();
-                Thread.Sleep(5);
+                Thread.Sleep(1);
             }
         }
         private static void UpdateSettings()

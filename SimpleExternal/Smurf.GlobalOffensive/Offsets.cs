@@ -6,17 +6,17 @@
         public class Misc
         {
             public static int ViewMatrix = 0x4A8CFF4;
-            public static int EntityList = 0x4A9B4E4;
-            public static int LocalPlayer = 0xA804CC;
-            public static int Jump = 0x4F30168;
+            public static int EntityList = 0x04A9E714;
+            public static int LocalPlayer = 0x00A834DC;
+            public static int Jump = 0x04F33AA8;
             public static int GlowIndex = 0xA310;
-            public static int GlowObject = 0x4FB0C2C;
-            public static int Sensitivity = 0xA85CD4;
+            public static int GlowObject = 0x04FB45AC;
+            public static int Sensitivity = 0x00A88CE4;
         }
 
         public class ClientState
         {
-            public static int Base = 0x610344; //ClientState
+            public static int Base = 0x00610344; //ClientState
             public static int LocalPlayerIndex = 0x178;
             public static int GameState = 0x100; //Ingame
             public static int ViewAngles = 0x4D0C;
@@ -43,7 +43,7 @@
             public static int ActiveWeapon = 0x2EE8; // m_hActiveWeapon
             public static int VecVelocity = 0x110;
             public static int GunGameImmune = 0x38A0;
-            public static int FlashMaxAlpha = 0xA2F4;
+            public static int FlashMaxAlpha = 0x0000A2F4;
         }
 
         public class LocalPlayer

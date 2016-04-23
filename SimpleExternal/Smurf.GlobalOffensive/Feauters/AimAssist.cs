@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Threading;
@@ -58,11 +59,23 @@ namespace Smurf.GlobalOffensive.Feauters
         private int _aimFov = 50;
         private int _aimBone = 5;
         private int _aimState = 0;
+        private int _aimSpeed = 50;
+        private List<Player> _players = new List<Player>();
 
+        float destX;
+        float curX;
+        float destY;
+        float curY;
+        float lastX;
+        float lastY;
 
         #endregion
         #region Properties
         public Vector3 ViewAngels { get; set; }
+        #endregion
+
+        #region Constructor
+
         #endregion
 
         #region Methos
@@ -74,6 +87,8 @@ namespace Smurf.GlobalOffensive.Feauters
 
             if (!_aimAssistEnabled)
                 return;
+
+            GetPlayers();
 
             if (Core.KeyUtils.KeyIsDown(_aimKey))
             {
@@ -95,6 +110,20 @@ namespace Smurf.GlobalOffensive.Feauters
             }
         }
 
+        private void GetPlayers()
+        {
+            for (var i = 0; i < 64; i++) //All we really care about are the players, and they should be in the first 64 entries.
+            {
+                var entity = new BaseEntity(Core.Objects.GetEntityPtr(i));
+
+                if (!entity.IsValid)
+                    continue;
+
+                if (entity.IsPlayer())
+                    _players.Add(new Player(Core.Objects.GetEntityPtr(i)));
+            }
+        }
+
         private void Aim()
         {
             Vector3 destination = AngleToTarget(_aimTarget, _aimBone);
@@ -110,7 +139,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private Player GetTarget()
         {
-            var tempTargets = Core.Objects.Players.Where(p => p.Id != Core.LocalPlayer.Id && p.IsAlive && !p.IsDormant);
+            var tempTargets = _players.Where(p => p.Id != Core.LocalPlayer.Id && p.IsAlive && !p.IsDormant);
             if (_aimSpotted)
                 tempTargets = tempTargets.Where(p => p.SeenBy(Core.LocalPlayer));
             if (_aimEnemies)
@@ -139,6 +168,7 @@ namespace Smurf.GlobalOffensive.Feauters
             dst = dst.NormalizeAngle();
             return dst;
         }
+
         #endregion
     }
 }
