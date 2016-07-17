@@ -5,18 +5,18 @@
 
         public class Misc
         {
-            public static int ViewMatrix = 0x4A8CFF4;
-            public static int EntityList = 0x04A9E714;
-            public static int LocalPlayer = 0x00A834DC;
-            public static int Jump = 0x04F33AA8;
+            //public static int ViewMatrix = 0x4A8CFF4;
+            public static int EntityList = 0x04A4CCC4;
+            public static int LocalPlayer = 0x00A31504;
+            public static int Jump = 0x04EE20B4;
             public static int GlowIndex = 0xA310;
-            public static int GlowObject = 0x04FB45AC;
-            public static int Sensitivity = 0x00A88CE4;
+            public static int GlowObject = 0x04F62BDC;
+            public static int Sensitivity = 0x00A36D0C;
         }
 
         public class ClientState
         {
-            public static int Base = 0x00610344; //ClientState
+            public static int Base = 0x005B92A4; //ClientState
             public static int LocalPlayerIndex = 0x178;
             public static int GameState = 0x100; //Ingame
             public static int ViewAngles = 0x4D0C;
@@ -48,7 +48,7 @@
 
         public class LocalPlayer
         {
-            public static int CrosshairId = 0xA954;
+            public static int CrosshairId = 0x0000AA44;
             public static int VecViewOffset = 0x104;
             public static int VecPunch = 0x3018;
             public static int ShotsFired = 0xA2B0;
