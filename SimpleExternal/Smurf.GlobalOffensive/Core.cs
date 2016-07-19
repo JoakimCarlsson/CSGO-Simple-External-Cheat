@@ -13,6 +13,8 @@ namespace Smurf.GlobalOffensive
         private static bool _isAttached;
         public static int ClientState;
         public const string GameTitle = "Counter-Strike: Global Offensive";
+        internal static IntPtr _hWnd;
+
 
         public static NativeMemory Memory { get; private set; }
         public static Settings Settings { get; set; }

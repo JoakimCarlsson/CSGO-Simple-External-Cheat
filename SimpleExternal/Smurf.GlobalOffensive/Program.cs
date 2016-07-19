@@ -7,8 +7,6 @@ namespace Smurf.GlobalOffensive
     internal class Program
     {
         #region Fields
-        private static IntPtr _hWnd;
-        private const string GameTitle = "Counter-Strike: Global Offensive";
         #endregion
 
         #region Methods
@@ -24,8 +22,8 @@ namespace Smurf.GlobalOffensive
 
             Console.ForegroundColor = ConsoleColor.White;
 
-            Console.WriteLine("> Waiting for CSGO to start up...");
-            while ((_hWnd = WinAPI.FindWindowByCaption(_hWnd, GameTitle)) == IntPtr.Zero)
+            Console.WriteLine($"> Waiting for {Core.GameTitle} to start up...");
+            while ((Core._hWnd = WinAPI.FindWindowByCaption(Core._hWnd, Core.GameTitle)) == IntPtr.Zero)
                 Thread.Sleep(250);
 
             Console.Clear();
@@ -70,34 +68,34 @@ namespace Smurf.GlobalOffensive
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("State: {0}\n\n", Core.Client.State);
+                Console.WriteLine($"State: {Core.Client.State}\n\n");
 
                 if (Core.Client.InGame && Core.LocalPlayer != null && Core.LocalPlayerWeapon != null && Core.LocalPlayer.IsValid && Core.LocalPlayer.IsAlive)
                 {
                     var me = Core.LocalPlayer;
                     var myWeapon = Core.LocalPlayerWeapon;
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("Players: \t{0}", Core.Objects.Players.Count);
-                    Console.WriteLine("ID:\t\t{0}", me.Id);
-                    Console.WriteLine("Health:\t\t{0}", me.Health);
-                    Console.WriteLine("Armor:\t\t{0}", me.Armor);
-                    Console.WriteLine("Position:\t{0}", me.Position);
-                    Console.WriteLine("Team:\t\t{0}", me.Team);
-                    Console.WriteLine("Player Count:\t{0}", Core.Objects.Players.Count);
-                    Console.WriteLine("Velocity: \t{0}", me.Velocity);
-                    Console.WriteLine("Shots Fired: \t{0}", me.ShotsFired);
-                    Console.WriteLine("VecPunch: \t{0}", me.VecPunch);
-                    Console.WriteLine("Immune: \t{0}", me.GunGameImmune);
-                    Console.WriteLine("Active Weapon: \t{0}", myWeapon.WeaponName);
-                    Console.WriteLine("Clip1: \t\t{0}", myWeapon.Clip1);
-                    Console.WriteLine("Flags: \t\t{0}", me.Flags);
-                    Console.WriteLine("Flash: \t\t{0}", me.FlashMaxAlpha);
-                    Console.WriteLine("Weapon Group: \t{0}", myWeapon.WeaponGroup);
-                    Console.WriteLine("Zoom Level: \t{0}", myWeapon.ZoomLevel);
-                    Console.WriteLine("Recoil Control Yaw: \t{0}", Core.ControlRecoil.RandomYaw);
-                    Console.WriteLine("Recoil Control Pitch: \t{0}", Core.ControlRecoil.RandomPitch);
-                    Console.WriteLine("Trigger Delay First: \t{0}", Core.TriggerBot._triggerDelayFirstRandomize);
-                    Console.WriteLine("Trigger Delay Shots1: \t{0}", Core.TriggerBot._triggerDelayShotsRandomize);
+                    Console.WriteLine($"Players: \t{Core.Objects.Players.Count}");
+                    Console.WriteLine($"ID:\t\t{me.Id}");
+                    Console.WriteLine($"Health:\t\t{me.Health}");
+                    Console.WriteLine($"Armor:\t\t{me.Armor}");
+                    Console.WriteLine($"Position:\t{me.Position}");
+                    Console.WriteLine($"Team:\t\t{me.Team}");
+                    Console.WriteLine($"Player Count:\t{Core.Objects.Players.Count}");
+                    Console.WriteLine($"Velocity: \t{me.Velocity}");
+                    Console.WriteLine($"Shots Fired: \t{me.ShotsFired}");
+                    Console.WriteLine($"VecPunch: \t{me.VecPunch}");
+                    Console.WriteLine($"Immune: \t{me.GunGameImmune}");
+                    Console.WriteLine($"Active Weapon: \t{myWeapon.WeaponName}");
+                    Console.WriteLine($"Clip1: \t\t{myWeapon.Clip1}");
+                    Console.WriteLine($"Flags: \t\t{me.Flags}");
+                    Console.WriteLine($"Flash: \t\t{me.FlashMaxAlpha}");
+                    Console.WriteLine($"Weapon Group: \t{myWeapon.WeaponGroup}");
+                    Console.WriteLine($"Zoom Level: \t{myWeapon.ZoomLevel}");
+                    Console.WriteLine($"Recoil Control Yaw: \t{Core.ControlRecoil.RandomYaw}");
+                    Console.WriteLine($"Recoil Control Pitch: \t{Core.ControlRecoil.RandomPitch}");
+                    Console.WriteLine($"Trigger Delay First: \t{Core.TriggerBot._triggerDelayFirstRandomize}");
+                    Console.WriteLine($"Trigger Delay Shots1: \t{Core.TriggerBot._triggerDelayShotsRandomize}");
                 }
 
                 Thread.Sleep(500);
