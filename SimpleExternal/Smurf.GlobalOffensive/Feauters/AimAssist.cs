@@ -45,6 +45,19 @@ namespace Smurf.GlobalOffensive.Feauters
 
     //}
 
+    //    auto vecCurrentViewAngles = g_ClientState.GetViewAngles();
+    //    auto vecViewAngleDelta = vecViewAngles - vecCurrentViewAngles;
+    //    vecViewAngleDelta += Vector3_t(vecViewAngleDelta.y/flYScale, vecViewAngleDelta.x/flXScale, 0.0f); // i don't have a 2D vector class for angles cause i'm a lazy fuck.
+    //    vecViewAngleDelta /= flSmooth;
+    //    vecViewAngles = vecCurrentViewAngles+vecViewAngleDelta;
+    //X on 1,3 and y on 3,7 for the scaling is pretty good imo. And I'm not even joking.
+
+    //use this if we want a crosshair for the awp / scout.
+    //if (weaponID == WEAPON_AWP)
+    //{
+    //	g_Memory->Write<int>(current_weapon + m_iItemDefinitionIndex, 1);;
+    //}
+
     public class AimAssist
     {
         #region Fields
@@ -58,7 +71,6 @@ namespace Smurf.GlobalOffensive.Feauters
         private bool _aimAllies = false;
         private int _aimFov = 50;
         private int _aimBone = 5;
-        private int _aimState = 0;
         private int _aimSpeed = 50;
         private readonly List<Player> _players = new List<Player>();
 
@@ -102,7 +114,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void GetPlayers()
         {
-            for (var i = 0; i < 64; i++) //All we really care about are the players, and they should be in the first 64 entries.
+            for (var i = 0; i < 64; i++)
             {
                 var entity = new BaseEntity(Core.Objects.GetEntityPtr(i));
 
@@ -117,7 +129,25 @@ namespace Smurf.GlobalOffensive.Feauters
         private void Aim()
         {
             Vector3 destination = AngleToTarget(_aimTarget, _aimBone);
-            SetViewAngles(destination);
+
+            if (_aimHumanized)
+            {
+                float yScale = 5.7f;
+                float xScale = 1.5f;
+
+                Vector3 vecCurrentViewAngles = ViewAngels;
+                Vector3 vecViewAngleDelta = destination - vecCurrentViewAngles;
+
+                vecViewAngleDelta += new Vector3(vecViewAngleDelta.Y / yScale, vecViewAngleDelta.X / xScale, 0.0f);
+                vecViewAngleDelta /= _aimSpeed;
+                Vector3 vecViewAngles = vecCurrentViewAngles + vecViewAngleDelta;
+
+                SetViewAngles(vecViewAngles);
+            }
+            else
+            {
+                SetViewAngles(destination);
+            }
         }
 
         public void SetViewAngles(Vector3 viewAngles)
