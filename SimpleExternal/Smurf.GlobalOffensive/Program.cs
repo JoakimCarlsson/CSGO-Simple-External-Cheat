@@ -23,7 +23,7 @@ namespace Smurf.GlobalOffensive
             Console.ForegroundColor = ConsoleColor.White;
 
             Console.WriteLine($"> Waiting for {Core.GameTitle} to start up...");
-            while ((Core._hWnd = WinAPI.FindWindowByCaption(Core._hWnd, Core.GameTitle)) == IntPtr.Zero)
+            while ((Core.HWnd = WinAPI.FindWindowByCaption(Core.HWnd, Core.GameTitle)) == IntPtr.Zero)
                 Thread.Sleep(250);
 
             Console.Clear();

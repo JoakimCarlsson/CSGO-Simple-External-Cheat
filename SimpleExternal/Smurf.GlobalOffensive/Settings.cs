@@ -110,7 +110,7 @@ namespace Smurf.GlobalOffensive
 
             //Misc
             builder.AppendLine("[Misc]");
-            builder.AppendLine("WPM = False");
+            builder.AppendLine("Mouse Movement = True");
             builder.AppendLine("Radar = True");
             builder.AppendLine("InCross Trigger Bot = False");
             builder.AppendLine("No Flash = False");

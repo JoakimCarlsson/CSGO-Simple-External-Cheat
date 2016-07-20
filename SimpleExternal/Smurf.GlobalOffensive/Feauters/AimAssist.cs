@@ -52,7 +52,7 @@ namespace Smurf.GlobalOffensive.Feauters
         private WinAPI.VirtualKeyShort _aimKey = (WinAPI.VirtualKeyShort)0x05;
         private Player _aimTarget;
         private bool _aimAssistEnabled = true;
-        private bool _aimJumanized = true;
+        private bool _aimHumanized = true;
         private bool _aimSpotted = true;
         private bool _aimEnemies = true;
         private bool _aimAllies = false;
@@ -60,22 +60,12 @@ namespace Smurf.GlobalOffensive.Feauters
         private int _aimBone = 5;
         private int _aimState = 0;
         private int _aimSpeed = 50;
-        private List<Player> _players = new List<Player>();
-
-        float destX;
-        float curX;
-        float destY;
-        float curY;
-        float lastX;
-        float lastY;
+        private readonly List<Player> _players = new List<Player>();
 
         #endregion
+
         #region Properties
         public Vector3 ViewAngels { get; set; }
-        #endregion
-
-        #region Constructor
-
         #endregion
 
         #region Methos
