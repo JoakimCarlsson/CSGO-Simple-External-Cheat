@@ -8,76 +8,27 @@ using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
-
-    //Vector PRotator::Randomize(Vector vAngles)
-    //{
-
-    //    if (abs(curX - destX) < .05f)
-    //    {
-    //        destX = rand() % (int)(gCvars.aim_human_scale * 10) + 1;
-    //        destX /= 500;
-    //        int positive = rand() % 2 + 1;
-    //        if (positive == 2)
-    //            destX = -destX;
-    //    }
-
-    //    if (abs(curY - destY) < .05f)
-    //    {
-    //        destY = rand() % (int)(gCvars.aim_human_scale * 10) + 1;
-    //        destY /= 500;
-    //        int positive = rand() % 2 + 1;
-    //        if (positive == 2)
-    //            destY = -destY;
-    //    }
-
-    //    int speed = 20 - int(gCvars.aim_human_speed);
-    //    curX += (destX - curX) / ((15 * speed) + 10);
-
-    //    curY += (destY - curY) / ((15 * speed) + 10);
-
-    //    vAngles.x += curX;
-    //    vAngles.y += curY;
-
-    //    lastX = curX;
-    //    lastY = curY;
-
-    //    return vAngles;
-
-    //}
-
-    //    auto vecCurrentViewAngles = g_ClientState.GetViewAngles();
-    //    auto vecViewAngleDelta = vecViewAngles - vecCurrentViewAngles;
-    //    vecViewAngleDelta += Vector3_t(vecViewAngleDelta.y/flYScale, vecViewAngleDelta.x/flXScale, 0.0f); // i don't have a 2D vector class for angles cause i'm a lazy fuck.
-    //    vecViewAngleDelta /= flSmooth;
-    //    vecViewAngles = vecCurrentViewAngles+vecViewAngleDelta;
-    //X on 1,3 and y on 3,7 for the scaling is pretty good imo. And I'm not even joking.
-
-    //use this if we want a crosshair for the awp / scout.
-    //if (weaponID == WEAPON_AWP)
-    //{
-    //	g_Memory->Write<int>(current_weapon + m_iItemDefinitionIndex, 1);;
-    //}
-
     public class AimAssist
     {
         #region Fields
 
-        private WinAPI.VirtualKeyShort _aimKey = (WinAPI.VirtualKeyShort)0x05;
+        private bool _aimAssistEnabled;
+        private WinAPI.VirtualKeyShort _aimKey;
+        private bool _aimHumanized;
+        private bool _aimSpotted;
+        private bool _aimEnemies;
+        private bool _aimAllies;
+        private int _aimFov;
+        private int _aimBone;
+        private int _aimSpeed;
+
         private Player _aimTarget;
-        private bool _aimAssistEnabled = true;
-        private bool _aimHumanized = true;
-        private bool _aimSpotted = true;
-        private bool _aimEnemies = true;
-        private bool _aimAllies = false;
-        private int _aimFov = 50;
-        private int _aimBone = 5;
-        private int _aimSpeed = 50;
         private readonly List<Player> _players = new List<Player>();
 
         #endregion
 
         #region Properties
-        public Vector3 ViewAngels { get; set; }
+        private Vector3 ViewAngels { get; set; }
         #endregion
 
         #region Methos
@@ -86,6 +37,8 @@ namespace Smurf.GlobalOffensive.Feauters
         {
             if (!MiscUtils.ShouldUpdate())
                 return;
+
+            ReadSettings();
 
             if (!_aimAssistEnabled)
                 return;
@@ -108,8 +61,21 @@ namespace Smurf.GlobalOffensive.Feauters
             if (Core.KeyUtils.KeyWentUp(_aimKey))
             {
                 _aimTarget = null;
-                Thread.Sleep(20); //If we don't do this sleep we might end up getting another target and for a brief ms it will lock onto another target. Looks werid.
+                Thread.Sleep(20);
             }
+        }
+
+        private void ReadSettings()
+        {
+            _aimAssistEnabled = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Aim Enabled");
+            _aimKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Core.Settings.GetString(Core.LocalPlayerWeapon.WeaponName, "Aim Key"), 16);
+            _aimFov = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Aim Fov");
+            _aimHumanized = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Aim Humanized");
+            _aimSpotted = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Aim Spotted");
+            _aimEnemies = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Aim Enemies");
+            _aimAllies = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Aim Allies");
+            _aimSpeed = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Aim Speed");
+            _aimBone = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Aim Bone");
         }
 
         private void GetPlayers()
@@ -130,6 +96,8 @@ namespace Smurf.GlobalOffensive.Feauters
         {
             Vector3 destination = AngleToTarget(_aimTarget, _aimBone);
 
+
+            //This is pretty shit, needs be worked on.
             if (_aimHumanized)
             {
                 float yScale = 5.7f;
@@ -150,7 +118,7 @@ namespace Smurf.GlobalOffensive.Feauters
             }
         }
 
-        public void SetViewAngles(Vector3 viewAngles)
+        private void SetViewAngles(Vector3 viewAngles)
         {
             viewAngles = viewAngles.ClampAngle();
             viewAngles = viewAngles.NormalizeAngle();

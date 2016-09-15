@@ -186,7 +186,7 @@ namespace Smurf.GlobalOffensive.Feauters
             }
         }
 
-        public void Shoot()
+        private void Shoot()
         {
             WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTDOWN, 0, 0, 0, 0);
             Thread.Sleep(10);
