@@ -45,7 +45,7 @@ namespace Smurf.GlobalOffensive
 
             _players.Clear();
 
-            var localPlayerPtr = Core.Memory.Read<IntPtr>(Core.ClientBase + Offsets.Misc.LocalPlayer);
+            IntPtr localPlayerPtr = Core.Memory.Read<IntPtr>(Core.ClientBase + Offsets.Misc.LocalPlayer);
 
             LocalPlayer = new LocalPlayer(localPlayerPtr);
             LocalPlayerWeapon = LocalPlayer.GetCurrentWeapon(localPlayerPtr);

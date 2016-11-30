@@ -49,7 +49,7 @@ namespace Smurf.GlobalOffensive
         {
             while (true)
             {
-                Core.AimAssist.Update();
+                //Core.AimAssist.Update();
                 Thread.Sleep(1);
             }
         }
