@@ -19,7 +19,7 @@ namespace Smurf.GlobalOffensive.Objects
         /// <summary>
         ///     Gets the base address of this object in the remote process.
         /// </summary>
-        public IntPtr BaseAddress { get; }
+        public IntPtr BaseAddress { get; set; }
 
         /// <summary>
         ///     Gets a value indicating whether this instance is valid.

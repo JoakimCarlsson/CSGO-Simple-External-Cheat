@@ -97,7 +97,6 @@ namespace Smurf.GlobalOffensive.Feauters
             Vector3 destination = AngleToTarget(_aimTarget, _aimBone);
 
 
-            //This is pretty shit, needs be worked on.
             if (_aimHumanized)
             {
                 float yScale = 5.7f;
@@ -156,7 +155,6 @@ namespace Smurf.GlobalOffensive.Feauters
             dst = dst.NormalizeAngle();
             return dst;
         }
-
         #endregion
     }
 }

@@ -115,6 +115,8 @@ namespace Smurf.GlobalOffensive
             builder.AppendLine("Mouse Movement = True");
             builder.AppendLine("Radar = True");
             builder.AppendLine("InCross Trigger Bot = False");
+            builder.AppendLine("Bone Trigger Bot = False");
+            builder.AppendLine("Hitbox Trigger Bot = True");
             builder.AppendLine("No Flash = False");
             builder.AppendLine("Reload Config Key = 0x35").AppendLine();
 

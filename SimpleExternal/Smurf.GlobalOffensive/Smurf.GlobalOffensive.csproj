@@ -89,6 +89,7 @@
     <Compile Include="Enums\PlayerTeam.cs" />
     <Compile Include="Feauters\AimAssist.cs" />
     <Compile Include="GameClient.cs" />
+    <Compile Include="TraceRay.cs" />
     <Compile Include="Utils\KeyUtils.cs" />
     <Compile Include="Utils\MathUtils.cs" />
     <Compile Include="MonotonicTimer.cs" />

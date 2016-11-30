@@ -10,6 +10,7 @@
             public static int Jump = 0x04F5782C;
             public static int GlowIndex = 0x0000A320;
             public static int GlowObject = 0x04FD91C4;
+            public static int ForceAttack = 0x02F00DF4;
             public static int Sensitivity = 0x00A36D0C; //TODO find the right offset.
         }
 
