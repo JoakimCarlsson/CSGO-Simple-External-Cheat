@@ -5,7 +5,7 @@ using System.Text;
 using IniParser;
 using IniParser.Model;
 
-namespace Smurf.GlobalOffensive
+namespace Smurf.GlobalOffensive.SDK
 {
     public class Settings
     {

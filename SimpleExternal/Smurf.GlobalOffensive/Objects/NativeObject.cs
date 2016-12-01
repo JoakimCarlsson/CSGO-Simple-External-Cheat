@@ -1,4 +1,5 @@
 ﻿using System;
+using Smurf.GlobalOffensive.SDK;
 
 namespace Smurf.GlobalOffensive.Objects
 {

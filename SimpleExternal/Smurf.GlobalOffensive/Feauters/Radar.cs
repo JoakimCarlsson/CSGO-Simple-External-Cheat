@@ -1,4 +1,5 @@
-﻿using Smurf.GlobalOffensive.Utils;
+﻿using Smurf.GlobalOffensive.SDK;
+using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {

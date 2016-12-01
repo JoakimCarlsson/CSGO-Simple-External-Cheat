@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Smurf.GlobalOffensive.SDK;
 
 namespace Smurf.GlobalOffensive.Utils
 {

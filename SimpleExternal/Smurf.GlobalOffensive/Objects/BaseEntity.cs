@@ -2,6 +2,7 @@
 using System.Numerics;
 using System.Text;
 using Smurf.GlobalOffensive.Enums;
+using Smurf.GlobalOffensive.SDK;
 
 namespace Smurf.GlobalOffensive.Objects
 {

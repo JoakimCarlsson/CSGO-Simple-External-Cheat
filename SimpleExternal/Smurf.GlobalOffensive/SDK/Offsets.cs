@@ -1,4 +1,4 @@
-﻿namespace Smurf.GlobalOffensive
+﻿namespace Smurf.GlobalOffensive.SDK
 {
     internal static class Offsets
     {

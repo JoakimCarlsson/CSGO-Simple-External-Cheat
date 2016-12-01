@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Smurf.GlobalOffensive
+namespace Smurf.GlobalOffensive.SDK
 {
     /// <summary>
     ///     This class holds DllImports of various winapi-functions

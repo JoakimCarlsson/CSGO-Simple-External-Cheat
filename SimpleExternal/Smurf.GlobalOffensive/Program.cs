@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
+using Smurf.GlobalOffensive.SDK;
 
 namespace Smurf.GlobalOffensive
 {

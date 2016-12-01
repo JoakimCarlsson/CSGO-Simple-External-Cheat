@@ -88,26 +88,27 @@
     <Compile Include="Enums\SignonState.cs" />
     <Compile Include="Enums\PlayerTeam.cs" />
     <Compile Include="Feauters\AimAssist.cs" />
-    <Compile Include="GameClient.cs" />
-    <Compile Include="TraceRay.cs" />
+    <Compile Include="SDK\GameClient.cs" />
+    <Compile Include="SDK\NetVars.cs" />
+    <Compile Include="SDK\TraceRay.cs" />
     <Compile Include="Utils\KeyUtils.cs" />
     <Compile Include="Utils\MathUtils.cs" />
-    <Compile Include="MonotonicTimer.cs" />
-    <Compile Include="ObjectManager.cs" />
+    <Compile Include="SDK\MonotonicTimer.cs" />
+    <Compile Include="SDK\ObjectManager.cs" />
     <Compile Include="Objects\BaseEntity.cs" />
     <Compile Include="Objects\LocalPlayer.cs" />
     <Compile Include="Objects\NativeObject.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\Weapon.cs" />
-    <Compile Include="Offsets.cs" />
+    <Compile Include="SDK\Offsets.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
-    <Compile Include="Core.cs" />
+    <Compile Include="SDK\Settings.cs" />
+    <Compile Include="SDK\Core.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Feauters\AutoPistol.cs" />
     <Compile Include="Feauters\BunnyJump.cs" />
@@ -118,7 +119,7 @@
     <Compile Include="Feauters\SoundESP.cs" />
     <Compile Include="Feauters\TriggerBot.cs" />
     <Compile Include="Utils\MiscUtils.cs" />
-    <Compile Include="WinAPI.cs" />
+    <Compile Include="SDK\WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -2,7 +2,7 @@
 using Smurf.GlobalOffensive.Enums;
 using Smurf.GlobalOffensive.Objects;
 
-namespace Smurf.GlobalOffensive
+namespace Smurf.GlobalOffensive.SDK
 {
     /// <summary>
     ///     Manages the game client, and all stuff we require from it.

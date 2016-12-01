@@ -6,7 +6,7 @@ using Smurf.GlobalOffensive.Feauters;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.Utils;
 
-namespace Smurf.GlobalOffensive
+namespace Smurf.GlobalOffensive.SDK
 {
     public static class Core
     {

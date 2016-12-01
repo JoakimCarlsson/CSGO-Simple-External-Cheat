@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Smurf.GlobalOffensive.Enums;
 using Smurf.GlobalOffensive.Objects;
 
-namespace Smurf.GlobalOffensive
+namespace Smurf.GlobalOffensive.SDK
 {
     public class ObjectManager : NativeObject
     {
