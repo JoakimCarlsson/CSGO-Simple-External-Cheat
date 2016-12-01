@@ -88,6 +88,8 @@
     <Compile Include="Enums\SignonState.cs" />
     <Compile Include="Enums\PlayerTeam.cs" />
     <Compile Include="Feauters\AimAssist.cs" />
+    <Compile Include="Feauters\SkinChanger.cs" />
+    <Compile Include="SDK\Engine.cs" />
     <Compile Include="SDK\GameClient.cs" />
     <Compile Include="SDK\NetVars.cs" />
     <Compile Include="SDK\TraceRay.cs" />

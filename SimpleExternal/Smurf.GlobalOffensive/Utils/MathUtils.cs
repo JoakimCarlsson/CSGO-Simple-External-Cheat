@@ -28,7 +28,7 @@ namespace Smurf.GlobalOffensive.Utils
             smoothAngle = smoothAngle.ClampAngle();
 
             if (smoothAngle != Vector3.Zero)
-                Core.ControlRecoil.SetViewAngles(smoothAngle);
+                Engine.SetViewAngles(smoothAngle);
         }
 
         public static Vector3 ClampAngle(this Vector3 angles)
@@ -133,7 +133,7 @@ namespace Smurf.GlobalOffensive.Utils
 
         public static float Get3DDistance(Vector3 playerPosition, Vector3 enemyPosition)
         {
-            return (float) Math.Sqrt(Math.Pow(enemyPosition.X - playerPosition.X, 2f) + Math.Pow(enemyPosition.Y - playerPosition.Y, 2f) + Math.Pow(enemyPosition.Z - playerPosition.Z, 2f));
+            return (float)Math.Sqrt(Math.Pow(enemyPosition.X - playerPosition.X, 2f) + Math.Pow(enemyPosition.Y - playerPosition.Y, 2f) + Math.Pow(enemyPosition.Z - playerPosition.Z, 2f));
         }
 
         public static Vector3 CalcAngle(Vector3 playerPosition, Vector3 enemyPosition, Vector3 punchAngle, Vector3 viewOffset, float yawRecoilReductionFactor, float pitchRecoilReductionFactor)

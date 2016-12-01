@@ -36,6 +36,7 @@ namespace Smurf.GlobalOffensive
 
             while (true)
             {
+                Core.SkinChanger.Update(); //todo give this it's own thread?
                 Core.Objects.Update();
                 Core.TriggerBot.Update();
                 Core.SoundEsp.Update();

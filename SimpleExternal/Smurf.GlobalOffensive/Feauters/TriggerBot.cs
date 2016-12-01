@@ -102,21 +102,12 @@ namespace Smurf.GlobalOffensive.Feauters
 
                         _triggerLastShot = DateTime.Now.Ticks;
 
-                        ForceAttack(0, 12, 10);
+                        Engine.ForceAttack(0, 12, 10);
                     }
                 }
 
             }
 
-        }
-
-        public static void ForceAttack(int delay1, int delay2, int delay3)
-        {
-            Thread.Sleep(delay1);
-            Core.Memory.Write(Core.ClientBase + Offsets.Misc.ForceAttack, 5);
-            Thread.Sleep(delay2);
-            Core.Memory.Write(Core.ClientBase + Offsets.Misc.ForceAttack, 4);
-            Thread.Sleep(delay3);
         }
 
         public float GetNextEnemyToCrosshair(int bone, ref IntPtr pPointer)

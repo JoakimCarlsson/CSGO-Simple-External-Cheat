@@ -12,7 +12,6 @@ namespace Smurf.GlobalOffensive.Feauters
             if (!MiscUtils.ShouldUpdate())
                 return;
 
-
             ReadSettings();
 
             if (!_radar)

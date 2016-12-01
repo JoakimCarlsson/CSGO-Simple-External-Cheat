@@ -29,13 +29,11 @@ namespace Smurf.GlobalOffensive.Feauters
 
         #region Properties
 
-        private Vector3 ViewAngels { get; set; }
         private Vector3 LastPunch { get; set; }
 
         #endregion
 
         #region Methods
-
         public void Update()
         {
             if (!MiscUtils.ShouldUpdate())
@@ -71,15 +69,14 @@ namespace Smurf.GlobalOffensive.Feauters
             }
             else
             {
-                ViewAngels = Core.Memory.Read<Vector3>((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles));
-                _newViewAngels = ViewAngels;
+                _newViewAngels = Engine.GetViewAngles();
                 Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
                 if (punch.X != 0 || punch.Y != 0)
                 {
                     _newViewAngels.X -= punch.X * RandomYaw;
                     _newViewAngels.Y -= punch.Y * RandomPitch;
                     _newViewAngels = _newViewAngels.NormalizeAngle();
-                    SetViewAngles(_newViewAngels);
+                    Engine.SetViewAngles(_newViewAngels);
                 }
             }
 
@@ -112,13 +109,6 @@ namespace Smurf.GlobalOffensive.Feauters
             _minPitch = Core.Settings.GetFloat(Core.LocalPlayerWeapon.WeaponName, "Rcs Force Min Pitch");
             _rcsStart = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Rcs Start");
             _mouseMovement = Core.Settings.GetBool("Misc", "Mouse Movement");
-        }
-
-        public void SetViewAngles(Vector3 viewAngles)
-        {
-            viewAngles = viewAngles.ClampAngle();
-            viewAngles = viewAngles.NormalizeAngle();
-            Core.Memory.Write((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles), viewAngles);
         }
 
         #endregion

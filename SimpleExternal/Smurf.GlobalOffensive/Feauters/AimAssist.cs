@@ -28,16 +28,10 @@ namespace Smurf.GlobalOffensive.Feauters
 
         #endregion
 
-        #region Properties
-        private Vector3 ViewAngels { get; set; }
-        #endregion
-
         #region Methos
 
         public void Update()
         {
-            return;
-
             if (!MiscUtils.ShouldUpdate())
                 return;
 
@@ -50,8 +44,6 @@ namespace Smurf.GlobalOffensive.Feauters
 
             if (Core.KeyUtils.KeyIsDown(_aimKey))
             {
-                ViewAngels = Core.Memory.Read<Vector3>((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles));
-
                 if (_aimTarget == null)
                 {
                     _aimTarget = GetTarget();
@@ -105,27 +97,22 @@ namespace Smurf.GlobalOffensive.Feauters
                 float yScale = 5.7f;
                 float xScale = 1.5f;
 
-                Vector3 vecCurrentViewAngles = ViewAngels;
+                Vector3 vecCurrentViewAngles = Engine.GetViewAngles();
                 Vector3 vecViewAngleDelta = destination - vecCurrentViewAngles;
 
                 vecViewAngleDelta += new Vector3(vecViewAngleDelta.Y / yScale, vecViewAngleDelta.X / xScale, 0.0f);
                 vecViewAngleDelta /= _aimSpeed;
                 Vector3 vecViewAngles = vecCurrentViewAngles + vecViewAngleDelta;
 
-                SetViewAngles(vecViewAngles);
+                Engine.SetViewAngles(vecViewAngles);
             }
             else
             {
-                SetViewAngles(destination);
+                Engine.SetViewAngles(destination);
             }
         }
 
-        private void SetViewAngles(Vector3 viewAngles)
-        {
-            viewAngles = viewAngles.ClampAngle();
-            viewAngles = viewAngles.NormalizeAngle();
-            Core.Memory.Write((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles), viewAngles);
-        }
+
 
         private Player GetTarget()
         {
@@ -140,7 +127,7 @@ namespace Smurf.GlobalOffensive.Feauters
             foreach (Player player in tempTargets)
             {
                 Vector3 dst = AngleToTarget(player, _aimBone);
-                var fov = MathUtils.Fov(ViewAngels, dst, Vector3.Distance(Core.LocalPlayer.Position, player.Position) / 10);
+                var fov = MathUtils.Fov(Engine.GetViewAngles(), dst, Vector3.Distance(Core.LocalPlayer.Position, player.Position) / 10);
                 Console.WriteLine(fov);
                 if (fov <= _aimFov)
                 {
