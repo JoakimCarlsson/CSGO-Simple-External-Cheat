@@ -13,15 +13,15 @@ namespace Smurf.GlobalOffensive.Utils
         #endregion
 
         #region Methods
-        private static void SmoothAim(Vector3 _viewAngels, Vector3 dst, float smoothAmount)
+        private static void SmoothAim(Vector3 viewAngels, Vector3 dst, float smoothAmount)
         {
-            var smoothAngle = dst - _viewAngels;
+            var smoothAngle = dst - viewAngels;
 
             smoothAngle = smoothAngle.NormalizeAngle();
             smoothAngle = smoothAngle.ClampAngle();
 
             smoothAngle /= smoothAmount;
-            smoothAngle += _viewAngels;
+            smoothAngle += viewAngels;
 
             smoothAngle = smoothAngle.NormalizeAngle();
             smoothAngle = smoothAngle.ClampAngle();
@@ -129,26 +129,27 @@ namespace Smurf.GlobalOffensive.Utils
             }
             return angle;
         }
+
+        public static float Get3DDistance(Vector3 playerPosition, Vector3 enemyPosition)
+        {
+            return (float) Math.Sqrt(Math.Pow(enemyPosition.X - playerPosition.X, 2f) + Math.Pow(enemyPosition.Y - playerPosition.Y, 2f) + Math.Pow(enemyPosition.Z - playerPosition.Z, 2f));
+        }
+
+        public static Vector3 CalcAngle(Vector3 playerPosition, Vector3 enemyPosition, Vector3 punchAngle, Vector3 viewOffset, float yawRecoilReductionFactor, float pitchRecoilReductionFactor)
+        {
+            Vector3 aimAngle = new Vector3(0, 0, 0);
+            Vector3 delta = new Vector3(playerPosition.X - enemyPosition.X, playerPosition.Y - enemyPosition.Y, (playerPosition.Z + viewOffset.Z) - enemyPosition.Z);
+            float hyp = (float)Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y);
+
+            aimAngle.X = (float)Math.Atan(delta.Z / hyp) * 57.29578f - punchAngle.X * yawRecoilReductionFactor;
+            aimAngle.Y = (float)Math.Atan(delta.Y / delta.X) * 57.29578f - punchAngle.Y * pitchRecoilReductionFactor;
+            aimAngle.Z = 0;
+
+            if (delta.X >= 0.0)
+                aimAngle.Y += 180f;
+            return ClampAngle(aimAngle);
+        }
+
         #endregion
-
-        public static float Get3dDistance(Vector3 PlayerPosition, Vector3 EnemyPosition)
-        {
-            return (float) Math.Sqrt(Math.Pow(EnemyPosition.X - PlayerPosition.X, 2f) + Math.Pow(EnemyPosition.Y - PlayerPosition.Y, 2f) + Math.Pow(EnemyPosition.Z - PlayerPosition.Z, 2f));
-        }
-
-        public static Vector3 CalcAngle(Vector3 PlayerPosition, Vector3 EnemyPosition, Vector3 PunchAngle, Vector3 ViewOffset, float YawRecoilReductionFactor, float PitchRecoilReductionFactor)
-        {
-            Vector3 AimAngle = new Vector3(0, 0, 0);
-            Vector3 Delta = new Vector3(PlayerPosition.X - EnemyPosition.X, PlayerPosition.Y - EnemyPosition.Y, (PlayerPosition.Z + ViewOffset.Z) - EnemyPosition.Z);
-            float Hyp = (float)Math.Sqrt(Delta.X * Delta.X + Delta.Y * Delta.Y);
-
-            AimAngle.X = (float)Math.Atan(Delta.Z / Hyp) * 57.29578f - PunchAngle.X * YawRecoilReductionFactor;
-            AimAngle.Y = (float)Math.Atan(Delta.Y / Delta.X) * 57.29578f - PunchAngle.Y * PitchRecoilReductionFactor;
-            AimAngle.Z = 0;
-
-            if (Delta.X >= 0.0)
-                AimAngle.Y += 180f;
-            return ClampAngle(AimAngle);
-        }
     }
 }

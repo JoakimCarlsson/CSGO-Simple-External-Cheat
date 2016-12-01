@@ -40,7 +40,7 @@ namespace Smurf.GlobalOffensive
                 Core.SoundEsp.Update();
                 Core.Radar.Update();
                 Core.Glow.Update();
-                //Core.AimAssist.Update();
+                Core.AimAssist.Update();
                 Thread.Sleep(1);
             }
         }
@@ -94,8 +94,8 @@ namespace Smurf.GlobalOffensive
                     Console.WriteLine($"Zoom Level: \t{myWeapon.ZoomLevel}");
                     Console.WriteLine($"Recoil Control Yaw: \t{Core.ControlRecoil.RandomYaw}");
                     Console.WriteLine($"Recoil Control Pitch: \t{Core.ControlRecoil.RandomPitch}");
-                    Console.WriteLine($"Trigger Delay First: \t{Core.TriggerBot._triggerDelayFirstRandomize}");
-                    Console.WriteLine($"Trigger Delay Shots1: \t{Core.TriggerBot._triggerDelayShotsRandomize}");
+                    Console.WriteLine($"Trigger Delay First: \t{Core.TriggerBot.TriggerDelayFirstRandomize}");
+                    Console.WriteLine($"Trigger Delay Shots1: \t{Core.TriggerBot.TriggerDelayShotsRandomize}");
                 }
 
                 Thread.Sleep(500);

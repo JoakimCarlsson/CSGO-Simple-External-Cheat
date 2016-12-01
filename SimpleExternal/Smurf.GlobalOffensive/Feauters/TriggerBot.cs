@@ -24,8 +24,8 @@ namespace Smurf.GlobalOffensive.Feauters
         private bool _inCrossTrigger;
         private bool _boneTrigger;
         private bool _hitboxTrigger;
-        public int _triggerDelayFirstRandomize;
-        public int _triggerDelayShotsRandomize;
+        public int TriggerDelayFirstRandomize;
+        public int TriggerDelayShotsRandomize;
         private int _triggerDelayFirstShotMax;
         private int _triggerDelayFirstShotMin;
         private int _triggerDelayShotsMax;
@@ -33,7 +33,7 @@ namespace Smurf.GlobalOffensive.Feauters
         public Vector3 ViewAngles;
         private WinAPI.VirtualKeyShort _triggerKey;
         private IEnumerable<Player> _validTargets;
-        private bool randomized;
+        private bool _randomized;
 
         #endregion
 
@@ -82,21 +82,25 @@ namespace Smurf.GlobalOffensive.Feauters
             {
                 if (target.Health > 0 & !target.IsDormant)
                 {
-                    Vector3 bBone = target.GetBonePos(target, 8) + new Vector3(0, 0, 3);
-                    Vector3 BottomHitboxHead = new Vector3(bBone.X - 2.54f, bBone.Y - 4.145f, bBone.Z - 7f);
-                    Vector3 TopHitboxHead = new Vector3(bBone.X + 2.54f, bBone.Y + 4.145f, bBone.Z + 3f);
+                    Vector3 bBone = target.GetBonePos(target, 6) + new Vector3(0, 0, 3);
+                    Vector3 bottomHitboxHead = new Vector3(bBone.X - 2.54f, bBone.Y - 4.145f, bBone.Z - 7f);
+                    Vector3 topHitboxHead = new Vector3(bBone.X + 2.54f, bBone.Y + 4.145f, bBone.Z + 3f);
 
-
-                    Vector3 hBone = target.GetBonePos(target, 8);
-                    Vector3 BottomHitboxBody = new Vector3(hBone.X - 7f, hBone.Y - 5.5f, hBone.Z - 25f);
-                    Vector3 TopHitboxBody = new Vector3(hBone.X + 7f, hBone.Y + 5.5f, hBone.Z + 15f);
+                    Vector3 hBone = target.GetBonePos(target, 3);
+                    Vector3 bottomHitboxBody = new Vector3(hBone.X - 7f, hBone.Y - 5.5f, hBone.Z - 25f);
+                    Vector3 topHitboxBody = new Vector3(hBone.X + 7f, hBone.Y + 5.5f, hBone.Z + 15f);
 
                     Vector3 viewDirection = TraceRay.AngleToDirection(ViewAngles);
                     TraceRay viewRay = new TraceRay(Core.LocalPlayer.Position + Core.LocalPlayer.VecView, viewDirection);
                     float distance = 0;
 
-                    if (viewRay.Trace(BottomHitboxHead, TopHitboxHead, ref distance) | viewRay.Trace(BottomHitboxBody, TopHitboxBody, ref distance))
+                    if (viewRay.Trace(bottomHitboxHead, topHitboxHead, ref distance) | viewRay.Trace(bottomHitboxBody, topHitboxBody, ref distance))
                     {
+                        if (!CheckDelay())
+                            return;
+
+                        _triggerLastShot = DateTime.Now.Ticks;
+
                         ForceAttack(0, 12, 10);
                     }
                 }
@@ -114,53 +118,53 @@ namespace Smurf.GlobalOffensive.Feauters
             Thread.Sleep(delay3);
         }
 
-        public float GetNextEnemyToCrosshair(int Bone, ref IntPtr pPointer)
+        public float GetNextEnemyToCrosshair(int bone, ref IntPtr pPointer)
         {
-            float Fov = 0;
+            float fov = 0;
             Vector3 pAngles = ViewAngles;
 
-            int[] PlayerArray = new int[33];
-            float[] AngleArray = new float[33];
+            int[] playerArray = new int[33];
+            float[] angleArray = new float[33];
 
 
             for (int i = 1; i <= 32; i++)
             {
                 Player player = new Player(Core.Objects.GetEntityPtr(i));
 
-                Vector3 pAngle = player.GetBonePos(player, Bone);
+                Vector3 pAngle = player.GetBonePos(player, bone);
                 pAngle = MathUtils.CalcAngle(Core.LocalPlayer.Position, pAngle, Core.LocalPlayer.VecPunch, Core.LocalPlayer.VecView, 2, 2);
                 pAngle = MathUtils.ClampAngle(pAngle);
-                float iDiff = MathUtils.Get3dDistance(pAngle, pAngles);
+                float iDiff = MathUtils.Get3DDistance(pAngle, pAngles);
 
-                PlayerArray[i] = (int)player.BaseAddress;
-                AngleArray[i] = iDiff;
+                playerArray[i] = (int)player.BaseAddress;
+                angleArray[i] = iDiff;
             }
 
-            int ClosestPlayer = 0;
-            float ClosestAngle = 360;
+            int closestPlayer = 0;
+            float closestAngle = 360;
 
             for (int i = 1; i <= 32; i++)
             {
-                Player player = new Player((IntPtr)PlayerArray[i]);
-                float angle = AngleArray[i];
+                Player player = new Player((IntPtr)playerArray[i]);
+                float angle = angleArray[i];
 
-                int CurPlayerTeam = (int)player.Team;
-                bool Dormant = player.IsDormant;
-                int Health = player.Health;
+                int curPlayerTeam = (int)player.Team;
+                bool dormant = player.IsDormant;
+                int health = player.Health;
 
                 Vector3 pOriginVec = player.Position;
                 pOriginVec.Z += 64;
 
-                if (CurPlayerTeam != (int)Core.LocalPlayer.Team & (!Dormant) & Health > 0 & angle < ClosestAngle)
+                if (curPlayerTeam != (int)Core.LocalPlayer.Team & (!dormant) & health > 0 & angle < closestAngle)
                 {
-                    ClosestPlayer = (int)player.BaseAddress;
-                    ClosestAngle = angle;
-                    Fov = angle;
+                    closestPlayer = (int)player.BaseAddress;
+                    closestAngle = angle;
+                    fov = angle;
 
                 }
             }
-            pPointer = (IntPtr)ClosestPlayer;
-            return Fov;
+            pPointer = (IntPtr)closestPlayer;
+            return fov;
         }
 
         private void InCrossTriggerBot()
@@ -225,9 +229,9 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private bool CheckDelay()
         {
-            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _triggerDelayFirstRandomize))
+            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= TriggerDelayFirstRandomize))
                 return false;
-            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _triggerDelayShotsRandomize))
+            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= TriggerDelayShotsRandomize))
                 return false;
 
             return true;
@@ -246,8 +250,8 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void RandomizeDelay()
         {
-            _triggerDelayFirstRandomize = new Random().Next(_triggerDelayFirstShotMin, _triggerDelayFirstShotMax) + 1;
-            _triggerDelayShotsRandomize = new Random().Next(_triggerDelayShotsMin, _triggerDelayShotsMax) + 1;
+            TriggerDelayFirstRandomize = new Random().Next(_triggerDelayFirstShotMin, _triggerDelayFirstShotMax) + 1;
+            TriggerDelayShotsRandomize = new Random().Next(_triggerDelayShotsMin, _triggerDelayShotsMax) + 1;
         }
 
         private void ReadSettings()
