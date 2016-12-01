@@ -17,6 +17,8 @@ namespace Smurf.GlobalOffensive.Feauters
             if (!_noFlashActive)
                 return;
 
+
+
             if (Core.LocalPlayer.FlashMaxAlpha > 1)
                 Core.Memory.Write(Core.LocalPlayer.BaseAddress + Offsets.Player.FlashMaxAlpha, 0);
         }

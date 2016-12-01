@@ -18,7 +18,9 @@ namespace Smurf.GlobalOffensive.SDK
             public static int FallbackSeed = 0x3174;
             public static int FallbackWear = 0x3178;
             public static int AccountId = 0x2FA8;
-            public static int MyWeapons = 0x2DE8; 
+            public static int MyWeapons = 0x2DE8;
+            public static int ItemDefinitionIndex = 0x2F88;
+            public static int FallbackStatTrak = 0x317C;
         }
     }
 }

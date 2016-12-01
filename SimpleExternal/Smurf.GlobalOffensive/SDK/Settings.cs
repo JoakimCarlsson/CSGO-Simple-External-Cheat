@@ -110,6 +110,12 @@ namespace Smurf.GlobalOffensive.SDK
             builder.AppendLine("Sound Interval = 1000");
             builder.AppendLine("Sound Volume = 100").AppendLine();
 
+            //Skin Changer
+            builder.AppendLine("[Skin Changer]");
+            builder.AppendLine("Skin Changer = True");
+            builder.AppendLine("Knife Changer = False");
+            builder.AppendLine("Force Update Key = 0x24");
+
             //Misc
             builder.AppendLine("[Misc]");
             builder.AppendLine("Mouse Movement = True");

@@ -11,6 +11,7 @@ namespace Smurf.GlobalOffensive.Objects
 
         public int Clip1 => ReadField<int>(Offsets.Weapon.Clip1);
         public int ZoomLevel => ReadField<int>(Offsets.Weapon.ZoomLevel);
+        public int ItemDefinitionIndex => ReadField<int>(NetVars.Misc.ItemDefinitionIndex);
         public string WeaponName => FormateWeaponName(GetClassName());
         public string WeaponGroup => GetGroup();
 
@@ -37,6 +38,11 @@ namespace Smurf.GlobalOffensive.Objects
                 formatedWeaponName = formatedWeaponName.Replace("Weapon", "");
 
             return formatedWeaponName;
+        }
+
+        public int GetOwnerXuidLow()
+        {
+            return Core.Memory.Read<int>(BaseAddress + NetVars.Misc.OriginalOwnerXuidLow);
         }
     }
 }

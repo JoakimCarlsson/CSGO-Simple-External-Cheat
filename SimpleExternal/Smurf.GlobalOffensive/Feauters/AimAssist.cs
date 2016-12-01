@@ -62,15 +62,22 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void ReadSettings()
         {
-            _aimAssistEnabled = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Aim Enabled");
-            _aimKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Core.Settings.GetString(Core.LocalPlayerWeapon.WeaponName, "Aim Key"), 16);
-            _aimFov = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Aim Fov");
-            _aimHumanized = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Aim Humanized");
-            _aimSpotted = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Aim Spotted");
-            _aimEnemies = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Aim Enemies");
-            _aimAllies = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Aim Allies");
-            _aimSpeed = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Aim Speed");
-            _aimBone = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Aim Bone");
+            try
+            {
+                _aimAssistEnabled = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Aim Enabled");
+                _aimKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Core.Settings.GetString(Core.LocalPlayerWeapon.WeaponName, "Aim Key"), 16);
+                _aimFov = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Aim Fov");
+                _aimHumanized = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Aim Humanized");
+                _aimSpotted = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Aim Spotted");
+                _aimEnemies = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Aim Enemies");
+                _aimAllies = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Aim Allies");
+                _aimSpeed = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Aim Speed");
+                _aimBone = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Aim Bone");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         private void GetPlayers()

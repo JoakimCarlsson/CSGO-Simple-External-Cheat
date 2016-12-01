@@ -20,6 +20,7 @@ namespace Smurf.GlobalOffensive
             Thread thread5 = new Thread(UpdateKeyUtils);
             Thread thread6 = new Thread(UpdateAutoPistol);
             Thread thread7 = new Thread(UpdateAimAssist);
+            Thread thread8 = new Thread(UpdateSkinChanger);
 
             Console.ForegroundColor = ConsoleColor.White;
 
@@ -32,17 +33,25 @@ namespace Smurf.GlobalOffensive
             Process[] process = Process.GetProcessesByName("csgo");
             Core.Attach(process[0]);
 
-            StartThreads(thread1, thread2, thread3, thread4, thread5, thread6, thread7);
+            StartThreads(thread1, thread2, thread3, thread4, thread5, thread6, thread7, thread8);
 
             while (true)
             {
-                Core.SkinChanger.Update(); //todo give this it's own thread?
                 Core.Objects.Update();
                 Core.TriggerBot.Update();
                 Core.SoundEsp.Update();
                 Core.Radar.Update();
                 Core.Glow.Update();
                 Core.AimAssist.Update();
+                Thread.Sleep(1);
+            }
+        }
+
+        private static void UpdateSkinChanger()
+        {
+            while (true)
+            {
+                Core.SkinChanger.Update();
                 Thread.Sleep(1);
             }
         }
@@ -89,6 +98,7 @@ namespace Smurf.GlobalOffensive
                     Console.WriteLine($"VecPunch: \t{me.VecPunch}");
                     Console.WriteLine($"Immune: \t{me.GunGameImmune}");
                     Console.WriteLine($"Active Weapon: \t{myWeapon.WeaponName}");
+                    Console.WriteLine($"Active Weapon ID: \t{myWeapon.ItemDefinitionIndex}");
                     Console.WriteLine($"Clip1: \t\t{myWeapon.Clip1}");
                     Console.WriteLine($"Flags: \t\t{me.Flags}");
                     Console.WriteLine($"Flash: \t\t{me.FlashMaxAlpha}");

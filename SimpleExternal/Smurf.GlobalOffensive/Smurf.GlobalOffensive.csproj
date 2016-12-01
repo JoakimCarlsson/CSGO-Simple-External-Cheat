@@ -85,8 +85,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\ClassIds.cs" />
+    <Compile Include="Enums\ItemDefinitionIndex.cs" />
     <Compile Include="Enums\SignonState.cs" />
     <Compile Include="Enums\PlayerTeam.cs" />
+    <Compile Include="Enums\WeaponSkin.cs" />
     <Compile Include="Feauters\AimAssist.cs" />
     <Compile Include="Feauters\SkinChanger.cs" />
     <Compile Include="SDK\Engine.cs" />
