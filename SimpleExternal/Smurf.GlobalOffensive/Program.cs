@@ -102,7 +102,7 @@ namespace Smurf.GlobalOffensive
                     Console.WriteLine($"Clip1: \t\t{myWeapon.Clip1}");
                     Console.WriteLine($"Flags: \t\t{me.Flags}");
                     Console.WriteLine($"Flash: \t\t{me.FlashMaxAlpha}");
-                    Console.WriteLine($"Weapon Group: \t{myWeapon.WeaponGroup}");
+                    Console.WriteLine($"Weapon Group: \t{myWeapon.WeaponType}");
                     Console.WriteLine($"Zoom Level: \t{myWeapon.ZoomLevel}");
                     Console.WriteLine($"Recoil Control Yaw: \t{Core.ControlRecoil.RandomYaw}");
                     Console.WriteLine($"Recoil Control Pitch: \t{Core.ControlRecoil.RandomPitch}");

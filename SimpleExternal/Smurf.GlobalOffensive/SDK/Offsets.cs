@@ -40,7 +40,7 @@
         {
             public static int LifeState = 0x25B;
             public static int Flags = 0x100;
-            public static int ActiveWeapon = 0x00002EE8; // m_hActiveWeapon
+            public static int ActiveWeapon = 0x00002EE8;
             public static int VecVelocity = 0x110;
             public static int GunGameImmune = 0x000038B0;
             public static int FlashMaxAlpha = 0x0000A304;

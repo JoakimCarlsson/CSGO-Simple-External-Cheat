@@ -8,7 +8,6 @@ namespace Smurf.GlobalOffensive.Utils
     {
         public static bool ShouldUpdate(bool checkKnife = true, bool checkGrenades = true, bool checkMisc = true)
         {
-            //What we do here is if we are not inside the csgo window it will not update.
             //if (WindowTitle != Smurf.GameTitle)
             //    return false;
 
@@ -22,23 +21,15 @@ namespace Smurf.GlobalOffensive.Utils
                 return false;
 
             if (checkMisc)
-                if (Core.LocalPlayerWeapon.ClassName == "none" ||
-                    Core.LocalPlayerWeapon.ClassName == "BaseEntity" ||
-                    Core.LocalPlayerWeapon.ClassName == "CC4" ||
-                    Core.LocalPlayerWeapon.ClassName == "CBreakableProp")
+                if (Core.LocalPlayerWeapon.WeaponType == WeaponType.Unkown)
                     return false;
 
             if (checkGrenades)
-                if (Core.LocalPlayerWeapon.ClassName == "CDecoyGrenade" ||
-                    Core.LocalPlayerWeapon.ClassName == "CHEGrenade" ||
-                    Core.LocalPlayerWeapon.ClassName == "CFlashbang" ||
-                    Core.LocalPlayerWeapon.ClassName == "CMolotovGrenade" ||
-                    Core.LocalPlayerWeapon.ClassName == "CIncendiaryGrenade" ||
-                    Core.LocalPlayerWeapon.ClassName == "CSmokeGrenade")
+                if (Core.LocalPlayerWeapon.WeaponType == WeaponType.Grenade)
                     return false;
 
             if (checkKnife)
-                if (Core.LocalPlayerWeapon.ClassName == "CKnife")
+                if (Core.LocalPlayerWeapon.WeaponType == WeaponType.Knife)
                     return false;
 
             return true;

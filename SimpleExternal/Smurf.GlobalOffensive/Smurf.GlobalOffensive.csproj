@@ -89,6 +89,7 @@
     <Compile Include="Enums\SignonState.cs" />
     <Compile Include="Enums\PlayerTeam.cs" />
     <Compile Include="Enums\WeaponSkin.cs" />
+    <Compile Include="Enums\WeaponType.cs" />
     <Compile Include="Feauters\AimAssist.cs" />
     <Compile Include="Feauters\SkinChanger.cs" />
     <Compile Include="SDK\Engine.cs" />

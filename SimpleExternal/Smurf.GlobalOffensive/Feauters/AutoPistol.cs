@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading;
+using Smurf.GlobalOffensive.Enums;
 using Smurf.GlobalOffensive.SDK;
 using Smurf.GlobalOffensive.Utils;
 
@@ -16,7 +16,8 @@ namespace Smurf.GlobalOffensive.Feauters
         {
             if (!MiscUtils.ShouldUpdate())
                 return;
-            if (Core.LocalPlayerWeapon.WeaponGroup != "Pistol")
+
+            if (Core.LocalPlayerWeapon.WeaponType != WeaponType.Pistol)
                 return;
 
             ReadSettigns();

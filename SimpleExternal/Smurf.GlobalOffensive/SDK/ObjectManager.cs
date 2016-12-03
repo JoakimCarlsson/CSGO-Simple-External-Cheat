@@ -21,11 +21,9 @@ namespace Smurf.GlobalOffensive.SDK
         public IReadOnlyList<Player> Players => _players;
         internal LocalPlayer LocalPlayer { get; private set; }
         internal Weapon LocalPlayerWeapon { get; private set; }
-        public string WindowTitle { get; set; }
 
         public void Update()
         {
-            WindowTitle = Utils.MiscUtils.GetActiveWindowTitle();
             if (!IsValid)
                 throw new InvalidOperationException(
                     "Can not update the ObjectManager when it's not properly initialized! Are you sure BaseAddress is valid?");
@@ -48,7 +46,7 @@ namespace Smurf.GlobalOffensive.SDK
             LocalPlayer = new LocalPlayer(localPlayerPtr);
             LocalPlayerWeapon = LocalPlayer.GetCurrentWeapon(localPlayerPtr);
 
-            var capacity = Core.Memory.Read<int>(Core.ClientBase + Offsets.Misc.EntityList + 0x4);
+            //int capacity = Core.Memory.Read<int>(Core.ClientBase + Offsets.Misc.EntityList + 0x4);
             for (var i = 0; i < 64; i++) //All we really care about are the players, and they should be in the first 64 entries.
             {
                 var entity = new BaseEntity(GetEntityPtr(i));

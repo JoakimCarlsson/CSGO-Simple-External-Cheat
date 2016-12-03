@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Smurf.GlobalOffensive.Enums;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.SDK;

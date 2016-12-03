@@ -48,20 +48,20 @@ namespace Smurf.GlobalOffensive.Utils
             angles.Z = 0;
             return angles;
         }
-        public static float Fov(Vector3 viewAngle, Vector3 dst, float distance)
+        public static float Fov(Vector3 viewAngle, Vector3 destination, float distance)
         {
-            float pitch = (float)(Math.Sin(DegreesToRadians(viewAngle.X - dst.X)) * distance);
-            float yaw = (float)(Math.Sin(DegreesToRadians(viewAngle.Y - dst.Y)) * distance);
+            float pitch = (float)(Math.Sin(DegreesToRadians(viewAngle.X - destination.X)) * distance);
+            float yaw = (float)(Math.Sin(DegreesToRadians(viewAngle.Y - destination.Y)) * distance);
 
             return (float)Math.Sqrt(Math.Pow(pitch, 2) + Math.Pow(yaw, 2));
         }
-        public static float Fov(Vector3 viewangel, Vector3 dst)
+        public static float Fov(Vector3 viewAngle, Vector3 destination)
         {
-            return (float)Math.Sqrt(Math.Pow(dst.X - viewangel.X, 2) + Math.Pow(dst.Y - viewangel.Y, 2));
+            return (float)Math.Sqrt(Math.Pow(destination.X - viewAngle.X, 2) + Math.Pow(destination.Y - viewAngle.Y, 2));
         }
-        public static Vector3 SmoothAngle(this Vector3 src, Vector3 dest, float smoothAmount)
+        public static Vector3 SmoothAngle(this Vector3 src, Vector3 destination, float smoothAmount)
         {
-            return src + (dest - src) * smoothAmount;
+            return src + (destination - src) * smoothAmount;
         }
         public static float RadiansToDegrees(float rad)
         {
