@@ -157,6 +157,5 @@ namespace Smurf.GlobalOffensive
             }
         }
         #endregion
-
     }
 }

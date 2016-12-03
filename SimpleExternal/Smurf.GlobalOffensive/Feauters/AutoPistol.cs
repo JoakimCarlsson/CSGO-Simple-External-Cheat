@@ -24,7 +24,6 @@ namespace Smurf.GlobalOffensive.Feauters
             if (!_autoPistol)
                 return;
 
-            //TODO Fix so we only shoot if we are active in the csgo window.
             if (Core.KeyUtils.KeyIsDown(_autoPistolKey))
             {
                 if (!(new TimeSpan(DateTime.Now.Ticks - _lastShot).TotalMilliseconds >= _delay))
@@ -32,7 +31,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
                 _lastShot = DateTime.Now.Ticks;
 
-                Shoot();
+                Engine.ForceAttack(0, 12, 10);
             }
         }
 
@@ -46,19 +45,11 @@ namespace Smurf.GlobalOffensive.Feauters
             }
             catch (Exception e)
             {
-#if DEBUG
-Console.WriteLine(e.Message);
-#endif
+                #if DEBUG
+                Console.WriteLine(e.Message);
+                #endif
 
             }
-        }
-
-        public void Shoot()
-        {
-            Thread.Sleep(8);
-            WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTDOWN, 0, 0, 0, 0);
-            Thread.Sleep(8);
-            WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTUP, 0, 0, 0, 0);
         }
     }
 }

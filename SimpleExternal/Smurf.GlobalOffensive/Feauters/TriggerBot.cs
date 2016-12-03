@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Threading;
 using Smurf.GlobalOffensive.Objects;
 using Smurf.GlobalOffensive.SDK;
 using Smurf.GlobalOffensive.Utils;
@@ -34,7 +33,6 @@ namespace Smurf.GlobalOffensive.Feauters
         public Vector3 ViewAngles;
         private WinAPI.VirtualKeyShort _triggerKey;
         private IEnumerable<Player> _validTargets;
-        private bool _randomized;
 
         #endregion
 
@@ -125,7 +123,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
                 Vector3 pAngle = player.GetBonePos(player, bone);
                 pAngle = MathUtils.CalcAngle(Core.LocalPlayer.Position, pAngle, Core.LocalPlayer.VecPunch, Core.LocalPlayer.VecView, 2, 2);
-                pAngle = MathUtils.ClampAngle(pAngle);
+                pAngle = pAngle.ClampAngle();
                 float iDiff = MathUtils.Get3DDistance(pAngle, pAngles);
 
                 playerArray[i] = (int)player.BaseAddress;
@@ -147,13 +145,12 @@ namespace Smurf.GlobalOffensive.Feauters
                 Vector3 pOriginVec = player.Position;
                 pOriginVec.Z += 64;
 
-                if (curPlayerTeam != (int)Core.LocalPlayer.Team & (!dormant) & health > 0 & angle < closestAngle)
-                {
-                    closestPlayer = (int)player.BaseAddress;
-                    closestAngle = angle;
-                    fov = angle;
+                if (!(curPlayerTeam != (int) Core.LocalPlayer.Team & (!dormant) & health > 0 & angle < closestAngle))
+                    continue;
 
-                }
+                closestPlayer = (int)player.BaseAddress;
+                closestAngle = angle;
+                fov = angle;
             }
             pPointer = (IntPtr)closestPlayer;
             return fov;
@@ -180,7 +177,7 @@ namespace Smurf.GlobalOffensive.Feauters
                         if (target.GunGameImmune)
                             return;
 
-                    Shoot();
+                    Engine.ForceAttack(0, 12, 10);
                 }
             }
         }
@@ -198,22 +195,23 @@ namespace Smurf.GlobalOffensive.Feauters
                     Vector3 dst = myView.CalcAngle(aimView);
                     dst = dst.NormalizeAngle();
                     var fov = MathUtils.Fov(ViewAngles, dst, Vector3.Distance(Core.LocalPlayer.Position, validTarget.Position));
-                    if (fov <= 5)
+
+                    if (!(fov <= 5))
+                        continue;
+
+                    if (!AimOntarget)
                     {
-                        if (!AimOntarget)
-                        {
-                            AimOntarget = true;
-                            _triggerLastTarget = DateTime.Now.Ticks;
-                        }
-                        else
-                        {
-                            if (!CheckDelay())
-                                return;
+                        AimOntarget = true;
+                        _triggerLastTarget = DateTime.Now.Ticks;
+                    }
+                    else
+                    {
+                        if (!CheckDelay())
+                            return;
 
-                            _triggerLastShot = DateTime.Now.Ticks;
+                        _triggerLastShot = DateTime.Now.Ticks;
 
-                            Shoot();
-                        }
+                        Engine.ForceAttack(0, 12, 10);
                     }
                 }
             }
@@ -271,13 +269,6 @@ namespace Smurf.GlobalOffensive.Feauters
                 Console.WriteLine(e.Message);
 #endif
             }
-        }
-
-        private void Shoot()
-        {
-            WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTDOWN, 0, 0, 0, 0);
-            Thread.Sleep(10);
-            WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTUP, 0, 0, 0, 0);
         }
         #endregion
     }

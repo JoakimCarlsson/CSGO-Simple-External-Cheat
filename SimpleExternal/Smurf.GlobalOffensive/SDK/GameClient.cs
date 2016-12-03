@@ -15,8 +15,7 @@ namespace Smurf.GlobalOffensive.SDK
         /// <param name="baseAddress">The base address.</param>
         public GameClient(IntPtr baseAddress) : base(baseAddress)
         {
-            Console.WriteLine
-                ("GameClient initialized.");
+            Console.WriteLine("GameClient initialized.");
         }
 
         /// <summary>

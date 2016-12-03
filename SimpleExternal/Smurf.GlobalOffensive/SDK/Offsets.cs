@@ -48,7 +48,7 @@
 
         public static class LocalPlayer
         {
-            public static int CrosshairId = 0x0000AA60;
+            public static int CrosshairId = 0xAA70;
             public static int VecViewOffset = 0x104;
             public static int VecPunch = 0x0000301C;
             public static int ShotsFired = 0x0000A2C0;

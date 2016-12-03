@@ -3,9 +3,6 @@ using Smurf.GlobalOffensive.SDK;
 
 namespace Smurf.GlobalOffensive.Objects
 {
-    /// <summary>
-    ///     A native object in the game, one whose resources we do not directly own, but do manipulate.
-    /// </summary>
     public abstract class NativeObject : IEquatable<NativeObject>
     {
         /// <summary>
@@ -20,7 +17,7 @@ namespace Smurf.GlobalOffensive.Objects
         /// <summary>
         ///     Gets the base address of this object in the remote process.
         /// </summary>
-        public IntPtr BaseAddress { get; set; }
+        public IntPtr BaseAddress { get; }
 
         /// <summary>
         ///     Gets a value indicating whether this instance is valid.

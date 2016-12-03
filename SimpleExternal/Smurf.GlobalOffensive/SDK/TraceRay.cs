@@ -5,26 +5,31 @@ namespace Smurf.GlobalOffensive.SDK
 {
     class TraceRay
     {
-        //http://www.unknowncheats.me/forum/counterstrike-global-offensive/136361-external-ray-tracing-ray-aabb.html
-        Vector3 _origin;
-        Vector3 _direction;
+        #region Fields
 
-        Vector3 _directionInverse;
-        public void Ray(Vector3 _origin, Vector3 _direction)
+        private Vector3 _origin;
+        private Vector3 _direction;
+        private Vector3 _directionInverse;
+
+        #endregion
+
+        #region Methods
+
+        public void Ray(Vector3 origin, Vector3 direction)
         {
-            this._origin = _origin;
-            this._direction = _direction;
+            _origin = origin;
+            _direction = direction;
 
-            _directionInverse.X = 1f / this._direction.X;
-            _directionInverse.Y = 1f / this._direction.Y;
-            _directionInverse.Z = 1f / this._direction.Z;
+            _directionInverse.X = 1f / _direction.X;
+            _directionInverse.Y = 1f / _direction.Y;
+            _directionInverse.Z = 1f / _direction.Z;
         }
 
-        public TraceRay(Vector3 _origin, Vector3 _direction)
+        public TraceRay(Vector3 origin, Vector3 direction)
         {
-            this._origin = _origin;
-            this._direction = _direction;
-            _directionInverse = new Vector3(1f / this._direction.X, 1f / this._direction.Y, 1f / this._direction.Z);
+            _origin = origin;
+            _direction = direction;
+            _directionInverse = new Vector3(1f / _direction.X, 1f / _direction.Y, 1f / _direction.Z);
         }
 
         public static Vector3 AngleToDirection(Vector3 angle)
@@ -55,9 +60,6 @@ namespace Smurf.GlobalOffensive.SDK
             if ((_direction.Y == 0f & (_origin.Y < Math.Min(leftbottom.Y, righttop.Y) | _origin.Y > Math.Max(leftbottom.Y, righttop.Y))))
                 return false;
 
-            //if (direction.Z == 0f & (origin.Z < Math.Min(leftbottom.Z, righttop.Z | origin.Z > Math.Max(leftbottom.Z, righttop.Z))))
-            //    return false;
-
             if (_direction.Z == 0f & (_origin.Z < Math.Min(leftbottom.Z, righttop.Z) | _origin.Z > Math.Max(leftbottom.Z, righttop.Z)))
                 return false;
 
@@ -86,5 +88,7 @@ namespace Smurf.GlobalOffensive.SDK
             distance = tmin;
             return true;
         }
+
+        #endregion
     }
 }

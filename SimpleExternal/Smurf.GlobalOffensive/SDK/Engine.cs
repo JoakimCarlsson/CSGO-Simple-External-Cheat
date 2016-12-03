@@ -5,7 +5,7 @@ using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.SDK
 {
-    static class Engine
+    internal static class Engine
     {
         #region Methods
 
@@ -36,6 +36,5 @@ namespace Smurf.GlobalOffensive.SDK
         }
 
         #endregion
-
     }
 }

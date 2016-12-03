@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Numerics;
 using Smurf.GlobalOffensive.SDK;
-using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Objects
 {
-    /// <summary>
-    ///     Represents the local player - i.e. the guy who's eyes we're borrowing.
-    /// </summary>
     public class LocalPlayer : Player
     {
         /// <summary>
@@ -40,16 +36,9 @@ namespace Smurf.GlobalOffensive.Objects
         {
             get
             {
-                // Store this in a local variable - the crosshair ID will get updated *very* frequently, 
-                // to the point where we can't be sure that by the time we make a call to FirstOrDefault, it'll
-                // still be "valid" according to the check before it. (Value can change on a per-frame basis)
-                // This way, at least we'll be sure that for the execution of this function, we maintain the same value.
                 var id = CrosshairId;
 
-                if (CrosshairId <= 0)
-                    return null;
-
-                return Core.Objects.GetPlayerById(id);
+                return CrosshairId <= 0 ? null : Core.Objects.GetPlayerById(id);
             }
         }
 

@@ -30,7 +30,6 @@ namespace Smurf.GlobalOffensive.Objects
                     _classId = GetClassId();
                 return _classId;
             }
-            set { _classId = value; }
         }
         public string ClassName
         {

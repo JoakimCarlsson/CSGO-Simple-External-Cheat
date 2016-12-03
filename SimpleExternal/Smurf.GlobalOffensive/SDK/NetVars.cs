@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Smurf.GlobalOffensive.Enums;
-
-namespace Smurf.GlobalOffensive.SDK
+﻿namespace Smurf.GlobalOffensive.SDK
 {
     public static class NetVars
     {
