@@ -42,7 +42,6 @@ namespace Smurf.GlobalOffensive
                 Core.SoundEsp.Update();
                 Core.Radar.Update();
                 Core.Glow.Update();
-                //Core.AimAssist.Update();
                 Thread.Sleep(1);
             }
         }
@@ -80,6 +79,10 @@ namespace Smurf.GlobalOffensive
             {
                 Console.Clear();
                 Console.WriteLine($"State: {Core.Client.State}\n\n");
+                Console.WriteLine();
+                Console.WriteLine("Config Path: {0}", Settings.Path);
+                Console.WriteLine();
+
 
                 if (Core.Client.InGame && Core.LocalPlayer != null && Core.LocalPlayerWeapon != null && Core.LocalPlayer.IsValid && Core.LocalPlayer.IsAlive)
                 {

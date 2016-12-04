@@ -70,6 +70,7 @@ namespace Smurf.GlobalOffensive.Feauters
             {
                 _newViewAngels = Engine.GetViewAngles();
                 Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
+
                 if (punch.X != 0 || punch.Y != 0)
                 {
                     _newViewAngels.X -= punch.X * RandomYaw;

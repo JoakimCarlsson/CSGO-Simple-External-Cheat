@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using IniParser;
@@ -13,17 +14,22 @@ namespace Smurf.GlobalOffensive.SDK
         private static readonly FileIniDataParser Parser = new FileIniDataParser();
         private IniData _data;
         private WinAPI.VirtualKeyShort _reloadConfigKey;
+        public static string Path;
+
         #endregion
+
         #region Constructor
         public Settings()
         {
-            if (!File.Exists("Config.ini"))
+            Path = GetProcessPath("csgo");
+            if (!File.Exists(Path))
             {
                 CreateConfigFile();
             }
-            _data = Parser.ReadFile("Config.ini");
+            _data = Parser.ReadFile(Path);
         }
         #endregion
+
         #region Methods
         public void Update()
         {
@@ -343,11 +349,29 @@ namespace Smurf.GlobalOffensive.SDK
             }
 
 
-            if (!File.Exists("Config.ini"))
+            if (!File.Exists(Path))
             {
-                var sr = new StreamWriter(@"Config.ini");
-                sr.WriteLine(builder);
-                sr.Close();
+                StreamWriter streamWriter = new StreamWriter(Path);
+                streamWriter.WriteLine(builder);
+                streamWriter.Close();
+            }
+        }
+
+        public string GetProcessPath(string name)
+        {
+            Process[] processes = Process.GetProcessesByName(name);
+
+            if (processes.Length > 0)
+            {
+                string tempString = processes[0].MainModule.FileName;
+                //Ugly way to hardcode it, but the process name will never change.
+                tempString = tempString.Replace("csgo.exe", "");
+                tempString += "Config.ini";
+                return tempString;
+            }
+            else
+            {
+                return string.Empty;
             }
         }
 
