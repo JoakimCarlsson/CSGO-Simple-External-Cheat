@@ -36,7 +36,7 @@ namespace Smurf.GlobalOffensive.SDK
             _reloadConfigKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Core.Settings.GetString("Misc", "Reload Config Key"), 16);
             if (Core.KeyUtils.KeyWentDown(_reloadConfigKey))
             {
-                _data = Parser.ReadFile("Config.ini");
+                _data = Parser.ReadFile(Path);
             }
         }
 
@@ -385,9 +385,10 @@ namespace Smurf.GlobalOffensive.SDK
 
             if (!File.Exists(Path))
             {
-                StreamWriter streamWriter = new StreamWriter(Path);
-                streamWriter.WriteLine(builder);
-                streamWriter.Close();
+                using (StreamWriter streamWriter = new StreamWriter(Path))
+                {
+                    streamWriter.WriteLine(builder);
+                }
             }
         }
 

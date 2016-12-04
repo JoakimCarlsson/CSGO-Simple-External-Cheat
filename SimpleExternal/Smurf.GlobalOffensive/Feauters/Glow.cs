@@ -7,8 +7,28 @@ namespace Smurf.GlobalOffensive.Feauters
 {
     public class Glow
     {
+        #region Fields
+
         private bool _glowActive, _glowFriendly, _glowEnemies;
+
+        #endregion
+
+        #region Properties
+
         public IntPtr GlowPointer { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        public Glow()
+        {
+            GlowPointer = Core.Memory.Read<IntPtr>(Core.ClientBase + Offsets.Misc.GlowObject);
+        }
+
+        #endregion
+
+        #region Methods
 
         public void Update()
         {
@@ -25,7 +45,6 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void DoGlow()
         {
-            GlowPointer = Core.Memory.Read<IntPtr>(Core.ClientBase + Offsets.Misc.GlowObject);
 
             #region Player Glow
 
@@ -73,5 +92,7 @@ namespace Smurf.GlobalOffensive.Feauters
                 Console.WriteLine(e.Message);
             }
         }
+
+        #endregion
     }
 }

@@ -100,7 +100,6 @@ namespace Smurf.GlobalOffensive.Feauters
             }
         }
 
-        //Todo we don't need to read the setting unless we change settings. 
         private void ReadSettings()
         {
             _forceUpdateKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Core.Settings.GetString("Skin Changer", "Force Update Key"), 16);
