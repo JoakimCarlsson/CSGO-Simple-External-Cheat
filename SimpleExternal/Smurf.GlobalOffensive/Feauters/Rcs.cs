@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using Smurf.GlobalOffensive.SDK;
 using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
@@ -21,32 +22,24 @@ namespace Smurf.GlobalOffensive.Feauters
         private bool _rcsEnabled;
         private int _rcsStart;
         private readonly float _sensitivity;
-        private Vector3 pixels;
+        private Vector3 _pixels;
         private bool _mouseMovement;
 
         #endregion
 
         #region Properties
 
-        private Vector3 ViewAngels { get; set; }
         private Vector3 LastPunch { get; set; }
 
         #endregion
 
         #region Methods
-        //QAngle rcsangle = *(QAngle*)((DWORD)cl::entlist->GetClientEntity(cl::engine->GetLocalPlayer()) + 0x13E8);
-        //float min = (1.70 + (static_cast<float>(rand()) / (static_cast<float>(0x7FFF / (1.90 - 1.70)))) / 0.25);
-        //float max = (1.60 + (static_cast<float>(rand()) / (static_cast<float>(0x7FFF / (2.00 - 1.80)))) / 0.25);
-        //float multiplier = (min + static_cast<float>(rand()) / (static_cast<float>(0x7FFF / (max - min))));
-        //theirhead -= rcsangle* multiplier;
-        //        theirhead.x = myview.x - delta.x / (cl::globals->frametime* (smooth* 325));
-        //theirhead.y = myview.y - delta.y / (cl::globals->frametime* (smooth* 325));
         public void Update()
         {
             if (!MiscUtils.ShouldUpdate())
                 return;
 
-            ReadSettïngs();
+            ReadSettings();
 
             if (!_rcsEnabled)
                 return;
@@ -69,29 +62,27 @@ namespace Smurf.GlobalOffensive.Feauters
             if (_mouseMovement)
             {
                 Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
-                pixels.X = punch.X / (float)(0.22 * _sensitivity * 1) * RandomYaw * 10;
-                pixels.Y = punch.Y / (float)(0.22 * _sensitivity * 1) * RandomPitch * 10;
-                WinAPI.mouse_event((uint)0, (uint)pixels.Y, (uint)-pixels.X, 0, 0);
+                _pixels.X = punch.X / (float)(0.22 * _sensitivity * 1) * RandomYaw * 10;
+                _pixels.Y = punch.Y / (float)(0.22 * _sensitivity * 1) * RandomPitch * 10;
+                WinAPI.mouse_event((uint)0, (uint)_pixels.Y, (uint)-_pixels.X, 0, 0);
             }
             else
             {
-                ViewAngels = Core.Memory.Read<Vector3>((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles));
-                _newViewAngels = ViewAngels;
+                _newViewAngels = Engine.GetViewAngles();
                 Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
                 if (punch.X != 0 || punch.Y != 0)
                 {
                     _newViewAngels.X -= punch.X * RandomYaw;
                     _newViewAngels.Y -= punch.Y * RandomPitch;
                     _newViewAngels = _newViewAngels.NormalizeAngle();
-                    SetViewAngles(_newViewAngels);
+                    Engine.SetViewAngles(_newViewAngels);
                 }
             }
+
         }
 
         private void RandomizeRecoilControl()
         {
-            //if (Core.LocalPlayer.ShotsFired == 1)
-            //{
             float tempMinYaw = _minYaw * 10;
             float tempMinPitch = _minPitch * 10;
             float tempMaxYaw = _maxYaw * 10;
@@ -102,11 +93,9 @@ namespace Smurf.GlobalOffensive.Feauters
 
             RandomYaw = tempRandomYaw / 10;
             RandomPitch = tempRandomPitch / 10;
-            //}
-
         }
 
-        private void ReadSettïngs()
+        private void ReadSettings()
         {
             _rcsEnabled = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Rcs Enabled");
             _maxYaw = Core.Settings.GetFloat(Core.LocalPlayerWeapon.WeaponName, "Rcs Force Max Yaw");
@@ -115,13 +104,6 @@ namespace Smurf.GlobalOffensive.Feauters
             _minPitch = Core.Settings.GetFloat(Core.LocalPlayerWeapon.WeaponName, "Rcs Force Min Pitch");
             _rcsStart = Core.Settings.GetInt(Core.LocalPlayerWeapon.WeaponName, "Rcs Start");
             _mouseMovement = Core.Settings.GetBool("Misc", "Mouse Movement");
-        }
-
-        public void SetViewAngles(Vector3 viewAngles)
-        {
-            viewAngles = viewAngles.ClampAngle();
-            viewAngles = viewAngles.NormalizeAngle();
-            Core.Memory.Write((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles), viewAngles);
         }
 
         #endregion

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows.Forms;
 
-namespace Smurf.GlobalOffensive
+namespace Smurf.GlobalOffensive.SDK
 {
     /// <summary>
     ///     This class holds DllImports of various winapi-functions
@@ -688,8 +687,8 @@ namespace Smurf.GlobalOffensive
 
         #region Input-functions
 
-        [DllImport("User32.dll")]
-        public static extern short GetAsyncKeyState(Keys vKey);
+        //[DllImport("User32.dll")]
+        //public static extern short GetAsyncKeyState(Keys vKey);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern uint MapVirtualKey(uint uCode, uint uMapType);

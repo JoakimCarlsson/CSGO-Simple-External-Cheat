@@ -2,6 +2,7 @@
 using System.Numerics;
 using System.Text;
 using Smurf.GlobalOffensive.Enums;
+using Smurf.GlobalOffensive.SDK;
 
 namespace Smurf.GlobalOffensive.Objects
 {
@@ -29,7 +30,6 @@ namespace Smurf.GlobalOffensive.Objects
                     _classId = GetClassId();
                 return _classId;
             }
-            set { _classId = value; }
         }
         public string ClassName
         {
@@ -48,7 +48,7 @@ namespace Smurf.GlobalOffensive.Objects
         public bool IsFriendly => Team == Core.LocalPlayer.Team;
         public int GlowIndex => ReadField<int>(Offsets.Misc.GlowIndex);
         public PlayerTeam Team => (PlayerTeam) ReadField<int>(Offsets.BaseEntity.Team);
-        public float Distance => Vector3.Distance(Core.LocalPlayer.Position, Position);
+        //public float Distance => Vector3.(Core.LocalPlayer.Position, Position);
         public float DistanceMeters => Vector3.Distance(Core.LocalPlayer.Position, Position)*0.01905f;
         public int ShotsFired => ReadField<int>(Offsets.LocalPlayer.ShotsFired);
         private int VirtualTable => ReadField<int>(0x08);
@@ -58,63 +58,53 @@ namespace Smurf.GlobalOffensive.Objects
         public bool IsWeapon()
         {
             return
-                ClassId == (int) ClassIds.Ak47 ||
+                ClassId == (int) ClassIds.AK47 ||
                 ClassId == (int) ClassIds.DEagle ||
-                ClassId == (int) ClassIds.Aug ||
-                ClassId == (int) ClassIds.Awp ||
-                ClassId == (int) ClassIds.Sawedoff ||
-                ClassId == (int) ClassIds.G3Sg1 ||
-                ClassId == (int) ClassIds.Scar20 ||
-                ClassId == (int) ClassIds.DualBerettas ||
-                ClassId == (int) ClassIds.Elite ||
-                ClassId == (int) ClassIds.FiveSeven ||
-                ClassId == (int) ClassIds.Glock ||
-                ClassId == (int) ClassIds.Hkp2000 ||
-                ClassId == (int) ClassIds.M4A1 ||
-                ClassId == (int) ClassIds.Mp7 ||
-                ClassId == (int) ClassIds.Mp9 ||
-                ClassId == (int) ClassIds.P250 ||
-                ClassId == (int) ClassIds.P90 ||
-                ClassId == (int) ClassIds.Sg556 ||
-                ClassId == (int) ClassIds.Ssg08 ||
-                ClassId == (int) ClassIds.Taser ||
-                ClassId == (int) ClassIds.Tec9 ||
-                ClassId == (int) ClassIds.Ump45 ||
-                ClassId == (int) ClassIds.Ssg08 ||
-                ClassId == (int) ClassIds.G3Sg1 ||
-                ClassId == (int) ClassIds.Scar20 ||
+                ClassId == (int) ClassIds.WeaponAug ||
+                ClassId == (int) ClassIds.WeaponAWP ||
+                ClassId == (int) ClassIds.WeaponSawedoff ||
+                ClassId == (int) ClassIds.WeaponG3SG1 ||
+                ClassId == (int) ClassIds.SCAR17 ||
+                //ClassId == (int) ClassIds.DualBerettas ||
+                ClassId == (int) ClassIds.WeaponElite ||
+                ClassId == (int) ClassIds.WeaponFiveSeven ||
+                ClassId == (int) ClassIds.WeaponGlock ||
+                ClassId == (int) ClassIds.WeaponHKP2000 ||
+                ClassId == (int) ClassIds.WeaponM4A1 ||
+                ClassId == (int) ClassIds.WeaponMP7 ||
+                ClassId == (int) ClassIds.WeaponMP9 ||
+                ClassId == (int) ClassIds.WeaponP250 ||
+                ClassId == (int) ClassIds.WeaponP90 ||
+                ClassId == (int) ClassIds.WeaponSG556 ||
+                ClassId == (int) ClassIds.WeaponSSG08 ||
+                ClassId == (int) ClassIds.WeaponTaser ||
+                ClassId == (int) ClassIds.WeaponTec9 ||
+                ClassId == (int) ClassIds.WeaponUMP45 ||
                 ClassId == (int) ClassIds.Knife ||
                 ClassId == (int) ClassIds.DecoyGrenade ||
-                ClassId == (int) ClassIds.HeGrenade ||
+                ClassId == (int) ClassIds.HEGrenade ||
                 ClassId == (int) ClassIds.IncendiaryGrenade ||
-                ClassId == (int) ClassIds.MolotovGrenade ||
+                ClassId == (int) ClassIds.MolotovGrenade||
                 ClassId == (int) ClassIds.SmokeGrenade ||
                 ClassId == (int) ClassIds.Flashbang ||
-                ClassId == (int) ClassIds.Famas ||
-                ClassId == (int) ClassIds.Mac10 ||
-                ClassId == (int) ClassIds.Galil ||
-                ClassId == (int) ClassIds.M249 ||
-                ClassId == (int) ClassIds.M249X ||
-                ClassId == (int) ClassIds.Mag7 ||
-                ClassId == (int) ClassIds.Nova ||
-                ClassId == (int) ClassIds.Negev ||
-                ClassId == (int) ClassIds.Ump45X ||
-                ClassId == (int) ClassIds.Xm1014 ||
-                ClassId == (int) ClassIds.Xm1014X ||
-                ClassId == (int) ClassIds.M4 ||
-                ClassId == (int) ClassIds.Mag ||
-                ClassId == (int) ClassIds.G3Sg1 ||
-                ClassId == (int) ClassIds.G3Sg1X ||
-                ClassId == (int) ClassIds.Tec9X ||
-                ClassId == (int) ClassIds.Bizon ||
-                ClassId == (int) ClassIds.P90X ||
-                ClassId == (int) ClassIds.Usp ||
-                ClassId == (int) ClassIds.Scar20;
+                ClassId == (int) ClassIds.WeaponFamas ||
+                ClassId == (int) ClassIds.WeaponMAC10 ||
+                ClassId == (int) ClassIds.WeaponGalil ||
+                ClassId == (int) ClassIds.WeaponM249 ||
+                ClassId == (int) ClassIds.WeaponMag7 ||
+                ClassId == (int) ClassIds.WeaponNOVA ||
+                ClassId == (int) ClassIds.WeaponNegev ||
+                ClassId == (int) ClassIds.WeaponUMP45 ||
+                ClassId == (int) ClassIds.WeaponXM1014 ||
+                ClassId == (int) ClassIds.WeaponM4A1 ||
+                ClassId == (int) ClassIds.WeaponBizon ||
+                ClassId == (int) ClassIds.WeaponP90 ||
+                ClassId == (int) ClassIds.WeaponUSP;
         }
 
         public bool IsPlayer()
         {
-            return ClassId == (int) ClassIds.CsPlayer;
+            return ClassId == (int) ClassIds.CSPlayer;
         }
 
         private uint GetClassId()

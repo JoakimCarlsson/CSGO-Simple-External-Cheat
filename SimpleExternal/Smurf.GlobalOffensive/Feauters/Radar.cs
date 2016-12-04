@@ -1,4 +1,5 @@
-﻿using Smurf.GlobalOffensive.Utils;
+﻿using Smurf.GlobalOffensive.SDK;
+using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
@@ -10,7 +11,6 @@ namespace Smurf.GlobalOffensive.Feauters
         {
             if (!MiscUtils.ShouldUpdate())
                 return;
-
 
             ReadSettings();
 

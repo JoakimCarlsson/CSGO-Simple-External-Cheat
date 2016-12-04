@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Smurf.GlobalOffensive.SDK;
 
-namespace Smurf.GlobalOffensive
+namespace Smurf.GlobalOffensive.Utils
 {
     /// <summary>
     ///     A class that handles key-input

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using Smurf.GlobalOffensive.SDK;
 
 namespace Smurf.GlobalOffensive.Objects
 {

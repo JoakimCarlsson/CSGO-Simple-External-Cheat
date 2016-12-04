@@ -1,4 +1,5 @@
-﻿using Smurf.GlobalOffensive.Utils;
+﻿using Smurf.GlobalOffensive.SDK;
+using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
@@ -15,6 +16,8 @@ namespace Smurf.GlobalOffensive.Feauters
 
             if (!_noFlashActive)
                 return;
+
+
 
             if (Core.LocalPlayer.FlashMaxAlpha > 1)
                 Core.Memory.Write(Core.LocalPlayer.BaseAddress + Offsets.Player.FlashMaxAlpha, 0);

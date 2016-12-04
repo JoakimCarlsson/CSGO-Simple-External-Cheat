@@ -5,14 +5,16 @@ using System.Text;
 using IniParser;
 using IniParser.Model;
 
-namespace Smurf.GlobalOffensive
+namespace Smurf.GlobalOffensive.SDK
 {
     public class Settings
     {
+        #region Fields
         private static readonly FileIniDataParser Parser = new FileIniDataParser();
         private IniData _data;
         private WinAPI.VirtualKeyShort _reloadConfigKey;
-
+        #endregion
+        #region Constructor
         public Settings()
         {
             if (!File.Exists("Config.ini"))
@@ -21,12 +23,12 @@ namespace Smurf.GlobalOffensive
             }
             _data = Parser.ReadFile("Config.ini");
         }
-
-
+        #endregion
+        #region Methods
         public void Update()
         {
             _reloadConfigKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Core.Settings.GetString("Misc", "Reload Config Key"), 16);
-            if (Core.KeyUtils.KeyWentDown(_reloadConfigKey)) //Tab Key, don't hard code key, will fix later.
+            if (Core.KeyUtils.KeyWentDown(_reloadConfigKey))
             {
                 _data = Parser.ReadFile("Config.ini");
             }
@@ -34,20 +36,21 @@ namespace Smurf.GlobalOffensive
 
         private void CreateConfigFile()
         {
-            var snipersList = new List<string>
+            #region WeaponList
+            List<string> snipersList = new List<string>
             {
                 "AWP",
                 "SSG08",
                 "SCAR20",
                 "G3SG1"
             };
-            var machineGunList = new List<string>
+            List<string> machineGunList = new List<string>
             {
                 "M249",
                 "Negev"
             };
 
-            var heavyList = new List<string>
+            List<string> heavyList = new List<string>
             {
                 "NOVA",
                 "XM1014",
@@ -55,7 +58,7 @@ namespace Smurf.GlobalOffensive
                 "Mag7"
             };
 
-            var smgList = new List<string>
+            List<string> smgList = new List<string>
             {
                 "MAC10",
                 "MP9",
@@ -65,7 +68,7 @@ namespace Smurf.GlobalOffensive
                 "P90"
             };
 
-            var pistolList = new List<string>
+            List<string> pistolList = new List<string>
             {
                 "DEagle",
                 "Elite",
@@ -77,7 +80,7 @@ namespace Smurf.GlobalOffensive
                 "Tec9"
             };
 
-            var rifleList = new List<string>
+            List<string> rifleList = new List<string>
             {
                 "GalilAR",
                 "AK47",
@@ -86,8 +89,9 @@ namespace Smurf.GlobalOffensive
                 "M4A1",
                 "Aug"
             };
+            #endregion
 
-            var builder = new StringBuilder();
+            StringBuilder builder = new StringBuilder();
             //Bunny Jump
             builder.AppendLine("[Bunny Jump]");
             builder.AppendLine("Bunny Jump Enabled = True");
@@ -106,26 +110,25 @@ namespace Smurf.GlobalOffensive
             builder.AppendLine("Sound Interval = 1000");
             builder.AppendLine("Sound Volume = 100").AppendLine();
 
+            //Skin Changer
+            builder.AppendLine("[Skin Changer]");
+            builder.AppendLine("Skin Changer = True");
+            builder.AppendLine("Knife Changer = False");
+            builder.AppendLine("Force Update Key = 0x24");
+
             //Misc
             builder.AppendLine("[Misc]");
+            builder.AppendLine("Mouse Movement = True");
             builder.AppendLine("Radar = True");
-            builder.AppendLine("Mouse Movement = False");
-            builder.AppendLine("InCross Trigger Bot = True");
+            builder.AppendLine("InCross Trigger Bot = False");
+            builder.AppendLine("Bone Trigger Bot = False");
+            builder.AppendLine("Hitbox Trigger Bot = True");
             builder.AppendLine("No Flash = False");
             builder.AppendLine("Reload Config Key = 0x35").AppendLine();
 
             foreach (var weapon in pistolList)
             {
                 builder.AppendLine("[" + weapon + "]");
-                //Aimbot
-                builder.AppendLine("Aimbot Enabled = False");
-                builder.AppendLine("Aimbot Key = 0x01");
-                builder.AppendLine("Aimbot Fov = 3");
-                builder.AppendLine("Aimbot When Zoomed = False");
-                builder.AppendLine("Aimbot Smooth = 22");
-                builder.AppendLine("Aimbot Aim Friendly = False");
-                builder.AppendLine("Aimbot Aim Enemies = True");
-                builder.AppendLine("Aimbot Bone = 6").AppendLine();
                 //Auto Pistol
                 builder.AppendLine("Auto Pistol = False");
                 builder.AppendLine("Auto Pistol Key = 0x12");
@@ -149,19 +152,21 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger Delay FirstShot Min = 98");
                 builder.AppendLine("Trigger Delay Shots Max = 68");
                 builder.AppendLine("Trigger Delay Shots Min = 35").AppendLine();
+
+                //Aim Assist
+                builder.AppendLine("Aim Enabled = True");
+                builder.AppendLine("Aim Key = 0x12");
+                builder.AppendLine("Aim Fov = 50");
+                builder.AppendLine("Aim Humanized = True");
+                builder.AppendLine("Aim Spotted = True");
+                builder.AppendLine("Aim Enemies = True");
+                builder.AppendLine("Aim Allies = False");
+                builder.AppendLine("Aim Speed = 50");
+                builder.AppendLine("Aim Bone = 5").AppendLine();
             }
             foreach (var weapon in rifleList)
             {
                 builder.AppendLine("[" + weapon + "]");
-                //Aimbot
-                builder.AppendLine("Aimbot Enabled = True");
-                builder.AppendLine("Aimbot Key = 0x01");
-                builder.AppendLine("Aimbot Fov = 3");
-                builder.AppendLine("Aimbot When Zoomed = False");
-                builder.AppendLine("Aimbot Smooth = 22");
-                builder.AppendLine("Aimbot Aim Friendly = False");
-                builder.AppendLine("Aimbot Aim Enemies = True");
-                builder.AppendLine("Aimbot Bone = 6").AppendLine();
                 //RCS
                 builder.AppendLine("Rcs Enabled = True");
                 builder.AppendLine("Rcs Start = 1");
@@ -170,30 +175,33 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Rcs Force Max Pitch = 2");
                 builder.AppendLine("Rcs Force Min Pitch = 2").AppendLine();
                 //Trigger
-                builder.AppendLine("Trigger Enabled = True");
+                builder.AppendLine("Trigger Enabled = False");
                 builder.AppendLine("Trigger Key = 0x12");
                 builder.AppendLine("Trigger Dash = False");
                 builder.AppendLine("Trigger When Zoomed = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
+                builder.AppendLine("Trigger Burst Enabled = False");
                 builder.AppendLine("Trigger Spawn Protected = False");
-                builder.AppendLine("Trigger Delay FirstShot Max = 128");
-                builder.AppendLine("Trigger Delay FirstShot Min = 98");
-                builder.AppendLine("Trigger Delay Shots Max = 68");
+                builder.AppendLine("Trigger Delay FirstShot Max = 35");
+                builder.AppendLine("Trigger Delay FirstShot Min = 35");
+                builder.AppendLine("Trigger Delay Shots Max = 35");
                 builder.AppendLine("Trigger Delay Shots Min = 35").AppendLine();
+
+                //Aim Assist
+                builder.AppendLine("Aim Enabled = True");
+                builder.AppendLine("Aim Key = 0x12");
+                builder.AppendLine("Aim Fov = 50");
+                builder.AppendLine("Aim Humanized = True");
+                builder.AppendLine("Aim Spotted = True");
+                builder.AppendLine("Aim Enemies = True");
+                builder.AppendLine("Aim Allies = False");
+                builder.AppendLine("Aim Speed = 50");
+                builder.AppendLine("Aim Bone = 5").AppendLine();
             }
             foreach (var weapon in smgList)
             {
                 builder.AppendLine("[" + weapon + "]");
-                //Aimbot
-                builder.AppendLine("Aimbot Enabled = True");
-                builder.AppendLine("Aimbot Key = 0x01");
-                builder.AppendLine("Aimbot Fov = 3");
-                builder.AppendLine("Aimbot When Zoomed = False");
-                builder.AppendLine("Aimbot Smooth = 22");
-                builder.AppendLine("Aimbot Aim Friendly = False");
-                builder.AppendLine("Aimbot Aim Enemies = True");
-                builder.AppendLine("Aimbot Bone = 6").AppendLine();
                 //RCS
                 builder.AppendLine("Rcs Enabled = True");
                 builder.AppendLine("Rcs Start = 1");
@@ -208,24 +216,27 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger When Zoomed = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
+                builder.AppendLine("Trigger Burst Enabled = False");
                 builder.AppendLine("Trigger Spawn Protected = False");
-                builder.AppendLine("Trigger Delay FirstShot Max = 128");
-                builder.AppendLine("Trigger Delay FirstShot Min = 98");
-                builder.AppendLine("Trigger Delay Shots Max = 68");
+                builder.AppendLine("Trigger Delay FirstShot Max = 35");
+                builder.AppendLine("Trigger Delay FirstShot Min = 35");
+                builder.AppendLine("Trigger Delay Shots Max = 35");
                 builder.AppendLine("Trigger Delay Shots Min = 35").AppendLine();
+
+                //Aim Assist
+                builder.AppendLine("Aim Enabled = True");
+                builder.AppendLine("Aim Key = 0x12");
+                builder.AppendLine("Aim Fov = 50");
+                builder.AppendLine("Aim Humanized = True");
+                builder.AppendLine("Aim Spotted = True");
+                builder.AppendLine("Aim Enemies = True");
+                builder.AppendLine("Aim Allies = False");
+                builder.AppendLine("Aim Speed = 50");
+                builder.AppendLine("Aim Bone = 5").AppendLine();
             }
             foreach (var weapon in snipersList)
             {
                 builder.AppendLine("[" + weapon + "]");
-                //Aimbot
-                builder.AppendLine("Aimbot Enabled = False");
-                builder.AppendLine("Aimbot Key = 0x01");
-                builder.AppendLine("Aimbot Fov = 3");
-                builder.AppendLine("Aimbot When Zoomed = False");
-                builder.AppendLine("Aimbot Smooth = 22");
-                builder.AppendLine("Aimbot Aim Friendly = False");
-                builder.AppendLine("Aimbot Aim Enemies = True");
-                builder.AppendLine("Aimbot Bone = 6").AppendLine();
                 //RCS
                 builder.AppendLine("Rcs Enabled = False");
                 builder.AppendLine("Rcs Start = 1");
@@ -240,24 +251,27 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger When Zoomed = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
+                builder.AppendLine("Trigger Burst Enabled = False");
                 builder.AppendLine("Trigger Spawn Protected = False");
                 builder.AppendLine("Trigger Delay FirstShot Max = 128");
                 builder.AppendLine("Trigger Delay FirstShot Min = 98");
                 builder.AppendLine("Trigger Delay Shots Max = 68");
                 builder.AppendLine("Trigger Delay Shots Min = 35").AppendLine();
+
+                //Aim Assist
+                builder.AppendLine("Aim Enabled = True");
+                builder.AppendLine("Aim Key = 0x12");
+                builder.AppendLine("Aim Fov = 50");
+                builder.AppendLine("Aim Humanized = True");
+                builder.AppendLine("Aim Spotted = True");
+                builder.AppendLine("Aim Enemies = True");
+                builder.AppendLine("Aim Allies = False");
+                builder.AppendLine("Aim Speed = 50");
+                builder.AppendLine("Aim Bone = 5").AppendLine();
             }
             foreach (var weapon in machineGunList)
             {
                 builder.AppendLine("[" + weapon + "]");
-                //Aimbot
-                builder.AppendLine("Aimbot Enabled = False");
-                builder.AppendLine("Aimbot Key = 0x01");
-                builder.AppendLine("Aimbot Fov = 3");
-                builder.AppendLine("Aimbot When Zoomed = False");
-                builder.AppendLine("Aimbot Smooth = 22");
-                builder.AppendLine("Aimbot Aim Friendly = False");
-                builder.AppendLine("Aimbot Aim Enemies = True");
-                builder.AppendLine("Aimbot Bone = 6").AppendLine();
                 //RCS
                 builder.AppendLine("Rcs Enabled = False");
                 builder.AppendLine("Rcs Start = 1");
@@ -272,24 +286,27 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger When Zoomed = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
+                builder.AppendLine("Trigger Burst Enabled = False");
                 builder.AppendLine("Trigger Spawn Protected = False");
-                builder.AppendLine("Trigger Delay FirstShot Max = 128");
-                builder.AppendLine("Trigger Delay FirstShot Min = 98");
-                builder.AppendLine("Trigger Delay Shots Max = 68");
+                builder.AppendLine("Trigger Delay FirstShot Max = 35");
+                builder.AppendLine("Trigger Delay FirstShot Min = 35");
+                builder.AppendLine("Trigger Delay Shots Max = 35");
                 builder.AppendLine("Trigger Delay Shots Min = 35").AppendLine();
+
+                //Aim Assist
+                builder.AppendLine("Aim Enabled = True");
+                builder.AppendLine("Aim Key = 0x12");
+                builder.AppendLine("Aim Fov = 50");
+                builder.AppendLine("Aim Humanized = True");
+                builder.AppendLine("Aim Spotted = True");
+                builder.AppendLine("Aim Enemies = True");
+                builder.AppendLine("Aim Allies = False");
+                builder.AppendLine("Aim Speed = 50");
+                builder.AppendLine("Aim Bone = 5").AppendLine();
             }
             foreach (var weapon in heavyList)
             {
                 builder.AppendLine("[" + weapon + "]");
-                //Aimbot
-                builder.AppendLine("Aimbot Enabled = False");
-                builder.AppendLine("Aimbot Key = 0x01");
-                builder.AppendLine("Aimbot Fov = 3");
-                builder.AppendLine("Aimbot When Zoomed = False");
-                builder.AppendLine("Aimbot Smooth = 15");
-                builder.AppendLine("Aimbot Aim Friendly = False");
-                builder.AppendLine("Aimbot Aim Enemies = True");
-                builder.AppendLine("Aimbot Bone = 6").AppendLine();
                 //RCS
                 builder.AppendLine("Rcs Enabled = False");
                 builder.AppendLine("Rcs Start = 1");
@@ -304,11 +321,23 @@ namespace Smurf.GlobalOffensive
                 builder.AppendLine("Trigger When Zoomed = False");
                 builder.AppendLine("Trigger Enemies = True");
                 builder.AppendLine("Trigger Allies = False");
+                builder.AppendLine("Trigger Burst Enabled = False");
                 builder.AppendLine("Trigger Spawn Protected = False");
-                builder.AppendLine("Trigger Delay FirstShot Max = 128");
-                builder.AppendLine("Trigger Delay FirstShot Min = 98");
-                builder.AppendLine("Trigger Delay Shots Max = 68");
+                builder.AppendLine("Trigger Delay FirstShot Max = 35");
+                builder.AppendLine("Trigger Delay FirstShot Min = 35");
+                builder.AppendLine("Trigger Delay Shots Max = 35");
                 builder.AppendLine("Trigger Delay Shots Min = 35").AppendLine();
+
+                //Aim Assist
+                builder.AppendLine("Aim Enabled = True");
+                builder.AppendLine("Aim Key = 0x12");
+                builder.AppendLine("Aim Fov = 50");
+                builder.AppendLine("Aim Humanized = True");
+                builder.AppendLine("Aim Spotted = True");
+                builder.AppendLine("Aim Enemies = True");
+                builder.AppendLine("Aim Allies = False");
+                builder.AppendLine("Aim Speed = 50");
+                builder.AppendLine("Aim Bone = 5").AppendLine();
             }
 
 
@@ -416,5 +445,6 @@ namespace Smurf.GlobalOffensive
             }
             return WinAPI.VirtualKeyShort.ACCEPT;
         }
+        #endregion
     }
 }

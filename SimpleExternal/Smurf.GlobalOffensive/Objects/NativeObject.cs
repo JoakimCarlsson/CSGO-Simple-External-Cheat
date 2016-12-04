@@ -1,10 +1,8 @@
 ﻿using System;
+using Smurf.GlobalOffensive.SDK;
 
 namespace Smurf.GlobalOffensive.Objects
 {
-    /// <summary>
-    ///     A native object in the game, one whose resources we do not directly own, but do manipulate.
-    /// </summary>
     public abstract class NativeObject : IEquatable<NativeObject>
     {
         /// <summary>

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Threading;
 using Smurf.GlobalOffensive.Objects;
+using Smurf.GlobalOffensive.SDK;
 using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
@@ -22,16 +22,17 @@ namespace Smurf.GlobalOffensive.Feauters
         private bool _triggerDash;
         private bool _triggerZoomed;
         private bool _inCrossTrigger;
-        public int _triggerDelayFirstRandomize;
-        public int _triggerDelayShotsRandomize;
+        private bool _boneTrigger;
+        private bool _hitboxTrigger;
+        public int TriggerDelayFirstRandomize;
+        public int TriggerDelayShotsRandomize;
         private int _triggerDelayFirstShotMax;
         private int _triggerDelayFirstShotMin;
         private int _triggerDelayShotsMax;
         private int _triggerDelayShotsMin;
-        public Vector3 ViewAngels;
+        public Vector3 ViewAngles;
         private WinAPI.VirtualKeyShort _triggerKey;
         private IEnumerable<Player> _validTargets;
-        private bool randomized;
 
         #endregion
 
@@ -47,11 +48,9 @@ namespace Smurf.GlobalOffensive.Feauters
             if (!_triggerEnabled)
                 return;
 
-            RandomizeDelay();
-
             if (Core.KeyUtils.KeyIsDown(_triggerKey))
             {
-                ViewAngels = Core.Memory.Read<Vector3>((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles));
+                ViewAngles = Core.Memory.Read<Vector3>((IntPtr)(Core.ClientState + Offsets.ClientState.ViewAngles));
 
                 if (_triggerZoomed)
                     if (Core.LocalPlayerWeapon.ZoomLevel == 0)
@@ -61,18 +60,100 @@ namespace Smurf.GlobalOffensive.Feauters
                     if (Core.LocalPlayer.Velocity > 0)
                         return;
 
+                RandomizeDelay();
 
                 if (_inCrossTrigger)
-                {
                     InCrossTriggerBot();
-                }
-                else
-                {
-                    FaceItTriggerBot();
-                }
+                else if (_boneTrigger)
+                    BoneTriggerBot();
+                else if (_hitboxTrigger)
+                    HitBoxTriggerBot();
             }
             else
                 AimOntarget = false;
+        }
+
+        private void HitBoxTriggerBot()
+        {
+            //<< bad HitboxTrigger with hardcoded hitboxes and no vischeck >>
+            GetValidTargets();
+            foreach (Player target in _validTargets)
+            {
+                if (target.Health > 0 & !target.IsDormant)
+                {
+                    Vector3 bBone = target.GetBonePos(target, 6) + new Vector3(0, 0, 3);
+                    Vector3 bottomHitboxHead = new Vector3(bBone.X - 2.54f, bBone.Y - 4.145f, bBone.Z - 7f);
+                    Vector3 topHitboxHead = new Vector3(bBone.X + 2.54f, bBone.Y + 4.145f, bBone.Z + 3f);
+
+                    Vector3 hBone = target.GetBonePos(target, 3);
+                    Vector3 bottomHitboxBody = new Vector3(hBone.X - 7f, hBone.Y - 5.5f, hBone.Z - 25f);
+                    Vector3 topHitboxBody = new Vector3(hBone.X + 7f, hBone.Y + 5.5f, hBone.Z + 15f);
+
+                    Vector3 viewDirection = TraceRay.AngleToDirection(ViewAngles);
+                    TraceRay viewRay = new TraceRay(Core.LocalPlayer.Position + Core.LocalPlayer.VecView, viewDirection);
+                    float distance = 0;
+
+                    if (viewRay.Trace(bottomHitboxHead, topHitboxHead, ref distance) | viewRay.Trace(bottomHitboxBody, topHitboxBody, ref distance))
+                    {
+                        if (!CheckDelay())
+                            return;
+
+                        _triggerLastShot = DateTime.Now.Ticks;
+
+                        Engine.ForceAttack(0, 12, 10);
+                    }
+                }
+
+            }
+
+        }
+
+        public float GetNextEnemyToCrosshair(int bone, ref IntPtr pPointer)
+        {
+            float fov = 0;
+            Vector3 pAngles = ViewAngles;
+
+            int[] playerArray = new int[33];
+            float[] angleArray = new float[33];
+
+
+            for (int i = 1; i <= 32; i++)
+            {
+                Player player = new Player(Core.Objects.GetEntityPtr(i));
+
+                Vector3 pAngle = player.GetBonePos(player, bone);
+                pAngle = Core.LocalPlayer.Position.CalcAngle(pAngle);
+                pAngle = pAngle.ClampAngle();
+                float iDiff = MathUtils.Get3DDistance(pAngle, pAngles);
+
+                playerArray[i] = (int)player.BaseAddress;
+                angleArray[i] = iDiff;
+            }
+
+            int closestPlayer = 0;
+            float closestAngle = 360;
+
+            for (int i = 1; i <= 32; i++)
+            {
+                Player player = new Player((IntPtr)playerArray[i]);
+                float angle = angleArray[i];
+
+                int curPlayerTeam = (int)player.Team;
+                bool dormant = player.IsDormant;
+                int health = player.Health;
+
+                Vector3 pOriginVec = player.Position;
+                pOriginVec.Z += 64;
+
+                if (!(curPlayerTeam != (int) Core.LocalPlayer.Team & (!dormant) & health > 0 & angle < closestAngle))
+                    continue;
+
+                closestPlayer = (int)player.BaseAddress;
+                closestAngle = angle;
+                fov = angle;
+            }
+            pPointer = (IntPtr)closestPlayer;
+            return fov;
         }
 
         private void InCrossTriggerBot()
@@ -96,12 +177,12 @@ namespace Smurf.GlobalOffensive.Feauters
                         if (target.GunGameImmune)
                             return;
 
-                    Shoot();
+                    Engine.ForceAttack(0, 12, 10);
                 }
             }
         }
 
-        private void FaceItTriggerBot()
+        private void BoneTriggerBot()
         {
             GetValidTargets();
             foreach (Player validTarget in _validTargets)
@@ -113,23 +194,24 @@ namespace Smurf.GlobalOffensive.Feauters
                     Vector3 aimView = validTarget.GetBonePos(validTarget, i);
                     Vector3 dst = myView.CalcAngle(aimView);
                     dst = dst.NormalizeAngle();
-                    var fov = MathUtils.Fov(ViewAngels, dst, Vector3.Distance(Core.LocalPlayer.Position, validTarget.Position));
-                    if (fov <= 4)
+                    var fov = MathUtils.Fov(ViewAngles, dst, Vector3.Distance(Core.LocalPlayer.Position, validTarget.Position));
+
+                    if (!(fov <= 5))
+                        continue;
+
+                    if (!AimOntarget)
                     {
-                        if (!AimOntarget)
-                        {
-                            AimOntarget = true;
-                            _triggerLastTarget = DateTime.Now.Ticks;
-                        }
-                        else
-                        {
-                            if (!CheckDelay())
-                                return;
+                        AimOntarget = true;
+                        _triggerLastTarget = DateTime.Now.Ticks;
+                    }
+                    else
+                    {
+                        if (!CheckDelay())
+                            return;
 
-                            _triggerLastShot = DateTime.Now.Ticks;
+                        _triggerLastShot = DateTime.Now.Ticks;
 
-                            Shoot();
-                        }
+                        Engine.ForceAttack(0, 12, 10);
                     }
                 }
             }
@@ -137,9 +219,9 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private bool CheckDelay()
         {
-            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= _triggerDelayFirstRandomize))
+            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastTarget).TotalMilliseconds >= TriggerDelayFirstRandomize))
                 return false;
-            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= _triggerDelayShotsRandomize))
+            if (!(new TimeSpan(DateTime.Now.Ticks - _triggerLastShot).TotalMilliseconds >= TriggerDelayShotsRandomize))
                 return false;
 
             return true;
@@ -147,7 +229,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void GetValidTargets()
         {
-            _validTargets = Core.Objects.Players.Where(p => p.IsAlive && !p.IsDormant && p.Id != Core.LocalPlayer.Id && p.SeenBy(Core.LocalPlayer));
+            _validTargets = Core.Objects.Players.Where(p => p.IsAlive && !p.IsDormant && p.Id != Core.LocalPlayer.Id /*&& p.SeenBy(Core.LocalPlayer)*/);
             if (_triggerEnemies)
                 _validTargets = _validTargets.Where(p => p.Team != Core.LocalPlayer.Team);
             if (_triggerAllies)
@@ -158,8 +240,8 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void RandomizeDelay()
         {
-            _triggerDelayFirstRandomize = new Random().Next(_triggerDelayFirstShotMin, _triggerDelayFirstShotMax) + 1;
-            _triggerDelayShotsRandomize = new Random().Next(_triggerDelayShotsMin, _triggerDelayShotsMax) + 1;
+            TriggerDelayFirstRandomize = new Random().Next(_triggerDelayFirstShotMin, _triggerDelayFirstShotMax) + 1;
+            TriggerDelayShotsRandomize = new Random().Next(_triggerDelayShotsMin, _triggerDelayShotsMax) + 1;
         }
 
         private void ReadSettings()
@@ -178,6 +260,8 @@ namespace Smurf.GlobalOffensive.Feauters
                 _triggerDash = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Trigger Dash");
                 _triggerZoomed = Core.Settings.GetBool(Core.LocalPlayerWeapon.WeaponName, "Trigger When Zoomed");
                 _inCrossTrigger = Core.Settings.GetBool("Misc", "InCross Trigger Bot");
+                _boneTrigger = Core.Settings.GetBool("Misc", "Bone Trigger Bot");
+                _hitboxTrigger = Core.Settings.GetBool("Misc", "Hitbox Trigger Bot");
             }
             catch (Exception e)
             {
@@ -185,13 +269,6 @@ namespace Smurf.GlobalOffensive.Feauters
                 Console.WriteLine(e.Message);
 #endif
             }
-        }
-
-        public void Shoot()
-        {
-            WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTDOWN, 0, 0, 0, 0);
-            Thread.Sleep(10);
-            WinAPI.mouse_event(WinAPI.MOUSEEVENTF.LEFTUP, 0, 0, 0, 0);
         }
         #endregion
     }
