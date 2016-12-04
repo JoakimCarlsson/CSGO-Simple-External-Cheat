@@ -42,7 +42,7 @@ namespace Smurf.GlobalOffensive
                 Core.SoundEsp.Update();
                 Core.Radar.Update();
                 Core.Glow.Update();
-                Core.AimAssist.Update();
+                //Core.AimAssist.Update();
                 Thread.Sleep(1);
             }
         }
@@ -60,7 +60,7 @@ namespace Smurf.GlobalOffensive
         {
             while (true)
             {
-                //Core.AimAssist.Update();
+                Core.AimAssist.Update();
                 Thread.Sleep(1);
             }
         }

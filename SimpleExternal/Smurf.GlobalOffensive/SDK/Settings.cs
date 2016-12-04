@@ -113,12 +113,14 @@ namespace Smurf.GlobalOffensive.SDK
             //Skin Changer
             builder.AppendLine("[Skin Changer]");
             builder.AppendLine("Skin Changer = True");
+            builder.AppendLine("Skin Changer StatTrak = False");
+            builder.AppendLine("Skin Changer StatTrak Count = 1337");
             builder.AppendLine("Knife Changer = False");
-            builder.AppendLine("Force Update Key = 0x24");
+            builder.AppendLine("Force Update Key = 0x24").AppendLine();
 
             //Misc
             builder.AppendLine("[Misc]");
-            builder.AppendLine("Mouse Movement = True");
+            builder.AppendLine("Mouse Movement = False");
             builder.AppendLine("Radar = True");
             builder.AppendLine("InCross Trigger Bot = False");
             builder.AppendLine("Bone Trigger Bot = False");

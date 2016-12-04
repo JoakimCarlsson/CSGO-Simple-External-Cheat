@@ -12,8 +12,8 @@ namespace Smurf.GlobalOffensive.Feauters
         private WinAPI.VirtualKeyShort _forceUpdateKey;
         private bool _skinChanger;
         private bool _knifeChanger; //todo implement this.
-        private bool _statTrak = false; //todo implement this.
-        private int _statTrakCount = 0; //todo implement this.
+        private bool _statTrak; //todo implement this.
+        private int _statTrakCount; //todo implement this.
         private bool _nameTag;
         private string _nameTagText;
 
@@ -104,6 +104,8 @@ namespace Smurf.GlobalOffensive.Feauters
         {
             _forceUpdateKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Core.Settings.GetString("Skin Changer", "Force Update Key"), 16);
             _skinChanger = Core.Settings.GetBool("Skin Changer", "Skin Changer");
+            _statTrak = Core.Settings.GetBool("Skin Changer", "Skin Changer StatTrak");
+            _statTrakCount = Core.Settings.GetInt("Skin Changer", "Skin Changer StatTrak Count");
         }
 
         private int GetWeaponSkin(int weaponId)

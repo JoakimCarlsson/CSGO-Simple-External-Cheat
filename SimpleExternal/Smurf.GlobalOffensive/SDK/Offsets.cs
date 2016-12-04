@@ -6,7 +6,6 @@
         public static class Misc
         {
             public static int EntityList = 0x04AC0CA4;
-            public static int LocalPlayer = 0x00A9E8E4;
             public static int Jump = 0x04F5782C;
             public static int GlowIndex = 0x0000A320;
             public static int GlowObject = 0x04FD91C4;
@@ -48,6 +47,7 @@
 
         public static class LocalPlayer
         {
+            public static int Base = 0x00A9E8E4; //LocalPlayer
             public static int CrosshairId = 0xAA70;
             public static int VecViewOffset = 0x104;
             public static int VecPunch = 0x0000301C;

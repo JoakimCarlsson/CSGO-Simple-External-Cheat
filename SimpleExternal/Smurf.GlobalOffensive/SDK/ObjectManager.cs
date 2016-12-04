@@ -41,13 +41,13 @@ namespace Smurf.GlobalOffensive.SDK
 
             _players.Clear();
 
-            IntPtr localPlayerPtr = Core.Memory.Read<IntPtr>(Core.ClientBase + Offsets.Misc.LocalPlayer);
+            IntPtr localPlayerPtr = Core.Memory.Read<IntPtr>(Core.ClientBase + Offsets.LocalPlayer.Base);
 
             LocalPlayer = new LocalPlayer(localPlayerPtr);
             LocalPlayerWeapon = LocalPlayer.GetCurrentWeapon(localPlayerPtr);
 
             //int capacity = Core.Memory.Read<int>(Core.ClientBase + Offsets.Misc.EntityList + 0x4);
-            for (var i = 0; i < 64; i++) //All we really care about are the players, and they should be in the first 64 entries.
+            for (var i = 0; i < 32; i++) //All we really care about are the players, and they should be in the first 64 entries.
             {
                 var entity = new BaseEntity(GetEntityPtr(i));
 
