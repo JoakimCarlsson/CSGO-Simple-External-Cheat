@@ -75,13 +75,12 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void HitBoxTriggerBot()
         {
-            //<< bad HitboxTrigger with hardcoded hitboxes and no vischeck >>
             GetValidTargets();
             foreach (Player target in _validTargets)
             {
                 if (target.Health > 0 & !target.IsDormant)
                 {
-                    Vector3 bBone = target.GetBonePos(target, 6) + new Vector3(0, 0, 3);
+                    Vector3 bBone = target.GetBonePos(target, 8) + new Vector3(0, 0, 3);
                     Vector3 bottomHitboxHead = new Vector3(bBone.X - 2.54f, bBone.Y - 4.145f, bBone.Z - 7f);
                     Vector3 topHitboxHead = new Vector3(bBone.X + 2.54f, bBone.Y + 4.145f, bBone.Z + 3f);
 

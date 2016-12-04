@@ -9,8 +9,6 @@ using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
-    //Bad 'Humanized' aim.
-
     public class AimAssist
     {
         #region Fields
@@ -88,7 +86,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void GetPlayers()
         {
-            for (var i = 0; i < 64; i++)
+            for (var i = 0; i < 32; i++)
             {
                 BaseEntity entity = new BaseEntity(Core.Objects.GetEntityPtr(i));
 
@@ -108,7 +106,7 @@ namespace Smurf.GlobalOffensive.Feauters
             Vector3 destination = MathUtils.AngleToTarget(_aimTarget, _aimBone);
             Vector3 currentViewAngles = Engine.GetViewAngles();
 
-            if (_aimHumanized)
+            if (_aimHumanized) //Pretty bad, needs to be imrpoved. 
             {
                 Vector3 scale = new Vector3(1.5f, 5.7f, 0f);
 

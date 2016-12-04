@@ -29,8 +29,6 @@ namespace Smurf.GlobalOffensive.Utils
             smoothAngle = smoothAngle.ClampAngle();
 
             return smoothAngle;
-            //if (smoothAngle != Vector3.Zero)
-            //    Engine.SetViewAngles(smoothAngle);
         }
 
         public static Vector3 ClampAngle(this Vector3 angles)
@@ -51,7 +49,6 @@ namespace Smurf.GlobalOffensive.Utils
             return angles;
         }
 
-        //Distance Based FOV
         public static float Fov(Vector3 viewAngle, Vector3 destination, float distance)
         {
             float pitch = (float)(Math.Sin(DegreesToRadians(viewAngle.X - destination.X)) * distance);
@@ -59,14 +56,17 @@ namespace Smurf.GlobalOffensive.Utils
 
             return (float)Math.Sqrt(Math.Pow(pitch, 2) + Math.Pow(yaw, 2));
         }
+
         public static float Fov(Vector3 viewAngle, Vector3 destination)
         {
             return (float)Math.Sqrt(Math.Pow(destination.X - viewAngle.X, 2) + Math.Pow(destination.Y - viewAngle.Y, 2));
         }
+
         public static Vector3 SmoothAngle(this Vector3 source, Vector3 destination, float smoothAmount)
         {
             return source + (destination - source) * smoothAmount;
         }
+
         public static float RadiansToDegrees(float rad)
         {
             return rad * Rad2Deg;
@@ -110,21 +110,6 @@ namespace Smurf.GlobalOffensive.Utils
             return angles;
         }
 
-        //public static Vector3 CalcAngle(Vector3 source, Vector3 destination)
-        //{
-        //    Vector3 aimAngle = new Vector3(0, 0, 0);
-        //    Vector3 delta = new Vector3(source.X - destination.X, source.Y - destination.Y, source.Z - destination.Z);
-        //    float hyp = (float)Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y);
-
-        //    aimAngle.X = (float)Math.Atan(delta.Z / hyp) * 57.29578f;
-        //    aimAngle.Y = (float)Math.Atan(delta.Y / delta.X) * 57.29578f;
-        //    aimAngle.Z = 0;
-
-        //    if (delta.X >= 0.0)
-        //        aimAngle.Y += 180f;
-        //    return ClampAngle(aimAngle);
-        //}
-
         public static Vector3 NormalizeAngle(this Vector3 angle)
         {
             //This is probably unnecessary, but its the way the engine does it so fuck it
@@ -162,6 +147,21 @@ namespace Smurf.GlobalOffensive.Utils
             Vector3 dst = myView.CalcAngle(aimView);
             dst = dst.NormalizeAngle();
             return dst;
+        }
+
+        public static Vector3 CalcAngle(Vector3 playerPosition, Vector3 enemyPosition, Vector3 punchAngle, Vector3 viewOffset, float yawRecoilReductionFactor, float pitchRecoilReductionFactor)
+        {
+            Vector3 aimAngle = new Vector3(0, 0, 0);
+            Vector3 delta = new Vector3(playerPosition.X - enemyPosition.X, playerPosition.Y - enemyPosition.Y, (playerPosition.Z + viewOffset.Z) - enemyPosition.Z);
+            float hyp = (float)Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y);
+
+            aimAngle.X = (float)Math.Atan(delta.Z / hyp) * 57.29578f - punchAngle.X * yawRecoilReductionFactor;
+            aimAngle.Y = (float)Math.Atan(delta.Y / delta.X) * 57.29578f - punchAngle.Y * pitchRecoilReductionFactor;
+            aimAngle.Z = 0;
+
+            if (delta.X >= 0.0)
+                aimAngle.Y += 180f;
+            return aimAngle;
         }
         #endregion
     }
