@@ -17,40 +17,40 @@ namespace Smurf.GlobalOffensive.Feauters
         private bool _nameTag;
         private string _nameTagText;
 
-        private readonly int _deagle = 328;
-        private readonly int _duals = 28;
-        private readonly int _fiveseven = 427;
-        private readonly int _glock = 353;
-        private readonly int _ak47 = 180;
-        private readonly int _aug = 39;
-        private readonly int _awp = 344;
-        private readonly int _famas = 492;
-        private readonly int _g3Sg1 = 39;
-        private readonly int _galilar = 39;
-        private readonly int _m249 = 39;
-        private readonly int _m4A4 = 309;
-        private readonly int _mac10 = 433;
-        private readonly int _p90 = 39;
-        private readonly int _ump45 = 39;
-        private readonly int _xm1014 = 39;
-        private readonly int _bizon = 39;
-        private readonly int _mag7 = 39;
-        private readonly int _negev = 39;
-        private readonly int _sawedoff = 39;
-        private readonly int _tec9 = 39;
-        private readonly int _p2000 = 39;
-        private readonly int _mp7 = 39;
-        private readonly int _mp9 = 39;
-        private readonly int _nova = 39;
-        private readonly int _p250 = 39;
-        private readonly int _scar20 = 39;
-        private readonly int _sg556 = 39;
-        private readonly int _ssg08 = 39;
-        private readonly int _m4A1 = 326;
-        private readonly int _usp = 313;
-        private readonly int _cz75A = 270;
-        private readonly int _revolver = 39;
-        private readonly int _knife = (int)WeaponSkin.Tiger_Tooth;
+        private int _deagle;
+        private int _duals;
+        private int _fiveseven;
+        private int _glock;
+        private int _ak47;
+        private int _aug;
+        private int _awp;
+        private int _famas;
+        private int _g3Sg1;
+        private int _galilar;
+        private int _m249;
+        private int _m4A4;
+        private int _mac10;
+        private int _p90;
+        private int _ump45;
+        private int _xm1014;
+        private int _bizon;
+        private int _mag7;
+        private int _negev;
+        private int _sawedoff;
+        private int _tec9;
+        private int _p2000;
+        private int _mp7;
+        private int _mp9;
+        private int _nova;
+        private int _p250;
+        private int _scar20;
+        private int _sg556;
+        private int _ssg08;
+        private int _m4A1;
+        private int _usp;
+        private int _cz75A;
+        private int _revolver;
+        private int _knife;
 
         #endregion
 
@@ -100,12 +100,48 @@ namespace Smurf.GlobalOffensive.Feauters
             }
         }
 
+        //Todo we don't need to read the setting unless we change settings. 
         private void ReadSettings()
         {
             _forceUpdateKey = (WinAPI.VirtualKeyShort)Convert.ToInt32(Core.Settings.GetString("Skin Changer", "Force Update Key"), 16);
             _skinChanger = Core.Settings.GetBool("Skin Changer", "Skin Changer");
             _statTrak = Core.Settings.GetBool("Skin Changer", "Skin Changer StatTrak");
             _statTrakCount = Core.Settings.GetInt("Skin Changer", "Skin Changer StatTrak Count");
+
+            _deagle = Core.Settings.GetInt("Skin Changer", "Deagle");
+            _duals = Core.Settings.GetInt("Skin Changer", "Duals");
+            _fiveseven = Core.Settings.GetInt("Skin Changer", "Fiveseven");
+            _glock = Core.Settings.GetInt("Skin Changer", "Glock");
+            _ak47 = Core.Settings.GetInt("Skin Changer", "Ak47");
+            _aug = Core.Settings.GetInt("Skin Changer", "Aug");
+            _awp = Core.Settings.GetInt("Skin Changer", "Awp");
+            _famas = Core.Settings.GetInt("Skin Changer", "Famas");
+            _g3Sg1 = Core.Settings.GetInt("Skin Changer", "G3Sg1");
+            _galilar = Core.Settings.GetInt("Skin Changer", "Galilar");
+            _m249 = Core.Settings.GetInt("Skin Changer", "M249");
+            _m4A4 = Core.Settings.GetInt("Skin Changer", "M4A4");
+            _mac10 = Core.Settings.GetInt("Skin Changer", "Mac10");
+            _p90 = Core.Settings.GetInt("Skin Changer", "P90");
+            _ump45 = Core.Settings.GetInt("Skin Changer", "Ump45");
+            _xm1014 = Core.Settings.GetInt("Skin Changer", "Xm1014");
+            _bizon = Core.Settings.GetInt("Skin Changer", "Bizon");
+            _mag7 = Core.Settings.GetInt("Skin Changer", "Mag7");
+            _negev = Core.Settings.GetInt("Skin Changer", "Negev");
+            _sawedoff = Core.Settings.GetInt("Skin Changer", "Sawedoff");
+            _p2000 = Core.Settings.GetInt("Skin Changer", "P2000");
+            _tec9 = Core.Settings.GetInt("Skin Changer", "Tec9");
+            _mp7 = Core.Settings.GetInt("Skin Changer", "Mp7");
+            _mp9 = Core.Settings.GetInt("Skin Changer", "Mp9");
+            _nova = Core.Settings.GetInt("Skin Changer", "Nova");
+            _p250 = Core.Settings.GetInt("Skin Changer", "P250");
+            _scar20 = Core.Settings.GetInt("Skin Changer", "Scar20");
+            _sg556 = Core.Settings.GetInt("Skin Changer", "Sg556");
+            _ssg08 = Core.Settings.GetInt("Skin Changer", "Ssg08");
+            _m4A1 = Core.Settings.GetInt("Skin Changer", "M4A1");
+            _usp = Core.Settings.GetInt("Skin Changer", "Usp");
+            _cz75A = Core.Settings.GetInt("Skin Changer", "Cz75A");
+            _revolver = Core.Settings.GetInt("Skin Changer", "Revolver");
+            _knife = Core.Settings.GetInt("Skin Changer", "Knife");
         }
 
         private int GetWeaponSkin(int weaponId)
