@@ -122,7 +122,7 @@ namespace Smurf.GlobalOffensive.Feauters
                 Player player = new Player(Core.Objects.GetEntityPtr(i));
 
                 Vector3 pAngle = player.GetBonePos(player, bone);
-                pAngle = MathUtils.CalcAngle(Core.LocalPlayer.Position, pAngle, Core.LocalPlayer.VecPunch, Core.LocalPlayer.VecView, 2, 2);
+                pAngle = Core.LocalPlayer.Position.CalcAngle(pAngle);
                 pAngle = pAngle.ClampAngle();
                 float iDiff = MathUtils.Get3DDistance(pAngle, pAngles);
 

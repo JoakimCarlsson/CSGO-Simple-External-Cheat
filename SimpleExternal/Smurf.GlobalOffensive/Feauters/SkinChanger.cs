@@ -9,7 +9,13 @@ namespace Smurf.GlobalOffensive.Feauters
     public class SkinChanger
     {
         #region Fields
-        private WinAPI.VirtualKeyShort _forceUpdateKey; //Home Key
+        private WinAPI.VirtualKeyShort _forceUpdateKey;
+        private bool _skinChanger;
+        private bool _knifeChanger; //todo implement this.
+        private bool _statTrak = false; //todo implement this.
+        private int _statTrakCount = 0; //todo implement this.
+        private bool _nameTag;
+        private string _nameTagText;
 
         private readonly int _deagle = 328;
         private readonly int _duals = 28;
@@ -45,7 +51,6 @@ namespace Smurf.GlobalOffensive.Feauters
         private readonly int _cz75A = 270;
         private readonly int _revolver = 39;
         private readonly int _knife = (int)WeaponSkin.Tiger_Tooth;
-        private bool _skinChanger;
 
         #endregion
 
@@ -86,7 +91,10 @@ namespace Smurf.GlobalOffensive.Feauters
                 Core.Memory.Write(weapon.BaseAddress + NetVars.Misc.OriginalOwnerXuidHigh, 0);
                 Core.Memory.Write(weapon.BaseAddress + NetVars.Misc.FallbackPaintKit, weaponSkinId);
                 Core.Memory.Write(weapon.BaseAddress + NetVars.Misc.FallbackSeed, 0);
-                Core.Memory.Write(weapon.BaseAddress + NetVars.Misc.FallbackStatTrak, 1337);
+
+                if (_statTrak)
+                    Core.Memory.Write(weapon.BaseAddress + NetVars.Misc.FallbackStatTrak, _statTrakCount);
+
                 Core.Memory.Write(weapon.BaseAddress + NetVars.Misc.FallbackWear, 0.001f);
                 Core.Memory.Write(weapon.BaseAddress + NetVars.Misc.AccountId, xuId);
             }

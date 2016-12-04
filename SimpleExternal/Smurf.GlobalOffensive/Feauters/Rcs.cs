@@ -61,7 +61,6 @@ namespace Smurf.GlobalOffensive.Feauters
 
             if (_mouseMovement)
             {
-
                 Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
                 _pixels.X = punch.X / (float)(0.22 * _sensitivity * 1) * RandomYaw * 10;
                 _pixels.Y = punch.Y / (float)(0.22 * _sensitivity * 1) * RandomPitch * 10;
@@ -84,8 +83,6 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void RandomizeRecoilControl()
         {
-            //if (Core.LocalPlayer.ShotsFired == 1)
-            //{
             float tempMinYaw = _minYaw * 10;
             float tempMinPitch = _minPitch * 10;
             float tempMaxYaw = _maxYaw * 10;
@@ -96,8 +93,6 @@ namespace Smurf.GlobalOffensive.Feauters
 
             RandomYaw = tempRandomYaw / 10;
             RandomPitch = tempRandomPitch / 10;
-            //}
-
         }
 
         private void ReadSettings()

@@ -9,9 +9,15 @@ using Smurf.GlobalOffensive.Utils;
 
 namespace Smurf.GlobalOffensive.Feauters
 {
+    //Bad 'Humanized' aim.
+
     public class AimAssist
     {
         #region Fields
+
+        private float _reTargetTime;//Not implemented.
+        private bool _randomBone; //Not implemented.
+        private List<int> _randomBones; //Not implemented. the random bones we'll use will be in this list (?)
 
         private bool _aimAssistEnabled;
         private WinAPI.VirtualKeyShort _aimKey;
@@ -84,7 +90,7 @@ namespace Smurf.GlobalOffensive.Feauters
         {
             for (var i = 0; i < 64; i++)
             {
-                var entity = new BaseEntity(Core.Objects.GetEntityPtr(i));
+                BaseEntity entity = new BaseEntity(Core.Objects.GetEntityPtr(i));
 
                 if (!entity.IsValid)
                     continue;
@@ -96,30 +102,32 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void Aim()
         {
-            Vector3 destination = AngleToTarget(_aimTarget, _aimBone);
+            if (!_aimTarget.IsAlive || _aimTarget.IsDormant)
+                return;
 
+            Vector3 destination = MathUtils.AngleToTarget(_aimTarget, _aimBone);
+            Vector3 currentViewAngles = Engine.GetViewAngles();
 
             if (_aimHumanized)
             {
-                float yScale = 5.7f;
-                float xScale = 1.5f;
+                Vector3 scale = new Vector3(1.5f, 5.7f, 0f);
 
-                Vector3 vecCurrentViewAngles = Engine.GetViewAngles();
-                Vector3 vecViewAngleDelta = destination - vecCurrentViewAngles;
+                Vector3 viewAngleDelta = destination - currentViewAngles;
 
-                vecViewAngleDelta += new Vector3(vecViewAngleDelta.Y / yScale, vecViewAngleDelta.X / xScale, 0.0f);
-                vecViewAngleDelta /= _aimSpeed;
-                Vector3 vecViewAngles = vecCurrentViewAngles + vecViewAngleDelta;
+                viewAngleDelta += new Vector3(viewAngleDelta.Y / scale.Y, viewAngleDelta.X / scale.X, 0.0f);
+                viewAngleDelta /= _aimSpeed;
+                Vector3 vecViewAngles = currentViewAngles + viewAngleDelta;
 
                 Engine.SetViewAngles(vecViewAngles);
             }
             else
             {
-                Engine.SetViewAngles(destination);
+                Vector3 newDestination = MathUtils.SmoothAim(Engine.GetViewAngles(), destination, _aimSpeed);
+
+                if (newDestination != Vector3.Zero)
+                    Engine.SetViewAngles(newDestination);
             }
         }
-
-
 
         private Player GetTarget()
         {
@@ -131,27 +139,20 @@ namespace Smurf.GlobalOffensive.Feauters
             if (_aimAllies)
                 tempTargets = tempTargets.Where(p => p.Team == Core.LocalPlayer.Team);
 
-            foreach (Player player in tempTargets)
+            foreach (Player target in tempTargets)
             {
-                Vector3 dst = AngleToTarget(player, _aimBone);
-                var fov = MathUtils.Fov(Engine.GetViewAngles(), dst, Vector3.Distance(Core.LocalPlayer.Position, player.Position) / 10);
+                Vector3 dst = MathUtils.AngleToTarget(target, _aimBone);
+                var fov = MathUtils.Fov(Engine.GetViewAngles(), dst, Vector3.Distance(Core.LocalPlayer.Position, target.Position) / 10);
                 Console.WriteLine(fov);
                 if (fov <= _aimFov)
                 {
-                    return player;
+                    return target;
                 }
             }
             return null;
         }
 
-        private Vector3 AngleToTarget(Player target, int boneIndex)
-        {
-            Vector3 myView = Core.LocalPlayer.Position + Core.LocalPlayer.VecView;
-            Vector3 aimView = target.GetBonePos(target, boneIndex);
-            Vector3 dst = myView.CalcAngle(aimView);
-            dst = dst.NormalizeAngle();
-            return dst;
-        }
+
         #endregion
     }
 }
