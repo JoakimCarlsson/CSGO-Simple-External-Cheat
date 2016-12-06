@@ -7,9 +7,6 @@ namespace Smurf.GlobalOffensive
 {
     internal static class Program
     {
-        #region Fields
-        #endregion
-
         #region Methods
         private static void Main()
         {
