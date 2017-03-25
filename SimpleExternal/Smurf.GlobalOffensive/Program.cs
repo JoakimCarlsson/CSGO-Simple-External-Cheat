@@ -90,7 +90,7 @@ namespace Smurf.GlobalOffensive
                     Console.WriteLine($"ID:\t\t{me.Id}");
                     Console.WriteLine($"Health:\t\t{me.Health}");
                     Console.WriteLine($"Armor:\t\t{me.Armor}");
-                    Console.WriteLine($"Position:\t{me.Position}");
+                    Console.WriteLine($"VecOrigin:\t{me.Position}");
                     Console.WriteLine($"Team:\t\t{me.Team}");
                     Console.WriteLine($"Player Count:\t{Core.Objects.Players.Count}");
                     Console.WriteLine($"Velocity: \t{me.Velocity}");

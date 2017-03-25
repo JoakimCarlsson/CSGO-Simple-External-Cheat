@@ -37,7 +37,7 @@ namespace Smurf.GlobalOffensive.Objects
             set { _className = value; }
         }
         public int Id => ReadField<int>(Offsets.BaseEntity.Index);
-        public Vector3 Position => ReadField<Vector3>(Offsets.BaseEntity.Position);
+        public Vector3 Position => ReadField<Vector3>(Offsets.BaseEntity.VecOrigin);
         public Vector3 VecView => ReadField<Vector3>(Offsets.LocalPlayer.VecViewOffset);
         public int Health => ReadField<int>(Offsets.BaseEntity.Health);
         public int Armor => ReadField<int>(Offsets.BaseEntity.Armor);
@@ -48,7 +48,7 @@ namespace Smurf.GlobalOffensive.Objects
         public bool IsFriendly => Team == Core.LocalPlayer.Team;
         public int GlowIndex => ReadField<int>(Offsets.Misc.GlowIndex);
         public PlayerTeam Team => (PlayerTeam) ReadField<int>(Offsets.BaseEntity.Team);
-        //public float Distance => Vector3.(Core.LocalPlayer.Position, Position);
+        //public float Distance => Vector3.(Core.LocalPlayer.VecOrigin, VecOrigin);
         public float DistanceMeters => Vector3.Distance(Core.LocalPlayer.Position, Position)*0.01905f;
         public int ShotsFired => ReadField<int>(Offsets.LocalPlayer.ShotsFired);
         private int VirtualTable => ReadField<int>(0x08);
@@ -58,48 +58,47 @@ namespace Smurf.GlobalOffensive.Objects
         public bool IsWeapon()
         {
             return
-                ClassId == (int) ClassIds.AK47 ||
-                ClassId == (int) ClassIds.DEagle ||
-                ClassId == (int) ClassIds.WeaponAug ||
-                ClassId == (int) ClassIds.WeaponAWP ||
-                ClassId == (int) ClassIds.WeaponSawedoff ||
-                ClassId == (int) ClassIds.WeaponG3SG1 ||
-                ClassId == (int) ClassIds.SCAR17 ||
-                //ClassId == (int) ClassIds.DualBerettas ||
-                ClassId == (int) ClassIds.WeaponElite ||
-                ClassId == (int) ClassIds.WeaponFiveSeven ||
-                ClassId == (int) ClassIds.WeaponGlock ||
-                ClassId == (int) ClassIds.WeaponHKP2000 ||
-                ClassId == (int) ClassIds.WeaponM4A1 ||
-                ClassId == (int) ClassIds.WeaponMP7 ||
-                ClassId == (int) ClassIds.WeaponMP9 ||
-                ClassId == (int) ClassIds.WeaponP250 ||
-                ClassId == (int) ClassIds.WeaponP90 ||
-                ClassId == (int) ClassIds.WeaponSG556 ||
-                ClassId == (int) ClassIds.WeaponSSG08 ||
-                ClassId == (int) ClassIds.WeaponTaser ||
-                ClassId == (int) ClassIds.WeaponTec9 ||
-                ClassId == (int) ClassIds.WeaponUMP45 ||
-                ClassId == (int) ClassIds.Knife ||
-                ClassId == (int) ClassIds.DecoyGrenade ||
-                ClassId == (int) ClassIds.HEGrenade ||
-                ClassId == (int) ClassIds.IncendiaryGrenade ||
-                ClassId == (int) ClassIds.MolotovGrenade||
-                ClassId == (int) ClassIds.SmokeGrenade ||
-                ClassId == (int) ClassIds.Flashbang ||
-                ClassId == (int) ClassIds.WeaponFamas ||
-                ClassId == (int) ClassIds.WeaponMAC10 ||
-                ClassId == (int) ClassIds.WeaponGalil ||
-                ClassId == (int) ClassIds.WeaponM249 ||
-                ClassId == (int) ClassIds.WeaponMag7 ||
-                ClassId == (int) ClassIds.WeaponNOVA ||
-                ClassId == (int) ClassIds.WeaponNegev ||
-                ClassId == (int) ClassIds.WeaponUMP45 ||
-                ClassId == (int) ClassIds.WeaponXM1014 ||
-                ClassId == (int) ClassIds.WeaponM4A1 ||
-                ClassId == (int) ClassIds.WeaponBizon ||
-                ClassId == (int) ClassIds.WeaponP90 ||
-                ClassId == (int) ClassIds.WeaponUSP;
+                ClassId == (int)WeaponIds.Ak47 ||
+                ClassId == (int)WeaponIds.DEagle ||
+                ClassId == (int)WeaponIds.Aug ||
+                ClassId == (int)WeaponIds.Awp ||
+                ClassId == (int)WeaponIds.Sawedoff ||
+                ClassId == (int)WeaponIds.G3Sg1 ||
+                ClassId == (int)WeaponIds.Scar20 ||
+                ClassId == (int)WeaponIds.Elite ||
+                ClassId == (int)WeaponIds.Fiveseven ||
+                ClassId == (int)WeaponIds.Glock ||
+                ClassId == (int)WeaponIds.Hkp2000 ||
+                ClassId == (int)WeaponIds.M4A4 ||
+                ClassId == (int)WeaponIds.Mp7 ||
+                ClassId == (int)WeaponIds.Mp9 ||
+                ClassId == (int)WeaponIds.P250 ||
+                ClassId == (int)WeaponIds.P90 ||
+                ClassId == (int)WeaponIds.Sg556 ||
+                ClassId == (int)WeaponIds.Ssg08 ||
+                ClassId == (int)WeaponIds.Taser ||
+                ClassId == (int)WeaponIds.Tec9 ||
+                ClassId == (int)WeaponIds.Ump45 ||
+                ClassId == (int)WeaponIds.Knife ||
+                ClassId == (int)WeaponIds.DecoyGrenade ||
+                ClassId == (int)WeaponIds.HeGrenade ||
+                ClassId == (int)WeaponIds.IncendiaryGrenade ||
+                ClassId == (int)WeaponIds.MolotovGrenade ||
+                ClassId == (int)WeaponIds.SmokeGrenade ||
+                ClassId == (int)WeaponIds.Flashbang ||
+                ClassId == (int)WeaponIds.Famas ||
+                ClassId == (int)WeaponIds.Mac10 ||
+                ClassId == (int)WeaponIds.Galil ||
+                ClassId == (int)WeaponIds.M249 ||
+                ClassId == (int)WeaponIds.Mag7 ||
+                ClassId == (int)WeaponIds.Nova ||
+                ClassId == (int)WeaponIds.Negev ||
+                ClassId == (int)WeaponIds.Ump45 ||
+                ClassId == (int)WeaponIds.Xm1014 ||
+                ClassId == (int)WeaponIds.M4A1Silencer ||
+                ClassId == (int)WeaponIds.Bizon ||
+                ClassId == (int)WeaponIds.P90 ||
+                ClassId == (int)WeaponIds.UspSilencer;
         }
 
         public bool IsPlayer()
