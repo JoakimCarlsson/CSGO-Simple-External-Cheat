@@ -27,7 +27,6 @@ namespace Smurf.GlobalOffensive.SDK
         public static SoundEsp SoundEsp { get; set; }
         public static AutoPistol AutoPistol { get; set; }
         public static Radar Radar { get; set; }
-        public static Glow Glow { get; set; }
         public static NoFlash NoFlash { get; set; }
         public static AimAssist AimAssist { get; set; }
         public static SkinChanger SkinChanger { get; set; }
@@ -63,7 +62,6 @@ namespace Smurf.GlobalOffensive.SDK
             Radar = new Radar();
             NoFlash = new NoFlash();
             AutoPistol = new AutoPistol();
-            Glow = new Glow();
             AimAssist = new AimAssist();
 
             var enginePtr = Memory.Read<IntPtr>(EngineBase + Offsets.ClientState.Base);

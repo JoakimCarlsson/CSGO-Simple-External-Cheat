@@ -103,12 +103,6 @@ namespace Smurf.GlobalOffensive.SDK
             builder.AppendLine("Bunny Jump Enabled = True");
             builder.AppendLine("Bunny Jump Key = 0x20").AppendLine();
 
-            //Glow
-            builder.AppendLine("[Glow ESP]");
-            builder.AppendLine("Glow ESP Enabled = False");
-            builder.AppendLine("Glow ESP Allies = False");
-            builder.AppendLine("Glow ESP Enemies = False").AppendLine();
-
             //SoundESP
             builder.AppendLine("[Sound ESP]");
             builder.AppendLine("Sound ESP = True");
@@ -156,7 +150,7 @@ namespace Smurf.GlobalOffensive.SDK
             builder.AppendLine("Usp = 313");
             builder.AppendLine("Cz75A = 270");
             builder.AppendLine("Revolver = 39");
-            builder.AppendLine("Knife = 409");
+            builder.AppendLine("Knife = 409").AppendLine();
 
             //Misc
             builder.AppendLine("[Misc]");

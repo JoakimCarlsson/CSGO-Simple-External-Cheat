@@ -115,7 +115,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Feauters\AutoPistol.cs" />
     <Compile Include="Feauters\BunnyJump.cs" />
-    <Compile Include="Feauters\Glow.cs" />
     <Compile Include="Feauters\NoFlash.cs" />
     <Compile Include="Feauters\Radar.cs" />
     <Compile Include="Feauters\Rcs.cs" />
