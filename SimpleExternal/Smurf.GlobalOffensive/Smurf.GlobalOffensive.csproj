@@ -89,7 +89,6 @@
     <Compile Include="Enums\WeaponSkin.cs" />
     <Compile Include="Enums\WeaponType.cs" />
     <Compile Include="Feauters\AimAssist.cs" />
-    <Compile Include="Feauters\SkinChanger.cs" />
     <Compile Include="SDK\Engine.cs" />
     <Compile Include="SDK\GameClient.cs" />
     <Compile Include="SDK\NetVars.cs" />

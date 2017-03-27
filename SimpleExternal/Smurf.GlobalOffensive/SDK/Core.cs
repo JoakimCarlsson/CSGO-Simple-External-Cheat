@@ -29,7 +29,6 @@ namespace Smurf.GlobalOffensive.SDK
         public static Radar Radar { get; set; }
         public static NoFlash NoFlash { get; set; }
         public static AimAssist AimAssist { get; set; }
-        public static SkinChanger SkinChanger { get; set; }
         public static KeyUtils KeyUtils { get; set; }
         public static GameClient Client { get; private set; }
         public static IntPtr ClientBase { get; private set; }
@@ -52,7 +51,6 @@ namespace Smurf.GlobalOffensive.SDK
             ClientState = Memory.Read<int>(EngineBase + Offsets.ClientState.Base);
             Objects = new ObjectManager(ClientBase + Offsets.Misc.EntityList);
 
-            SkinChanger = new SkinChanger();
             ControlRecoil = new Rcs();
             TriggerBot = new TriggerBot();
             KeyUtils = new KeyUtils();

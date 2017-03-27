@@ -110,48 +110,6 @@ namespace Smurf.GlobalOffensive.SDK
             builder.AppendLine("Sound Interval = 1000");
             builder.AppendLine("Sound Volume = 100").AppendLine();
 
-            //Skin Changer
-            builder.AppendLine("[Skin Changer]");
-            builder.AppendLine("Force Update Key = 0x24");
-            builder.AppendLine("Skin Changer = True");
-            builder.AppendLine("Skin Changer StatTrak = False");
-            builder.AppendLine("Skin Changer StatTrak Count = 1337");
-            builder.AppendLine("Knife Changer = False");
-            builder.AppendLine("Deagle = 328");
-            builder.AppendLine("Duals = 28");
-            builder.AppendLine("Fiveseven = 427");
-            builder.AppendLine("Glock = 353");
-            builder.AppendLine("Ak47 = 180");
-            builder.AppendLine("Aug = 39");
-            builder.AppendLine("Awp = 344");
-            builder.AppendLine("Famas = 492");
-            builder.AppendLine("G3Sg1 = 39");
-            builder.AppendLine("Galilar = 39");
-            builder.AppendLine("M249 = 39");
-            builder.AppendLine("M4A4 = 309");
-            builder.AppendLine("Mac10 = 433");
-            builder.AppendLine("P90 = 39");
-            builder.AppendLine("Ump45 = 39");
-            builder.AppendLine("Xm1014 = 39");
-            builder.AppendLine("Bizon = 39");
-            builder.AppendLine("Mag7 = 39");
-            builder.AppendLine("Negev = 39");
-            builder.AppendLine("Sawedoff = 39");
-            builder.AppendLine("P2000 = 39");
-            builder.AppendLine("Tec9 = 39");
-            builder.AppendLine("Mp7 = 39");
-            builder.AppendLine("Mp9 = 39");
-            builder.AppendLine("Nova = 39");
-            builder.AppendLine("P250 = 39");
-            builder.AppendLine("Scar20 = 39");
-            builder.AppendLine("Sg556 = 39");
-            builder.AppendLine("Ssg08 = 39");
-            builder.AppendLine("M4A1 = 326");
-            builder.AppendLine("Usp = 313");
-            builder.AppendLine("Cz75A = 270");
-            builder.AppendLine("Revolver = 39");
-            builder.AppendLine("Knife = 409").AppendLine();
-
             //Misc
             builder.AppendLine("[Misc]");
             builder.AppendLine("Mouse Movement = False");
