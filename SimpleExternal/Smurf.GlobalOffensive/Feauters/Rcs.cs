@@ -59,9 +59,10 @@ namespace Smurf.GlobalOffensive.Feauters
             if (Core.LocalPlayerWeapon.Clip1 == 0)
                 return;
 
+            Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
+
             if (_mouseMovement)
             {
-                Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
                 _pixels.X = punch.X / (float)(0.22 * _sensitivity * 1) * RandomYaw * 10;
                 _pixels.Y = punch.Y / (float)(0.22 * _sensitivity * 1) * RandomPitch * 10;
                 WinAPI.mouse_event((uint)0, (uint)_pixels.Y, (uint)-_pixels.X, 0, 0);
@@ -69,8 +70,6 @@ namespace Smurf.GlobalOffensive.Feauters
             else
             {
                 _newViewAngels = Engine.GetViewAngles();
-                Vector3 punch = Core.LocalPlayer.VecPunch - LastPunch;
-
                 if (punch.X != 0 || punch.Y != 0)
                 {
                     _newViewAngels.X -= punch.X * RandomYaw;

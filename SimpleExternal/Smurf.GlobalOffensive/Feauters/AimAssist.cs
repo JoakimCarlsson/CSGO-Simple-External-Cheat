@@ -29,6 +29,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private Player _aimTarget;
         private readonly List<Player> _players = new List<Player>();
+        private Vector3 _lastPunch;
 
         #endregion
 
@@ -36,6 +37,7 @@ namespace Smurf.GlobalOffensive.Feauters
 
         public void Update()
         {
+
             if (!MiscUtils.ShouldUpdate())
                 return;
 
@@ -55,6 +57,8 @@ namespace Smurf.GlobalOffensive.Feauters
                 else
                 {
                     Aim();
+                    _lastPunch = Core.LocalPlayer.VecPunch;
+
                 }
             }
             if (Core.KeyUtils.KeyWentUp(_aimKey))
@@ -106,6 +110,7 @@ namespace Smurf.GlobalOffensive.Feauters
             Vector3 destination = MathUtils.AngleToTarget(_aimTarget, _aimBone);
             Vector3 currentViewAngles = Engine.GetViewAngles();
 
+
             if (_aimHumanized) //Pretty bad, needs to be imrpoved. 
             {
                 Vector3 scale = new Vector3(1.5f, 5.7f, 0f);
@@ -113,6 +118,7 @@ namespace Smurf.GlobalOffensive.Feauters
                 Vector3 viewAngleDelta = destination - currentViewAngles;
 
                 viewAngleDelta += new Vector3(viewAngleDelta.Y / scale.Y, viewAngleDelta.X / scale.X, 0.0f);
+                viewAngleDelta -= new Vector3(Core.LocalPlayer.VecPunch.X * 2f, Core.LocalPlayer.VecPunch.Y * 2f, 0);
                 viewAngleDelta /= _aimSpeed;
                 Vector3 vecViewAngles = currentViewAngles + viewAngleDelta;
 
@@ -120,6 +126,7 @@ namespace Smurf.GlobalOffensive.Feauters
             }
             else
             {
+                destination -= new Vector3(Core.LocalPlayer.VecPunch.X *2f, Core.LocalPlayer.VecPunch.Y *2f, 0);
                 Vector3 newDestination = MathUtils.SmoothAim(Engine.GetViewAngles(), destination, _aimSpeed);
 
                 if (newDestination != Vector3.Zero)
