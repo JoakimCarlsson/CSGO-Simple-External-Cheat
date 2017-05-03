@@ -27,9 +27,8 @@ namespace Smurf.GlobalOffensive.Feauters
         private int _aimBone;
         private int _aimSpeed;
 
-        private Player _aimTarget;
+        public Player AimTarget;
         private readonly List<Player> _players = new List<Player>();
-        private Vector3 _lastPunch;
 
         #endregion
 
@@ -37,6 +36,8 @@ namespace Smurf.GlobalOffensive.Feauters
 
         public void Update()
         {
+
+             return;
 
             if (!MiscUtils.ShouldUpdate())
                 return;
@@ -50,21 +51,26 @@ namespace Smurf.GlobalOffensive.Feauters
 
             if (Core.KeyUtils.KeyIsDown(_aimKey))
             {
-                if (_aimTarget == null)
+                if (AimTarget == null)
                 {
-                    _aimTarget = GetTarget();
+                    AimTarget = GetTarget();
                 }
                 else
                 {
                     Aim();
-                    _lastPunch = Core.LocalPlayer.VecPunch;
-
                 }
-            }
-            if (Core.KeyUtils.KeyWentUp(_aimKey))
-            {
-                _aimTarget = null;
-                Thread.Sleep(20);
+                if (AimTarget != null)
+                {
+                    if (AimTarget.IsDormant || !AimTarget.IsAlive)
+                    {
+                        AimTarget = null;
+                    }
+                    if (Core.KeyUtils.KeyWentUp(_aimKey))
+                    {
+                        AimTarget = null;
+                    }
+                }
+
             }
         }
 
@@ -104,10 +110,10 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private void Aim()
         {
-            if (!_aimTarget.IsAlive || _aimTarget.IsDormant)
+            if (!AimTarget.IsAlive || AimTarget.IsDormant)
                 return;
 
-            Vector3 destination = MathUtils.AngleToTarget(_aimTarget, _aimBone);
+            Vector3 destination = MathUtils.AngleToTarget(AimTarget, _aimBone);
             Vector3 currentViewAngles = Engine.GetViewAngles();
 
 
@@ -136,19 +142,21 @@ namespace Smurf.GlobalOffensive.Feauters
 
         private Player GetTarget()
         {
-            var tempTargets = _players.Where(p => p.Id != Core.LocalPlayer.Id && p.IsAlive && !p.IsDormant);
-            if (_aimSpotted)
-                tempTargets = tempTargets.Where(p => p.SeenBy(Core.LocalPlayer));
+            IEnumerable<Player> targetList = _players.Where(p => p.Id != Core.LocalPlayer.Id && p.IsAlive && !p.IsDormant);
+            //if (_aimSpotted)
+            //    targetList = targetList.Where(p => p.SeenBy(Core.LocalPlayer));
             if (_aimEnemies)
-                tempTargets = tempTargets.Where(p => p.Team != Core.LocalPlayer.Team);
+                targetList = targetList.Where(p => p.Team != Core.LocalPlayer.Team);
             if (_aimAllies)
-                tempTargets = tempTargets.Where(p => p.Team == Core.LocalPlayer.Team);
+                targetList = targetList.Where(p => p.Team == Core.LocalPlayer.Team);
 
-            foreach (Player target in tempTargets)
+            targetList = targetList.OrderBy(p => p.DistanceMeters);
+
+            foreach (Player target in targetList)
             {
                 Vector3 dst = MathUtils.AngleToTarget(target, _aimBone);
-                var fov = MathUtils.Fov(Engine.GetViewAngles(), dst, Vector3.Distance(Core.LocalPlayer.Position, target.Position) / 10);
-                Console.WriteLine(fov);
+                float fov = MathUtils.Fov(Engine.GetViewAngles(), dst, Vector3.Distance(Core.LocalPlayer.Position, target.Position) / 10);
+
                 if (fov <= _aimFov)
                 {
                     return target;
@@ -156,7 +164,6 @@ namespace Smurf.GlobalOffensive.Feauters
             }
             return null;
         }
-
 
         #endregion
     }

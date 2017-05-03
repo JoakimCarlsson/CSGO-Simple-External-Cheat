@@ -92,15 +92,15 @@ namespace Smurf.GlobalOffensive.Feauters
                     TraceRay viewRay = new TraceRay(Core.LocalPlayer.Position + Core.LocalPlayer.VecView, viewDirection);
                     float distance = 0;
 
-                    if (viewRay.Trace(bottomHitboxHead, topHitboxHead, ref distance) | viewRay.Trace(bottomHitboxBody, topHitboxBody, ref distance))
-                    {
-                        if (!CheckDelay())
-                            return;
+                    if (
+                        !(viewRay.Trace(bottomHitboxHead, topHitboxHead, ref distance) |
+                          viewRay.Trace(bottomHitboxBody, topHitboxBody, ref distance))) continue;
+                    if (!CheckDelay())
+                        return;
 
-                        _triggerLastShot = DateTime.Now.Ticks;
+                    _triggerLastShot = DateTime.Now.Ticks;
 
-                        Engine.ForceAttack(0, 12, 10);
-                    }
+                    Engine.ForceAttack(0, 12, 10);
                 }
 
             }
@@ -195,7 +195,7 @@ namespace Smurf.GlobalOffensive.Feauters
                     dst = dst.NormalizeAngle();
                     var fov = MathUtils.Fov(ViewAngles, dst, Vector3.Distance(Core.LocalPlayer.Position, validTarget.Position));
 
-                    if (!(fov <= 5))
+                    if (!(fov <= 4))
                         continue;
 
                     if (!AimOntarget)

@@ -27,14 +27,14 @@ namespace Smurf.GlobalOffensive.Feauters
         private void BHop()
         {
             if (Core.KeyUtils.KeyIsDown(_bunnyJumpKey))
-                Core.Memory.Write(Core.ClientBase + Offsets.Misc.Jump, Core.LocalPlayer.InAir ? 4 : 5);
+                Core.Memory.Write(Core.ClientBase + Offsets.Misc.ForceJump, Core.LocalPlayer.InAir ? 4 : 5);
         }
 
         private void ReadSettings()
         {
-            _bunnyJumpEnabled = Core.Settings.GetBool("Bunny Jump", "Bunny Jump Enabled");
+            _bunnyJumpEnabled = Core.Settings.GetBool("Bunny ForceJump", "Bunny ForceJump Enabled");
             _bunnyJumpKey =
-                (WinAPI.VirtualKeyShort) Convert.ToInt32(Core.Settings.GetString("Bunny Jump", "Bunny Jump Key"), 16);
+                (WinAPI.VirtualKeyShort) Convert.ToInt32(Core.Settings.GetString("Bunny ForceJump", "Bunny ForceJump Key"), 16);
         }
 
         #endregion

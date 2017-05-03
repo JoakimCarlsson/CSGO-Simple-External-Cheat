@@ -5,17 +5,17 @@
 
         public static class Misc
         {
-            public static int EntityList = 0x4AD3A64;
-            public static int Jump = 0x4F6A684;
+            public static int EntityList = 0x04AD5C24;
+            public static int ForceJump = 0x04F6C854;
             public static int GlowIndex = 0xA320;
             public static int GlowObject = 0x4FEE5AC;
-            public static int ForceAttack = 0x2F13A50;
+            public static int ForceAttack = 0x02F15C28;
             public static int Sensitivity = 0xAB5EF4;
         }
 
         public static class ClientState
         {
-            public static int Base = 0x5CC524;
+            public static int Base = 0x005CC574; //ClientState
             public static int LocalPlayerIndex = 0x00000178;
             public static int GameState = 0x00000100;
             public static int ViewAngles = 0x00004D0C;
@@ -47,19 +47,19 @@
 
         public static class LocalPlayer
         {
-            public static int Base = 0xAB06EC;
+            public static int Base = 0x00AB2704; //LocalPlayer
             public static int CrosshairId = 0xAA70;
             public static int VecViewOffset = 0x104;
             public static int VecPunch = 0x301C;
-            public static int ShotsFired = 0xA2C0;
+            public static int ShotsFired = 0xA2C0;  
         }
 
         public static class Weapon
         {
             public static int State = 0x31F8;
             public static int Clip1 = 0x3204;
-            public static int WeaponId = 0x32EC; //3270
+            public static int WeaponId = 0x32EC;
             public static int ZoomLevel = 0x3350;
         }
     }
-}
+} 

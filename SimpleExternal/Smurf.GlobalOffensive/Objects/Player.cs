@@ -15,6 +15,7 @@ namespace Smurf.GlobalOffensive.Objects
         public float FlashMaxAlpha => ReadField<float>(Offsets.Player.FlashMaxAlpha);
         public bool InAir => IsInAir();
 
+
         private bool IsInAir()
         {
             return Flags == 256 || Flags == 262;

@@ -46,7 +46,7 @@ namespace Smurf.GlobalOffensive
             while (true)
             {
                 Core.AimAssist.Update();
-                Thread.Sleep(1);
+                Thread.Sleep(2);
             }
         }
 
@@ -75,6 +75,13 @@ namespace Smurf.GlobalOffensive
                     var me = Core.LocalPlayer;
                     var myWeapon = Core.LocalPlayerWeapon;
                     Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("--- Aim Assist ---");
+                    if (Core.AimAssist.AimTarget != null)
+                    {
+                        Console.WriteLine($"Target ID: \t {Core.AimAssist.AimTarget.Id}");
+                        Console.WriteLine($"Target Distance: \t {Core.AimAssist.AimTarget.DistanceMeters}");
+                    }
+                    Console.WriteLine("--- Aim Assist ---");
                     Console.WriteLine($"Players: \t{Core.Objects.Players.Count}");
                     Console.WriteLine($"ID:\t\t{me.Id}");
                     Console.WriteLine($"Health:\t\t{me.Health}");
