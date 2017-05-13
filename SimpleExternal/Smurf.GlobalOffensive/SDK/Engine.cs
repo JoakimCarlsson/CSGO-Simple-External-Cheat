@@ -16,11 +16,14 @@ namespace Smurf.GlobalOffensive.SDK
 
         public static void ForceAttack(int delay1, int delay2, int delay3)
         {
-            Thread.Sleep(delay1);
-            Core.Memory.Write(Core.ClientBase + Offsets.Misc.ForceAttack, 5);
-            Thread.Sleep(delay2);
-            Core.Memory.Write(Core.ClientBase + Offsets.Misc.ForceAttack, 4);
-            Thread.Sleep(delay3);
+            if (!KeyUtils.GetKeyDown(0x1))
+            {
+                Thread.Sleep(delay1);
+                Core.Memory.Write(Core.ClientBase + Offsets.Misc.ForceAttack, 5);
+                Thread.Sleep(delay2);
+                Core.Memory.Write(Core.ClientBase + Offsets.Misc.ForceAttack, 4);
+                Thread.Sleep(delay3);
+            }
         }
 
         public static void SetViewAngles(Vector3 viewAngles)

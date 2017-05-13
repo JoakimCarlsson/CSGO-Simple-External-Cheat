@@ -33,8 +33,8 @@ namespace Smurf.GlobalOffensive.Objects
         }
         public string ClassName
         {
-            get { return _className ?? (_className = GetClassName()); }
-            set { _className = value; }
+            get => _className ?? (_className = GetClassName());
+            set => _className = value;
         }
         public int Id => ReadField<int>(Offsets.BaseEntity.Index);
         public Vector3 Position => ReadField<Vector3>(Offsets.BaseEntity.VecOrigin);

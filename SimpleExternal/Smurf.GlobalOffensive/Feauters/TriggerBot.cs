@@ -80,9 +80,9 @@ namespace Smurf.GlobalOffensive.Feauters
             {
                 if (target.Health > 0 & !target.IsDormant)
                 {
-                    Vector3 bBone = target.GetBonePos(target, 8) + new Vector3(0, 0, 3);
+                    Vector3 bBone = target.GetBonePos(target, 8) + new Vector3(0, 0, 4);
                     Vector3 bottomHitboxHead = new Vector3(bBone.X - 2.54f, bBone.Y - 4.145f, bBone.Z - 7f);
-                    Vector3 topHitboxHead = new Vector3(bBone.X + 2.54f, bBone.Y + 4.145f, bBone.Z + 3f);
+                    Vector3 topHitboxHead = new Vector3(bBone.X + 1.54f, bBone.Y + 3.145f, bBone.Z + 2f);
 
                     Vector3 hBone = target.GetBonePos(target, 3);
                     Vector3 bottomHitboxBody = new Vector3(hBone.X - 7f, hBone.Y - 5.5f, hBone.Z - 25f);

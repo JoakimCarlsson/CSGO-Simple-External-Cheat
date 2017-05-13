@@ -15,7 +15,7 @@
 
         public static class ClientState
         {
-            public static int Base = 0x005CC574; //ClientState
+            public static int Base = 0x005CC584; //ClientState
             public static int LocalPlayerIndex = 0x00000178;
             public static int GameState = 0x00000100;
             public static int ViewAngles = 0x00004D0C;
