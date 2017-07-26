@@ -85,7 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\ClassIds.cs" />
-    <Compile Include="Enums\ItemDefinitionIndex.cs" />
     <Compile Include="Enums\SignonState.cs" />
     <Compile Include="Enums\PlayerTeam.cs" />
     <Compile Include="Enums\WeaponIds.cs" />
