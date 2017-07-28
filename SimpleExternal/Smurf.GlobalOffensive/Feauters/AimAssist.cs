@@ -37,7 +37,7 @@ namespace Smurf.GlobalOffensive.Feauters
         public void Update()
         {
 
-             return;
+            return;
 
             if (!MiscUtils.ShouldUpdate())
                 return;

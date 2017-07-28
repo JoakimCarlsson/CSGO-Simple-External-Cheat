@@ -99,9 +99,9 @@ namespace Smurf.GlobalOffensive.SDK
 
             StringBuilder builder = new StringBuilder();
             //Bunny ForceJump
-            builder.AppendLine("[Bunny ForceJump]");
-            builder.AppendLine("Bunny ForceJump Enabled = True");
-            builder.AppendLine("Bunny ForceJump Key = 0x20").AppendLine();
+            builder.AppendLine("[Bunny Jump]");
+            builder.AppendLine("Bunny Jump Enabled = True");
+            builder.AppendLine("Bunny Jump Key = 0x20").AppendLine();
 
             //SoundESP
             builder.AppendLine("[Sound ESP]");
